@@ -31,9 +31,9 @@ node compile.js
 If you want to deploy the contract on the blockchain run the following command on terminal:
 node deploy.js
 
-then create a new file in the root folder called .env.local and copy and paste the  address you see in the console output like so:
-NEXT_PUBLIC_CONTRACT_ADDRESS = "[ADDRESS]"
+then copy the address you see in the output console and add it to the .env file like so:
+CONTRACT_ADDRESS = "[ADDRESS]"
 replace [ADDRESS] with your address.
 
 - Launching tests:
-npm run test.
+npm run test

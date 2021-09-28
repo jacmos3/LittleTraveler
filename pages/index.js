@@ -3,27 +3,22 @@ import Layout from '../components/Layout.js';
 import {Form, Button, Input, Message} from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import {Router} from '../routes';
-import myContract from '../ethereum/myContract';
+import loot from '../ethereum/loot';
 
 class MyDapp extends Component{
   state = {
-    message:'Retrieving message from the blockchain',
     errorMessage:'',
     loading:false,
     newMessage:''
   };
 
-  async componentDidMount(){
-    const message = await myContract.methods.message().call();
-    this.setState({message:message});
-  }
   onSubmit = async (event) => {
     event.preventDefault();
     this.setState({loading:true, errorMessage:''});
     try{
       const accounts = await web3.eth.getAccounts();
-      await myContract.methods.setMessage(this.state.newMessage).send({from:accounts[0]});
-      Router.reload(window.location.pathname)
+      await loot.methods.claim(this.state.newMessage).send({from:accounts[0]});
+      //Router.reload(window.location.pathname)
     }catch(err){
       this.setState({errorMessage: err.message});
     }
