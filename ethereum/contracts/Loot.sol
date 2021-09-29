@@ -1757,9 +1757,41 @@ contract Loot is ERC721Enumerable, ReentrancyGuard, Ownable {
    
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     string[] private accomodation = [
-        "Hotel",
+       "Hotel",
         "Apartment",
-        "Hostel"
+        "Hostel",
+        "Tent",
+        "B&B",
+        "Guest house",
+        "Chalet",
+        "Cottage",
+        "Boat",
+        "Caravan",
+        "Motorhome",
+        "5 stars Hotel",
+        "Suite in 5 Stars Hotel",
+        "Tipi",
+        "Tree House",
+        "Bungalow",
+        "Ranch",
+        "Co-living",
+        "Gablefront cottage",
+        "Longhouse",
+        "Villa",
+        "Yurt",
+        "Housebarn",
+        "Adobe House",
+        "Castle",
+        "Rammed earth",
+        "Sod house",
+        "Underground living",
+        "Wattle and daub",
+        "Log house",
+        "I-house",
+        //"Stilt house",
+        //"Venetian palace",
+        "Igloo",
+        "Trullo"
     ];
     
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
@@ -1882,8 +1914,8 @@ contract Loot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
         string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8]));
         output = string(abi.encodePacked(output, parts[9], parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16]));
-        output = string(abi.encodePacked(output, parts[17], parts[18], parts[19], parts[20]);
-            
+        output = string(abi.encodePacked(output, parts[17], parts[18], parts[19], parts[20]));
+
         string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Bag #', toString(tokenId), '", "description": "Loot is randomized adventurer gear generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 
