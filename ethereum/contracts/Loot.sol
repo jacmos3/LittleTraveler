@@ -1292,78 +1292,435 @@ contract Loot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint256 public tokenCounter=1;
 
         //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
+        string[] private environment = [
+            "Urban",
+            "Beaches",
+            "Mountains",
+            "Countrysides",
+            "Lakes",
+            "Rivers",
+            "Party islands",
+            "Farms",
+            "Tropical areas",
+            "Snowy places",
+            "Forests",
+            "Deserts",
+            "Wilderness",
+            "Rainforests",
+            "North Pole",
+            "South Pole",
+            "Volcanic islands",
+            "Natural parks",
+            "Historical cities",
+            "Old towns",
+            "Small cities",
+            "Small towns",
+            "Villages",
+            "Jungla" //Aggiunta per arrivare al multiplo di 3
+        ];
+
+        //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
+        string[] private talent = [
+            "Tech Genius",
+            "Intuition",
+            "Singer",
+            "Dancer",
+            "Painter",
+            "Basketball Player",
+            "Tennis Player",
+            "Football Player",
+            "Soccer Player",
+            "Climber",
+            "Swimmer",
+            "Photographer",
+            "Street Artist",
+            "Painting",
+            "Writing",
+            "Pottery",
+            "Dancing",
+            "Mathematics",
+            "Architecture",
+            "Physics",
+            "Spelling",
+            "Cooking",
+            "Baking",
+            "Logic",
+            "Running",
+            "Sword-fighting",
+            "Boxing",
+            "Ice skating",
+            "Jumping",
+            "Climbing",
+            "Hiking",
+            "Knot-making",
+            "Sailing",
+            "Repairing things",
+            "Cheering people up",
+            "Bridgebuilding",
+            "Gathering",
+            "Hunting",
+            "Fishing",
+            "Archery",
+            "Plumbing",
+            "Dressmaking",
+            "Navigating",
+            "Horseback-riding",
+            "Acting",
+            "Singing",
+            "Composing music",
+            "Roofing",
+            "Researching",
+            "Book-keeping",
+            "Investing",
+            "Listening",
+            "Farming",
+            "Brewing",
+            "Winemaking",
+            "Mining",
+            "Acrobatics",
+            "Cartography",
+            "Memorizing things",
+            "Speedreading",
+            "Comforting others",
+            "Parenting",
+            "Stonemasonry",
+            "Falconry",
+            "Wrestling",
+            "Whistling",
+            "Juggling",
+            "Rhyming",
+            "Spying",
+            "Keeping secrets",
+            "Lying",
+            "Storytelling",
+            "Hair-styling",
+            "Debating",
+            "Dispute resolution",
+            "Negotiating",
+            "Teaching",
+            "Coding",
+            "Computer-hacking",
+            "Origami",
+            "Calligraphy",
+            "Playing chess",
+            "Carvin pumpkins",
+            "Hypnotizing"
+        ];
+
+        //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
         string[] private place = [
-        "Rome",
-        "London",
-        "Paris",
-        "Bangkok",
-        "Martellago",
-        "Marrakesh",
-        "Shanghai",
-        "Florence",
-        "Barcelona",
-        "Munich",
-        "Bali",
-        "Lagos",
-        "Oslo",
-        "Moscow",
-        "Amsterdam",
-        "Buenos Aires",
-        "Fortaleza",
-        "Istanbul"
+            "Rome",
+            "London",
+            "Paris",
+            "Bangkok",
+            "Martellago",
+            "Marrakesh",
+            "Shanghai",
+            "Florence",
+            "Barcelona",
+            "Munich",
+            "Bali",
+            "Lagos",
+            "Oslo",
+            "Moscow",
+            "Amsterdam",
+            "Buenos Aires",
+            "Fortaleza",
+            "Istanbul"
     ];
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     string[] private character = [
+        "Energetic",
+        "Good-natured",
+        "Enthusiastic",
+        "Challenging",
+        "Charismatic",
+        "Wise",
+        "Modest",
+        "Honest",
+        "Protective",
+        "Perceptive",
+        "Providential",
+        "Prudent",
+        "Spontaneous",
+        "Insightful",
+        "Intelligent",
+        "Intuitive",
+        "Precise",
+        "Sharing",
+        "Simple",
+        "Sociable",
+        "Sophisticated",
+        "Benevolent",
+        "Admirable",
+        "Brilliant",
+        "Accessible",
+        "Calm",
+        "Capable",
+        "Optimistic",
+        "Respectful",
+        "Responsible",
+        "Responsive",
+        "Invulnerable",
         "Kind",
-        "Assertive",
-        "Defensive",
+        "Lovable",
+        "Loyal",
+        "Practical",
+        "Patient",
+        "Patriot",
+        "Reliable",
+        "Secure",
+        "Selfless",
+        "Uncomplaining",
+        "Understanding",
+        "Resourceful",
+        "Curious",
+        "Daring",
+        "Decisive",
+        "Dedicated",
+        "Disciplined",
+        "Discreet",
+        "Active",
+        "Adaptable",
+        "Adventurous",
+        "Alert",
+        "Appreciative",
+        "Aspiring",
+        "Dutiful",
+        "Captivating",
+        "Caring",
+        "Efficient",
+        "Elegant",
+        "Eloquent",
+        "Empathetic",
+        "Earnest",
+        "Educated",
+        "Courteous",
+        "Athletic",
+        "Agreeable",
+        "Balanced",
+        "Creative",
+        "Orderly",
+        "Romantic",
+        "Hardworking",
+        "Scrupulous",
+        "Considerate",
+        "Contemplative",
+        "Organized",
+        "Original",
+        "Passionate",
+        "Relaxed",
+        "Principled",
+        "Profound",
+        "Reflective",
+        "Sensitive",
+        "Sentimental",
+        "Serious",
+        "Cultured",
+        "Forgiving",
+        "Forthright",
+        "Freethinking",
+        "Friendly",
+        "Fun-loving",
+        "Generous",
+        "Gentle",
+        "Genuine",
+        "Cheerful",
+        "Clever",
+        "Compassionate",
+        "Conciliatory",
+        "Confident",
+        "Conscientio",
+        "Honorable",
+        "Humble",
+        "Humorous",
+        "Idealistic",
+        "Fair",
+        "Sporting",
+        "Strong",
+        //"Subtle",
+        "Sweet",
+        "Sympathetic",
+        "Systematic",
+        "Tasteful",
+        "Thorough",
+        "Tidy",
+        "Dramatic",
+        "Tolerant",
+        "Tractable",
+        "Trusting",
+        "Firm",
+        "Flexible",
+        "Focused",
+        "Cooperative",
+        "Courageous",
         "Imaginative",
-        "Empathic",
+        "Independent",
+        "Innovative",
+        "Observant",
+        "Playful",
+        "Gracious",
+        "Vivacious",
+        "Warm",
+        "Well-read",
+        "Self-reliant",
+        "Charming",
         "Dynamic",
-        "Introvert",
-        "Vulnerable",
-        "Kind",
-        "Lovely",
-        "Conscientious",
-        "Curious"
+        "Helpful",
+        "Peaceful",
+        "Perfectionist",
+        "Persuasive",
+        "Popular",
+        "Articulate",
+        "Magnanimous",
+        "Mature",
+        "Methodical",
+        "Moderate",
+        "Objective",
+        "Rational",
+        "Realistic",
+        "Witty",
+        "Youthful"
     ];
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     string[] private transport = [
-        "Train",
+       "Train",
         "Car",
-        "Hitch-hiking",
+        "Bus",
         "Airplane",
         "Cruise",
         "4 wheel drive car",
         "Bus",
         "Airplane",
-        "RickShaw",
-        "Apecar",
-        "Vespa",
-        "Horse carriage",
+        "Convertible car",
         "Bicycle",
         "Motorbike",
-        "Campervan"
+        "Electric Bicycle",
+        "Campervan",
+        "Trailer",
+        "Sailboat",
+        "Electric car",
+        "Scooter",
+        "Bullet train",
+        "Local train",
+        "Cinquecento",
+        "Hitch-hiking",
+        "VW Beetle",
+        "Station wagon",
+        "VW Bus",
+        "Truck",
+        "Monocycle", //aggiunta per arrivare al multiplo di 3
+        "Off-road Vehicle",
+        "Cab",
+        "Motorboat",
+        "Hot Air Balloon",
+        "Cruise Ship",
+        "Mountain bike",
+        "Sports car",
+        "Yacht",
+        "RickShaw",
+        "Horse carriage",
+        "Biplane",
+        "Orient Express",
+        "Cargo ship",
+        "Vespa",
+        "Four-wheel drive",
+        "Canoe",
+        "Tractor",
+        "Ferry",
+        "Helicopter",
+        "Jeep",
+        "Low-rider",
+        "Limousine",
+        "Maglev",
+        "Submarine",
+        "Lambo",
+        "Ferrari",
+        "Rocket",
+        "DeLorean",
+        "Kia Sedona",
+        "Magic carpet",
+        "Broomstick"
     ];
 
 
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     string[] private language = [
-        "Italian",
-        "French",
-        "German",
-        "Spanish",
-        "Portuguese",
-        "Swahili",
-        "Thai",
-        "Chinese",
-        "Russian",
+        "English",
+        "Mandarin Chinese",
         "Hindi",
-        "Bulgarian",
+        "Spanish",
+        "Arabic",
+        "Bengali",
+        "French",
+        "Russian",
+        "Portuguese",
+        "Urdu",
+        "Indonesian",
+        "German",
         "Japanese",
-        "Danish",
+        "Marathi",
+        "Telugu",
+        "Turkish",
+        "Tamil",
+        "Yue Chinese",
+        "Wu Chinese",
         "Korean",
-        "Arab"
+        "Vietnamese",
+        "Hausa",
+        "Iranian Persian",
+        "Swahili",
+        "Javanese",
+        "Italian",
+        "Western Punjabi",
+        "Gujarati",
+        "Thai",
+        "Kannada",
+        "Amharic",
+        "Bhojpuri",
+        "Eastern Punjabi",
+        "Min Nan Chinese",
+        "Nigerian Pidgin",
+        "Jin Chinese",
+        "Filipino",
+        "Hakka Chinese",
+        "Yoruba",
+        "Burmese",
+        "Sudanese Spoken Arabic",
+        "Polish",
+        "Odia",
+        "Cambodian",
+        "Croatian",
+        "Danish",
+        "Serbian",
+        "Slovenian",
+        "Estonian",
+        "Latvian",
+        "Lithuanian",
+        "Finnish",
+        "Czech",
+        "Slovakian",
+        "Greek",
+        "Hungarian",
+        "Swiss",
+        "Icelandic",
+        "Iraqi",
+        "Irish",
+        "Lao",
+        "Lebanese",
+        "Malagasy",
+        "Berber",
+        "Mongolian",
+        "Montenegrin",
+        "Burmese",
+        "Nepalese",
+        "Dutch",
+        "Norwegian",
+        "Rumenian",
+        "Sinhala",
+        "Tamil",
+        "Uzbek",
+        "Martian"
     ];
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     string[] private mood = [
@@ -1381,21 +1738,21 @@ contract Loot is ERC721Enumerable, ReentrancyGuard, Ownable {
     ];
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     string[] private occupation = [
-        "TripsCommunity Member",
-        "SmartWorker",
-        "Host",
         "Traveller",
+        "Host",
+        "SmartWorker",
         "Service Provider",
         "Digital Nomad",
         "Freelancer",
         "Unemployed",
         "Crypto Trader",
+        "Play 2 Earner",
         "DeFi Airdrop Hunter",
         "DAO Community Manager",
         "DAO Member",
         "NFT flipper",
-        "NFT collector",
-        "Tech Lover"
+        "TripsCommunity Member",
+        "NFT collector"
     ];
    
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
@@ -1428,6 +1785,14 @@ contract Loot is ERC721Enumerable, ReentrancyGuard, Ownable {
         //estraggo un numero a caso incluso tra min e max
         uint8 rand = uint8((random(string(abi.encodePacked(block.difficulty, msg.sender, toHoundred,block.timestamp))) % (max-min)) + min);
         return sourceArray[rand];
+    }
+
+    function getEnvironment(uint256 tokenId) public view returns (string memory) {
+        return pluck(tokenId, "ENVIRONMENT", environment);
+    }
+
+    function getTalent(uint256 tokenId) public view returns (string memory) {
+        return pluck(tokenId, "TALENT", talent);
     }
 
     function getPlace(uint256 tokenId) public view returns (string memory) {
@@ -1471,44 +1836,54 @@ contract Loot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
-        string[17] memory parts;
+        string[21] memory parts;
         parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill: white; font-family: serif; font-size: 14px; }</style><rect width="100%" height="100%" fill="black" /><text x="10" y="20" class="base">';
 
-        parts[1] = getPlace(tokenId);
+        parts[1] = getEnvironment(tokenId);
 
         parts[2] = '</text><text x="10" y="40" class="base">';
 
-        parts[3] = getCharacter(tokenId);
+        parts[3] = getTalent(tokenId);
 
         parts[4] = '</text><text x="10" y="60" class="base">';
 
-        parts[5] = getTransport(tokenId);
+        parts[5] = getPlace(tokenId);
 
         parts[6] = '</text><text x="10" y="80" class="base">';
 
-        parts[7] = getLanguage(tokenId);
+        parts[7] = getCharacter(tokenId);
 
         parts[8] = '</text><text x="10" y="100" class="base">';
 
-        parts[9] = getMood(tokenId);
+        parts[9] = getTransport(tokenId);
 
         parts[10] = '</text><text x="10" y="120" class="base">';
 
-        parts[11] = getOccupation(tokenId);
+        parts[11] = getLanguage(tokenId);
 
         parts[12] = '</text><text x="10" y="140" class="base">';
 
-        parts[13] = getAccomodation(tokenId);
+        parts[13] = getMood(tokenId);
 
         parts[14] = '</text><text x="10" y="160" class="base">';
 
-        parts[15] = getBag(tokenId);
+        parts[15] = getOccupation(tokenId);
 
-        parts[16] = '</text></svg>';
+        parts[16] = '</text><text x="10" y="180" class="base">';
+
+        parts[17] = getAccomodation(tokenId);
+
+        parts[18] = '</text><text x="10" y="200" class="base">';
+
+        parts[19] = getBag(tokenId);
+
+        parts[20] = '</text></svg>';
+
 
         string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8]));
         output = string(abi.encodePacked(output, parts[9], parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16]));
-
+        output = string(abi.encodePacked(output, parts[17], parts[18], parts[19], parts[20]);
+            
         string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Bag #', toString(tokenId), '", "description": "Loot is randomized adventurer gear generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 
