@@ -9,7 +9,7 @@ class MyDapp extends Component{
   state = {
     errorMessage:'',
     loading:false,
-    newMessage:''
+    tokenId:''
   };
 
   onSubmit = async (event) => {
@@ -17,7 +17,7 @@ class MyDapp extends Component{
     this.setState({loading:true, errorMessage:''});
     try{
       const accounts = await web3.eth.getAccounts();
-      await loot.methods.claim(this.state.newMessage).send({from:accounts[0]});
+      await loot.methods.claim(this.state.tokenId).send({from:accounts[0]});
       //Router.reload(window.location.pathname)
     }catch(err){
       this.setState({errorMessage: err.message});
@@ -27,17 +27,17 @@ class MyDapp extends Component{
   render(){
     return (
       <Layout>
-        <h1>{this.state.message}</h1>
+        <h1>Claim your Traveler!</h1>
         <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
           <Form.Field>
-            <label>Change message</label>
+            <label>Insert a still available tokenId between 1 and 7777</label>
             <Input
-            value = {this.state.newMessage}
-             onChange = {event => this.setState({newMessage: event.target.value})}/>
+            value = {this.state.tokenId}
+             onChange = {event => this.setState({tokenId: event.target.value})}/>
           </Form.Field>
 
           <Message error header="Oops!" content = {this.state.errorMessage} />
-          <Button loading = {this.state.loading} primary>Change!</Button>
+          <Button loading = {this.state.loading} primary>Mint!</Button>
         </Form>
       </Layout>
     )
