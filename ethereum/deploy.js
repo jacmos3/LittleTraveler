@@ -18,7 +18,7 @@ const deploy = async() => {
 
   theLittleTraveler = await new web3.eth.Contract(interface)
   .deploy({data:'0x'+bytecode})
-  .send ({from: accounts[0]}, gasPrice:'5000000000', gas: '1000000');
+  .send ({from: accounts[0]});
 
   console.log("Contract deployed to", theLittleTraveler.options.address);
 }
