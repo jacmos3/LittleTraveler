@@ -2016,19 +2016,19 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         output = string(abi.encodePacked(output, parts[9], parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16]));
         output = string(abi.encodePacked(output, parts[17], parts[18], parts[19], parts[20]));
 
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Bag #', toString(tokenId), '", "description": "Inspired by Loot Project, The Traveler Loot are randomized characters generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "The Traveler Loot #', toString(tokenId), '", "description": "Inspired by Loot Project, The Traveler Loot are randomized characters generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 
         return output;
     }
 
     function claim(uint256 tokenId) public nonReentrant {
-        require(tokenId > 0 && tokenId < 7778, "Token ID invalid");
+        require(tokenId > 0 && tokenId < 7556, "Token ID invalid");
         _safeMint(_msgSender(), tokenId);
     }
 
     function ownerClaim(uint256 tokenId) public nonReentrant onlyOwner {
-        require(tokenId > 7777 && tokenId < 8001, "Token ID invalid");
+        require(tokenId > 7555 && tokenId < 8001, "Token ID invalid");
         _safeMint(owner(), tokenId);
     }
 
