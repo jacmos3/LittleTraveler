@@ -3,7 +3,7 @@ import Layout from '../components/Layout.js';
 import {Form, Button, Input, Message,  Card, Icon, Image } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import {Router} from '../routes';
-import theLittleTraveler from '../ethereum/theLittleTraveler';
+import theTravelerLoot from '../ethereum/theTravelerLoot';
 
 class MyDapp extends Component{
   state = {
@@ -13,7 +13,7 @@ class MyDapp extends Component{
     minted:false,
     name:'',
     description:'',
-    image:'https://react.semantic-ui.com/images/avatar/large/matthew.png'
+    image:''
   };
 
 
@@ -22,8 +22,8 @@ class MyDapp extends Component{
     this.setState({loading:true, errorMessage:''});
     try{
       const accounts = await web3.eth.getAccounts();
-      await theLittleTraveler.methods.claim(this.state.tokenId).send({from:accounts[0]});
-      let uri = await theLittleTraveler.methods.tokenURI(this.state.tokenId).call()
+      await theTravelerLoot.methods.claim(this.state.tokenId).send({from:accounts[0]});
+      let uri = await theTravelerLoot.methods.tokenURI(this.state.tokenId).call()
       .then((result)=> {
           return JSON.parse(window.atob(result.split(',')[1]));
       })
@@ -40,7 +40,7 @@ class MyDapp extends Component{
 
   onTest = async() => {
 
-      let uri = await theLittleTraveler.methods.tokenURI(this.state.tokenId).call()
+      let uri = await theTravelerLoot.methods.tokenURI(this.state.tokenId).call()
       .then((result)=> {
           return JSON.parse(window.atob(result.split(',')[1]));
       })
