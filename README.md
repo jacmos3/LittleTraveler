@@ -2,7 +2,11 @@
 `npm install`
 
 ## 2. Configuring the .env files:
-go to ethereum/ folder and create `.env` file and write this on it:
+`cd ethereum`
+
+`touch .env`
+
+open ".env" file with your preferred text editor and write down this in it:
 
 `MNEMONIC = "[SEED]" #put here your mnemonic seed used to deploy the contract on the blockchain
 PROVIDER_URL = "[INFURA_PROVIDER_URL]" #insert here your infura url (go to infura.io, create account and new project, then select testnet you want to use i.e. rinkeby and then copy the link here)`
@@ -10,15 +14,32 @@ PROVIDER_URL = "[INFURA_PROVIDER_URL]" #insert here your infura url (go to infur
 ## 3) Compiling and generating json interface
 `node compile.js`
 
+just be sure generateFolder is set to true if you want to deploy a new version
+
 ## 4) Deploying on the blockchain
 `node deploy.js`
 
-Once the deploy is succeeded, it will be printed the contract address on the console: copy and paste it into the following file:
-Go to the main folder of the project and create `.env.local`, open it and write down this:
+Once the deploy is succeeded, the contract address will be printed on the console screen (it may take a few minutes).
 
-`NEXT_PUBLIC_CONTRACT_ADDRESS = "[CONTRACT_ADDRESS]" #insert here the contract address
+Once it is shown, copy it and paste into the following file you are going to create now:
+
+## 5) Generating .env.local file
+`cd ..`
+
+`touch .env.local`
+
+open it and write:
+
+`NEXT_PUBLIC_CONTRACT_ADDRESS = "[CONTRACT_ADDRESS]" #paste here the contract address on the blockchain
 PROVIDER_URL = "[INFURA_PROVIDER_URL]" #<gain put your infura link (the same of above)`
 
+## 6) Launch server:
+`npm run dev`
 
-## 5) Launching tests:
-npm run test
+go to https://localhost:3000 and feel free to use the dapp
+
+## 7) Launching tests:
+
+`npm run test`
+
+NOTE: Tests are not intended to be completed. Feel free to write your own tests.
