@@ -1,39 +1,22 @@
-# SolidityBoilerplate
-Dummy solidity boilerplate
-
-- Installing components:
+1) Installing components:
 npm install
 
-- Configuring the .env files:
-go to the root and create .env.local file and write down this:
-NEXT_PUBLIC_CONTRACT_ADDRESS = "[CONTRACT_ADDRESS]"
-PROVIDER_URL = "[INFURA_PROVIDER_URL]"
+2) Configuring the .env files:
+- go to ethereum/ folder and create .env file and write this on it:
+MNEMONIC = "[SEED]" #<--- put here your mnemonic seed used to deploy the contract on the blockchain
+PROVIDER_URL = "[INFURA_PROVIDER_URL]" #<--- insert here your infura url (go to infura.io, create account and new project, then select testnet you want to use i.e. rinkeby and then copy the link here)
 
-replace [CONTRACT_ADDRESS] with the address of the contract you will deploy on the blockchain.
-
-replace [INFURA_URL] with the infura link (create an account on infura.io, then create project and copy and paste the rinkeby provider url)
-
-go to ethereum/ folder and create .env file and write down this:
-MNEMONIC = "[SEED]"
-PROVIDER_URL = "[INFURA_PROVIDER_URL]"
-
-
-replace [SEED] with the mnemonic seed of the account which will be the owner of the deployed contract.
-
-replace [INFURA_PROVIDER_URL] again with the infura provider url
-
-- Compiling
-When you modify the .sol contract, then you need to update the json interfaces for the frontend. To do that you have to the file ethereum/compile.js and set generateFolder = true
-then save and run the following command on terminal:
+3) Compiling and generating json interface
 node compile.js
 
-- Deploying
-If you want to deploy the contract on the blockchain run the following command on terminal:
+4) Deploying on the blockchain
 node deploy.js
 
-then copy the address you see in the output console and add it to the .env file like so:
-CONTRACT_ADDRESS = "[ADDRESS]"
-replace [ADDRESS] with your address.
+Once the deploy is succeeded, it will be printed the contract address on the console: copy and paste it into the following file:
+Go to the main folder of the project and create .env.local, open it and write down this:
+NEXT_PUBLIC_CONTRACT_ADDRESS = "[CONTRACT_ADDRESS]" #<--- insert here the contract address
+PROVIDER_URL = "[INFURA_PROVIDER_URL]" #<--- again put your infura link (the same of above)
 
-- Launching tests:
+
+5) Launching tests:
 npm run test
