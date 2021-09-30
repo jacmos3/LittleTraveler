@@ -1284,16 +1284,14 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
 }
 
 
-contract Loot is ERC721Enumerable, ReentrancyGuard, Ownable {
-
-       //contract TheLittleTraveler is ERC721Enumerable, ReentrancyGuard, Ownable {
+contract TheLittleTraveler is ERC721Enumerable, ReentrancyGuard, Ownable {
 
   // ** //
     uint256 public tokenCounter=1;
 
         //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
         //non yet sorted
-        string[] private environment = [ 
+        string[] private environment = [
             "Urban",
             "Beaches",
             "Mountains",
@@ -1854,7 +1852,7 @@ contract Loot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "TripsCommunity Member",
         "NFT collector"
     ];
-   
+
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     //already sorted
     string[] private accomodation = [
@@ -1894,7 +1892,7 @@ contract Loot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Igloo",
         "Trullo"
     ];
-    
+
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     //non yet sorted
     string[] private bag = [
@@ -2018,7 +2016,7 @@ contract Loot is ERC721Enumerable, ReentrancyGuard, Ownable {
         output = string(abi.encodePacked(output, parts[9], parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16]));
         output = string(abi.encodePacked(output, parts[17], parts[18], parts[19], parts[20]));
 
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Bag #', toString(tokenId), '", "description": "Loot is randomized adventurer gear generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Bag #', toString(tokenId), '", "description": "TheLittleTraveler are randomized characters generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use TheLittleTraveler in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 
         return output;
@@ -2056,7 +2054,7 @@ contract Loot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return string(buffer);
     }
 
-    constructor() ERC721("Loot", "LOOT") Ownable() {}
+    constructor() ERC721("TheLittleTraveler", "TLT") Ownable() {}
 }
 
 /// [MIT License]

@@ -1,16 +1,16 @@
 const path = require('path');
 const solc = require('solc');
 const fs = require('fs-extra');
-const myPath = path.resolve(__dirname, 'contracts', 'Loot.sol');
+const myPath = path.resolve(__dirname, 'contracts', 'TheLittleTraveler.sol');
 const buildPath = path.resolve(__dirname,'build');
 const source = fs.readFileSync(myPath, 'utf8');
 
-const loot = {
+const theLittleTraveler = {
     language: 'Solidity',
-    sources: {'Loot.sol': {content: source}},
+    sources: {'TheLittleTraveler.sol': {content: source}},
     settings: {outputSelection: {'*': {'*': ['*']}}}
 }
-const output = JSON.parse(solc.compile(JSON.stringify(loot))).contracts;
+const output = JSON.parse(solc.compile(JSON.stringify(theLittleTraveler))).contracts;
 //console.log(output);
 
 //set to true if you want to generate new json file while compiling. i.e.
@@ -33,5 +33,5 @@ if (generateFolder){
 }
 
 //we now export the main contract.
-const {abi: interface, evm: {bytecode:{object}}} = output['Loot.sol'].Loot;
+const {abi: interface, evm: {bytecode:{object}}} = output['TheLittleTraveler.sol'].TheLittleTraveler;
 module.exports = {interface, object}; // object is the actual name of the bytecode
