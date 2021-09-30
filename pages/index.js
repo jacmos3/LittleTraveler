@@ -32,7 +32,6 @@ class MyDapp extends Component{
       });
       this.setState({name:uri.name, description:uri.description, image:uri.image, minted:true});
       console.log(uri);
-      //Router.reload(window.location.pathname)
     }catch(err){
       this.setState({errorMessage: err.message});
     }
