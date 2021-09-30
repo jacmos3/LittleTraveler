@@ -3,7 +3,7 @@ import Layout from '../components/Layout.js';
 import {Form, Button, Input, Message} from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import {Router} from '../routes';
-import loot from '../ethereum/loot';
+import theLittleTraveler from '../ethereum/theLittleTraveler';
 
 class MyDapp extends Component{
   state = {
@@ -17,7 +17,7 @@ class MyDapp extends Component{
     this.setState({loading:true, errorMessage:''});
     try{
       const accounts = await web3.eth.getAccounts();
-      await loot.methods.claim(this.state.tokenId).send({from:accounts[0]});
+      await theLittleTraveler.methods.claim(this.state.tokenId).send({from:accounts[0]});
       //Router.reload(window.location.pathname)
     }catch(err){
       this.setState({errorMessage: err.message});
