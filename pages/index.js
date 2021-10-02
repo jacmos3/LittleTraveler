@@ -4,6 +4,7 @@ import {Form, Button, Input, Message,  Card, Icon, Image } from 'semantic-ui-rea
 import web3 from '../ethereum/web3';
 import {Router} from '../routes';
 import theTravelerLoot from '../ethereum/theTravelerLoot';
+import styles from "../styles/pages/INDEX.module.scss"; // Styles
 
 class MyDapp extends Component{
   state = {
@@ -38,7 +39,7 @@ class MyDapp extends Component{
     this.setState({loading:false});
   }
 
-  onTest = async() => {
+  onSynthetic = async() => {
 
       let uri = await theTravelerLoot.methods.tokenURI(this.state.tokenId).call()
       .then((result)=> {
@@ -52,15 +53,54 @@ class MyDapp extends Component{
 
     }
 
+    quicklinks = [
+        {name: "OpenSea", url: "#"},
+        {name: "Twitter",url: "#"},
+        {name: "Contract",url: "#"},
+      ];
+
 
   render(){
     return (
 
       <Layout>
-        <h1>Claim your Traveler!</h1>
+        <div className={styles.home__cta}>
+        <h1>The Traveler Loot</h1>
+        {/* Quicklinks */}
+        <ul>
+          {this.quicklinks.map(({ name, url }, i) => {
+            return (
+              <li key={i}>
+                {url.startsWith("/") ? (
+                  // If link to local page use Link
+                  <Link href={url}>
+                    <a>{name}</a>
+                  </Link>
+                ) : (
+                  // Else, redirect in new tab
+                  <a href={url} target="_blank" rel="noopener noreferrer">
+                    {name}
+                  </a>
+                )}
+              </li>
+            );
+          })}
+        </ul>
+        {/* CTA Description */}
+          <p>
+            The Traveler Loot are randomized
+            characters generated and stored on chain.<br />Stats, images, and other
+            functionality are intentionally omitted for others to interpret.
+            <br /> Feel free to use The Traveler Loot in any way you want
+          </p>
+        </div>
+
+        {/* Rendering sample loot bags */}
+        <div className={styles.home__feature}>
+        <h2>Claim your Traveler!</h2>
         <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
           <Form.Field>
-            <label>Insert a still available tokenId between 1 and 7555</label>
+            <p>Insert a still available tokenId between 1 and 10000</p>
             <Input
             value = {this.state.tokenId}
              onChange = {event => this.setState({tokenId: event.target.value})}/>
@@ -68,9 +108,8 @@ class MyDapp extends Component{
 
           <Message error header="Oops!" content = {this.state.errorMessage} />
           <Button loading = {this.state.loading} primary>Mint!</Button>
-
+          <Button type="button" basic color='grey' onClick={this.onSynthetic} > Synthetic</Button>
         </Form>
-          <Button basic onClick={this.onTest}> show </Button>
 
           {!this.state.minted ? null : (
             <Card>
@@ -87,6 +126,7 @@ class MyDapp extends Component{
             </Card>
           )
         }
+        </div>
       </Layout>
     )
   }
