@@ -1860,7 +1860,7 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Apartment",
         "Hostel",
         "Tent",
-        "B&B",
+        "Bed and Breakfast",
         "Guest house",
         "Chalet",
         "Cottage",
@@ -1915,7 +1915,7 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         uint8 min = len - (delta* x);
         uint8 max = (len -1) - ((delta -1) * x);
         //estraggo un numero a caso incluso tra min e max
-        uint8 rand = uint8((random(string(abi.encodePacked(block.difficulty, msg.sender, toHoundred,block.timestamp))) % (max-min)) + min);
+        uint8 rand = uint8((random(string(abi.encodePacked(block.difficulty, msg.sender, toHoundred,block.timestamp))) % (max - min + 1)) + min);
         return sourceArray[rand];
     }
 
