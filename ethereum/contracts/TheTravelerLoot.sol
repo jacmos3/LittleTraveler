@@ -1286,7 +1286,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
 
 contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //IERC721 constant Loot = IERC721(0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7);
-    IERC721 constant LOOT = IERC721(0x79c404419893d9570e849AC37007F13D2f791b12); //di test
+    IERC721 constant LOOT = IERC721(0x828532aca9fed195621d4dfE9B273D6a6830a7eB); //di test
     uint16 constant MAX_ID = 10000;
     uint16 constant MAX_LOOT_ID = 8000;
     uint16 constant FOR_OWNER = 444;
@@ -2059,7 +2059,7 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         output = string(abi.encodePacked(output, parts[9], parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16]));
         output = string(abi.encodePacked(output, parts[17], parts[18], parts[19], parts[20], parts[21], parts[22]));
 
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "The Traveler Loot #', toString(tokenId), '", "description": "Inspired by Loot Project, The Travelers Loot are randomized characters generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "The Traveler Loot #', toString(tokenId), '", "description": "The Traveler Loot are randomized characters generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 
         return output;
