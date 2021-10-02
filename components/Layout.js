@@ -129,6 +129,10 @@ function Header() {
 function Footer() {
   return (
     <div className={styles.footer}>
+
+      <p>Inspired by <a target= "_blank" href="https://www.lootproject.com/"> Project Loot </a> and
+      edited by <a target="_blank" href="https://www.tripscommunity.com">Trips Community</a></p>
+
       <p>
         This website is{" "}
         <a
