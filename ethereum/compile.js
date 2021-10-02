@@ -10,6 +10,7 @@ const theTravelerLoot = {
     sources: {'TheTravelerLoot.sol': {content: source}},
     settings: {outputSelection: {'*': {'*': ['*']}}}
 }
+console.log(myPath);
 const output = JSON.parse(solc.compile(JSON.stringify(theTravelerLoot))).contracts;
 //console.log(output);
 

@@ -1,13 +1,13 @@
 const HDWalletProvider = require('truffle-hdwallet-provider');
 const Web3 = require('web3');
 const {interface, object:bytecode} = require('./compile');
-require('dotenv').config()
+const fs = require ("fs-extra");
+require('dotenv').config();
 
 const seed = process.env.MNEMONIC;
 const providerUrl = process.env.PROVIDER_URL;
 const provider = new HDWalletProvider(seed,providerUrl);
 const web3 = new Web3(provider);
-const INITIAL_STRING = "Hello World!!";
 let theTravelerLoot;
 let accounts;
 
@@ -21,6 +21,7 @@ const deploy = async() => {
   .send ({from: accounts[0]});
 
   console.log("Contract deployed to", theTravelerLoot.options.address);
+  fs.writeFileSync('../.env.local', '#THIS IS AN AUTO-GENERATED FILE. DO NOT ADD ELEMENT HERE OR THEY WILL BE CANCELED AT YOUR NEXT DEPLOY\r\nNEXT_PUBLIC_CONTRACT_ADDRESS = "'+theTravelerLoot.options.address+'"');
 }
 
 deploy();
