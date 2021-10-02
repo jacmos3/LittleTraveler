@@ -19,26 +19,17 @@ just be sure generateFolder is set to true if you want to deploy a new version
 ## 4) Deploying on the blockchain
 `node deploy.js`
 
-Once the deploy is succeeded, the contract address will be printed on the console screen (it may take a few minutes).
+Once the deploy is succeeded, it will be generated `/.env.local` file with a
+env variable containing the contract address you have deployed.
 
-Once it is shown, copy it and paste into the following file you are going to create now:
+This file is used by the frontend to interact with the contract using web3.
 
-## 5) Generating .env.local file
-`cd ..`
-
-`touch .env.local`
-
-open it and write:
-
-`NEXT_PUBLIC_CONTRACT_ADDRESS = "[CONTRACT_ADDRESS]" #paste here the contract address on the blockchain
-PROVIDER_URL = "[INFURA_PROVIDER_URL]" #<gain put your infura link (the same of above)`
-
-## 6) Launch server:
+## 5) Launch server:
 `npm run dev`
 
 go to https://localhost:3000 and feel free to use the dapp
 
-## 7) Launching tests:
+## 6) Launching tests:
 
 `npm run test`
 
