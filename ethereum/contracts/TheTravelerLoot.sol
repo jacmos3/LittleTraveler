@@ -1285,15 +1285,38 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
 
 
 contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
-    //IERC721 constant Loot = IERC721(0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7);
-    IERC721 constant LOOT = IERC721(0x828532aca9fed195621d4dfE9B273D6a6830a7eB); //di test
+    struct LootDetails {
+        string fColor;
+        string bColor;
+        uint16 counter;
+        bool verified;
+    }
+    mapping(address => LootDetails) public detailsByAddress;
+    mapping(uint16 => address) public teamList;
     uint16 constant MAX_ID = 10000;
-    uint16 constant MAX_LOOT_ID = 8000;
-    uint16 constant FOR_OWNER = 444;
+    uint16 constant MAX_OWNER = 222;
 
-    constructor() ERC721("TheTravelerLoot", "TTL") Ownable() {}
-    uint256 public tokenCounter=1;
+    constructor() ERC721("TheTravelerLoot", "TTL") Ownable() {
 
+      //loot and loot derivative addresses who are elegible for the special editions
+      detailsByAddress[0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d] = LootDetails({bColor:"#191D7E",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa] = LootDetails({bColor:"#DAC931",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0x42A87e04f87A038774fb39c0A61681e7e859937b] = LootDetails({bColor:"#B45FBB",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3] = LootDetails({bColor:"#1FAD94",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0xcC56775606730C96eA245D9cF3890247f1c57FB1] = LootDetails({bColor:"#2C1A72",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0x13a48f723f4AD29b6da6e7215Fe53172C027d98f] = LootDetails({bColor:"#36662A",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF] = LootDetails({bColor:"#78365E",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2] = LootDetails({bColor:"#4F4B4B",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0xeC43a2546625c4C82D905503bc83e66262f0EF84] = LootDetails({bColor:"#9B1414",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463] = LootDetails({bColor:"#77CE58",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7] = LootDetails({bColor:"#C07A28",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d] = LootDetails({bColor:"#511D71",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0xb9310aF43F4763003F42661f6FC098428469aDAB] = LootDetails({bColor:"#949494",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0x83f1d1396B19Fed8FBb31Ed189579D07362d661d] = LootDetails({bColor:"#DB8F8B",fColor:"white",counter:0,verified:true});
+      detailsByAddress[0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f] = LootDetails({bColor:"#318C9F",fColor:"white",counter:0,verified:true});
+    }
+
+    uint16 public tokenCounter=1;
         //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
         //non yet sorted
         string[] private environment = [
@@ -1906,6 +1929,18 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Mobile phone",
         "Notebook ",
         "Digital Camera",
+        "Knife",
+         "Pen",
+        "Swiss knife",
+        "Mobile phone",
+        "Notebook ",
+        "Digital Camera",
+        "Knife",
+         "Pen",
+        "Swiss knife",
+        "Mobile phone",
+        "Notebook ",
+        "Digital Camera",
         "Knife"
     ];
 
@@ -1913,106 +1948,75 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return uint256(keccak256(abi.encodePacked(input)));
     }
 
-    function extractOutput(string[] memory sourceArray, uint8 toHoundred) internal view returns (string memory){
+    function extractOutput(string[] memory sourceArray, uint8 toHoundred, string memory keyPrefix) internal view returns (string memory){
         uint8 delta = toHoundred > 95 ? 1 : toHoundred > 75 ? 2 : 3;
         uint8 len = uint8(sourceArray.length);
         uint8 x = len / 3;
         uint8 min = len - (delta* x);
         uint8 max = (len -1) - ((delta -1) * x);
         //estraggo un numero a caso incluso tra min e max
-        uint8 rand = uint8((random(string(abi.encodePacked(block.difficulty, msg.sender, toHoundred,block.timestamp))) % (max - min + 1)) + min);
+        uint8 rand = uint8((random(string(abi.encodePacked(/*block.difficulty,*/ msg.sender, toHoundred, keyPrefix /*,block.timestamp*/))) % (max - min + 1)) + min);
         return sourceArray[rand];
     }
 
-    function getEnvironment(uint16 tokenId) public view returns (string memory) {
+    function getEnvironment(uint256 tokenId) public view returns (string memory) {
         return pluck(tokenId, "ENVIRONMENT", environment);
     }
 
-    function getTalent(uint16 tokenId) public view returns (string memory) {
+    function getTalent(uint256 tokenId) public view returns (string memory) {
         return pluck(tokenId, "TALENT", talent);
     }
 
-    function getPlace(uint16 tokenId) public view returns (string memory) {
+    function getPlace(uint256 tokenId) public view returns (string memory) {
         return pluck(tokenId, "PLACE", place);
     }
 
-    function getCharacter(uint16 tokenId) public view returns (string memory) {
+    function getCharacter(uint256 tokenId) public view returns (string memory) {
         return pluck(tokenId, "CHARACTER", character);
     }
 
-    function getTransport(uint16 tokenId) public view returns (string memory) {
+    function getTransport(uint256 tokenId) public view returns (string memory) {
         return pluck(tokenId, "TRANSPORT", transport);
     }
 
-    function getLanguage(uint16 tokenId) public view returns (string memory) {
+    function getLanguage(uint256 tokenId) public view returns (string memory) {
         return pluck(tokenId, "LANGUAGE", language);
     }
 
-    function getExperience(uint16 tokenId) public view returns (string memory) {
+    function getExperience(uint256 tokenId) public view returns (string memory) {
         return pluck(tokenId, "EXPERIENCE", experience);
     }
 
-    function getOccupation(uint16 tokenId) public view returns (string memory) {
+    function getOccupation(uint256 tokenId) public view returns (string memory) {
         return pluck(tokenId, "OCCUPATION", occupation);
     }
 
-    function getAccomodation(uint16 tokenId) public view returns (string memory) {
+    function getAccomodation(uint256 tokenId) public view returns (string memory) {
         return pluck(tokenId, "ACCOMODATION", accomodation);
     }
 
-    function getBag(uint16 tokenId) public view returns (string memory) {
+    function getBag(uint256 tokenId) public view returns (string memory) {
         return pluck(tokenId, "BAG", bag);
     }
 
-    function pluck(uint16 tokenId, string memory keyPrefix, string[] memory sourceArray) internal view returns (string memory) {
-        uint256 rand = random(string(abi.encodePacked(keyPrefix, toString(tokenId))));
+    function pluck(uint256 tokenId, string memory keyPrefix, string[] memory sourceArray) internal view returns (string memory) {
+        uint256 rand = random(string(abi.encodePacked(keyPrefix, Utils.toString(tokenId))));
         uint8 toHoundred = uint8(rand % 100);
-        string memory output = extractOutput(sourceArray,toHoundred);
+        string memory output = extractOutput(sourceArray,toHoundred, keyPrefix);
 
         return output;
     }
 
-    function tokenURI(uint256 tId) override public view returns (string memory) {
-        uint16 tokenId = uint16(tId);
-        string memory bColor;
-        string memory fColor;
-        try LOOT.ownerOf(tokenId) returns (address a){
-            if (_msgSender() == a){
-              //if I own a LOOT with the same tokenId
+    function tokenURI(uint256 tokenId) override public view returns (string memory) {
 
-                bColor = "gold";
-                fColor = "black";
-            }
-            else{
-              //if I dont own a LOOT with the same tokenId
-                bColor = "black";
-                fColor = "white";
-            }
-        }
-        catch (bytes memory) {
-          if (tokenId <= MAX_LOOT_ID){
-            //if this tokenId is minted before the original LOOT
-            bColor = "silver";
-            fColor = "black";
-          }
-          else{
-            //for all the other cases
-            if (_msgSender() == owner()){
-                bColor = "black";
-                fColor = "white";
-            }
-            else{
-              bColor = "red";
-              fColor = "white";
-            }
-          }
-        }
+        //string memory bColor = colors[tokenId][0];
+        //string memory fColor = colors[tokenId][1];
+        string memory bColor = "white";
+        string memory fColor = "black";
         string[23] memory parts;
         parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350">';
 
-        parts[1] = string(abi.encodePacked('<style>.base { fill:', fColor,'; font-family: serif; font-size: 14px; }</style>'));
-
-        parts[2] = string(abi.encodePacked('<rect width="100%" height="100%" fill="',bColor,'" /><text x="10" y="20" class="base">'));
+        parts[1] = string(abi.encodePacked('<style>.base { fill:', fColor,'; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="',bColor,'" /><text x="10" y="20" class="base">'));
 
         parts[3] = getEnvironment(tokenId);
 
@@ -2055,26 +2059,45 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         parts[22] = '</text></svg>';
 
 
-        string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8]));
-        output = string(abi.encodePacked(output, parts[9], parts[10], parts[11], parts[12], parts[13], parts[14], parts[15], parts[16]));
-        output = string(abi.encodePacked(output, parts[17], parts[18], parts[19], parts[20], parts[21], parts[22]));
+        string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8],parts[9],parts[10], parts[11]));
+        output = string(abi.encodePacked(output,  parts[12], parts[13], parts[14], parts[15], parts[16],parts[17], parts[18], parts[19], parts[20], parts[21], parts[22]));
 
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "The Traveler Loot #', toString(tokenId), '", "description": "The Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "The Traveler Loot #', Utils.toString(tokenId), '", "description": "The Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 
         return output;
     }
 
+    function howManyFor(address addr) public view returns (uint16){
+        require(detailsByAddress[addr].verified, "This address is not verified. Try another one");
+        return detailsByAddress[addr].counter;
+    }
+
     function claim(uint256 tokenId) public nonReentrant {
-        require(tokenId > 0 && tokenId < MAX_ID - FOR_OWNER, "Token ID invalid");
+        if (owner() == msg.sender){
+            require(tokenId > 8000 && tokenId <= 8000 + MAX_OWNER, "Token ID invalid");
+        }
+        else{
+            require(tokenId > 8000 + MAX_OWNER && tokenId <= MAX_ID, "Token ID invalid");
+        }
         _safeMint(_msgSender(), tokenId);
     }
 
-    function ownerClaim(uint256 tokenId) public nonReentrant onlyOwner {
-        require(tokenId >= MAX_ID - FOR_OWNER && tokenId <= MAX_ID, "Token ID invalid");
-        _safeMint(owner(), tokenId);
+
+    function qualifiedClaim(uint256 tokenId, address contractAddress) public nonReentrant {
+        require(detailsByAddress[contractAddress].verified, "This address is not supported. Try another one or use claim function");
+        require(tokenId > 0 && ((tokenId % 8000)+1) <= 8000, "Token ID invalid");
+        IERC721 player = IERC721(contractAddress);
+        require(player.ownerOf(tokenId) == msg.sender, "You do not own this tokenId of the provided address");
+
+        detailsByAddress[contractAddress].counter++;
+        teamList[uint16(tokenId)] = contractAddress;
+        _safeMint(_msgSender(), tokenId);
     }
 
+}
+
+library Utils{
     function toString(uint256 value) internal pure returns (string memory) {
     // Inspired by OraclizeAPI's implementation - MIT license
     // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
@@ -2103,6 +2126,7 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 /// @notice Provides a function for encoding some bytes in base64
 /// @author Brecht Devos <brecht@loopring.org>
 library Base64 {
+
     bytes internal constant TABLE = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
     /// @notice Encodes some bytes to the base64 representation

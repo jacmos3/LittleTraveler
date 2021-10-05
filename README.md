@@ -1,24 +1,36 @@
-##0. Credits
+## 0. Credits:
 The Traveler Loot is inspired by Loot Project: https://www.lootproject.com/
 
 The solidity smart contract and the frontend-style are taken from Loot Project
 and modified for our purpose.
 
-Everybody can mint a Traveler NFT on Ethereum, by using Etherscan here:
+Everybody can mint a Traveler Loot NFT on Ethereum, by using Etherscan here:
 __ADD_LINK__ or by using our native frontend here: __ADD_LINK__
 
-Loot Project owners have no reserved pieces, but they would have the possibility
-to mint a Traveler Loot in special edition opening the doors for other possible
-future advantages. This means that if I own the Loot #1, I would be elegible to
-mint Traveler Loot #1 in special edition. But only if I mint it before than
-everybody else, because the #1 is not reserved to me.
+Loot Project owners have no reserved pieces, but they have the special right to
+mint a Traveler Loot in special edition opening the doors for other possible
+future airdrops or advantages.
 
-By the way, nobody else except me would be able to mint the #1 as a special
-edition, and they would receive a normal Traveler Loot.
+By using the qualifiedClaim(tokenId, contractAddress) function you can mint a
+colored NFT. There are 15 qualified Loot and Loot derivatives addresses that have
+been selected to be qualified for this purpose. The qualification was based on
+the trading volume on OpenSea. I got the first 15 loot projects.
 
-If you let them do so, you lost your chance to get your Traveler Loot special
-edition, but you'll still be able to mint a normal edition using another tokenId.
+## How it works:
+If you own the Loot #1, you would be able to mint the Traveler Loot #1 using
+the qualifiedClaim(tokenId, contractAddress), just providing the tokenId you own
+and the Loot address.
+This will be minted in special edition.
+Note that when you mint your number, you "steal" the number to all the others,
+because there will be one and only one #1. So If you mint it, the others lost
+the opportunity to do the same. The first one who mint its own number will
+receive the special edition minting.
 
+If you do not own any Loot or any Loot Derivatives, then you'll be able to claim
+a standard Traveler Loot in black/white edition, just claiming from the function
+claim(tokenId). Using this function, you'll be able to claim from number 8223 to 10000.
+
+The owner of the contract will be able to claim the tokenId from 8001 to 8222. 
 
 ## 1. Installing components:
 `npm install`

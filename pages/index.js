@@ -88,10 +88,10 @@ class MyDapp extends Component{
         </ul>
         {/* CTA Description */}
           <p>
-            The Traveler Loot are randomized
-            characters generated and stored on chain.<br />Stats, images, and other
-            functionality are intentionally omitted for others to interpret.
-            <br /> Feel free to use The Traveler Loot in any way you want
+            The Traveler Loot is randomized character generated and stored on
+            chain.<br />Stats, images, and other functionality are intentionally
+            omitted for others to interpret.
+            <br /> Feel free to use The Traveler Loot in any way you want.
           </p>
         </div>
 
