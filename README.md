@@ -4,6 +4,8 @@ The Traveler Loot is inspired by Loot Project: https://www.lootproject.com/
 The solidity smart contract and the frontend-style are taken from Loot Project
 and modified for our purpose.
 
+## How it works:
+
 Everybody can mint a Traveler Loot NFT on Ethereum, by using Etherscan here:
 __ADD_LINK__ or by using our native frontend here: __ADD_LINK__
 
@@ -16,7 +18,6 @@ colored NFT. There are 15 qualified Loot and Loot derivatives addresses that hav
 been selected to be qualified for this purpose. The qualification was based on
 the trading volume on OpenSea. I got the first 15 loot projects.
 
-## How it works:
 If you own the Loot #1, you would be able to mint the Traveler Loot #1 using
 the qualifiedClaim(tokenId, contractAddress), just providing the tokenId you own
 and the Loot address.
@@ -30,7 +31,7 @@ If you do not own any Loot or any Loot Derivatives, then you'll be able to claim
 a standard Traveler Loot in black/white edition, just claiming from the function
 claim(tokenId). Using this function, you'll be able to claim from number 8223 to 10000.
 
-The owner of the contract will be able to claim the tokenId from 8001 to 8222. 
+The owner of the contract will be able to claim the tokenId from 8001 to 8222.
 
 ## 1. Installing components:
 `npm install`
