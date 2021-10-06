@@ -16,22 +16,29 @@ future airdrops or advantages.
 By using the qualifiedClaim(tokenId, contractAddress) function you can mint a
 colored NFT. There are 15 qualified Loot and Loot derivatives addresses that have
 been selected to be qualified for this purpose. The qualification was based on
-the trading volume on OpenSea. I got the first 15 loot projects.
+the trading volume on OpenSea. The qualified loot projects are the first 15 in
+the list, sorted by trading volume on October, 05 2021.
 
 If you own the Loot #1, you would be able to mint the Traveler Loot #1 using
 the qualifiedClaim(tokenId, contractAddress), just providing the tokenId you own
 and the Loot address.
-This will be minted in special edition.
-Note that when you mint your number, you "steal" the number to all the others,
-because there will be one and only one #1. So If you mint it, the others lost
-the opportunity to do the same. The first one who mint its own number will
-receive the special edition minting.
+This will be minted in special edition (different color).
+Note that when you mint your number, you "steal" the number to all the others
+loot or loot-derivatives owners,because there will be one and only one #1.
+So If you've mint it, the other owners have lost the opportunity to do the same.
+The first one who mint its own number will receive the special edition minting.
 
-If you do not own any Loot or any Loot Derivatives, then you'll be able to claim
+There will be only 2000 special Traveler Loot, at maximum: from #1 to #2000.
+If you own a higher tokenId, don't worry you can claim your special edition too
+because the number will be % by 2000. So everybody can mint their special
+edition if they are fast enough to claim it before they go out of supply.
+
+If you do not own any Loot or any Loot Derivative, then you'll be able to claim
 a standard Traveler Loot in black/white edition, just claiming from the function
-claim(tokenId). Using this function, you'll be able to claim from number 8223 to 10000.
+claim(tokenId). Using this function, you'll be able to claim from number 2223 to
+10000.
 
-The owner of the contract will be able to claim the tokenId from 8001 to 8222.
+The owner of the contract will be able to claim the tokenId from 2001 to 2222.
 
 ## 1. Installing components:
 `npm install`

@@ -1295,10 +1295,10 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     mapping(uint16 => address) public teamList;
     uint16 constant MAX_ID = 10000;
     uint16 constant MAX_OWNER = 222;
+    uint16 constant MAX_LOOTS = 2000;
 
     constructor() ERC721("TheTravelerLoot", "TTL") Ownable() {
-
-      //loot and loot derivative addresses who are elegible for the special editions
+      //loot and loot derivative addresses which are elegible for the special editions
       detailsByAddress[0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d] = LootDetails({bColor:"#191D7E",fColor:"white",counter:0,verified:true});
       detailsByAddress[0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa] = LootDetails({bColor:"#DAC931",fColor:"white",counter:0,verified:true});
       detailsByAddress[0x42A87e04f87A038774fb39c0A61681e7e859937b] = LootDetails({bColor:"#B45FBB",fColor:"white",counter:0,verified:true});
@@ -1316,148 +1316,143 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       detailsByAddress[0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f] = LootDetails({bColor:"#318C9F",fColor:"white",counter:0,verified:true});
     }
 
-    uint16 public tokenCounter=1;
-        //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
-        //non yet sorted
-        string[] private environment = [
-            "Urban",
-            "Beaches",
-            "Mountains",
-            "Countrysides",
-            "Lakes",
-            "Rivers",
-            "Party islands",
-            "Farms",
-            "Tropical areas",
-            "Snowy places",
-            "Forests",
-            "Deserts",
-            "Wilderness",
-            "Rainforests",
-            "North Pole",
-            "South Pole",
-            "Volcanic islands",
-            "Natural parks",
-            "Historical cities",
-            "Old towns",
-            "Small cities",
-            "Small towns",
-            "Villages",
-            "Jungla" //Aggiunta per arrivare al multiplo di 3
-        ];
-
-        //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
-        //non yet sorted
-        string[] private talent = [
-            "Tech Genius",
-            "Intuition",
-            "Singer",
-            "Dancer",
-            "Painter",
-            "Basketball Player",
-            "Tennis Player",
-            "Football Player",
-            "Soccer Player",
-            "Climber",
-            "Swimmer",
-            "Photographer",
-            "Street Artist",
-            "Painting",
-            "Writing",
-            "Pottery",
-            "Dancing",
-            "Mathematics",
-            "Architecture",
-            "Physics",
-            "Spelling",
-            "Cooking",
-            "Baking",
-            "Logic",
-            "Running",
-            "Sword-fighting",
-            "Boxing",
-            "Ice skating",
-            "Jumping",
-            "Climbing",
-            "Hiking",
-            "Knot-making",
-            "Sailing",
-            "Repairing things",
-            "Cheering people up",
-            "Bridgebuilding",
-            "Gathering",
-            "Hunting",
-            "Fishing",
-            "Archery",
-            "Plumbing",
-            "Dressmaking",
-            "Navigating",
-            "Horseback-riding",
-            "Acting",
-            "Singing",
-            "Composing music",
-            "Roofing",
-            "Researching",
-            "Book-keeping",
-            "Investing",
-            "Listening",
-            "Farming",
-            "Brewing",
-            "Winemaking",
-            "Mining",
-            "Acrobatics",
-            "Cartography",
-            "Memorizing things",
-            "Speedreading",
-            "Comforting others",
-            "Parenting",
-            "Stonemasonry",
-            "Falconry",
-            "Wrestling",
-            "Whistling",
-            "Juggling",
-            "Rhyming",
-            "Spying",
-            "Keeping secrets",
-            "Lying",
-            "Storytelling",
-            "Hair-styling",
-            "Debating",
-            "Dispute resolution",
-            "Negotiating",
-            "Teaching",
-            "Coding",
-            "Computer-hacking",
-            "Origami",
-            "Calligraphy",
-            "Playing chess",
-            "Carvin pumpkins",
-            "Hypnotizing"
-        ];
-
-        //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
-        //non yet sorted
-        string[] private place = [
-            "Rome",
-            "London",
-            "Paris",
-            "Bangkok",
-            "Martellago",
-            "Marrakesh",
-            "Shanghai",
-            "Florence",
-            "Barcelona",
-            "Munich",
-            "Bali",
-            "Lagos",
-            "Oslo",
-            "Moscow",
-            "Amsterdam",
-            "Buenos Aires",
-            "Fortaleza",
-            "Istanbul"
+    //non yet sorted
+    string[] private environment = [
+        "Urban",
+        "Beaches",
+        "Mountains",
+        "Countrysides",
+        "Lakes",
+        "Rivers",
+        "Party islands",
+        "Farms",
+        "Tropical areas",
+        "Snowy places",
+        "Forests",
+        "Deserts",
+        "Wilderness",
+        "Rainforests",
+        "North Pole",
+        "South Pole",
+        "Volcanic islands",
+        "Natural parks",
+        "Historical cities",
+        "Old towns",
+        "Small cities",
+        "Small towns",
+        "Villages",
+        "Jungla" //Aggiunta per arrivare al multiplo di 3
     ];
-    //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
+
+      //non yet sorted
+    string[] private talent = [
+        "Tech Genius",
+        "Intuition",
+        "Singer",
+        "Dancer",
+        "Painter",
+        "Basketball Player",
+        "Tennis Player",
+        "Football Player",
+        "Soccer Player",
+        "Climber",
+        "Swimmer",
+        "Photographer",
+        "Street Artist",
+        "Painting",
+        "Writing",
+        "Pottery",
+        "Dancing",
+        "Mathematics",
+        "Architecture",
+        "Physics",
+        "Spelling",
+        "Cooking",
+        "Baking",
+        "Logic",
+        "Running",
+        "Sword-fighting",
+        "Boxing",
+        "Ice skating",
+        "Jumping",
+        "Climbing",
+        "Hiking",
+        "Knot-making",
+        "Sailing",
+        "Repairing things",
+        "Cheering people up",
+        "Bridgebuilding",
+        "Gathering",
+        "Hunting",
+        "Fishing",
+        "Archery",
+        "Plumbing",
+        "Dressmaking",
+        "Navigating",
+        "Horseback-riding",
+        "Acting",
+        "Singing",
+        "Composing music",
+        "Roofing",
+        "Researching",
+        "Book-keeping",
+        "Investing",
+        "Listening",
+        "Farming",
+        "Brewing",
+        "Winemaking",
+        "Mining",
+        "Acrobatics",
+        "Cartography",
+        "Memorizing things",
+        "Speedreading",
+        "Comforting others",
+        "Parenting",
+        "Stonemasonry",
+        "Falconry",
+        "Wrestling",
+        "Whistling",
+        "Juggling",
+        "Rhyming",
+        "Spying",
+        "Keeping secrets",
+        "Lying",
+        "Storytelling",
+        "Hair-styling",
+        "Debating",
+        "Dispute resolution",
+        "Negotiating",
+        "Teaching",
+        "Coding",
+        "Computer-hacking",
+        "Origami",
+        "Calligraphy",
+        "Playing chess",
+        "Carvin pumpkins",
+        "Hypnotizing"
+    ];
+
+    //non yet sorted
+    string[] private place = [
+        "Rome",
+        "London",
+        "Paris",
+        "Bangkok",
+        "Martellago",
+        "Marrakesh",
+        "Shanghai",
+        "Florence",
+        "Barcelona",
+        "Munich",
+        "Bali",
+        "Lagos",
+        "Oslo",
+        "Moscow",
+        "Amsterdam",
+        "Buenos Aires",
+        "Fortaleza",
+        "Istanbul"
+    ];
     //already sorted
     string[] private character = [
         "Energetic",
@@ -1612,7 +1607,7 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Witty",
         "Youthful"
     ];
-    //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
+
     //already sorted
     string[] private transport = [
        "Train",
@@ -1674,8 +1669,6 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Broomstick"
     ];
 
-
-    //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     //already sorted
     string[] private language = [
         "English",
@@ -1755,7 +1748,6 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Martian"
     ];
 
-    //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     //already sorted
     string[] private experience = [
         "1",
@@ -1881,7 +1873,6 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "NFT collector"
     ];
 
-    //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     //already sorted
     string[] private accomodation = [
        "Hotel",
@@ -2075,10 +2066,10 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function claim(uint256 tokenId) public nonReentrant {
         if (owner() == msg.sender){
-            require(tokenId > 8000 && tokenId <= 8000 + MAX_OWNER, "Token ID invalid");
+            require(tokenId > MAX_LOOTS && tokenId <= MAX_LOOTS + MAX_OWNER, "Token ID invalid");
         }
         else{
-            require(tokenId > 8000 + MAX_OWNER && tokenId <= MAX_ID, "Token ID invalid");
+            require(tokenId > MAX_LOOTS + MAX_OWNER && tokenId <= MAX_ID, "Token ID invalid");
         }
         _safeMint(_msgSender(), tokenId);
     }
@@ -2086,7 +2077,7 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function qualifiedClaim(uint256 tokenId, address contractAddress) public nonReentrant {
         require(detailsByAddress[contractAddress].verified, "This address is not supported. Try another one or use claim function");
-        require(tokenId > 0 && ((tokenId % 8000)+1) <= 8000, "Token ID invalid");
+        require(tokenId > 0 && ((tokenId % MAX_LOOTS)+1) <= MAX_LOOTS, "Token ID invalid");
         IERC721 player = IERC721(contractAddress);
         require(player.ownerOf(tokenId) == msg.sender, "You do not own this tokenId of the provided address");
 
