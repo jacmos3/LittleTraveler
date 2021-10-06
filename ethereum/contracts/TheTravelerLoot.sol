@@ -1299,6 +1299,7 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     constructor() ERC721("TheTravelerLoot", "TTL") Ownable() {
       //loot and loot derivative addresses which are elegible for the special editions
+      //this is for qualifiedClaim function (loot and loot owners can get a special edition with a special color)
       detailsByAddress[0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d] = LootDetails({bColor:"#191D7E",fColor:"white",counter:0,verified:true});
       detailsByAddress[0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa] = LootDetails({bColor:"#DAC931",fColor:"white",counter:0,verified:true});
       detailsByAddress[0x42A87e04f87A038774fb39c0A61681e7e859937b] = LootDetails({bColor:"#B45FBB",fColor:"white",counter:0,verified:true});
@@ -1314,6 +1315,9 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       detailsByAddress[0xb9310aF43F4763003F42661f6FC098428469aDAB] = LootDetails({bColor:"#949494",fColor:"white",counter:0,verified:true});
       detailsByAddress[0x83f1d1396B19Fed8FBb31Ed189579D07362d661d] = LootDetails({bColor:"#DB8F8B",fColor:"white",counter:0,verified:true});
       detailsByAddress[0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f] = LootDetails({bColor:"#318C9F",fColor:"white",counter:0,verified:true});
+
+      //this is for claim function (owner and normal users they get a black and white loot)
+      detailsByAddress[address(0)] = LootDetails({bColor:"#black",fColor:"white",counter:0,verified:true});
     }
 
     //non yet sorted
@@ -2008,7 +2012,6 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         parts[1] = string(abi.encodePacked(getEnvironment(tokenId),'</text><text x="10" y="40" class="base">',getTalent(tokenId),'</text><text x="10" y="60" class="base">',getPlace(tokenId),'</text><text x="10" y="80" class="base">',getCharacter(tokenId),'</text><text x="10" y="100" class="base">',getTransport(tokenId),'</text><text x="10" y="120" class="base">',getLanguage(tokenId)));
         parts[2] = string(abi.encodePacked('</text><text x="10" y="140" class="base">',getExperience(tokenId),'</text><text x="10" y="160" class="base">',getOccupation(tokenId),'</text><text x="10" y="180" class="base">',getAccomodation(tokenId),'</text><text x="10" y="200" class="base">',getBag(tokenId),'</text></svg>'));
 
-
         string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2]));
 
 
@@ -2030,6 +2033,7 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         else{
             require(tokenId > MAX_LOOTS + MAX_OWNER && tokenId <= MAX_ID, "Token ID invalid");
         }
+        teamList[uint16(tokenId)] = address(0);
         _safeMint(_msgSender(), tokenId);
     }
 
@@ -2038,7 +2042,7 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         require(detailsByAddress[contractAddress].verified, "This address is not supported. Try another one or use claim function");
         require(tokenId > 0 && ((tokenId % MAX_LOOTS)+1) <= MAX_LOOTS, "Token ID invalid");
         IERC721 player = IERC721(contractAddress);
-        require(player.ownerOf(tokenId) == msg.sender, "You do not own this tokenId of the provided address");
+        require(player.ownerOf(tokenId) == msg.sender, "You are not the tokenId owner of the input address");
 
         detailsByAddress[contractAddress].counter++;
         teamList[uint16(tokenId)] = contractAddress;
