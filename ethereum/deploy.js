@@ -8,7 +8,7 @@ const seed = process.env.MNEMONIC;
 const providerUrl = process.env.PROVIDER_URL;
 const provider = new HDWalletProvider(seed,providerUrl);
 const web3 = new Web3(provider);
-let theTravelerLoot;
+let travelerLoot;
 let accounts;
 
 const deploy = async() => {
@@ -16,12 +16,12 @@ const deploy = async() => {
   accounts = await web3.eth.getAccounts();
   console.log("Attempting to deploy from account", accounts[0]);
 
-  theTravelerLoot = await new web3.eth.Contract(interface)
+  travelerLoot = await new web3.eth.Contract(interface)
   .deploy({data:'0x'+bytecode})
   .send ({from: accounts[0]});
 
-  console.log("Contract deployed to", theTravelerLoot.options.address);
-  fs.writeFileSync('../.env.local', '#THIS IS AN AUTO-GENERATED FILE. DO NOT ADD ELEMENT HERE OR THEY WILL BE CANCELED AT YOUR NEXT DEPLOY\r\nNEXT_PUBLIC_CONTRACT_ADDRESS = "'+theTravelerLoot.options.address+'"');
+  console.log("Contract deployed to", travelerLoot.options.address);
+  fs.writeFileSync('../.env.local', '#THIS IS AN AUTO-GENERATED FILE. DO NOT ADD ELEMENT HERE OR THEY WILL BE CANCELED AT YOUR NEXT DEPLOY\r\nNEXT_PUBLIC_CONTRACT_ADDRESS = "'+travelerLoot.options.address+'"');
 }
 
 deploy();

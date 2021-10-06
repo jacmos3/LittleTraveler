@@ -3,7 +3,7 @@ import Layout from '../components/Layout.js';
 import {Form, Button, Input, Message,  Card, Icon, Image } from 'semantic-ui-react';
 import web3 from '../ethereum/web3';
 import {Router} from '../routes';
-import theTravelerLoot from '../ethereum/theTravelerLoot';
+import travelerLoot from '../ethereum/travelerLoot';
 import styles from "../styles/pages/INDEX.module.scss"; // Styles
 
 class MyDapp extends Component{
@@ -23,8 +23,8 @@ class MyDapp extends Component{
     this.setState({loading:true, errorMessage:''});
     try{
       const accounts = await web3.eth.getAccounts();
-      await theTravelerLoot.methods.claim(this.state.tokenId).send({from:accounts[0]});
-      let uri = await theTravelerLoot.methods.tokenURI(this.state.tokenId).call()
+      await travelerLoot.methods.claim(this.state.tokenId).send({from:accounts[0]});
+      let uri = await travelerLoot.methods.tokenURI(this.state.tokenId).call()
       .then((result)=> {
           return JSON.parse(window.atob(result.split(',')[1]));
       })
@@ -41,7 +41,7 @@ class MyDapp extends Component{
 
   onSynthetic = async() => {
 
-      let uri = await theTravelerLoot.methods.tokenURI(this.state.tokenId).call()
+      let uri = await travelerLoot.methods.tokenURI(this.state.tokenId).call()
       .then((result)=> {
           return JSON.parse(window.atob(result.split(',')[1]));
       })

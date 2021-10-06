@@ -33,23 +33,23 @@ const Layout = (props) =>{
         <meta name="title" content="Loot" />
         <meta
           name="description"
-          content="The Traveler Loot is randomized character generated and stored on chain."
+          content="Traveler Loot is randomized character generated and stored on chain."
         />
 
         {/* OG + Faceook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="#" />
-        <meta property="og:title" content="The Traveler Loot" />
+        <meta property="og:title" content="Traveler Loot" />
         <meta
           property="og:description"
-          content="The Traveler Loot is randomized character generated and stored on chain."
+          content="Traveler Loot is randomized character generated and stored on chain."
         />
         <meta property="og:image" content="#" />
 
         {/* Twitter */}
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content="#" />
-        <meta property="twitter:title" content="The Traveler Loot" />
+        <meta property="twitter:title" content="Traveler Loot" />
         <meta
           property="twitter:description"
           content="Loot is randomized adventurer gear generated and stored on chain."
@@ -91,7 +91,7 @@ function Header() {
       {/* Main logo */}
       <div className={styles.header__logo}>
         <Link href="/">
-          <a>The Traveler Loot</a>
+          <a>Traveler Loot</a>
         </Link>
       </div>
 
@@ -136,7 +136,7 @@ function Footer() {
       <p>
         This website is{" "}
         <a
-          href="https://github.com/jacmos3/TheTravelerLoot"
+          href="https://github.com/jacmos3/TravelerLoot"
           target="_blank"
           rel="noopener noreferrer"
         >

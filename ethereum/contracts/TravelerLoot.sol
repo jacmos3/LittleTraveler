@@ -1284,7 +1284,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
 }
 
 
-contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
+contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     struct LootDetails {
         string fColor;
         string bColor;
@@ -1297,7 +1297,7 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint16 constant MAX_OWNER = 222;
     uint16 constant MAX_LOOTS = 2000;
 
-    constructor() ERC721("TheTravelerLoot", "TTL") Ownable() {
+    constructor() ERC721("TravelerLoot", "TRAVELER") Ownable() {
       //loot and loot derivative addresses which are elegible for the special editions
       //this is for qualifiedClaim function (loot and loot owners can get a special edition with a special color)
       detailsByAddress[0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d] = LootDetails({bColor:"#191D7E",fColor:"white",counter:0,verified:true});
@@ -2015,7 +2015,7 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2]));
 
 
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "The Traveler Loot #', Utils.toString(tokenId), '", "description": "The Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler Loot #', Utils.toString(tokenId), '", "description": "Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 
         return output;
