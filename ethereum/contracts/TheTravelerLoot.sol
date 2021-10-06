@@ -2004,54 +2004,33 @@ contract TheTravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         //string memory fColor = colors[tokenId][1];
         string memory bColor = "white";
         string memory fColor = "black";
-        string[23] memory parts;
-        parts[0] = '<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350">';
+        string[21] memory parts;
 
-        parts[1] = string(abi.encodePacked('<style>.base { fill:', fColor,'; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="',bColor,'" /><text x="10" y="20" class="base">'));
-
-        parts[3] = getEnvironment(tokenId);
-
-        parts[4] = '</text><text x="10" y="40" class="base">';
-
-        parts[5] = getTalent(tokenId);
-
-        parts[6] = '</text><text x="10" y="60" class="base">';
-
-        parts[7] = getPlace(tokenId);
-
-        parts[8] = '</text><text x="10" y="80" class="base">';
-
-        parts[9] = getCharacter(tokenId);
-
-        parts[10] = '</text><text x="10" y="100" class="base">';
-
-        parts[11] = getTransport(tokenId);
-
-        parts[12] = '</text><text x="10" y="120" class="base">';
-
-        parts[13] = getLanguage(tokenId);
-
-        parts[14] = '</text><text x="10" y="140" class="base">';
-
-        parts[15] = getExperience(tokenId);
-
-        parts[16] = '</text><text x="10" y="160" class="base">';
-
-        parts[17] = getOccupation(tokenId);
-
-        parts[18] = '</text><text x="10" y="180" class="base">';
-
-        parts[19] = getAccomodation(tokenId);
-
-        parts[20] = '</text><text x="10" y="200" class="base">';
-
-        parts[21] = getBag(tokenId);
-
-        parts[22] = '</text></svg>';
+        parts[0] = string(abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill:', fColor,'; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="',bColor,'" /><text x="10" y="20" class="base">'));
+        parts[1] = getEnvironment(tokenId);
+        parts[2] = '</text><text x="10" y="40" class="base">';
+        parts[3] = getTalent(tokenId);
+        parts[4] = '</text><text x="10" y="60" class="base">';
+        parts[5] = getPlace(tokenId);
+        parts[6] = '</text><text x="10" y="80" class="base">';
+        parts[7] = getCharacter(tokenId);
+        parts[8] = '</text><text x="10" y="100" class="base">';
+        parts[9] = getTransport(tokenId);
+        parts[10] = '</text><text x="10" y="120" class="base">';
+        parts[11] = getLanguage(tokenId);
+        parts[12] = '</text><text x="10" y="140" class="base">';
+        parts[13] = getExperience(tokenId);
+        parts[14] = '</text><text x="10" y="160" class="base">';
+        parts[15] = getOccupation(tokenId);
+        parts[16] = '</text><text x="10" y="180" class="base">';
+        parts[17] = getAccomodation(tokenId);
+        parts[18] = '</text><text x="10" y="200" class="base">';
+        parts[19] = getBag(tokenId);
+        parts[20] = '</text></svg>';
 
 
-        string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8],parts[9],parts[10], parts[11]));
-        output = string(abi.encodePacked(output,  parts[12], parts[13], parts[14], parts[15], parts[16],parts[17], parts[18], parts[19], parts[20], parts[21], parts[22]));
+        string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2], parts[3], parts[4], parts[5], parts[6], parts[7], parts[8],parts[9],parts[10]));
+        output = string(abi.encodePacked(output,  parts[11], parts[12], parts[13], parts[14], parts[15], parts[16],parts[17], parts[18], parts[19], parts[20]));
 
         string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "The Traveler Loot #', Utils.toString(tokenId), '", "description": "The Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
