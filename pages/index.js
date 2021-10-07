@@ -65,7 +65,7 @@ class MyDapp extends Component{
 
       <Layout>
         <div className={styles.home__cta}>
-        <h1>The Traveler Loot</h1>
+        <h1>Traveler Loot</h1>
         {/* Quicklinks */}
         <ul>
           {this.quicklinks.map(({ name, url }, i) => {
