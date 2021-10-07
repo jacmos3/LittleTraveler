@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.0;
+pragma solidity ^0.8.7;
 
 /**
  * @dev Interface of the ERC165 standard, as defined in the
@@ -1292,7 +1292,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         bool verified;
     }
     mapping(address => LootDetails) public detailsByAddress;
-    mapping(uint16 => address) public teamList;
+    mapping(uint256 => address) public teamList;
     uint16 constant MAX_ID = 10000;
     uint16 constant MAX_OWNER = 222;
     uint16 constant MAX_LOOTS = 2000;
@@ -1316,11 +1316,18 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       detailsByAddress[0x83f1d1396B19Fed8FBb31Ed189579D07362d661d] = LootDetails({bColor:"#DB8F8B",fColor:"white",counter:0,verified:true});
       detailsByAddress[0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f] = LootDetails({bColor:"#318C9F",fColor:"white",counter:0,verified:true});
 
-      //this is for claim function (owner and normal users they get a black and white loot)
-      detailsByAddress[address(0)] = LootDetails({bColor:"#black",fColor:"white",counter:0,verified:true});
+      //add here the tests address
+        //detailsByAddress[TEST_ADDRESS_1] = LootDetails({bColor:"brown",fColor:"yellow",counter:0,verified:true});
+        //detailsByAddress[TEST_ADDRESS_2] = LootDetails({bColor:"black",fColor:"red",counter:0,verified:true});
+
+      //this is for claim function (= owner and normal users they get a black and white loot)
+      detailsByAddress[address(0)] = LootDetails({bColor:"black",fColor:"white",counter:0,verified:true});
+
+      //this is for rich ppl who mint the Traveler Loot with the address of their address
+      detailsByAddress[address(1)] = LootDetails({bColor:"gold",fColor:"white",counter:0,verified:true});
     }
 
-    //non yet sorted
+    //not yet sorted
     string[] private environment = [
         "Urban",
         "Beaches",
@@ -1348,7 +1355,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Jungla" //Aggiunta per arrivare al multiplo di 3
     ];
 
-      //non yet sorted
+      //not yet sorted
     string[] private talent = [
         "Tech Genius",
         "Intuition",
@@ -1436,7 +1443,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Hypnotizing"
     ];
 
-    //non yet sorted
+    //not yet sorted
     string[] private place = [
         "Rome",
         "London",
@@ -1457,6 +1464,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         "Fortaleza",
         "Istanbul"
     ];
+
     //already sorted
     string[] private character = [
         "Energetic",
@@ -1858,7 +1866,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     ];
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
-    //non yet sorted
+    //not yet sorted
     string[] private occupation = [
         "Traveller",
         "Host",
@@ -1917,7 +1925,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     ];
 
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
-    //non yet sorted
+    //not yet sorted
     string[] private bag = [
         "Pen",
         "Swiss knife",
@@ -1995,7 +2003,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function pluck(uint256 tokenId, string memory keyPrefix, string[] memory sourceArray) internal view returns (string memory) {
-        uint256 rand = random(string(abi.encodePacked(keyPrefix, Utils.toString(tokenId))));
+        uint256 rand = random(string(abi.encodePacked(keyPrefix, toString(tokenId))));
         uint8 toHoundred = uint8(rand % 100);
         string memory output = extractOutput(sourceArray,toHoundred, keyPrefix);
 
@@ -2003,7 +2011,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
-        LootDetails memory det = detailsByAddress[teamList[uint16(tokenId)]];
+        LootDetails memory det = detailsByAddress[teamList[tokenId]];
         string memory bColor = det.bColor;
         string memory fColor = det.fColor;
         string[3] memory parts;
@@ -2015,13 +2023,13 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2]));
 
 
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler Loot #', Utils.toString(tokenId), '", "description": "Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler Loot #', toString(tokenId), '", "description": "Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
         output = string(abi.encodePacked('data:application/json;base64,', json));
 
         return output;
     }
 
-    function howManyFor(address addr) public view returns (uint16){
+    function howMany(address addr) public view returns (uint16){
         require(detailsByAddress[addr].verified, "This address is not verified. Try another one");
         return detailsByAddress[addr].counter;
     }
@@ -2033,25 +2041,29 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         else{
             require(tokenId > MAX_LOOTS + MAX_OWNER && tokenId <= MAX_ID, "Token ID invalid");
         }
-        teamList[uint16(tokenId)] = address(0);
+        detailsByAddress[address(0)].counter++;
+        teamList[tokenId] = address(0);
         _safeMint(_msgSender(), tokenId);
     }
 
-
-    function qualifiedClaim(uint256 tokenId, address contractAddress) public nonReentrant {
-        require(detailsByAddress[contractAddress].verified, "This address is not supported. Try another one or use claim function");
+    function claimQualified(uint256 tokenId, address contractAddress) public nonReentrant {
+        require(detailsByAddress[contractAddress].verified, "This address is not supported. Try another one or use claim() function");
         require(tokenId > 0 && ((tokenId % MAX_LOOTS)+1) <= MAX_LOOTS, "Token ID invalid");
         IERC721 player = IERC721(contractAddress);
         require(player.ownerOf(tokenId) == msg.sender, "You are not the tokenId owner of the input address");
 
         detailsByAddress[contractAddress].counter++;
-        teamList[uint16(tokenId)] = contractAddress;
+        teamList[tokenId] = contractAddress;
         _safeMint(_msgSender(), tokenId);
     }
 
-}
+    function claimOnlyRich() public payable nonReentrant {
+        require(msg.value >= 1000000000000000000, "You need to send 10 ether to claim the Traveler Loot corresponding to your address number");
+        detailsByAddress[address(1)].counter++;
+        teamList[uint256(uint160(_msgSender()))] = address(1);
+        _safeMint(_msgSender(), uint256(uint160(_msgSender())));
+    }
 
-library Utils{
     function toString(uint256 value) internal pure returns (string memory) {
     // Inspired by OraclizeAPI's implementation - MIT license
     // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
@@ -2074,6 +2086,7 @@ library Utils{
         return string(buffer);
     }
 }
+
 
 /// [MIT License]
 /// @title Base64
