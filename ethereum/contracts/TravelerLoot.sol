@@ -1944,7 +1944,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function extractOutput(string[] memory sourceArray, uint8 toHoundred, string memory keyPrefix) internal view returns (string memory){
-        uint8 delta = toHoundred > 95 ? 1 : toHoundred > 75 ? 2 : 3;
+        uint8 delta = toHoundred > 95 ? 1 : toHoundred > 80 ? 2 : 3;
         uint8 len = uint8(sourceArray.length);
         uint8 x = len / 3;
         uint8 min = len - (delta* x);
