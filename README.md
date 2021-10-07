@@ -59,8 +59,6 @@ i.e. rinkeby and then copy the link here)`
 ## 3) Compiling and generating json interface
 `node compile.js`
 
-just be sure generateFolder is set to true if you want to deploy a new version
-
 ## 4) Deploying on the blockchain
 `node deploy.js`
 
