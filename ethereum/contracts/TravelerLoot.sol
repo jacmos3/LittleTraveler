@@ -1299,7 +1299,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     constructor() ERC721("TravelerLoot", "TRAVELER") Ownable() {
       //loot and loot derivative addresses which are elegible for the special editions
-      //this is for qualifiedClaim function (loot and loot owners can get a special edition with a special color)
+      //this is for claimQualified function (loot and loot owners can get a special edition with a special color)
       detailsByAddress[0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d] = LootDetails({bColor:"#191D7E",fColor:"white",counter:0,verified:true});
       detailsByAddress[0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa] = LootDetails({bColor:"#DAC931",fColor:"white",counter:0,verified:true});
       detailsByAddress[0x42A87e04f87A038774fb39c0A61681e7e859937b] = LootDetails({bColor:"#B45FBB",fColor:"white",counter:0,verified:true});
@@ -2048,13 +2048,12 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function claimQualified(uint256 tokenId, address contractAddress) public nonReentrant {
         require(detailsByAddress[contractAddress].verified, "This address is not supported. Try another one or use claim() function");
-        require(tokenId > 0 && ((tokenId % MAX_LOOTS)+1) <= MAX_LOOTS, "Token ID invalid");
-        IERC721 player = IERC721(contractAddress);
-        require(player.ownerOf(tokenId) == msg.sender, "You are not the tokenId owner of the input address");
-
+        IERC721 looter = IERC721(contractAddress);
+        require(tokenId > 0 && looter.ownerOf(tokenId) == msg.sender, "You are not the tokenId owner of the input address");
+        uint256 discreetTId = (tokenId % MAX_LOOTS)+1;
         detailsByAddress[contractAddress].counter++;
-        teamList[tokenId] = contractAddress;
-        _safeMint(_msgSender(), tokenId);
+        teamList[discreetTId] = contractAddress;
+        _safeMint(_msgSender(), discreetTId);
     }
 
     function claimOnlyRich() public payable nonReentrant {
