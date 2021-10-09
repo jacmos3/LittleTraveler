@@ -1291,40 +1291,47 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         uint16 counter;
         bool verified;
     }
+    address public lootAddress = 0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7;
     mapping(address => LootDetails) public detailsByAddress;
     mapping(uint256 => address) public teamList;
     uint16 constant MAX_ID = 10000;
-    uint16 constant MAX_OWNER = 222;
-    uint16 constant MAX_LOOTS = 2000;
+    uint16 constant MAX_FOR_OWNER = 222;
+    uint16 constant MAX_FOR_LOOTERS = 2000;
+    uint160 public price;
+    address public treasurer;
 
     constructor() ERC721("TravelerLoot", "TRAVELER") Ownable() {
-      //loot and loot derivative addresses which are elegible for the special editions
-      //this is for claimQualified function (loot&loot-derivative owners can get a special edition with a special color)
-      detailsByAddress[0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d] = LootDetails({bColor:"#191D7E",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa] = LootDetails({bColor:"#DAC931",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0x42A87e04f87A038774fb39c0A61681e7e859937b] = LootDetails({bColor:"#B45FBB",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3] = LootDetails({bColor:"#1FAD94",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0xcC56775606730C96eA245D9cF3890247f1c57FB1] = LootDetails({bColor:"#2C1A72",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0x13a48f723f4AD29b6da6e7215Fe53172C027d98f] = LootDetails({bColor:"#36662A",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF] = LootDetails({bColor:"#78365E",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2] = LootDetails({bColor:"#4F4B4B",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0xeC43a2546625c4C82D905503bc83e66262f0EF84] = LootDetails({bColor:"#9B1414",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463] = LootDetails({bColor:"#77CE58",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7] = LootDetails({bColor:"#C07A28",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d] = LootDetails({bColor:"#511D71",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0xb9310aF43F4763003F42661f6FC098428469aDAB] = LootDetails({bColor:"#949494",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0x83f1d1396B19Fed8FBb31Ed189579D07362d661d] = LootDetails({bColor:"#DB8F8B",fColor:"white",counter:0,verified:true});
-      detailsByAddress[0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f] = LootDetails({bColor:"#318C9F",fColor:"white",counter:0,verified:true});
+      treasurer = msg.sender;
+      price = 1 ether;
+      //this is for loot&loot-derivative owners using claimQualified function.
+      //They will obtain a super rare special edition Traveler Loot (few pieces)
+      detailsByAddress[lootAddress]                                = LootDetails({bColor:"#d5d6d8",fColor:"black",counter:0,verified:true});  //LOOT
+      detailsByAddress[0xb9310aF43F4763003F42661f6FC098428469aDAB] = LootDetails({bColor:"#949494",fColor:"white",counter:0,verified:true});  //NAME
+      detailsByAddress[0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2] = LootDetails({bColor:"#726e6e",fColor:"white",counter:0,verified:true});  //LOOTC - LootCreatures
+      detailsByAddress[0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa] = LootDetails({bColor:"#6eb7e5",fColor:"white",counter:0,verified:true});  //TREASURE
+      detailsByAddress[0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3] = LootDetails({bColor:"#4bbda9",fColor:"white",counter:0,verified:true});  //CHAR
+      detailsByAddress[0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d] = LootDetails({bColor:"#464A97",fColor:"white",counter:0,verified:true});  //LootRealm
+      detailsByAddress[0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF] = LootDetails({bColor:"#935e7e",fColor:"white",counter:0,verified:true});  //MLOOT
+      detailsByAddress[0xcC56775606730C96eA245D9cF3890247f1c57FB1] = LootDetails({bColor:"#887eaf",fColor:"white",counter:0,verified:true});  //AL
+      detailsByAddress[0x83f1d1396B19Fed8FBb31Ed189579D07362d661d] = LootDetails({bColor:"#e2a5a2",fColor:"white",counter:0,verified:true});  //LootHymns
+      detailsByAddress[0x42A87e04f87A038774fb39c0A61681e7e859937b] = LootDetails({bColor:"#c37ec8",fColor:"white",counter:0,verified:true});  //SCORE
+      detailsByAddress[0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f] = LootDetails({bColor:"#d45b5b",fColor:"white",counter:0,verified:true});  //DOGGO
+      detailsByAddress[0xeC43a2546625c4C82D905503bc83e66262f0EF84] = LootDetails({bColor:"#af4242",fColor:"white",counter:0,verified:true});  //LootRock
+      detailsByAddress[0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463] = LootDetails({bColor:"#91a18b",fColor:"white",counter:0,verified:true});  //GMANA
+      detailsByAddress[0x13a48f723f4AD29b6da6e7215Fe53172C027d98f] = LootDetails({bColor:"#586754",fColor:"white",counter:0,verified:true});  //CYBERLOOT
+      detailsByAddress[0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d] = LootDetails({bColor:"#8d734a",fColor:"white",counter:0,verified:true});  //QUESTS
 
-      //add here the tests address
-        //detailsByAddress[TEST_ADDRESS_1] = LootDetails({bColor:"brown",fColor:"yellow",counter:0,verified:true});
-        //detailsByAddress[TEST_ADDRESS_2] = LootDetails({bColor:"black",fColor:"red",counter:0,verified:true});
-
-      //this is for claim function (= owner and normal users they get a black and white loot)
+      //This is for claim function (= owner and normal users).
+      //They will obtain a common black&white Traveler Loot
       detailsByAddress[address(0)] = LootDetails({bColor:"black",fColor:"white",counter:0,verified:true});
 
-      //this is for rich ppl who mint the Traveler Loot with the tokenId of their address
-      detailsByAddress[address(1)] = LootDetails({bColor:"gold",fColor:"white",counter:0,verified:true});
+      //This is for Elites who wants mint by using their address as tokenId.
+      //They will obtain a personalized gold&silver Traveler Loot.
+      detailsByAddress[address(1)] = LootDetails({bColor:"#faed72",fColor:"#a43e3d",counter:0,verified:true});
+
+      //This is for Looters who wants mint by using their address as tokenId.
+      //They get a gold&black Traveler Loot
+      detailsByAddress[address(2)] = LootDetails({bColor:"gold",fColor:"black",counter:0,verified:true});
     }
 
     //not yet sorted
@@ -2010,6 +2017,10 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return output;
     }
 
+    function addressURI(address eliteAddress) external view returns (string memory){
+        return tokenURI(uint160(eliteAddress));
+    }
+
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
         LootDetails memory det = detailsByAddress[teamList[tokenId]];
         string memory bColor = det.bColor;
@@ -2029,17 +2040,17 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return output;
     }
 
-    function howMany(address addr) public view returns (uint16){
+    function counter(address addr) public view returns (uint16){
         require(detailsByAddress[addr].verified, "This address is not verified. Try another one");
         return detailsByAddress[addr].counter;
     }
 
     function claim(uint256 tokenId) public nonReentrant {
-        if (owner() == msg.sender){
-            require(tokenId > MAX_LOOTS && tokenId <= MAX_LOOTS + MAX_OWNER, "Token ID invalid");
+        if (owner() == _msgSender()){
+            require(tokenId > MAX_FOR_LOOTERS && tokenId <= MAX_FOR_LOOTERS + MAX_FOR_OWNER, "Token ID invalid");
         }
         else{
-            require(tokenId > MAX_LOOTS + MAX_OWNER && tokenId <= MAX_ID, "Token ID invalid");
+            require(tokenId > MAX_FOR_LOOTERS + MAX_FOR_OWNER && tokenId <= MAX_ID, "Token ID invalid");
         }
         detailsByAddress[address(0)].counter++;
         teamList[tokenId] = address(0);
@@ -2050,17 +2061,45 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         require(detailsByAddress[contractAddress].verified, "This address is not supported. Try another one or use claim() function");
         IERC721 looter = IERC721(contractAddress);
         require(tokenId > 0 && looter.ownerOf(tokenId) == msg.sender, "You are not the tokenId owner of the input address");
-        uint16 discreetTId = uint16((tokenId % MAX_LOOTS)+1);
+        uint16 discreetTId = uint16((tokenId % MAX_FOR_LOOTERS)+1);
         detailsByAddress[contractAddress].counter++;
         teamList[discreetTId] = contractAddress;
         _safeMint(_msgSender(), discreetTId);
     }
 
-    function claimOnlyRich() public payable nonReentrant {
-        require(msg.value >= 1000000000000000000, "You need to send 10 ether to claim the Traveler Loot corresponding to your address number");
+    function claimForElites() public payable nonReentrant {
+        require(msg.value >= price, "You need to send the correct price to call this function. Only for Elites. If you are a Looter, you can");
+        uint160 castedAddress = uint160(_msgSender());
+        require(castedAddress > MAX_ID, "Try with another address. This one cant be used");
         detailsByAddress[address(1)].counter++;
-        teamList[uint256(uint160(_msgSender()))] = address(1);
-        _safeMint(_msgSender(), uint256(uint160(_msgSender())));
+        teamList[castedAddress] = address(1);
+        _safeMint(_msgSender(), castedAddress);
+    }
+
+
+    function claimForLootElites(uint256 lootId) public nonReentrant {
+        require(lootId > 0 && lootId <= 8000, "Token ID invalid");
+        IERC721 looter = IERC721(lootAddress);
+        require(looter.ownerOf(lootId) == _msgSender(), "Not the owner of this loot");
+        uint160 castedAddress = uint160(_msgSender());
+        require(castedAddress > MAX_ID, "Try with another address. This one cant be used");
+        require(block.timestamp <= 1790546399, "Sorry this offer was only valid till Dom's 40th bday"); //  Sunday 27 September 2026 21:59:59
+
+        detailsByAddress[address(2)].counter++;
+        teamList[castedAddress] = address(2);
+        _safeMint(_msgSender(),castedAddress);
+    }
+
+    function increasePrice() public onlyOwner{
+        require(block.timestamp <= 1790546399, "Sorry, price can't be increased anymore after Dom's 40th bday"); //  Sunday 27 September 2026 21:59:59
+        price += price/10;
+    }
+    function withdraw() public onlyOwner {
+        payable(treasurer).transfer(address(this).balance);
+    }
+
+    function setTreasurer(address newAddress) public onlyOwner{
+      treasurer = newAddress;
     }
 
     function toString(uint256 value) internal pure returns (string memory) {
