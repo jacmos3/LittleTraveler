@@ -1299,29 +1299,26 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint16 constant MAX_FOR_LOOTERS = 2000;
     uint160 public price;
     address public treasurer;
+    uint8 public teams = 0;
+
+    string[] public colors = ["#949494","#726e6e","#6eb7e5","#4bbda9","#464A97","#935e7e","#887eaf","#e2a5a2","#c37ec8","#d45b5b","#af4242","#91a18b","#586754","#8d734a"];
+    address[] public qualifiedTeams = [ 0xb9310aF43F4763003F42661f6FC098428469aDAB /*NAME*/, 0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2 /*LootCreatures*/, 0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa /*TREASURE*/, 0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3 /*CHAR*/, 0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d /*LootRealm*/, 0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF /*MLOOT*/, 0xcC56775606730C96eA245D9cF3890247f1c57FB1 /*AL*/, 0x83f1d1396B19Fed8FBb31Ed189579D07362d661d /*LootHymns*/, 0x42A87e04f87A038774fb39c0A61681e7e859937b /*SCORE*/, 0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f /*DOGGO*/, 0xeC43a2546625c4C82D905503bc83e66262f0EF84 /*LootRock*/, 0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463 /*GMANA*/, 0x13a48f723f4AD29b6da6e7215Fe53172C027d98f /*CYBERLOOT*/, 0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d /*QUESTS*/];
 
     constructor() ERC721("TravelerLoot", "TRAVELER") Ownable() {
+      require(colors.length == qualifiedTeams.length,"colors and qualifiedTeams not with the same length");
+      for(uint8 i = 0; i < qualifiedTeams.length; i++){
+          address temp = qualifiedTeams[i];
+          detailsByAddress[temp].verified = true;
+          detailsByAddress[temp].fColor = "white";
+      }
+      for (uint8 i = 0; i<= 100; i++){
+        experience.push(toString(i));
+      }
+
       treasurer = msg.sender;
       price = 1 ether;
-      //this is for loot&loot-derivative owners using claimQualified function.
-      //They will obtain a super rare special edition Traveler Loot (few pieces)
-      detailsByAddress[lootAddress]                                = LootDetails({bColor:"#d5d6d8",fColor:"black",counter:0,verified:true});  //LOOT
-      detailsByAddress[0xb9310aF43F4763003F42661f6FC098428469aDAB] = LootDetails({bColor:"#949494",fColor:"white",counter:0,verified:true});  //NAME
-      detailsByAddress[0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2] = LootDetails({bColor:"#726e6e",fColor:"white",counter:0,verified:true});  //LOOTC - LootCreatures
-      detailsByAddress[0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa] = LootDetails({bColor:"#6eb7e5",fColor:"white",counter:0,verified:true});  //TREASURE
-      detailsByAddress[0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3] = LootDetails({bColor:"#4bbda9",fColor:"white",counter:0,verified:true});  //CHAR
-      detailsByAddress[0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d] = LootDetails({bColor:"#464A97",fColor:"white",counter:0,verified:true});  //LootRealm
-      detailsByAddress[0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF] = LootDetails({bColor:"#935e7e",fColor:"white",counter:0,verified:true});  //MLOOT
-      detailsByAddress[0xcC56775606730C96eA245D9cF3890247f1c57FB1] = LootDetails({bColor:"#887eaf",fColor:"white",counter:0,verified:true});  //AL
-      detailsByAddress[0x83f1d1396B19Fed8FBb31Ed189579D07362d661d] = LootDetails({bColor:"#e2a5a2",fColor:"white",counter:0,verified:true});  //LootHymns
-      detailsByAddress[0x42A87e04f87A038774fb39c0A61681e7e859937b] = LootDetails({bColor:"#c37ec8",fColor:"white",counter:0,verified:true});  //SCORE
-      detailsByAddress[0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f] = LootDetails({bColor:"#d45b5b",fColor:"white",counter:0,verified:true});  //DOGGO
-      detailsByAddress[0xeC43a2546625c4C82D905503bc83e66262f0EF84] = LootDetails({bColor:"#af4242",fColor:"white",counter:0,verified:true});  //LootRock
-      detailsByAddress[0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463] = LootDetails({bColor:"#91a18b",fColor:"white",counter:0,verified:true});  //GMANA
-      detailsByAddress[0x13a48f723f4AD29b6da6e7215Fe53172C027d98f] = LootDetails({bColor:"#586754",fColor:"white",counter:0,verified:true});  //CYBERLOOT
-      detailsByAddress[0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d] = LootDetails({bColor:"#8d734a",fColor:"white",counter:0,verified:true});  //QUESTS
 
-      //This is for claim function (= owner and normal users).
+      //This is for claim function used by owner and normal users.
       //They will obtain a common black&white Traveler Loot
       detailsByAddress[address(0)] = LootDetails({bColor:"black",fColor:"white",counter:0,verified:true});
 
@@ -1332,219 +1329,49 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       //This is for Looters who wants mint by using their address as tokenId.
       //They get a gold&black Traveler Loot
       detailsByAddress[address(2)] = LootDetails({bColor:"gold",fColor:"black",counter:0,verified:true});
+
+      //this is for loot owners using claimQualified function.
+      //They will obtain a super rare special edition Traveler Loot in platinum background and black font
+
+      detailsByAddress[lootAddress] = LootDetails({bColor:"#d5d6d8",fColor:"black",counter:0,verified:true});  //LOOT
+
+      //all the other loot-derivatives qualified for this travel, they will receive their color on the way.
+      //Each loot-derivative is a team. And the first member of the team who will use the claimQualified function
+      //will be responsible of the color picked for it's team.
+
     }
 
+    //sorted
+    string[] private place = ["place 1","place 2","place 3","place 4", "42.452483,-6.051345", "34.132700,-118.283800"];
+
+    //sorted
+    string[] private character = ["character 1 ","character 2","character 3","character 4","character 5","character 6"];
+
+    //sorted
+    string[] private transport = ["transport 1","transport 2","transport 3","transport 4","transport 5","transport 6"];
+
+    //sorted
+    string[] private language = ["language 1","language 2", "language 3", "language 4", "language 5", "language 6"];
+
+    //sorted
+    string[] private experience;
+
     //not yet sorted
-    string[] private environment = [
-        "Urban",
-        "Beaches",
-        "Mountains",
-        "Countrysides",
-        "Lakes",
-        "Rivers",
-        "Party islands",
-        "Farms",
-        "Tropical areas",
-        "Snowy places",
-        "Forests",
-        "Deserts",
-        "Wilderness",
-        "Rainforests",
-        "North Pole",
-        "South Pole",
-        "Volcanic islands",
-        "Natural parks",
-        "Historical cities",
-        "Old towns",
-        "Small cities",
-        "Small towns",
-        "Villages",
-        "Jungla" //Aggiunta per arrivare al multiplo di 3
-    ];
+    string[] private environment = ["environment 1", "environment 2", "environment 3", "environment 4", "environment 5", "environment 6"];
 
       //not yet sorted
-    string[] private talent = [
-        "Tech Genius",
-        "Intuition",
-        "Singer",
-        "Dancer",
-        "Painter",
-        "Basketball Player",
-        "Tennis Player",
-        "Football Player",
-        "Soccer Player",
-        "Climber",
-        "Swimmer",
-        "Photographer",
-        "Street Artist",
-        "Painting",
-        "Writing",
-        "Pottery",
-        "Dancing",
-        "Mathematics",
-        "Architecture",
-        "Physics",
-        "Spelling",
-        "Cooking",
-        "Baking",
-        "Logic",
-        "Running",
-        "Sword-fighting",
-        "Boxing",
-        "Ice skating",
-        "Jumping",
-        "Climbing",
-        "Hiking",
-        "Knot-making",
-        "Sailing",
-        "Repairing things",
-        "Cheering people up",
-        "Bridgebuilding",
-        "Gathering",
-        "Hunting",
-        "Fishing",
-        "Archery",
-        "Plumbing",
-        "Dressmaking",
-        "Navigating",
-        "Horseback-riding",
-        "Acting",
-        "Singing",
-        "Composing music",
-        "Roofing",
-        "Researching",
-        "Book-keeping",
-        "Investing",
-        "Listening",
-        "Farming",
-        "Brewing",
-        "Winemaking",
-        "Mining",
-        "Acrobatics",
-        "Cartography",
-        "Memorizing things",
-        "Speedreading",
-        "Comforting others",
-        "Parenting",
-        "Stonemasonry",
-        "Falconry",
-        "Wrestling",
-        "Whistling",
-        "Juggling",
-        "Rhyming",
-        "Spying",
-        "Keeping secrets",
-        "Lying",
-        "Storytelling",
-        "Hair-styling",
-        "Debating",
-        "Dispute resolution",
-        "Negotiating",
-        "Teaching",
-        "Coding",
-        "Computer-hacking",
-        "Origami",
-        "Calligraphy",
-        "Playing chess",
-        "Carvin pumpkins",
-        "Hypnotizing"
-    ];
-
-    //sorted
-    string[] private place = ["Eiffel Tower, Paris, France", "St. Peter's Basilica, Vatican City", "Colosseum, Rome, Italy", "Parthenon, Athens, Greece", "Taj Mahal, Agra, India", "Forbidden City, Beijing, China", "Las Vegas, Nevada", "Sagrada Familia, Barcelona, Spain", "Cologne Cathedral, Cologne, Germany", "Statue of Liberty, New York City, USA", "Pompeii, Naples, Italy", "Musée d'Orsay, Paris, France", "Schönbrunn Palace, Vienna, Austria", "Tulum, Quintana Roo, Mexico", "Peterhof Palace, Saint Petersburg, Russia", "Bangkok, Thailand", "Tower of London, London, UK", "Alhambra, Granada, Spain", "San Marco Square, Venice, Italy", "Ciudad de las Artes y las Ciencias, Valencia, Spain", "Teotihuacán, Mexico", "Moscow Kremlin, Moscow, Russia", "Copacabana, Rio de Janeiro, Brazil", "Great Wall of China", "Havana, Cuba", "Marrakech, Morocco", "Chichén Itzá, Yucatán, Mexico", "Edinburgh Castle, Edinburgh, Scotland", "Centre Pompidou, Paris, France", "Mosque–Cathedral of Córdoba, Córdoba, Spain", "Royal Alcázar of Seville, Seville, Spain", "Royal Palace of Madrid, Madrid, Spain", "IkKil Cenote, Tinúm Municipality, Yucatán, Mexico", "Arc de Triomphe, Paris, France", "Neuschwanstein Castle, Hohenschwangau, Germany", "Machu Picchu, Cusco, Peru", "Castillo San Felipe del Morro, San Juan, Puerto Rico", "Monkey Forest , Ubud, Bali, Indonesia", "Gili Trawangan, Lombok, Indonesia", "Gili Air, Lombok, Indonesia", "Caminito, Buenos Aires", "Gili Meno, Lombok, Indonesia", "Santa Monica Beach, California", "South Beach, Miami, Florida", "Waikiki, Honolulu, Hawaii", "Topkapı Palace, Istanbul, Turkey", "Whitehaven Beach, Whitsunday Island, Australia", "Maya Bay, Phi Phi Islands, Thailand", "Falassarna Beach, Crete, Greece", "Portstewart Strand, Northern Ireland", "Byron Bay, Australia", "Coffee Bay, Wild Coast, South Africa", "Praia do Sancho, Fernando de Noronha, Brazil", "Hot Water Beach, Coromandel Peninsula, New Zealand", "Long Beach, Phu Quoc, Vietnam", "Navagio Beach, Zakynthos, Greece", "Lincoln Memorial, Washington, D.C., USA", "Paradise Beach, Rab, Croatia", "Lover's Beach, Baja California Sur, Mexico", "Arashi Beach, Aruba", "An Bang Beach, Hoi An, Vietnam", "Unawatuna, Sri Lanka", "Bandon, Oregon, United States", "Puka Beach, Boracay, Philippines", "Ffryes Beach, Antigua", "La Concha, Spain", "Las Salinas, Ibiza, Spain", "Cape Maclear, Malawi", "Renaissance Island, Aruba", "Jeffreys Bay, South Africa", "Vilanculos Beach, Mozambique", "Flamenco Beach, Puerto Rico", "Oludeniz Beach, Turkey", "Capo Sant'Andrea, Elba, Italy", "Venice Beach, California, United States", "Plage de Piémanson, France", "Laughing Bird Caye, Belize", "Punalu'u, Hawaii, United States", "Angel Falls, Bolívar, Venezuela", "Iguazu National Park, Argentina", "Inle Lake, Myanmar", "Catatumbo Lightning, Maracaibo, Venezuela", "Kaiteriteri Beach, Nelson, New Zealand", "Belle Mare, Mauritius", "Wawel Castle, Kraków, Poland", "Skagen Beach, Denmark", "Isshiki Beach, Hayama, Japan", "Radhanagar Beach, Andaman Islands, India", "Lisbona, Portugal", "Haad Rin, Ko Pha Ngan, Thailand", "Phra Nang Beach, Railay, Thailand", "Varanasi, India", "Beidaihe, China", "Na'ama Bay, Sharm el Sheikh, Egypt", "Akajima, Okinawa, Japan", "National Palace Museum, Taipei, Taiwan", "Abaka Bay, Haiti", "Mysore Palace, Mysore, India", "Diani Beach, Kenya", "Battle of Stalingrad Museum, Volgograd, Russia", "Cavendish Beach, Prince Edward Island, Canada", "Little Corn beaches, Nicaragua", "Marseille, France", "Fez, Morocco", "Southwestern Beach, Koh Rong, Cambodia", "Panama City Beach, Florida, United States", "Porto da Barra, Salvador, Brazil", "Chefchouen, Morocco", "Los Roques, Federal Dependencies, Venezuela", "Tanjung Rhu, Langkawi, Malaysia", "Trunk Bay, St. John, U.S. Virgin Islands", "Natadola Beach, Fiji", "Patnem Beach, Goa, India", "Bondi Beach, Sydney, Australia", "Nungwi, Zanzibar, Tanzania", "Negril Beach, Jamaica", "Dominical Beach, Costa Rica", "Canggu Beach, Bali, Indonesia", "Karekare, West Auckland, New Zealand", "West Bay Beach, Roatan, Honduras", "Nemocón Salt Mines, Cundinamarca, Colombia", "Bahia Solano, Chocó, Colombia", "Balos Beach, Greece", "Cayo Paraiso, Dominican Republic", "Margaret River, Australia", "Navagio Beach, Greece", "Maya Bay, Ko Phi Phi, Thailand", "Playa Paraiso, Cayo Largo, Cuba", "Independence National Historical Park, Philadelphia, USA", "Warwick Long Bay, Bermuda", "Sunrise Beach, Koh Lipe, Thailand", "Hanalei Bay, Hawaii, United States", "Bottom Bay, Barbados", "Meads Bay, Anguilla", "Long Bay, Saint-Martin", "Sun Island Beach, Maldives", "Egremni Beach, Greece", "Crane Beach, Barbados", "Boulders Beach, Cape Town", "Grand Anse, Grenada", "Juara Beach, Tioman Island, Malaysia", "Rarotonga, Cook Islands", "Nihiwatu Beach, Sumba, Indonesia", "Pigeon Point, Tobago, Trinidad and Tobago", "Luskentyre Beach, Scotland", "The Baths, Virgin Gorda, British Virgin Islands", "El Nido, Palawan, Philippines", "Pulau Perhentian Kecil, Malaysia", "Palaui Island, Cagayan Valley, Philippines", "Champagne Beach, Vanuatu", "Jaipur, Rajasthan, India", "Wilanów Palace, Warsaw, Poland", "Wineglass Bay, Tasmania", "Cabbage Beach, Paradise Island, Bahamas", "Anse de Grande Saline, St. Barths", "Anse Source d'Argent, La Digue, Seychelles", "Valparaiso, Chile", "Grace Bay, Providenciales, Turks and Caicos Islands", "Rabbit Beach, Lampedusa, Italy", "Grande Anse Beach, La Digue Island, Seychelles", "Cuernos Del Paine, Patagonia, Chile", "Mount Thor, Baffin Island, Nunavut, Canada", "Essaouira, Morocco", "Alpamayo, Cordillera Blanca, Peru", "Matterhorn, Switzerland, France and Italy", "Ama Dablam, Nepal", "Half Dome, California, USA", "Laila Peak, Gilgit-Baltistan, Pakistan", "Bacalar lagoon, Mexico", "Kazan Kremlin, Kazan, Republic of Tatarstan", "Mount Fuji, island of Honshū, Japan", "Mount Kilimanjaro, Tanzania, Africa", "Bagan, Myanmar", "Stetind, Narvik, Nordland, Norway", "Trango Towers, Gilgit-Baltistan, Pakistan", "Tsaranoro, Andringitra National Park, Madagascar", "Matira Beach, Bora Bora, Tahiti", "Fortaleza, Ceará, Brazil", "Uluru, Northern Territory, Australia", "Łazienki Palace, Warsaw, Poland", "Table Mountain, Cape Town, South Africa", "Lake District, Mountainous region in North West, England", "Batu Caves, Malaysia", "Sagano Bamboo Forest, Arashiyama, Kyoto, Japan", "Huacachina, Southwestern Peru", "Chapultepec Castle, Mexico City, Mexico", "Palenque, Chiapas, Mexico", "Sutherland Falls, Milford Sound, Zealand", "Laguna Verde, Potosí Department, Bolivia", "Tiger’s Nest Monastery, Upper Paro Valley, Bhutan", "Verdon Gorge, Provence-Alpes-Côte d'Azur, France", "Socotra Island, Socotra Archipelago, Yemen", "Saint Lucia, Caribbean Sea", "Keukenhof, Municipality of Lisse, Netherlands", "Faroe Islands, Atlantic, Kingdom of Denmark", "Guggenheim Museum, New York, USA", "Perito Moreno Glacier, Santa Cruz Province, Argentina", "Freudenberg Town, North Rhine-Westphalia, Germany", "Town of Luang Prabang, Laos", "Gardner Bay, Espanola Island, Ecuador", "Tasiilaq Town, Sermersooq Municipality, Greenland", "Neelum Valley, Pakistan", "Lofoten, Norway", "Great Blue Hole, Belize", "Tongariro National Park", "Aiguille Du Dru, Haute-Savoie, France", "Angkor Wat, Cambodia", "Petra, Mountain of Jabal Al-Madbah, Jordan", "Salar De Uyuni, Bolivia", "Galapagos Islands", "Jasper Creek, Bolívar, Venezuela", "The Nazca Lines", "Perito Moreno Glacier, El Calafate, Argentina", "Aitutaki, Cook Islands", "Halong Bay, Vietnam", "San Francisco, California", "Pyramids of Giza, Egypt", "Matsumoto Castle", "Laguna Colorada, Bolivia", "Patan, Nepal", "Niue Island, New Zealand", "Aoraki / Mount Cook", "Amber Fort, Rajasthan, India", "Antigua,  Antigua and Barbuda", "Puerto Princesa Underground River", "Sahara, Morocco", "Meteora Orthodox Monasteries, Greece", "Komodo Island, Indonesia", "Petronas Twin Towers, Kuala Lumpur, Malaysia", "Khajuraho, Madhya Pradesh, India", "Rock Islands of Palau", "Carthage, Tunisia", "Statue of Unity, Kevadiya, India", "Karnak Temple", "Historic City of Segovia and Aqueduct, Spain", "Mont St. Michel, France", "Eiger, Mountain in the Bernese Alps, Switzerland", "Wadi Rum Protected Area", "Belize Barrier Reef Reserve System, Belize City, Belize", "Blue Waterfall", "Lifou Island, New Caledonia, Loyalty Islands", "Huayna Picchu, Cusco, Peru", "White Island, Long Beach, California, USA", "Moorea, Tahiti", "Placencia Beach, Belize", "Yap Islands, Micronesia", "Easter Island, Chile", "South Pole, Antarctica", "Mount Rushmore, South Dakota, USA", "Griffith Park, Los Angeles, California, USA", "Hollywood sign, Los Angeles, California, USA", "Matera, Italy", "Perugia, Italy", "Annecy, Haute-Savoie, France", "Burj Al Arab, Dubai", "Marina Bay, Singapore", "Ifaty Beach, Madagascar", "Amlaj, Tabuk, Saudi Arabia ", "Al-Ala, Medinah, Saudi Arabia ", "The Lost Paradise Of Dilmun, Bahrain ", "Al-Murabba Palace, Riyadh, Saudi Arabia", "Greenwich meridian, London, UK", "Vietnam Veterans Memorial, Washington, D.C., USA", "Boracay, Aklan, Philippines", "Puerto Princesa, Palawan, Philippines", "Waikiki Beach, Hawaii", "Serengeti National Park, Tanzania", "Ngorongoro Crater, Tanzania", "Stone Town, Zanzibar ", "Atacama desert, Chile ", "Gheralta, Ethiopia", "Addis Abeba, Ethiopia ", "Bwindi Impenetrable forest National Park, Uganda", "Vilankulos, Mozambique ", "Blyde river Canyon South Africa ", "Coffee bay, South Africa ", "Fish river Canyon, Namibia ", "Dedvleil, Namibia ", "Bazaruto Island, Mozambique ", "Isla Magdalena, Ushuaia", "Hue, Vietnam", "Bartolome island, Galapagos Island", "Jeddah Corniche, Makkah, Saudi Arabia ", "Genovesa Island,, Galapagos Island ", "San Blas islands, Panama ", "Salary Bay, Madagascar", "Salta, Argentina", "Kuang Si Falls, Laos", "Granada, Nicaragua", "Antigua, Guatemala ", "Tikal , Guatemala ", "White Sand National Park, New Mexico", "Seven Mile beach, Negril, Jamaica ", "Victoria falls, Zambia", "New Orleans, Alabama", "Corn Islands, Nicaragua ", "Mahahual, Mexico", "Mostar, Bosnia Erzegovina ", "Merzouga, Morocco", "Espanola Island, Galapagos Islands", "Bocas del Toro, Panama", "Danakil Depression, Ethiopia", "Omo Valley, Ethiopia", "Opuwo, Namibia", "Al-Masmak Fortress, Riyadh, Saudi Arabia ", "Sarajevo, Bosnia Erzegovina", "Pulau Derawan, Indonesia", "Okavango Delta, Botswana", "Tsingy de Bemaraha National Park, Madagascar", "Burj Khalifa, Dubai", "Pemba Island, Tanzania", "Denali National Park and Preserve, Alaska, USA", "Fitz Roy, Cerro Chaltén, Patagonian, Chile / Argentina", "Huangshan, Anhui Province, China", "Mount Roraima -Tepuy Roraima-, Bolívar, Venezuela", "Potosì, Bolivia", "Al-Aqsa Mosque , Jerusalem, Palestina and Israel ", "Mafia Island, Tanzania", "Kibale Forest National Park, Uganda", "Linosa, Italy", "World War II Memorial, Washington, D.C., USA", "Titicaca lake, Bolivia", "Quito, Ecuador", "Palace of Versailles, Versailles, The future of France", "Bitcoin beach (Playa El Zonte), El Salvador", "Bitcoin Valley, Rovereto, Garda Lake, Italy", "Main Hub, The Sandbox, Metaverse", "The Street, Metaverse", "The Street, Downtown, Metaverse", "The Black Sun, Downtown, Metaverse", "Zion, the last human city", "Construct, the Matrix", "Downtown, Mega City, the Matrix", "Oasis, Metaverse", "Kolomna, Moscow Oblast, Russia", "Waterloo, Ontario, Canada", "Long Beach, California, USA", "Twitter, Metaverse", "Discord, Metaverse", "Etherscan, Metaverse", "0x000000000000000000000000000000000000dead", "0x0000000000000000000000000000000000000000", "127.0.0.1", "::1", "https://tripscommunity.com", "tripscommunity.eth", "42.452483,-6.051345", "34.132700,-118.283800"];
-
-    //sorted
-    string[] private character = ["Energetic", "Good-natured", "Enthusiastic", "Challenging", "Charismatic", "Wise", "Modest", "Honest", "Protective", "Perceptive", "Providential", "Prudent", "Spontaneous", "Insightful", "Intelligent", "Intuitive", "Precise", "Sharing", "Simple", "Sociable", "Sophisticated", "Benevolent", "Admirable", "Brilliant", "Accessible", "Calm", "Capable", "Optimistic", "Respectful", "Responsible", "Responsive", "Invulnerable", "Kind", "Lovable", "Loyal", "Practical", "Patient", "Patriot", "Reliable", "Secure", "Selfless", "Uncomplaining", "Understanding", "Resourceful", "Curious", "Daring", "Decisive", "Dedicated", "Disciplined", "Discreet", "Active", "Adaptable", "Adventurous", "Alert", "Appreciative", "Aspiring", "Dutiful", "Captivating", "Caring", "Efficient", "Elegant", "Eloquent", "Empathetic", "Earnest", "Educated", "Courteous", "Athletic", "Agreeable", "Balanced", "Creative", "Orderly", "Romantic", "Hardworking", "Scrupulous", "Considerate", "Contemplative", "Organized", "Original", "Passionate", "Relaxed", "Principled", "Profound", "Reflective", "Sensitive", "Sentimental", "Serious", "Cultured", "Forgiving", "Forthright", "Freethinking", "Friendly", "Fun-loving", "Generous", "Gentle", "Genuine", "Cheerful", "Clever", "Compassionate", "Conciliatory", "Confident", "Conscientio", "Honorable", "Humble", "Humorous", "Idealistic", "Fair", "Sporting", "Strong", "Subtle", "Sweet", "Sympathetic", "Systematic", "Tasteful", "Thorough", "Tidy", "Dramatic", "Tolerant", "Tractable", "Trusting", "Firm", "Flexible", "Focused", "Cooperative", "Courageous", "Imaginative", "Independent", "Innovative", "Observant", "Playful", "Gracious", "Vivacious", "Warm", "Well-read", "Self-reliant", "Charming", "Dynamic", "Helpful", "Peaceful", "Perfectionist", "Persuasive", "Popular", "Articulate", "Magnanimous", "Mature", "Methodical", "Moderate", "Objective", "Rational", "Realistic", "Witty"/*,"Youthful"*/];
-
-    //sorted
-    string[] private transport = ["Train", "Car", "Bus", "Airplane", "Cruise", "4 wheel drive car", "Bus", "Airplane", "Convertible car", "Bicycle", "Motorbike", "Electric Bicycle", "Campervan", "Trailer", "Sailboat", "Electric car", "Scooter", "Bullet train", "Local train", "Cinquecento", "Hitch-hiking", "VW Beetle", "Station wagon", "VW Bus", "Truck", "Off-road Vehicle", "Cab", "Motorboat", "Hot Air Balloon", "Cruise Ship", "Mountain bike", "Sports car", "Yacht", "RickShaw", "Horse carriage", "Biplane", "Orient Express", "Cargo ship", "Vespa", "Four-wheel drive", "Canoe", "Tractor", "Ferry", "Helicopter", "Jeep", "Low-rider", "Monocycle", "Limousine", "Maglev", "Submarine", "Lambo", "Ferrari", "Rocket", "DeLorean", "Kia Sedona", "Magic carpet", "Broomstick"];
-
-    //sorted
-    string[] private language = ["English", "Mandarin Chinese", "Hindi", "Spanish", "Arabic", "Bengali", "French", "Russian", "Portuguese", "Urdu", "Indonesian", "German", "Japanese", "Marathi", "Telugu", "Turkish", "Tamil", "Yue Chinese", "Wu Chinese", "Korean", "Vietnamese", "Hausa", "Iranian Persian", "Swahili", "Javanese", "Italian", "Western Punjabi", "Gujarati", "Thai", "Kannada", "Amharic", "Bhojpuri", "Eastern Punjabi", "Min Nan Chinese", "Nigerian Pidgin", "Jin Chinese", "Filipino", "Hakka Chinese", "Yoruba", "Burmese", "Sudanese Spoken Arabic", "Polish", "Odia", "Cambodian", "Croatian", "Danish", "Serbian", "Slovenian", "Estonian", "Latvian", "Lithuanian", "Finnish", "Czech", "Slovakian", "Greek", "Hungarian", "Swiss", "Icelandic", "Iraqi", "Irish", "Lao", "Lebanese", "Malagasy", "Berber", "Mongolian", "Montenegrin", "Burmese", "Nepalese", "Dutch", "Norwegian", "Rumenian", "Sinhala", "Tamil", "Uzbek", "Martian"];
-
-    //already sorted
-    string[] private experience = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61", "62", "63", "64", "65", "66", "67", "68", "69", "70", "71", "72", "73", "74", "75", "76", "77", "78", "79", "80", "81", "82", "83", "84", "85", "86", "87", "88", "89", "90", "91", "92", "93", "94", "95", "96", "97", "98", "99", "100"];
-    //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
-    //not yet sorted
-    string[] private occupation = [
-        "Traveller",
-        "Host",
-        "SmartWorker",
-        "Service Provider",
-        "Digital Nomad",
-        "Freelancer",
-        "Unemployed",
-        "Crypto Trader",
-        "Play 2 Earner",
-        "DeFi Airdrop Hunter",
-        "DAO Community Manager",
-        "DAO Member",
-        "NFT flipper",
-        "TripsCommunity Member",
-        "NFT collector"
-    ];
-
-    //already sorted
-    string[] private accomodation = [
-       "Hotel",
-        "Apartment",
-        "Hostel",
-        "Tent",
-        "Bed and Breakfast",
-        "Guest house",
-        "Chalet",
-        "Cottage",
-        "Boat",
-        "Caravan",
-        "Motorhome",
-        "5 stars Hotel",
-        "Suite in 5 Stars Hotel",
-        "Tipi",
-        "Tree House",
-        "Bungalow",
-        "Ranch",
-        "Co-living",
-        "Gablefront cottage",
-        "Longhouse",
-        "Villa",
-        "Yurt",
-        "Housebarn",
-        "Adobe House",
-        "Castle",
-        "Rammed earth",
-        "Sod house",
-        "Underground living",
-        "Wattle and daub",
-        "Log house",
-        "I-house",
-        //"Stilt house",
-        //"Venetian palace",
-        "Igloo",
-        "Trullo"
-    ];
+    string[] private talent = ["talent 1 ", "talent 2", "talent 3", "talent 4", "talent 5", "talent 6"];
 
     //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
     //not yet sorted
-    string[] private bag = [
-        "Pen",
-        "Swiss knife",
-        "Mobile phone",
-        "Notebook ",
-        "Digital Camera",
-        "Knife",
-         "Pen",
-        "Swiss knife",
-        "Mobile phone",
-        "Notebook ",
-        "Digital Camera",
-        "Knife",
-         "Pen",
-        "Swiss knife",
-        "Mobile phone",
-        "Notebook ",
-        "Digital Camera",
-        "Knife"
-    ];
+    string[] private occupation = ["occupation 1", "occupation 2", "occupation 3", "occupation 4", "occupation 5", "occupation 6"];
+
+    //already sorted
+    string[] private accomodation = ["accomodation 1", "accomodation 2", "accomodation 3", "accomodation 4", "accomodation 5", "accomodation 6"];
+
+    //IL NUMERO DEGLI ELEMENTI DEVE ESSERE UN MULTIPLO DI 3
+    //not yet sorted
+    string[] private bag = ["bag 1", "bag 2", "bag 3", "bag 4", "bag 5", "bag 6"];
 
     function random(string memory input) internal pure returns (uint256) {
         return uint256(keccak256(abi.encodePacked(input)));
@@ -1650,17 +1477,23 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function claimQualified(uint256 tokenId, address contractAddress) public nonReentrant {
-        require(detailsByAddress[contractAddress].verified, "This address is not supported. Try another one or use claim() function");
+        require(detailsByAddress[contractAddress].verified, "This address is not verified. Try another or use claim()");
         IERC721 looter = IERC721(contractAddress);
-        require(tokenId > 0 && looter.ownerOf(tokenId) == msg.sender, "You are not the tokenId owner of the input address");
-        uint16 discreetTId = uint16((tokenId % MAX_FOR_LOOTERS)+1);
+        require(tokenId > 0 && looter.ownerOf(tokenId) == _msgSender(), "You are not the tokenId owner of the input address");
+        if (detailsByAddress[contractAddress].verified == true && detailsByAddress[contractAddress].counter == 0){
+            detailsByAddress[contractAddress].bColor = colors[teams];
+            teams++;
+        }
         detailsByAddress[contractAddress].counter++;
+
+        uint16 discreetTId = uint16((tokenId % MAX_FOR_LOOTERS)+1);
         teamList[discreetTId] = contractAddress;
+
         _safeMint(_msgSender(), discreetTId);
     }
 
     function claimForElites() public payable nonReentrant {
-        require(msg.value >= price, "You need to send the correct price to call this function. Only for Elites. If you are a Looter, you can");
+        require(msg.value >= price, "You need to set the correct price.");
         uint160 castedAddress = uint160(_msgSender());
         require(castedAddress > MAX_ID, "Try with another address. This one cant be used");
         detailsByAddress[address(1)].counter++;
@@ -1684,6 +1517,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function increasePrice() public onlyOwner{
         require(block.timestamp <= 1790546399, "Sorry, price can't be increased anymore after Dom's 40th bday"); //  Sunday 27 September 2026 21:59:59
+        //increase price by 10%
         price += price/10;
     }
     function withdraw() public onlyOwner {
