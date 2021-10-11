@@ -1323,7 +1323,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
           detailsByAddress[temp].verified = true;
           detailsByAddress[temp].fColor = "white";
       }
-      for (uint8 i = 0; i<= 100; i++){
+      for (uint8 i = 1; i<= 99; i++){
         experience.push(toString(i));
       }
 
