@@ -1353,7 +1353,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
           experience.push(toString(i));
       }
-      for (uint8 i = len; i<= 98; i++){
+
+      for (uint8 i = len; i <= 98; i++){
         experience.push(toString(i));
       }
 
@@ -1374,9 +1375,11 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       //this is for loot owners using claimForQualifiedTeams function.
       detailsByAddress[lootAddress] = LootDetails({bColor:"#d5d6d8",fColor:F_COLOR_DEFAULT,counter:0,verified:true});  //LOOT
 
-      //all the other loot-derivatives qualified for this travel, they will receive their color on the fly.
-      //Each loot-derivative is a team. And the first member of the team who will use the claimForQualifiedTeams function
-      //will be responsible of the color picked for it's whole team, ever.
+      //all the other loot-derivatives qualified for this adventure, they will
+      //receive their color "on the fly":
+      //Each loot-derivative is considered as a team: The first member of each
+      //team that use the claimForQualifiedTeams function, will be responsible
+      //for the color picked for it's whole team. Not possible to change.
 
     }
     function random(string memory input) internal pure returns (uint256) {
