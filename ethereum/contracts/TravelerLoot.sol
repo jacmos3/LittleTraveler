@@ -1291,7 +1291,23 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         uint16 counter;
         bool verified;
     }
-    address public lootAddress = 0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7;
+    address public lootAddress =
+                    0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7; //LOOT ORIGINAL
+    address[] public qualifiedTeams = [
+                    0xb9310aF43F4763003F42661f6FC098428469aDAB, //NAME
+                    0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2, //LootCreatures
+                    0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa, //TREASURE
+                    0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3, //CHAR
+                    0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d, //LootRealm
+                    0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF, //MLOOT
+                    0xcC56775606730C96eA245D9cF3890247f1c57FB1, //AL
+                    0x83f1d1396B19Fed8FBb31Ed189579D07362d661d, //LootHymns
+                    0x42A87e04f87A038774fb39c0A61681e7e859937b, //SCORE
+                    0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f, //DOGGO
+                    0xeC43a2546625c4C82D905503bc83e66262f0EF84, //LootRock
+                    0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463, //GMANA
+                    0x13a48f723f4AD29b6da6e7215Fe53172C027d98f, //CYBERLOOT
+                    0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d]; //QUESTS
     mapping(address => LootDetails) public detailsByAddress;
     mapping(uint256 => address) public teamList;
     uint16 constant MAX_ID = 10000;
@@ -1301,7 +1317,6 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     address public treasurer;
     uint8 public teams = 0;
 
-    address[] public qualifiedTeams = [ 0xb9310aF43F4763003F42661f6FC098428469aDAB /*NAME*/, 0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2 /*LootCreatures*/, 0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa /*TREASURE*/, 0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3 /*CHAR*/, 0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d /*LootRealm*/, 0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF /*MLOOT*/, 0xcC56775606730C96eA245D9cF3890247f1c57FB1 /*AL*/, 0x83f1d1396B19Fed8FBb31Ed189579D07362d661d /*LootHymns*/, 0x42A87e04f87A038774fb39c0A61681e7e859937b /*SCORE*/, 0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f /*DOGGO*/, 0xeC43a2546625c4C82D905503bc83e66262f0EF84 /*LootRock*/, 0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463 /*GMANA*/, 0x13a48f723f4AD29b6da6e7215Fe53172C027d98f /*CYBERLOOT*/, 0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d /*QUESTS*/];
     string[] public colors = ["#726e6e","#464A97","#6eb7e5","#8d734a","#4bbda9","#949494","#887eaf","#e2a5a2","#d45b5b","#af4242","#91a18b","#935e7e","#c37ec8","#586754"];
 
     string[] private place = ["place 1","place 2","place 3","place 4", "42.452483,-6.051345", "34.132700,-118.283800"];
