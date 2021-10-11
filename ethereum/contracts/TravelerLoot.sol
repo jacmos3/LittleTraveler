@@ -1319,10 +1319,10 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint8 public enrolledTeams = 0;
 
     string[] private colors = ["#726e6e","#464A97","#6eb7e5","#8d734a","#4bbda9","#949494","#887eaf","#e2a5a2","#d45b5b","#af4242","#91a18b","#935e7e","#c37ec8","#586754"];
-    address private teamOwner = address(0);
-    address private teamUsers = address(1);
-    address private teamElites = address(2);
-    address private teamLootElites = address(3);
+    address private constant teamOwner = address(0);
+    address private constant teamUsers = address(1);
+    address private constant teamElites = address(2);
+    address private constant teamLootElites = address(3);
     string[] private place = ["place 1","place 2","place 3","place 4", "42.452483,-6.051345", "34.132700,-118.283800"];
     string[] private character = ["character 1 ","character 2","character 3","character 4","character 5","character 6"];
     string[] private transport = ["transport 1","transport 2","transport 3","transport 4","transport 5","transport 6"];
@@ -1333,8 +1333,14 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string[] private occupation = ["occupation 1", "occupation 2", "occupation 3", "occupation 4", "occupation 5", "occupation 6"];
     string[] private accomodation = ["accomodation 1", "accomodation 2", "accomodation 3", "accomodation 4", "accomodation 5", "accomodation 6"];
     string[] private bag = ["bag 1", "bag 2", "bag 3", "bag 4", "bag 5", "bag 6"];
-    string private fColorDefault = "white";
-    string private bColorDefault = "black";
+    string private constant F_COLOR_DEFAULT = "white";
+    string private constant B_COLOR_DEFAULT = "black";
+    uint256 private constant EXPIRATION = 1790546399; //  Sunday 27 September 2026 21:59:59
+    string private constant ERROR_TOKEN_ID_INVALID = "Token ID invalid";
+    string private constant ERROR_ADDRESS_NOT_VERIFIED = "Loot derivative address not verified. Try another";
+    string private constant ERROR_NOT_THE_OWNER = "You do not own the token of the address";
+    string private constant ERROR_DOM_40TH_BIRTHDAY = "Function only valid till Dom's 40th bday";
+    string private constant ERROR_LOW_VALUE = "Set a higher value";
 
     constructor() ERC721("TravelerLoot", "TRAVELER") Ownable() {
       uint8 len = uint8(qualifiedTeams.length);
@@ -1343,7 +1349,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
           address addr = qualifiedTeams[i];
           LootDetails storage details = detailsByAddress[addr];
           details.verified = true;
-          details.fColor = fColorDefault;
+          details.fColor = F_COLOR_DEFAULT;
 
           experience.push(toString(i));
       }
@@ -1354,7 +1360,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       treasurer = msg.sender;
 
       //This is for claim function used by owner and normal users.
-      LootDetails memory usersAndOwner = LootDetails({bColor:bColorDefault,fColor:fColorDefault,counter:0,verified:true});
+      LootDetails memory usersAndOwner = LootDetails({bColor:B_COLOR_DEFAULT,fColor:F_COLOR_DEFAULT,counter:0,verified:true});
       detailsByAddress[teamUsers] = usersAndOwner;
       detailsByAddress[teamOwner] = usersAndOwner;
 
@@ -1363,10 +1369,10 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       detailsByAddress[teamElites] = LootDetails({bColor:"#faed72",fColor:"#a43e3d",counter:0,verified:true});
 
       //This is for Looters who wants mint by using their address as tokenId.
-      detailsByAddress[teamLootElites] = LootDetails({bColor:"gold",fColor:bColorDefault,counter:0,verified:true});
+      detailsByAddress[teamLootElites] = LootDetails({bColor:"gold",fColor:F_COLOR_DEFAULT,counter:0,verified:true});
 
       //this is for loot owners using claimForQualifiedTeams function.
-      detailsByAddress[lootAddress] = LootDetails({bColor:"#d5d6d8",fColor:bColorDefault,counter:0,verified:true});  //LOOT
+      detailsByAddress[lootAddress] = LootDetails({bColor:"#d5d6d8",fColor:F_COLOR_DEFAULT,counter:0,verified:true});  //LOOT
 
       //all the other loot-derivatives qualified for this travel, they will receive their color on the fly.
       //Each loot-derivative is a team. And the first member of the team who will use the claimForQualifiedTeams function
@@ -1461,25 +1467,25 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function counter(address addr) public view returns (uint16){
         LootDetails memory details = detailsByAddress[addr];
-        require(details.verified, "Address not verified. Try another");
+        require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         return details.counter;
     }
 
     function claim(uint256 tokenId) public nonReentrant {
-        require(tokenId > MAX_FOR_LOOTERS + MAX_FOR_OWNER && tokenId <= MAX_ID, "Token ID invalid");
+        require(tokenId > MAX_FOR_LOOTERS + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
         finalizeMint(tokenId,teamUsers);
     }
 
     function claimForOwner(uint256 tokenId) public nonReentrant onlyOwner{
-        require(tokenId > MAX_FOR_LOOTERS && tokenId <= MAX_FOR_LOOTERS + MAX_FOR_OWNER, "Token ID invalid");
+        require(tokenId > MAX_FOR_LOOTERS && tokenId <= MAX_FOR_LOOTERS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
         finalizeMint(tokenId,teamOwner);
     }
 
     function claimForQualifiedTeams(uint256 tokenId, address contractAddress) public nonReentrant {
         LootDetails storage details = detailsByAddress[contractAddress];
-        require(details.verified, "Loot derivative not verified. Try another address or use claim(uint256) function");
+        require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         IERC721 looter = IERC721(contractAddress);
-        require(tokenId > 0 && looter.ownerOf(tokenId) == _msgSender(), "You do not own the token of the address");
+        require(tokenId > 0 && looter.ownerOf(tokenId) == _msgSender(), ERROR_NOT_THE_OWNER);
         if (details.counter == 0){
             details.bColor = colors[enrolledTeams++];
         }
@@ -1491,25 +1497,25 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function eliteMinting(address addr) internal{
       uint160 castedAddress = uint160(_msgSender());
-      require(castedAddress > MAX_ID, "Address not valid");
+      require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
       finalizeMint(castedAddress, addr);
     }
 
     function claimForElites() public payable nonReentrant {
-        require(msg.value >= price, "Set a higher value");
+        require(msg.value >= price, ERROR_LOW_VALUE);
         eliteMinting(teamElites);
     }
 
     function claimForLoot(uint256 lootId) public nonReentrant {
-        require(lootId > 0 && lootId <= 8000, "Token ID invalid");
+        require(lootId > 0 && lootId <= 8000, ERROR_TOKEN_ID_INVALID);
         IERC721 looter = IERC721(lootAddress);
-        require(looter.ownerOf(lootId) == _msgSender(), "Not the owner of this loot");
-        require(block.timestamp <= 1790546399, "Offer only valid till Dom's 40th bday"); //  Sunday 27 September 2026 21:59:59
+        require(looter.ownerOf(lootId) == _msgSender(), ERROR_NOT_THE_OWNER);
+        require(block.timestamp <= EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
         eliteMinting(teamLootElites);
     }
 
     function increasePrice() public onlyOwner{
-        require(block.timestamp <= 1790546399, "Price can't be increased anymore after Dom's 40th bday"); //  Sunday 27 September 2026 21:59:59
+        require(block.timestamp <= EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
         //increase price by 10%
         price += price/10;
     }
