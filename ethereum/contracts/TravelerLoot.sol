@@ -1441,21 +1441,16 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
         LootDetails memory details = detailsByAddress[teamList[tokenId]];
-        string memory bColor = details.bColor;
-        string memory fColor = details.fColor;
         string[3] memory parts;
 
-        parts[0] = string(abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill:', fColor,'; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="',bColor,'" /><text x="10" y="20" class="base">'));
+        parts[0] = string(abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill:', details.fColor,'; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="',details.bColor,'" /><text x="10" y="20" class="base">'));
         parts[1] = string(abi.encodePacked(getEnvironment(tokenId),'</text><text x="10" y="40" class="base">',getTalent(tokenId),'</text><text x="10" y="60" class="base">',getPlace(tokenId),'</text><text x="10" y="80" class="base">',getCharacter(tokenId),'</text><text x="10" y="100" class="base">',getTransport(tokenId),'</text><text x="10" y="120" class="base">',getLanguage(tokenId)));
         parts[2] = string(abi.encodePacked('</text><text x="10" y="140" class="base">',getExperience(tokenId),'</text><text x="10" y="160" class="base">',getOccupation(tokenId),'</text><text x="10" y="180" class="base">',getAccomodation(tokenId),'</text><text x="10" y="200" class="base">',getBag(tokenId),'</text></svg>'));
 
-        string memory output = string(abi.encodePacked(parts[0], parts[1], parts[2]));
+        string memory compact = string(abi.encodePacked(parts[0], parts[1], parts[2]));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler Loot #', toString(tokenId), '", "description": "Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(compact)), '"}'))));
 
-
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler Loot #', toString(tokenId), '", "description": "Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(output)), '"}'))));
-        output = string(abi.encodePacked('data:application/json;base64,', json));
-
-        return output;
+        return string(abi.encodePacked('data:application/json;base64,', json));
     }
 
     function finalizeMint(uint256 id, address teamAddress) internal{
