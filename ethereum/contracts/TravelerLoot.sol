@@ -1438,7 +1438,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return output;
     }
 
-    function finalizeClaim(uint256 id, address teamAddress) internal{
+    function finalizeMint(uint256 id, address teamAddress) internal{
       detailsByAddress[teamAddress].counter++;
       teamList[id] = teamAddress;
       _safeMint(_msgSender(), id);
@@ -1456,7 +1456,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         else{
             require(tokenId > MAX_FOR_LOOTERS + MAX_FOR_OWNER && tokenId <= MAX_ID, "Token ID invalid");
         }
-        finalizeClaim(tokenId,address(0));
+        finalizeMint(tokenId,address(0));
     }
 
     function claimQualified(uint256 tokenId, address contractAddress) public nonReentrant {
@@ -1470,25 +1470,26 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
         uint16 discreetId = uint16(tokenId % MAX_FOR_LOOTERS);
 
-        finalizeClaim(discreetId == 0 ? MAX_FOR_LOOTERS : discreetId, contractAddress);
+        finalizeMint(discreetId == 0 ? MAX_FOR_LOOTERS : discreetId, contractAddress);
+    }
+
+    function eliteMinting(address addr) internal{
+      uint160 castedAddress = uint160(_msgSender());
+      require(castedAddress > MAX_ID, "Try with another address. This one cant be used");
+      finalizeMint(castedAddress, addr);
     }
 
     function claimForElites() public payable nonReentrant {
         require(msg.value >= price, "You need to set the correct price.");
-        uint160 castedAddress = uint160(_msgSender());
-        require(castedAddress > MAX_ID, "Try with another address. This one cant be used");
-        finalizeClaim(castedAddress, address(1));
+        eliteMinting(address(1));
     }
 
-
-    function claimForLootElites(uint256 lootId) public nonReentrant {
+    function claimForLoot(uint256 lootId) public nonReentrant {
         require(lootId > 0 && lootId <= 8000, "Token ID invalid");
         IERC721 looter = IERC721(lootAddress);
         require(looter.ownerOf(lootId) == _msgSender(), "Not the owner of this loot");
-        uint160 castedAddress = uint160(_msgSender());
-        require(castedAddress > MAX_ID, "This address cant be used");
         require(block.timestamp <= 1790546399, "Offer only valid till Dom's 40th bday"); //  Sunday 27 September 2026 21:59:59
-        finalizeClaim(castedAddress, address(2));
+        eliteMinting(address(2));
     }
 
     function increasePrice() public onlyOwner{
