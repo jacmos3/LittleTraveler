@@ -1347,9 +1347,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       require(colors.length == len,"error#1");
       for(uint8 i = 0; i < len; i++){
           address addr = qualifiedTeams[i];
-          LootDetails storage details = detailsByAddress[addr];
-          details.verified = true;
-          details.fColor = F_COLOR_DEFAULT;
+          detailsByAddress[addr].verified = true;
+          detailsByAddress[addr].fColor = F_COLOR_DEFAULT;
 
           experience.push(toString(i));
       }
@@ -1361,9 +1360,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       treasurer = msg.sender;
 
       //This is for claim function used by owner and normal users.
-      LootDetails memory usersAndOwner = LootDetails({bColor:B_COLOR_DEFAULT,fColor:F_COLOR_DEFAULT,counter:0,verified:true});
-      detailsByAddress[teamUsers] = usersAndOwner;
-      detailsByAddress[teamOwner] = usersAndOwner;
+      LootDetails memory details = LootDetails({bColor:B_COLOR_DEFAULT,fColor:F_COLOR_DEFAULT,counter:0,verified:true});
+      detailsByAddress[teamUsers] = details;
+      detailsByAddress[teamOwner] = details;
 
       //This is for Elites who wants mint by using their address as tokenId.
       //They will obtain a reserved Traveler Loot in special edition.
@@ -1509,7 +1508,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         eliteMinting(teamElites);
     }
 
-    function claimForLoot(uint256 lootId) public nonReentrant {
+    function claimForLooters(uint256 lootId) public nonReentrant {
         require(lootId > 0 && lootId <= 8000, ERROR_TOKEN_ID_INVALID);
         IERC721 looter = IERC721(lootAddress);
         require(looter.ownerOf(lootId) == _msgSender(), ERROR_NOT_THE_OWNER);
