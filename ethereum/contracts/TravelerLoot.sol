@@ -1319,10 +1319,6 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint8 public enrolledTeams = 0;
 
     string[] private colors = ["#726e6e","#464A97","#6eb7e5","#8d734a","#4bbda9","#949494","#887eaf","#e2a5a2","#d45b5b","#af4242","#91a18b","#935e7e","#c37ec8","#586754"];
-    address private constant teamOwner = address(0);
-    address private constant teamUsers = address(1);
-    address private constant teamElites = address(2);
-    address private constant teamLootElites = address(3);
     string[] private place = ["place 1","place 2","place 3","place 4", "42.452483,-6.051345", "34.132700,-118.283800"];
     string[] private character = ["character 1 ","character 2","character 3","character 4","character 5","character 6"];
     string[] private transport = ["transport 1","transport 2","transport 3","transport 4","transport 5","transport 6"];
@@ -1333,9 +1329,13 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string[] private occupation = ["occupation 1", "occupation 2", "occupation 3", "occupation 4", "occupation 5", "occupation 6"];
     string[] private accomodation = ["accomodation 1", "accomodation 2", "accomodation 3", "accomodation 4", "accomodation 5", "accomodation 6"];
     string[] private bag = ["bag 1", "bag 2", "bag 3", "bag 4", "bag 5", "bag 6"];
+    address private constant TEAM_OWNER = address(0);
+    address private constant TEAM_USERS = address(1);
+    address private constant TEAM_ELITES = address(2);
+    address private constant TEAM_LOOT_ELITES = address(3);
+    uint256 private constant EXPIRATION = 1790546399; //  Sunday 27 September 2026 21:59:59
     string private constant F_COLOR_DEFAULT = "white";
     string private constant B_COLOR_DEFAULT = "black";
-    uint256 private constant EXPIRATION = 1790546399; //  Sunday 27 September 2026 21:59:59
     string private constant ERROR_TOKEN_ID_INVALID = "Token ID invalid";
     string private constant ERROR_ADDRESS_NOT_VERIFIED = "Loot derivative address not verified. Try another";
     string private constant ERROR_NOT_THE_OWNER = "You do not own the token of the address";
@@ -1361,20 +1361,20 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
       //This is for claim function used by owner and normal users.
       LootDetails memory details = LootDetails({bColor:B_COLOR_DEFAULT,fColor:F_COLOR_DEFAULT,counter:0,verified:true});
-      detailsByAddress[teamUsers] = details;
-      detailsByAddress[teamOwner] = details;
+      detailsByAddress[TEAM_USERS] = details;
+      detailsByAddress[TEAM_OWNER] = details;
 
       //This is for Elites who wants mint by using their address as tokenId.
       //They will obtain a reserved Traveler Loot in special edition.
-      detailsByAddress[teamElites] = LootDetails({bColor:"#faed72",fColor:"#a43e3d",counter:0,verified:true});
+      detailsByAddress[TEAM_ELITES] = LootDetails({bColor:"#faed72",fColor:"#a43e3d",counter:0,verified:true});
 
       //This is for Looters who wants mint by using their address as tokenId.
-      detailsByAddress[teamLootElites] = LootDetails({bColor:"gold",fColor:F_COLOR_DEFAULT,counter:0,verified:true});
+      detailsByAddress[TEAM_LOOT_ELITES] = LootDetails({bColor:"gold",fColor:F_COLOR_DEFAULT,counter:0,verified:true});
 
-      //this is for loot owners using claimForQualifiedTeams function.
+      //this is for original-loot owners using claimForQualifiedLooters function
       detailsByAddress[lootAddress] = LootDetails({bColor:"#d5d6d8",fColor:F_COLOR_DEFAULT,counter:0,verified:true});  //LOOT
 
-      //all the other loot-derivatives qualified for this adventure, they will
+      //The owners of the loot-derivatives qualified for this adventure, will
       //receive their color "on the fly":
       //Each loot-derivative is considered as a team: The first member of each
       //team that use the claimForQualifiedTeams function, will be responsible
@@ -1473,17 +1473,32 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return details.counter;
     }
 
+    function winning() public view returns (address){
+      address winningTeam = lootAddress;
+      uint256 winningCount = detailsByAddress[winningTeam].counter;
+
+      for (uint8 i = 0; i < qualifiedTeams.length; i++){
+        address lapAddress = qualifiedTeams[i];
+        uint256 lapCount = detailsByAddress[lapAddress].counter;
+        if (lapCount > winningCount){
+          winningCount = lapCount;
+        }
+        winningTeam = lapAddress;
+      }
+      return winningTeam;
+    }
+
     function claim(uint256 tokenId) public nonReentrant {
         require(tokenId > MAX_FOR_LOOTERS + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
-        finalizeMint(tokenId,teamUsers);
+        finalizeMint(tokenId,TEAM_USERS);
     }
 
     function claimForOwner(uint256 tokenId) public nonReentrant onlyOwner{
         require(tokenId > MAX_FOR_LOOTERS && tokenId <= MAX_FOR_LOOTERS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
-        finalizeMint(tokenId,teamOwner);
+        finalizeMint(tokenId,TEAM_OWNER);
     }
 
-    function claimForQualifiedTeams(uint256 tokenId, address contractAddress) public nonReentrant {
+    function claimForQualifiedLooters(uint256 tokenId, address contractAddress) public nonReentrant {
         LootDetails storage details = detailsByAddress[contractAddress];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         IERC721 looter = IERC721(contractAddress);
@@ -1505,7 +1520,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function claimForElites() public payable nonReentrant {
         require(msg.value >= price, ERROR_LOW_VALUE);
-        eliteMinting(teamElites);
+        eliteMinting(TEAM_ELITES);
     }
 
     function claimForLooters(uint256 lootId) public nonReentrant {
@@ -1513,7 +1528,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         IERC721 looter = IERC721(lootAddress);
         require(looter.ownerOf(lootId) == _msgSender(), ERROR_NOT_THE_OWNER);
         require(block.timestamp <= EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
-        eliteMinting(teamLootElites);
+        eliteMinting(TEAM_LOOT_ELITES);
     }
 
     function increasePrice() public onlyOwner{
