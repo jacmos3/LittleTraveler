@@ -1329,7 +1329,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string[] private character = ["character 1 ","character 2","character 3","character 4","character 5","character 6"];
     string[] private transport = ["transport 1","transport 2","transport 3","transport 4","transport 5","transport 6"];
     string[] private language = ["language 1","language 2", "language 3", "language 4", "language 5", "language 6"];
-    string[] private experience; //constructor fills it
+    string[] private experience = ["1","2","3","4","5","6"];
     string[] private environment = ["environment 1", "environment 2", "environment 3", "environment 4", "environment 5", "environment 6"];
     string[] private talent = ["talent 1 ", "talent 2", "talent 3", "talent 4", "talent 5", "talent 6"];
     string[] private occupation = ["occupation 1", "occupation 2", "occupation 3", "occupation 4", "occupation 5", "occupation 6"];
@@ -1349,12 +1349,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 ////////////////////////////// END CONFIGURATIONS //////////////////////////////
 
     constructor() ERC721("TravelerLoot", "TRAVELER") Ownable(){
-
       treasurer = msg.sender;
-      detailsByAddress[PH_ELITES] = LootDetails({bColor:"#faed72",fColor:"#a43e3d",counter:0,verified:true});
-      detailsByAddress[PH_LOOT_ELITES] = LootDetails({bColor:GOLD,fColor:BLACK,counter:0,verified:true});
-      detailsByAddress[ORIGINAL_LOOT] = LootDetails({bColor:PLATINUM,fColor:BLACK,counter:0,verified:true});
-
       LootDetails memory details = LootDetails({bColor:BLACK,fColor:WHITE,counter:0,verified:true});
       detailsByAddress[PH_USERS] = details;
       detailsByAddress[PH_OWNER] = details;
@@ -1372,11 +1367,12 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       detailsByAddress[DERIVATIVE_QUESTS] = details;
       detailsByAddress[DERIVATIVE_SCORE] = details;
       detailsByAddress[DERIVATIVE_TREASURE] = details;
+      detailsByAddress[PH_ELITES] = LootDetails({bColor:"#faed72",fColor:"#a43e3d",counter:0,verified:true});
+      detailsByAddress[PH_LOOT_ELITES] = LootDetails({bColor:GOLD,fColor:BLACK,counter:0,verified:true});
+      detailsByAddress[ORIGINAL_LOOT] = LootDetails({bColor:PLATINUM,fColor:BLACK,counter:0,verified:true});
 
-      for (uint8 i = 1; i <= 99; i++){
-        experience.push(toString(i));
-      }
     }
+
     function random(string memory input) internal pure returns (uint256) {
         return uint256(keccak256(abi.encodePacked(input)));
     }
