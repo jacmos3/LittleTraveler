@@ -1288,7 +1288,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     struct LootDetails {
         string fColor;
         string bColor;
-        uint16 counter;
+        uint256 counter;
         bool verified;
     }
     address public lootAddress =
@@ -1467,7 +1467,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       _safeMint(_msgSender(), id);
     }
 
-    function counter(address addr) public view returns (uint16){
+    function counter(address addr) public view returns (uint256){
         LootDetails memory details = detailsByAddress[addr];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         return details.counter;
