@@ -1291,95 +1291,91 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         uint256 counter;
         bool verified;
     }
-    address public lootAddress =
-                    0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7; //LOOT ORIGINAL
-    address[] public qualifiedTeams = [
-                    0xb9310aF43F4763003F42661f6FC098428469aDAB, //NAME
-                    0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2, //LootCreatures
-                    0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa, //TREASURE
-                    0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3, //CHAR
-                    0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d, //LootRealm
-                    0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF, //MLOOT
-                    0xcC56775606730C96eA245D9cF3890247f1c57FB1, //AL
-                    0x83f1d1396B19Fed8FBb31Ed189579D07362d661d, //LootHymns
-                    0x42A87e04f87A038774fb39c0A61681e7e859937b, //SCORE
-                    0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f, //DOGGO
-                    0xeC43a2546625c4C82D905503bc83e66262f0EF84, //LootRock
-                    0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463, //GMANA
-                    0x13a48f723f4AD29b6da6e7215Fe53172C027d98f, //CYBERLOOT
-                    0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d//QUESTS
-    ];
     mapping(address => LootDetails) public detailsByAddress;
     mapping(uint256 => address) public teamList;
-    uint16 constant MAX_ID = 10000;
-    uint16 constant MAX_FOR_OWNER = 222;
-    uint16 constant MAX_FOR_LOOTERS = 2000;
-    uint160 public price = 1 ether;
     address public treasurer;
+
+//////////////////////////////BEGIN CONFIGURATIONS /////////////////////////////
+    uint16 constant MAX_ID = 10000;
+    uint16 private constant MAX_LOOT = 8000;
+    uint16 constant MAX_FOR_OWNER = 222;
+    uint16 constant MAX_FOR_QUALIFIED = 2000;
+    uint160 public price = 1 ether;
     uint8 public enrolledTeams = 0;
+    address public ORIGINAL_LOOT          = 0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7;
+    address private DERIVATIVE_AL         = 0xcC56775606730C96eA245D9cF3890247f1c57FB1;
+    address private DERIVATIVE_CHAR       = 0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3;
+    address private DERIVATIVE_CYBERLOOT  = 0x13a48f723f4AD29b6da6e7215Fe53172C027d98f;
+    address private DERIVATIVE_DOGGO      = 0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f;
+    address private DERIVATIVE_GMANA      = 0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463;
+    address private DERIVATIVE_LOOTC      = 0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2;
+    address private DERIVATIVE_LootHymns  = 0x83f1d1396B19Fed8FBb31Ed189579D07362d661d;
+    address private DERIVATIVE_LootRealm  = 0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d;
+    address private DERIVATIVE_LootRock   = 0xeC43a2546625c4C82D905503bc83e66262f0EF84;
+    address private DERIVATIVE_MLOOT      = 0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF;
+    address private DERIVATIVE_NAME       = 0xb9310aF43F4763003F42661f6FC098428469aDAB;
+    address private DERIVATIVE_QUESTS     = 0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d;
+    address private DERIVATIVE_SCORE      = 0x42A87e04f87A038774fb39c0A61681e7e859937b;
+    address private DERIVATIVE_TREASURE   = 0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa;
+
+    //assigned placeholders
+    address private constant PH_OWNER = address(0);
+    address private constant PH_USERS = address(1);
+    address private constant PH_ELITES = address(2);
+    address private constant PH_LOOT_ELITES = address(3);
 
     string[] private colors = ["#726e6e","#464A97","#6eb7e5","#8d734a","#4bbda9","#949494","#887eaf","#e2a5a2","#d45b5b","#af4242","#91a18b","#935e7e","#c37ec8","#586754"];
     string[] private place = ["place 1","place 2","place 3","place 4", "42.452483,-6.051345", "34.132700,-118.283800"];
     string[] private character = ["character 1 ","character 2","character 3","character 4","character 5","character 6"];
     string[] private transport = ["transport 1","transport 2","transport 3","transport 4","transport 5","transport 6"];
     string[] private language = ["language 1","language 2", "language 3", "language 4", "language 5", "language 6"];
-    string[] private experience;
+    string[] private experience; //constructor fills it
     string[] private environment = ["environment 1", "environment 2", "environment 3", "environment 4", "environment 5", "environment 6"];
     string[] private talent = ["talent 1 ", "talent 2", "talent 3", "talent 4", "talent 5", "talent 6"];
     string[] private occupation = ["occupation 1", "occupation 2", "occupation 3", "occupation 4", "occupation 5", "occupation 6"];
     string[] private accomodation = ["accomodation 1", "accomodation 2", "accomodation 3", "accomodation 4", "accomodation 5", "accomodation 6"];
     string[] private bag = ["bag 1", "bag 2", "bag 3", "bag 4", "bag 5", "bag 6"];
-    address private constant TEAM_OWNER = address(0);
-    address private constant TEAM_USERS = address(1);
-    address private constant TEAM_ELITES = address(2);
-    address private constant TEAM_LOOT_ELITES = address(3);
-    uint256 private constant EXPIRATION = 1790546399; //  Sunday 27 September 2026 21:59:59
-    string private constant F_COLOR_DEFAULT = "white";
-    string private constant B_COLOR_DEFAULT = "black";
+
+    uint256 private constant EXPIRATION = 1790546399; //Sun 27 Sep 2026 21:59:59
+    string private constant WHITE = "white";
+    string private constant BLACK = "black";
+    string private constant GOLD = "gold";
+    string private constant PLATINUM = "#d5d6d8";
     string private constant ERROR_TOKEN_ID_INVALID = "Token ID invalid";
     string private constant ERROR_ADDRESS_NOT_VERIFIED = "Loot derivative address not verified. Try another";
     string private constant ERROR_NOT_THE_OWNER = "You do not own the token of the address";
     string private constant ERROR_DOM_40TH_BIRTHDAY = "Function only valid till Dom's 40th bday";
     string private constant ERROR_LOW_VALUE = "Set a higher value";
+////////////////////////////// END CONFIGURATIONS //////////////////////////////
 
-    constructor() ERC721("TravelerLoot", "TRAVELER") Ownable() {
-      uint8 len = uint8(qualifiedTeams.length);
-      require(colors.length == len,"error#1");
-      for(uint8 i = 0; i < len; i++){
-          address addr = qualifiedTeams[i];
-          detailsByAddress[addr].verified = true;
-          detailsByAddress[addr].fColor = F_COLOR_DEFAULT;
-
-          experience.push(toString(i));
-      }
-
-      for (uint8 i = len; i <= 98; i++){
-        experience.push(toString(i));
-      }
+    constructor() ERC721("TravelerLoot", "TRAVELER") Ownable(){
 
       treasurer = msg.sender;
+      detailsByAddress[PH_ELITES] = LootDetails({bColor:"#faed72",fColor:"#a43e3d",counter:0,verified:true});
+      detailsByAddress[PH_LOOT_ELITES] = LootDetails({bColor:GOLD,fColor:BLACK,counter:0,verified:true});
+      detailsByAddress[ORIGINAL_LOOT] = LootDetails({bColor:PLATINUM,fColor:BLACK,counter:0,verified:true});
 
-      //This is for claim function used by owner and normal users.
-      LootDetails memory details = LootDetails({bColor:B_COLOR_DEFAULT,fColor:F_COLOR_DEFAULT,counter:0,verified:true});
-      detailsByAddress[TEAM_USERS] = details;
-      detailsByAddress[TEAM_OWNER] = details;
+      LootDetails memory details = LootDetails({bColor:BLACK,fColor:WHITE,counter:0,verified:true});
+      detailsByAddress[PH_USERS] = details;
+      detailsByAddress[PH_OWNER] = details;
+      detailsByAddress[DERIVATIVE_AL] = details;
+      detailsByAddress[DERIVATIVE_CHAR] = details;
+      detailsByAddress[DERIVATIVE_CYBERLOOT] = details;
+      detailsByAddress[DERIVATIVE_DOGGO] = details;
+      detailsByAddress[DERIVATIVE_GMANA] = details;
+      detailsByAddress[DERIVATIVE_LOOTC] = details;
+      detailsByAddress[DERIVATIVE_LootHymns] = details;
+      detailsByAddress[DERIVATIVE_LootRealm] = details;
+      detailsByAddress[DERIVATIVE_LootRock] = details;
+      detailsByAddress[DERIVATIVE_MLOOT] = details;
+      detailsByAddress[DERIVATIVE_NAME] = details;
+      detailsByAddress[DERIVATIVE_QUESTS] = details;
+      detailsByAddress[DERIVATIVE_SCORE] = details;
+      detailsByAddress[DERIVATIVE_TREASURE] = details;
 
-      //This is for Elites who wants mint by using their address as tokenId.
-      //They will obtain a reserved Traveler Loot in special edition.
-      detailsByAddress[TEAM_ELITES] = LootDetails({bColor:"#faed72",fColor:"#a43e3d",counter:0,verified:true});
-
-      //This is for Looters who wants mint by using their address as tokenId.
-      detailsByAddress[TEAM_LOOT_ELITES] = LootDetails({bColor:"gold",fColor:F_COLOR_DEFAULT,counter:0,verified:true});
-
-      //this is for original-loot owners using claimForQualifiedLooters function
-      detailsByAddress[lootAddress] = LootDetails({bColor:"#d5d6d8",fColor:F_COLOR_DEFAULT,counter:0,verified:true});  //LOOT
-
-      //The owners of the loot-derivatives qualified for this adventure, will
-      //receive their color "on the fly":
-      //Each loot-derivative is considered as a team: The first member of each
-      //team that use the claimForQualifiedTeams function, will be responsible
-      //for the color picked for it's whole team. Not possible to change.
-
+      for (uint8 i = 1; i <= 99; i++){
+        experience.push(toString(i));
+      }
     }
     function random(string memory input) internal pure returns (uint256) {
         return uint256(keccak256(abi.encodePacked(input)));
@@ -1389,8 +1385,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         uint8 delta = toHoundred > 95 ? 1 : toHoundred > 80 ? 2 : 3;
         uint8 len = uint8(sourceArray.length);
         uint8 x = len / 3;
-        uint8 min = len - (delta* x);
-        uint8 max = (len -1) - ((delta -1) * x);
+        uint8 min = len - (delta * x);
+        uint8 max = (len - 1) - ((delta - 1) * x);
         uint8 rand = uint8((random(string(abi.encodePacked(msg.sender, toHoundred, keyPrefix ))) % (max - min + 1)) + min);
         return sourceArray[rand];
     }
@@ -1467,35 +1463,50 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       _safeMint(_msgSender(), id);
     }
 
-    function counter(address addr) public view returns (uint256){
+    function counts(address addr) external view returns (uint256){
         LootDetails memory details = detailsByAddress[addr];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         return details.counter;
     }
 
-    function winning() public view returns (address){
-      address winningTeam = lootAddress;
-      uint256 winningCount = detailsByAddress[winningTeam].counter;
-
-      for (uint8 i = 0; i < qualifiedTeams.length; i++){
-        address lapAddress = qualifiedTeams[i];
-        uint256 lapCount = detailsByAddress[lapAddress].counter;
-        if (lapCount > winningCount){
-          winningCount = lapCount;
-        }
-        winningTeam = lapAddress;
+    function checkWinning(address winningAddress, uint256 winningCount, address newAddress, uint256 newCount) internal pure returns(address,uint256){
+      if (newCount > winningCount){
+        winningCount = newCount;
+        winningAddress = newAddress;
       }
-      return winningTeam;
+      return (winningAddress,winningCount);
+    }
+
+    //this function compares the qualified loot & loot-derivatives projects
+    function whoIsWinning() external view returns (address, uint256){
+      address winningTeam = ORIGINAL_LOOT;
+      uint256 winningCount = detailsByAddress[winningTeam].counter;
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_AL, detailsByAddress[DERIVATIVE_AL].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_CHAR, detailsByAddress[DERIVATIVE_CHAR].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_CYBERLOOT, detailsByAddress[DERIVATIVE_CYBERLOOT].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_DOGGO, detailsByAddress[DERIVATIVE_DOGGO].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_GMANA, detailsByAddress[DERIVATIVE_GMANA].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_LOOTC, detailsByAddress[DERIVATIVE_LOOTC].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_LootHymns, detailsByAddress[DERIVATIVE_LootHymns].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_LootRealm, detailsByAddress[DERIVATIVE_LootRealm].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_LootRock, detailsByAddress[DERIVATIVE_LootRock].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_MLOOT, detailsByAddress[DERIVATIVE_MLOOT].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_NAME, detailsByAddress[DERIVATIVE_NAME].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_QUESTS, detailsByAddress[DERIVATIVE_QUESTS].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_SCORE, detailsByAddress[DERIVATIVE_SCORE].counter);
+      (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_TREASURE, detailsByAddress[DERIVATIVE_TREASURE].counter);
+
+      return (winningTeam, winningCount);
     }
 
     function claim(uint256 tokenId) public nonReentrant {
-        require(tokenId > MAX_FOR_LOOTERS + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
-        finalizeMint(tokenId,TEAM_USERS);
+        require(tokenId > MAX_FOR_QUALIFIED + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
+        finalizeMint(tokenId,PH_USERS);
     }
 
     function claimForOwner(uint256 tokenId) public nonReentrant onlyOwner{
-        require(tokenId > MAX_FOR_LOOTERS && tokenId <= MAX_FOR_LOOTERS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
-        finalizeMint(tokenId,TEAM_OWNER);
+        require(tokenId > MAX_FOR_QUALIFIED && tokenId <= MAX_FOR_QUALIFIED + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
+        finalizeMint(tokenId,PH_OWNER);
     }
 
     function claimForQualifiedLooters(uint256 tokenId, address contractAddress) public nonReentrant {
@@ -1507,9 +1518,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             details.bColor = colors[enrolledTeams++];
         }
 
-        uint16 discreetId = uint16(tokenId % MAX_FOR_LOOTERS);
+        uint16 discreetId = uint16(tokenId % MAX_FOR_QUALIFIED);
 
-        finalizeMint(discreetId == 0 ? MAX_FOR_LOOTERS : discreetId, contractAddress);
+        finalizeMint(discreetId == 0 ? MAX_FOR_QUALIFIED : discreetId, contractAddress);
     }
 
     function eliteMinting(address addr) internal{
@@ -1520,15 +1531,15 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function claimForElites() public payable nonReentrant {
         require(msg.value >= price, ERROR_LOW_VALUE);
-        eliteMinting(TEAM_ELITES);
+        eliteMinting(PH_ELITES);
     }
 
     function claimForLooters(uint256 lootId) public nonReentrant {
-        require(lootId > 0 && lootId <= 8000, ERROR_TOKEN_ID_INVALID);
-        IERC721 looter = IERC721(lootAddress);
+        require(lootId > 0 && lootId <= MAX_LOOT, ERROR_TOKEN_ID_INVALID);
+        IERC721 looter = IERC721(ORIGINAL_LOOT);
         require(looter.ownerOf(lootId) == _msgSender(), ERROR_NOT_THE_OWNER);
         require(block.timestamp <= EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
-        eliteMinting(TEAM_LOOT_ELITES);
+        eliteMinting(PH_LOOT_ELITES);
     }
 
     function increasePrice() public onlyOwner{
