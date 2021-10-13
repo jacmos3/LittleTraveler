@@ -1309,7 +1309,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint16 private constant MAX_LOOT = 8000;
     uint16 public constant MAX_FOR_OWNER = 222;
     uint16 public constant MAX_FOR_QUALIFIED = 2000;
-    uint160 public price = 1 ether;
+    uint160 public priceForPatrons = 1 ether;
 
     address constant public ORIGINAL_LOOT         = 0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7;
     address constant public DERIVATIVE_AL         = 0xcC56775606730C96eA245D9cF3890247f1c57FB1;
@@ -1358,7 +1358,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
    string[] private accomodation = ["Hotel", "Apartment", "Hostel", "Tent", "B&B", "Guest house", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Sod house", "Underground living", "Wattle and daub", "Log house", "I-house", "Stilt house", "Venetian palace", "Igloo", "Trullo"];
    string[] private bag = ["Pen", "ID document", "E-Reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-Shirts", "Socks", "Underwears"];
    string[] private occupation = ["Host", "Cook", "Nurse", "Miner", "Baker", "Writer", "Welder", "DeeJay", "Waiters", "Surgeon", "Plumber", "Dentist", "Youtuber", "Tiktoker", "Packager", "Zoologist", "Waitresse", "Treasurer", "Traveller", "Law Clerk", "Detective", "Chauffeur", "Unemployed", "Tour Guide", "Tax Lawyer", "Shitcoiner", "Ship Pilot", "Memecoiner", "Mail Clerk", "Freelancer", "DAO Member", "Bus Driver", "Taxi Driver", "Tax Auditor", "Radiologist", "QA Engineer", "Orthopedist", "Order Clerk", "NFT flipper", "Model Maker", "Mill Worker", "Meat Packer", "Job Printer", "Job Analyst", "Game Runner", "Fund Raiser", "Fine Artist", "Film Editor", "Copy Writer", "Book Editor", "Bank Teller", "Able Seamen", "Travel Clerk", "Travel Agent", "Teacher Aide", "Steel Worker", "Sportswriter", "Sports Agent", "Set Designer", "School Nurse", "Retail Buyer", "Psychiatrist", "Pediatrician", "Orthodontist", "Office Clerk", "Obstetrician", "NFT Marketer", "NFT Marketer", "Meme creator", "Meme creator", "Loan Officer", "Gynecologist", "Farm Manager", "Export Agent", "Degen trader", "Degen trader", "Craft Artist", "Cardiologist", "BSC Engineer", "Boat Builder", "Art Restorer", "Art Director", "VP of Product", "Travel Writer", "Traffic Agent", "Tax Collector", "Speech Writer", "Soil Engineer", "Social Worker", "Ship Engineer", "Script Editor", "Screen Writer", "Sales Manager", "Remote Worker", "Quarry Worker", "Private Nurse", "Police Artist", "Podcast owner", "Play 2 Earner", "Plant Manager", "Plant Breeder", "Patent Lawyer", "NFT Developer", "NFT collector", "Music Teacher", "Marking Clerk", "Law Professor", "Land Surveyor", "Hotel Manager", "Harbor Master", "Fashion Model", "Digital Nomad", "Dermatologist", "Custom Tailor", "Crypto Trader", "Civil Drafter", "Camp Director", "Cabinet Maker", "Bank Examiner", "Artists Agent", "Art Therapist", "Art Appraiser", "Video Engineer", "Title Searcher", "Title Examiner", "Tax Accountant", "Special Forces", "Soil Scientist", "Security Guard", "Sales Promoter", "Radio Operator", "Police Officer", "Pharmacy Aides", "Nursery Worker", "Music Director", "Museum Curator", "Mine Inspector", "Meter Mechanic", "Marine Drafter", "Loan Counselor", "Lathe Operator", "Home Economist", "Head of Growth", "Fire Inspector", "Fashion Artist", "Exhibit Artist", "Crossing Guard", "Credit Analyst", "Crane Operator", "Court Reporter", "Civil Engineer", "Casino Manager", "Casino Cashier", "Caption Writer", "Athletic Coach", "Animal Trainer", "Animal Breeder", "Watch Repairers", "Team Assemblers", "Solana Engineer", "Set Illustrator", "Sales Engineers", "Product Planner", "Plastic Surgeon", "Park Naturalist", "Ordinary Seamen", "Ophthalmologist", "Mining Engineer", "Marine Surveyor", "Marine Engineer", "Legal Secretary", "Legal Assistant", "Insurance Agent", "Hearing Officer", "Head of Lending", "Forest Engineer", "Food Batchmaker", "Floral Designer", "Fitness Trainer", "Finance Manager", "Fence Installer", "Delivery Driver", "Criminal Lawyer", "Credit Reporter", "Credit Adjuster", "Cost Accountant", "Casino Pit Boss", "Brokerage Clerk", "Appeals Referee", "Air Crew Member", "Zoo Veterinarian", "Wholesale Buyers", "Web Art Director", "Travel Counselor", "Textile Designer", "Service Provider", "Scanner Operator", "Safety Inspector", "Resource Teacher", "Purchasing Agent", "Psychiatric Aide", "Property Manager", "Phantom Engineer", "PFP NFT designer", "Package Designer", "Nuclear Engineer", "Newspaper Editor", "Military Officer", "Military Analyst", "Marine Architect", "IT Administrator", "Internal Auditor", "Insurance Lawyer", "Home Health Aide", "Health Educators", "Graphic Designer", "Funeral Director", "Flight Engineers", "Field Contractor", "Fashion Designer", "Exhibit Designer", "Editorial Writer", "Dental Hygienist", "Dental Assistant", "Crypto treasurer", "Commercial Diver", "Ceramic Engineer", "Casting Director", "Carpet Installer", "Career Counselor", "Brattice Builder", "Bitcoin educator", "Bitcoin Core Dev", "Bitcoin Core Dev", "Bicycle Mechanic", "Benefits Manager", "Athletic Trainer", "Aquarium Curator", "Animal Scientist", "Air Crew Officer", "Admiralty Lawyer", "Adjustment Clerk", "Voice Pathologist", "Survey Researcher", "Securities Broker", "Sanitary Engineer", "Recreation Leader", "Railroad Engineer", "Property Assessor", "Probation Officer", "Preschool Teacher", "Physics Professor", "Pediatric Dentist", "Parts Salesperson", "Office Supervisor", "Nursing Professor", "Medical Secretary", "Medical Assistant", "Massage Therapist", "Marketing Manager", "Library Assistant", "Laboratory Tester", "Interior Designer", "Infantry Officers", "Funeral Attendant", "Food Technologist", "Fire Investigator", "Financial Planner", "Financial Analyst", "Family Caseworker", "Explosives Worker", "Ethereum educator", "Elevator Mechanic", "DeFi Yeild Farmer", "Customs Inspector", "Computer Operator", "Community Manager", "Child Care Worker", "Chemical Engineer", "Budget Accountant", "Biology Professor", "Ballistics Expert", "Ambulance Drivers", "Aircraft Mechanic", "Aircraft Examiner", "Account Collector", "Wildlife Biologist", "Veterinarian (VMD)", "Systems Accountant", "Structural Drafter", "Standards Engineer", "Sport Psychologist", "Speech Pathologist", "Solidity Developer", "Restaurant Manager", "Real Estate Lawyer", "Real Estate Broker", "Railroad Inspector", "Purchasing Manager", "Production Planner", "Physical Therapist", "Petroleum Engineer", "Pesticide Handlers", "Peace Corps Worker", "Nurse Practitioner", "New Accounts Clerk", "Motorboat Mechanic", "Mechanical Drafter", "Materials Engineer", "Mapping Technician", "Library Technician", "Library Consultant", "Insurance Adjuster", "Industrial Painter", "Hydraulic Engineer", "General Internists", "General FarmWorker", "Gas Plant Operator", "Furniture Designer", "Fraud Investigator", "Fish & Game Warden", "Financial Examiner", "Facilities Planner", "Electrical Drafter", "Dry Wall Installer", "Dairy Technologist", "Correction Officer", "Corporation Lawyer", "Congressional Aide", "Compliance Officer", "City Planning Aide", "Casino Cage Worker", "Business Professor", "Bus Boy / Bus Girl", "Building Inspector", "Billing Specialist", "Aircraft Assembler", "Traffic Technicians", "Structural Engineer", "Stationary Engineer", "Sociology Professor", "Social Psychologist", "Scientific Linguist", "School Psychologist", "Retail Salespersons", "Residence Counselor", "Rail Yard Engineers", "Radio & TV Producer", "Publications Editor", "Property Accountant", "Political Scientist", "Poets and Lyricists", "Pharmacy Technician", "Petroleum Geologist", "Pest Control Worker", "Personnel Recruiter", "Personnel Assistant", "Operating Engineers", "Nuclear Technicians", "Motorcycle Mechanic", "Mechanical Engineer", "Materials Scientist", "Materials Inspector", "Landscape Architect", "Irrigation Engineer", "Industrial Engineer", "Industrial Designer", "Hosts and Hostesses", "High School Teacher", "Health Case Manager", "Geography Professor", "Furniture Finishers", "Fashion Coordinator", "Family Practitioner", "Executive Secretary", "Entertainment Agent", "Engineering Manager", "Education Professor", "Economics Professor", "Dietetic Technician", "DeFi Airdrop Hunter", "Contract Specialist", "Computer Programmer", "Commercial Designer", "Chemistry Professor", "Casino Floor Person", "Bus Driver (School)", "Border Patrol Agent", "Blockchain Engineer", "Blockchain educator", "Biomedical Engineer", "Avionics Technician", "Automotive Engineer", "Automobile Mechanic", "Veterinary Assistant", "Utility Meter Reader", "Teacher of the Blind", "Stained Glass Artist", "Soil Conservationist", "Social Media Manager", "Retail Store Manager", "Reliability Engineer", "Real Estate Assessor", "Radio & TV Announcer", "Radiation Therapists", "Psychology Professor", "Power Plant Operator", "Postal Service Clerk", "Petroleum Technician", "Occupational Analyst", "Medical Photographer", "Mechanical Inspector", "Marine/Port Engineer", "Locomotive Engineers", "Landscape Contractor", "Kindergarten Teacher", "Insulation Installer", "Industrial Therapist", "Industrial Hygienist", "Historical Archivist", "Highway Patrol Pilot", "Head of Partnerships", "Field Health Officer", "Electronics Engineer", "Electrical Engineers", "Crypto podcaster", "Correspondence Clerk", "Controller", "Construction Manager", "Construction Laborer", "Construction Driller", "Commercial Fisherman", "Clinical Sociologist", "Chemical Technicians", "Broadcast Technician", "Axie Infinity player", "ATM Machine Servicer", "Animation Cartoonist", "Warehouse Stock Clerk", "TripsCommunity Member", "Technical Illustrator", "Surveying Technicians", "Statistical Assistant", "Skin Care Specialists", "Shoe Machine Operator", "Respiratory Therapist", "Real Estate Appraiser", "Radiologic Technician", "Prosthetic Technician", "Physician's Assistant", "Parking Lot Attendant", "Orthodontic Assistant", "Offset Press Operator", "NFT Community Manager", "Middle School Teacher", "Merchandise Displayer", "Marine Cargo Surveyor", "Manual Arts Therapist", "Mail Machine Operator", "Legislative Assistant", "Janitorial Supervisor", "Insurance Underwriter", "Instrument Technician", "Immigration Inspector", "Forest Fire Inspector", "Food & Drug Inspector", "Farm Labor Contractor", "Door To Door Salesmen", "Deaf Students Teacher", "DAO Community Manager", "Clinical Psychologist", "Carpenter's Assistant", "Biological Technician", "Axie Infinity scholar", "Animal Control Worker", "Agricultural Engineer", "Accounting Specialist", "Wildlife Control Agent", "Unemployment Inspector", "Smart contract auditor", "Narcotics Investigator", "Maintenance Supervisor", "Insurance Claims Clerk", "Horticulture Therapist", "Employment Interviewer", "County or City Auditor", "Conservation Scientist", "Catering Administrator", "Broadcast News Analyst", "Agricultural Inspector", "Smart Contract Engineer", "Reverse Airdrops Manager", "Proof of Stake validator", "Marketing Campaigns Manager", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Senior Full Stack Web Developer", "Blockchain Consultant Project Lead", "Blockchain & Cryptocurrency Analyst", "Blockchain Consultant Project Manager"];
-
+*/
 
     uint256 private constant EXPIRATION = 1790546399; //Sun 27 Sep 2026 21:59:59
     string private constant WHITE = "white";
@@ -1372,6 +1372,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_LOW_VALUE = "Set a higher value";
     string private constant ERROR_COMPETITION_ENDED = "Competition has endend. Check the winner!";
     string private constant ERROR_COMPETITION_ONGOING = "Competition is still ongoing!";
+    string private constant ERROR_DIVISION_BY_ZERO = "Division By Zero!";
 
 ////////////////////////////// END CONFIGURATIONS //////////////////////////////
 
@@ -1479,12 +1480,6 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return string(abi.encodePacked('data:application/json;base64,', json));
     }
 
-    function finalizeMint(uint256 id, address teamAddress) internal{
-      detailsByAddress[teamAddress].counter++;
-      teamList[id] = teamAddress;
-      _safeMint(_msgSender(), id);
-    }
-
     //given a qualified loot derivateve address, returns the count for that addr
     function counts(address addr) external view returns (uint256){
         LootDetails memory details = detailsByAddress[addr];
@@ -1520,17 +1515,26 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       return (winner.addr,winner.count);
     }
 
+    function finalizeMint(uint256 id, address teamAddress, uint8 percentage, bool positive) internal{
+      require (percentage != 0 && (100  / percentage) != 0, ERROR_DIVISION_BY_ZERO);
+      uint160 x = priceForPatrons / (100 / percentage);
+      priceForPatrons = positive ? priceForPatrons + x : priceForPatrons - x;
+      detailsByAddress[teamAddress].counter++;
+      teamList[id] = teamAddress;
+      _safeMint(_msgSender(), id);
+    }
+
     function claim(uint256 tokenId) external nonReentrant {
         require(tokenId > MAX_FOR_QUALIFIED + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
-        finalizeMint(tokenId,PH_USERS);
+        finalizeMint(tokenId,PH_USERS,5,false);
     }
 
     function claimForOwner(uint256 tokenId) external nonReentrant onlyOwner{
         require(tokenId > MAX_FOR_QUALIFIED && tokenId <= MAX_FOR_QUALIFIED + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
-        finalizeMint(tokenId,PH_OWNER);
+        finalizeMint(tokenId,PH_OWNER,20,false);
     }
 
-    function claimForQualifiedLooters(uint256 tokenId, address contractAddress) external nonReentrant {
+    function claimForQualifiedLoot(uint256 tokenId, address contractAddress) external nonReentrant {
         require(!winner.elected, ERROR_COMPETITION_ENDED);
         LootDetails storage details = detailsByAddress[contractAddress];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
@@ -1546,18 +1550,18 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             (winner.addr,winner.count) = whoIsWinning();
             winner.elected = true;
         }
-        finalizeMint(discreetId == 0 ? MAX_FOR_QUALIFIED : discreetId, contractAddress);
+        finalizeMint(discreetId == 0 ? MAX_FOR_QUALIFIED : discreetId, contractAddress, 10, true);
     }
 
-    function eliteMinting(address addr) internal{
+    function eliteMinting(address addr,uint8 percentage, bool positive) internal{
       uint160 castedAddress = uint160(_msgSender());
       require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
-      finalizeMint(castedAddress, addr);
+      finalizeMint(castedAddress, addr, percentage, positive);
     }
 
     function claimForPatrons() external payable nonReentrant {
-        require(msg.value >= price, ERROR_LOW_VALUE);
-        eliteMinting(PH_ELITES);
+        require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
+        eliteMinting(PH_ELITES, 50, true);
     }
 
     function claimForLooters(uint256 lootId) external nonReentrant {
@@ -1565,22 +1569,23 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         IERC721 looter = IERC721(ORIGINAL_LOOT);
         require(looter.ownerOf(lootId) == _msgSender(), ERROR_NOT_THE_OWNER);
         require(block.timestamp <= EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
-        eliteMinting(PH_LOOT_ELITES);
+        eliteMinting(PH_LOOT_ELITES, 1, true);
     }
 
-    function claimForWinners(uint16 winnerId) external nonReentrant {
+    function claimForWinners(uint16 tokenId) external nonReentrant {
         require(winner.elected, ERROR_COMPETITION_ONGOING);
-        require(winnerId > 0 && winnerId <= MAX_FOR_QUALIFIED, ERROR_TOKEN_ID_INVALID);
+        require(tokenId > 0 && tokenId <= MAX_FOR_QUALIFIED, ERROR_TOKEN_ID_INVALID);
         IERC721 winr = IERC721(winner.addr);
-        require(winr.ownerOf(winnerId) == _msgSender(), ERROR_NOT_THE_OWNER);
-        eliteMinting(PH_WINNERS);
+        require(winr.ownerOf(tokenId) == _msgSender(), ERROR_NOT_THE_OWNER);
+        eliteMinting(PH_WINNERS, 1, true);
     }
-
+/*
     function increasePrice() external onlyOwner nonReentrant{
         require(block.timestamp <= EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
         //increase price by 10%
-        price += price/10;
+        priceForPatrons += priceForPatrons/10;
     }
+    */
     function withdraw() external onlyOwner {
         payable(treasurer).transfer(address(this).balance);
     }
