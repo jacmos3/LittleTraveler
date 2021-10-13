@@ -1299,11 +1299,11 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
     Winner winner;
     mapping(address => LootDetails) public detailsByAddress;
-    mapping(uint256 => address) public teamList;
+    mapping(uint256 => address) public qualifiedList;
     address public treasurer;
 
 //////////////////////////////BEGIN CONFIGURATIONS /////////////////////////////
-    uint8 public enrolledTeams = 0;
+    uint8 public enrolledLoots = 0;
     uint16 private qualifiedCounter = 0;
     uint16 public constant MAX_ID = 10000;
     uint16 private constant MAX_LOOT = 8000;
@@ -1329,8 +1329,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //assigned placeholders
     address private constant PH_OWNER = address(0);
     address private constant PH_USERS = address(1);
-    address private constant PH_ELITES = address(2);
-    address private constant PH_LOOT_ELITES = address(3);
+    address private constant PH_PATRONS = address(2);
+    address private constant PH_LOOT_PATRONS = address(3);
     address private constant PH_WINNERS = address(4);
 
    string[] private colors = ["#726e6e","#464A97","#6eb7e5","#8d734a","#4bbda9","#949494","#887eaf","#e2a5a2","#d45b5b","#af4242","#91a18b","#935e7e","#c37ec8","#586754"];
@@ -1395,8 +1395,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       detailsByAddress[DERIVATIVE_QUESTS] = details;
       detailsByAddress[DERIVATIVE_SCORE] = details;
       detailsByAddress[DERIVATIVE_TREASURE] = details;
-      detailsByAddress[PH_ELITES] = LootDetails({bColor:"#faed72",fColor:"#a43e3d",counter:0,verified:true});
-      detailsByAddress[PH_LOOT_ELITES] = LootDetails({bColor:GOLD,fColor:BLACK,counter:0,verified:true});
+      detailsByAddress[PH_PATRONS] = LootDetails({bColor:"#faed72",fColor:"#a43e3d",counter:0,verified:true});
+      detailsByAddress[PH_LOOT_PATRONS] = LootDetails({bColor:GOLD,fColor:BLACK,counter:0,verified:true});
       detailsByAddress[ORIGINAL_LOOT] = LootDetails({bColor:PLATINUM,fColor:BLACK,counter:0,verified:true});
 
     }
@@ -1463,12 +1463,12 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return output;
     }
 
-    function addressURI(address eliteAddress) external view returns (string memory){
-        return tokenURI(uint160(eliteAddress));
+    function addressURI(address patronAddress) external view returns (string memory){
+        return tokenURI(uint160(patronAddress));
     }
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
-        LootDetails memory details = detailsByAddress[teamList[tokenId]];
+        LootDetails memory details = detailsByAddress[qualifiedList[tokenId]];
         string[3] memory parts;
         parts[0] = string(abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill:', details.fColor,'; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="',details.bColor,'" /><text x="10" y="20" class="base">'));
         parts[1] = string(abi.encodePacked(getEnvironment(tokenId),'</text><text x="10" y="40" class="base">',getTalent(tokenId),'</text><text x="10" y="60" class="base">',getPlace(tokenId),'</text><text x="10" y="80" class="base">',getCharacter(tokenId),'</text><text x="10" y="100" class="base">',getTransport(tokenId),'</text><text x="10" y="120" class="base">',getLanguage(tokenId)));
@@ -1494,44 +1494,44 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //this function only compares the qualified loot & loot-derivatives projects
     function whoIsWinning() public view returns (address, uint16){
       if (winner.elected == false){
-        address winningTeam = ORIGINAL_LOOT;
-        uint16 winningCount = uint16(detailsByAddress[winningTeam].counter);
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_AL, uint16(detailsByAddress[DERIVATIVE_AL].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_CHAR, uint16(detailsByAddress[DERIVATIVE_CHAR].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_CYBERLOOT, uint16(detailsByAddress[DERIVATIVE_CYBERLOOT].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_DOGGO, uint16(detailsByAddress[DERIVATIVE_DOGGO].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_GMANA, uint16(detailsByAddress[DERIVATIVE_GMANA].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_LOOTC, uint16(detailsByAddress[DERIVATIVE_LOOTC].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_LootHymns, uint16(detailsByAddress[DERIVATIVE_LootHymns].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_LootRealm, uint16(detailsByAddress[DERIVATIVE_LootRealm].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_LootRock, uint16(detailsByAddress[DERIVATIVE_LootRock].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_MLOOT, uint16(detailsByAddress[DERIVATIVE_MLOOT].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_NAME, uint16(detailsByAddress[DERIVATIVE_NAME].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_QUESTS, uint16(detailsByAddress[DERIVATIVE_QUESTS].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_SCORE, uint16(detailsByAddress[DERIVATIVE_SCORE].counter));
-        (winningTeam, winningCount) = checkWinning(winningTeam,winningCount, DERIVATIVE_TREASURE, uint16(detailsByAddress[DERIVATIVE_TREASURE].counter));
-        return (winningTeam, winningCount);
+        address winningLoot = ORIGINAL_LOOT;
+        uint16 winningCount = uint16(detailsByAddress[winningLoot].counter);
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_AL, uint16(detailsByAddress[DERIVATIVE_AL].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_CHAR, uint16(detailsByAddress[DERIVATIVE_CHAR].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_CYBERLOOT, uint16(detailsByAddress[DERIVATIVE_CYBERLOOT].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_DOGGO, uint16(detailsByAddress[DERIVATIVE_DOGGO].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_GMANA, uint16(detailsByAddress[DERIVATIVE_GMANA].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_LOOTC, uint16(detailsByAddress[DERIVATIVE_LOOTC].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_LootHymns, uint16(detailsByAddress[DERIVATIVE_LootHymns].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_LootRealm, uint16(detailsByAddress[DERIVATIVE_LootRealm].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_LootRock, uint16(detailsByAddress[DERIVATIVE_LootRock].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_MLOOT, uint16(detailsByAddress[DERIVATIVE_MLOOT].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_NAME, uint16(detailsByAddress[DERIVATIVE_NAME].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_QUESTS, uint16(detailsByAddress[DERIVATIVE_QUESTS].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_SCORE, uint16(detailsByAddress[DERIVATIVE_SCORE].counter));
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DERIVATIVE_TREASURE, uint16(detailsByAddress[DERIVATIVE_TREASURE].counter));
+        return (winningLoot, winningCount);
       }
       return (winner.addr,winner.count);
     }
 
-    function finalizeMint(uint256 id, address teamAddress, uint8 percentage, bool positive) internal{
+    function finalizeMint(uint256 id, address qualifiedAddress, uint8 percentage, bool positive) internal{
       require (percentage != 0 && (100  / percentage) != 0, ERROR_DIVISION_BY_ZERO);
       uint160 x = priceForPatrons / (100 / percentage);
       priceForPatrons = positive ? priceForPatrons + x : priceForPatrons - x;
-      detailsByAddress[teamAddress].counter++;
-      teamList[id] = teamAddress;
+      detailsByAddress[qualifiedAddress].counter++;
+      qualifiedList[id] = qualifiedAddress;
       _safeMint(_msgSender(), id);
     }
 
     function claim(uint256 tokenId) external nonReentrant {
         require(tokenId > MAX_FOR_QUALIFIED + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
-        finalizeMint(tokenId,PH_USERS,5,false);
+        finalizeMint(tokenId,PH_USERS,10,false);
     }
 
     function claimForOwner(uint256 tokenId) external nonReentrant onlyOwner{
         require(tokenId > MAX_FOR_QUALIFIED && tokenId <= MAX_FOR_QUALIFIED + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
-        finalizeMint(tokenId,PH_OWNER,20,false);
+        finalizeMint(tokenId,PH_OWNER,50,false);
     }
 
     function claimForQualifiedLoot(uint256 tokenId, address contractAddress) external nonReentrant {
@@ -1541,7 +1541,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         IERC721 looter = IERC721(contractAddress);
         require(tokenId > 0 && looter.ownerOf(tokenId) == _msgSender(), ERROR_NOT_THE_OWNER);
         if (details.counter == 0){
-            details.bColor = colors[enrolledTeams++];
+            details.bColor = colors[enrolledLoots++];
         }
 
         uint16 discreetId = uint16(tokenId % MAX_FOR_QUALIFIED);
@@ -1550,10 +1550,10 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             (winner.addr,winner.count) = whoIsWinning();
             winner.elected = true;
         }
-        finalizeMint(discreetId == 0 ? MAX_FOR_QUALIFIED : discreetId, contractAddress, 10, true);
+        finalizeMint(discreetId == 0 ? MAX_FOR_QUALIFIED : discreetId, contractAddress, 20, true);
     }
 
-    function eliteMinting(address addr,uint8 percentage, bool positive) internal{
+    function patronMinting(address addr,uint8 percentage, bool positive) internal{
       uint160 castedAddress = uint160(_msgSender());
       require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
       finalizeMint(castedAddress, addr, percentage, positive);
@@ -1561,7 +1561,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function claimForPatrons() external payable nonReentrant {
         require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
-        eliteMinting(PH_ELITES, 50, true);
+        patronMinting(PH_PATRONS, 50, true);
     }
 
     function claimForLooters(uint256 lootId) external nonReentrant {
@@ -1569,7 +1569,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         IERC721 looter = IERC721(ORIGINAL_LOOT);
         require(looter.ownerOf(lootId) == _msgSender(), ERROR_NOT_THE_OWNER);
         require(block.timestamp <= EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
-        eliteMinting(PH_LOOT_ELITES, 1, true);
+        patronMinting(PH_LOOT_PATRONS, 1, true);
     }
 
     function claimForWinners(uint16 tokenId) external nonReentrant {
@@ -1577,7 +1577,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         require(tokenId > 0 && tokenId <= MAX_FOR_QUALIFIED, ERROR_TOKEN_ID_INVALID);
         IERC721 winr = IERC721(winner.addr);
         require(winr.ownerOf(tokenId) == _msgSender(), ERROR_NOT_THE_OWNER);
-        eliteMinting(PH_WINNERS, 1, true);
+        patronMinting(PH_WINNERS, 1, true);
     }
 /*
     function increasePrice() external onlyOwner nonReentrant{
