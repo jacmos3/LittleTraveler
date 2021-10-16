@@ -1520,6 +1520,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       //balancing rules.
       uint160 x = priceForPatrons / (100 / percentage);
       priceForPatrons = positive ? priceForPatrons + x : priceForPatrons - x;
+      priceForPatrons = (priceForPatrons < 10000 gwei) ? 10000 gwei : priceForPatrons;
       detailsByAddress[addr].counter++;
       addressList[id] = addr;
     }
