@@ -1347,7 +1347,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //defining a non-competitive owner team using the PlaceHolder address 0
     address private constant PH_OWNER = address(0);
 
-    //defining other teams which will not compete into the race but which we want to trace for future possible rewards
+    //defining other teams which will not compete into the race but which we want to track for future possible rewards
     address private constant PH_USERS = address(1);
     address private constant PH_PATRONS = address(2);
     address private constant PH_ORIGINAL_LOOT = address(3);
@@ -1472,7 +1472,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return string(abi.encodePacked('data:application/json;base64,', json));
     }
 
-    //given a qualified loot derivateve address, returns the count for that addr
+    //Given a qualified loot derivateve address, returns the count for that addr
     function counts(address addr) external view returns (uint256){
         LootDetails memory details = detailsByAddress[addr];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
@@ -1483,9 +1483,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return newCount > winningCount ? (newAddress, newCount) : (winningAddress, winningCount);
     }
 
-    //This function only compares the original loot & loot-derivatives projects scores.
-    //It is not considering contract owner, patrons and normal users because
-    //those three teams are not competing for the win
+    //It compares original loot & loot-derivatives scores.
+    //It excludes contract owner, patrons and normal users because
+    //those three teams are not competing for the win and they cannot win.
     function whoIsWinning() public view returns (address, uint16){
       if (winner.elected){
         return (winner.addr,winner.count);
@@ -1514,26 +1514,38 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       return (winningLoot, winningCount);
     }
 
+    //Modify the price that patreons pay for a reserved Traveler Loot.
     function rebalancePrice(uint256 id, address addr, uint8 percentage, bool positive) internal{
-      require (percentage != 0 && (100  / percentage) != 0, ERROR_DIVISION_BY_ZERO);
+      //the price is increased/decreased after every mint, following simple
+      //balancing rules.
       uint160 x = priceForPatrons / (100 / percentage);
       priceForPatrons = positive ? priceForPatrons + x : priceForPatrons - x;
       detailsByAddress[addr].counter++;
       addressList[id] = addr;
     }
 
+    //Everyone can claim for free (+ gas) a still available tokenId out of the
+    //ranges for the ones reserved for the qualified competition and the owner
     function claim(uint256 tokenId) external nonReentrant {
         require(tokenId > MAX_FOR_QUALIFIED + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
+        //after this mint, the price for patrons is increased by 1%
         rebalancePrice(tokenId,PH_USERS,1,true);
         _safeMint(_msgSender(), tokenId);
     }
 
+    //Owner can claim the few reserved tokenId.
     function claimForOwner(uint256 tokenId) external nonReentrant onlyOwner{
         require(tokenId > MAX_FOR_QUALIFIED && tokenId <= MAX_FOR_QUALIFIED + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
         rebalancePrice(tokenId,PH_OWNER,5,false);
         _safeMint(_msgSender(), tokenId);
     }
 
+    //User who owns at least one of the NFT that have been qualified for this
+    //competition can use this function to claim their Traveler Loot in special
+    //edition. The first one for each team will be responsible for the color
+    //chosen for the whole team.
+    //When all the reserved Traveler Loot are minted, a winner team will be
+    //picked and it will gain access to the claimForWinners() function.
     function claimForQualifiedLoot(uint256 tokenId, address contractAddress) external nonReentrant {
         require(!winner.elected, ERROR_COMPETITION_ENDED);
         LootDetails storage details = detailsByAddress[contractAddress];
@@ -1544,45 +1556,70 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             details.bColor = colors[enrolledLoots++];
         }
 
+        //the tokenId is discreetized. It means that more loot ids potentially
+        //point to the same Traveler Loot id. So only one gain the availabil
         uint16 discreetId = uint16(tokenId % MAX_FOR_QUALIFIED);
 
         if (++qualifiedCounter == MAX_FOR_QUALIFIED){
-            (winner.addr,winner.count) = whoIsWinning();
+            (winner.addr, winner.count) = whoIsWinning();
             winner.elected = true;
         }
+        //after this mint, the price for patrons is increased by 2%
         rebalancePrice(discreetId == 0 ? MAX_FOR_QUALIFIED : discreetId, contractAddress, 2, true);
         _safeMint(_msgSender(), tokenId);
     }
 
-    function processMinting(address addr,uint8 percentage, bool positive) internal{
+    //It mints the Traveler Loot using the address as tokenId.
+    //It's a Super Rare opportunity because only restricted categories can
+    //access to this:
+    //- Winners can access because it's the reward for have won the competition,
+    //- Looters can access with restrictions:
+    //   . Till the winner is not yet found,
+    //   . or Till the 40th birthday of Dom Hoffman
+    //- Patrons can access since they pay the priceForPatrons cost, which is
+    //  designed to grow fast so it allows real access to very few people
+    function reservedMinting(address addr,uint8 percentage, bool positive) internal{
       uint160 castedAddress = uint160(_msgSender());
       require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
       rebalancePrice(castedAddress, addr, percentage, positive);
       _safeMint(_msgSender(), castedAddress);
     }
 
+    //Gives reserved opportunity to patrons
     function claimForPatrons() external payable nonReentrant {
         require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
-        processMinting(PH_PATRONS, 5, true);
+        //after this mint, the price for next patrons is increased by 5%
+        reservedMinting(PH_PATRONS, 5, true);
     }
 
+    //Gives reserved opportunity to original looters (under conditions)
     function claimForLooters() external nonReentrant {
-        require(!winner.elected, ERROR_COMPETITION_ENDED);
         require(IERC721(OR_LOOT).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
+        //offers valid only till a winner team will be elected...
+        require(!winner.elected, ERROR_COMPETITION_ENDED);
+
+        //and only before Dom becomes 40 yo
         require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
-        processMinting(PH_ORIGINAL_LOOT, 2, false);
+        //after this mint, the price for patrons is decreased by 5%
+        reservedMinting(PH_ORIGINAL_LOOT, 5, false);
     }
 
+    //Gives reserved opportunity to the winner team (under conditions)
+    //Only callable when the competition has ended.
     function claimForWinners() external nonReentrant {
         require(winner.elected, ERROR_COMPETITION_ONGOING);
         require(IERC721(winner.addr).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
-        processMinting(PH_WINNERS, 2, false);
+        //after this mint, the price for patrons is decreased by 5%
+        reservedMinting(PH_WINNERS, 5, false);
     }
 
+    //Owner can withdraw the patron fundings to the treasurer address.
+    //The treasurer address is a DAO and it will decide how to use the funds.
     function withdraw() external onlyOwner {
         payable(treasurer).transfer(address(this).balance);
     }
 
+    //The owner can set the address of the treasurer
     function setTreasurer(address newAddress) external onlyOwner{
       treasurer = newAddress;
     }
