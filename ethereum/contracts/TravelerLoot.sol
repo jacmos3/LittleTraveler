@@ -1299,6 +1299,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_COMPETITION_ENDED = "Competition has endend. Check the winner!";
     string private constant ERROR_COMPETITION_ONGOING = "Competition is still ongoing!";
     string private constant ERROR_DIVISION_BY_ZERO = "Division By Zero!";
+    string private constant ERROR_OWNER_NOT_ALLOWED = "Owner cannot claim free slots. Use claimForOwner() instead"
 
     struct LootDetails {
         string fColor;
@@ -1526,8 +1527,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     //Everyone can claim for free (+ gas) a still available tokenId out of the
-    //ranges for the ones reserved for the qualified competition and the owner
+    //reserved ranges for the qualified competition loots, and the owner
     function claim(uint256 tokenId) external nonReentrant {
+        require(!owner(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
         require(tokenId > MAX_FOR_QUALIFIED + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
         //after this mint, the price for patrons is increased by 1%
         rebalancePrice(tokenId,PH_USERS,1,true);
@@ -1537,6 +1539,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //Owner can claim the few reserved tokenId.
     function claimForOwner(uint256 tokenId) external nonReentrant onlyOwner{
         require(tokenId > MAX_FOR_QUALIFIED && tokenId <= MAX_FOR_QUALIFIED + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
+
+        //after this mint, the price for patrons is decreased by 5%
         rebalancePrice(tokenId,PH_OWNER,5,false);
         _safeMint(_msgSender(), tokenId);
     }
@@ -1547,7 +1551,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //chosen for the whole team.
     //When all the reserved Traveler Loot are minted, a winner team will be
     //picked and it will gain access to the claimForWinners() function.
-    function claimForQualifiedLoot(uint256 tokenId, address contractAddress) external nonReentrant {
+    function claimForQualifiedLoots(uint256 tokenId, address contractAddress) external nonReentrant {
         require(!winner.elected, ERROR_COMPETITION_ENDED);
         LootDetails storage details = detailsByAddress[contractAddress];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
