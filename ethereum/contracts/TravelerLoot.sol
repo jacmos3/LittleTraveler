@@ -1299,7 +1299,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_COMPETITION_ENDED = "Competition has endend. Check the winner!";
     string private constant ERROR_COMPETITION_ONGOING = "Competition is still ongoing!";
     string private constant ERROR_DIVISION_BY_ZERO = "Division By Zero!";
-    string private constant ERROR_OWNER_NOT_ALLOWED = "Owner cannot claim free slots. Use claimForOwner() instead"
+    string private constant ERROR_OWNER_NOT_ALLOWED = "Owner cannot claim free slots. Use claimForOwner() instead";
 
     struct LootDetails {
         string fColor;
@@ -1529,7 +1529,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //Everyone can claim for free (+ gas) a still available tokenId out of the
     //reserved ranges for the qualified competition loots, and the owner
     function claim(uint256 tokenId) external nonReentrant {
-        require(!owner(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
+        require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
         require(tokenId > MAX_FOR_QUALIFIED + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
         //after this mint, the price for patrons is increased by 1%
         rebalancePrice(tokenId,PH_USERS,1,true);
