@@ -1298,7 +1298,6 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_LOW_VALUE = "Set a higher value";
     string private constant ERROR_COMPETITION_ENDED = "Competition has endend. Check the winner!";
     string private constant ERROR_COMPETITION_ONGOING = "Competition is still ongoing!";
-    string private constant ERROR_DIVISION_BY_ZERO = "Division By Zero!";
     string private constant ERROR_OWNER_NOT_ALLOWED = "Owner cannot claim free slots. Use claimForOwner() instead";
 
     struct LootDetails {
@@ -1517,8 +1516,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     //Modify the price that patreons pay for a reserved Traveler Loot.
     function rebalancePrice(uint256 id, address addr, uint8 percentage, bool positive) internal{
-      //the price is increased/decreased after every mint, following simple
-      //balancing rules.
+      //price is rebalanced after every mint, following simple rules
       uint160 x = priceForPatrons / (100 / percentage);
       priceForPatrons = positive ? priceForPatrons + x : priceForPatrons - x;
       priceForPatrons = (priceForPatrons < 10000 gwei) ? 10000 gwei : priceForPatrons;
@@ -1531,7 +1529,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     function claim(uint256 tokenId) external nonReentrant {
         require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
         require(tokenId > MAX_FOR_QUALIFIED + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
-        //after this mint, the price for patrons is increased by 1%
+        //after this mint, the price for patrons will be increased by 1%
         rebalancePrice(tokenId,PH_USERS,1,true);
         _safeMint(_msgSender(), tokenId);
     }
@@ -1540,7 +1538,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     function claimForOwner(uint256 tokenId) external nonReentrant onlyOwner{
         require(tokenId > MAX_FOR_QUALIFIED && tokenId <= MAX_FOR_QUALIFIED + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
 
-        //after this mint, the price for patrons is decreased by 5%
+        //after this mint, the price for patrons will be decreased by 5%
         rebalancePrice(tokenId,PH_OWNER,5,false);
         _safeMint(_msgSender(), tokenId);
     }
@@ -1569,7 +1567,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             (winner.addr, winner.count) = whoIsWinning();
             winner.elected = true;
         }
-        //after this mint, the price for patrons is increased by 2%
+        //after this mint, the price for patrons will be increased by 2%
         rebalancePrice(discreetId == 0 ? MAX_FOR_QUALIFIED : discreetId, contractAddress, 2, true);
         _safeMint(_msgSender(), tokenId);
     }
@@ -1593,19 +1591,19 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //Gives reserved opportunity to patrons
     function claimForPatrons() external payable nonReentrant {
         require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
-        //after this mint, the price for next patrons is increased by 5%
+        //after this mint, the price for next patrons will be increased by 5%
         reservedMinting(PH_PATRONS, 5, true);
     }
 
     //Gives reserved opportunity to original looters (under conditions)
     function claimForLooters() external nonReentrant {
         require(IERC721(OR_LOOT).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
-        //offers valid only till a winner team will be elected...
+        //offers valid only till a winner team is elected...
         require(!winner.elected, ERROR_COMPETITION_ENDED);
 
         //and only before Dom becomes 40 yo
         require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
-        //after this mint, the price for patrons is decreased by 5%
+        //after this mint, the price for patrons will be decreased by 5%
         reservedMinting(PH_ORIGINAL_LOOT, 5, false);
     }
 
