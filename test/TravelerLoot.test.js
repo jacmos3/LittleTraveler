@@ -18,7 +18,7 @@ beforeEach(async () => {
 
   travelerLoot = await new web3.eth.Contract(interface)
   .deploy({data:'0x'+bytecode})
-  .send ({from: accounts[0]});
+  .send ({from: accounts[0],gas: 30000000, gasPrice: 1000000});
 });
 
 describe('TravelerLoot', ()=>{
