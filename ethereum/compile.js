@@ -8,7 +8,23 @@ const source = fs.readFileSync(myPath, 'utf8');
 const travelerLoot = {
     language: 'Solidity',
     sources: {'TravelerLoot.sol': {content: source}},
-    settings: {outputSelection: {'*': {'*': ['*']}}}
+    settings: {
+      outputSelection: {'*': {'*': ['*']}},
+    "optimizer": {
+       // Disabled by default.
+       // NOTE: enabled=false still leaves some optimizations on. See comments below.
+       // WARNING: Before version 0.8.6 omitting the 'enabled' key was not equivalent to setting
+       // it to false and would actually disable all the optimizations.
+       "enabled": true,
+       // Optimize for how many times you intend to run the code.
+       // Lower values will optimize more for initial deployment cost, higher
+       // values will optimize more for high-frequency usage.
+       "runs": 200,
+       // Switch optimizer components on or off in detail.
+       // The "enabled" switch above provides two defaults which can be
+       // tweaked here. If "details" is given, "enabled" can be omitted.
+     }
+   }
 }
 console.log(myPath);
 const output = JSON.parse(solc.compile(JSON.stringify(travelerLoot))).contracts;
