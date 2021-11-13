@@ -1472,7 +1472,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return string(abi.encodePacked('data:application/json;base64,', json));
     }
 
-    //Given a qualified loot derivateve address, returns the count for that addr
+    //Given a qualified loot derivative address, returns the count for that addr
     function counts(address addr) external view returns (uint256){
         LootDetails memory details = detailsByAddress[addr];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
@@ -1559,8 +1559,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             details.bColor = colors[enrolledLoots++];
         }
 
-        //the tokenId is discreetized. It means that more loot ids potentially
-        //point to the same Traveler Loot id. So only one gain the availabil
+        //the tokenId is discreetized. It means that more loot ids can point to
+        //the same Traveler Loot id. The fastest gets it. Sorry for the others!
         uint16 discreetId = uint16(tokenId % MAX_FOR_QUALIFIED);
 
         if (++qualifiedCounter == MAX_FOR_QUALIFIED){
@@ -1574,14 +1574,13 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     //It mints the Traveler Loot using the address as tokenId.
-    //It's a Super Rare opportunity because only restricted categories can
-    //access to this:
+    //Only restricted categories can access to this:
     //- Winners can access because it's the reward for have won the competition,
-    //- Looters can access with restrictions:
-    //   . Till the winner is not yet found,
-    //   . or Till the 40th birthday of Dom Hoffman
+    //- Looters can access under restrictions:
+    //   . till the winner of the ongoing competitiob has not been elected yet,
+    //   . or till the 40th birthday of Dom Hoffman, the Loot Project father.
     //- Patrons can access since they pay the priceForPatrons cost, which is
-    //  designed to grow fast so it allows real access to very few people
+    //  designed to grow fast, so it allows practical access to very few people
     function reservedMinting(address addr,uint8 percentage, bool positive) internal{
       uint160 castedAddress = uint160(_msgSender());
       require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
