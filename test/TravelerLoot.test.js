@@ -27,15 +27,14 @@ describe('TravelerLoot', ()=>{
   });
 
 
-  it ('can change claim a token', async ()=>{
-    const hash = await travelerLoot.methods.claim("1000").send({from: accounts[0]});
+  it ('owner can claim a Traveler Loot', async ()=>{
+    const hash = await travelerLoot.methods.claimForOwner("2001").send({from: accounts[0],gas: 30000000, gasPrice: 1000000});
     console.log(hash.transactionHash);
       assert.ok(hash.transactionHash);
   });
 
-
   it ('can download token uri', async () => {
-    const tokenURI = await travelerLoot.methods.tokenURI().call();
+    const tokenURI = await travelerLoot.methods.tokenURI("2001").call();
     assert.ok(tokenURI);
   });
 })
