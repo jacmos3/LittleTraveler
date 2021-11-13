@@ -100,7 +100,7 @@ class MyDapp extends Component{
         <h2>Claim your Traveler!</h2>
         <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
           <Form.Field>
-            <p>Insert a still available tokenId between 2223 and 10000</p>
+            <p>Insert an available tokenId between 2223 and 10000</p>
             <Input
             value = {this.state.tokenId}
              onChange = {event => this.setState({tokenId: event.target.value})}/>
