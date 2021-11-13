@@ -1568,8 +1568,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             winner.elected = true;
         }
         //after this mint, the price for patrons will be increased by 2%
-        rebalancePrice(discreetId == 0 ? MAX_FOR_QUALIFIED : discreetId, contractAddress, 2, true);
-        _safeMint(_msgSender(), tokenId);
+        uint16 finalId = discreetId == 0 ? MAX_FOR_QUALIFIED : discreetId;
+        rebalancePrice(finalId, contractAddress, 2, true);
+        _safeMint(_msgSender(), finalId);
     }
 
     //It mints the Traveler Loot using the address as tokenId.
