@@ -3,7 +3,7 @@ import Layout from '../components/Layout.js';
 import {Form, Button, Input, Message,  Card, Icon, Image } from 'semantic-ui-react';
 //import web3 from '../ethereum/web3';
 import {Router} from '../routes';
-import travelerLoot from '../ethereum/travelerLoot';
+import TravelerLoot from '../ethereum/build/TravelerLoot.sol.json';
 import styles from "../styles/pages/INDEX.module.scss"; // Styles
 import Web3 from "web3";
 import Web3Modal from "web3modal";
@@ -29,48 +29,10 @@ class MyDapp extends Component{
   }
 
   async componentDidMount(){
-    var providerOptions={
-     injected:{
-       display:{
-         name: "Injected",
-         description: "Connect with the provider in your Browser"
-       },
-       package:null
-     }
-    }
-    var web3Modal = new Web3Modal({
-      network: "mainnet", // optional
-      cacheProvider: true, // optional
-      providerOptions // required
-    });
-    var provider;
-    try {
-      provider = await web3Modal.connect();
-    } catch(e) {
-      console.log("Could not get a wallet connection", e);
-      return;
-    }
-
-    var web3=new Web3(provider);
-
-    provider.on('accountsChanged', function (accounts) {
-      console.log("account changed "+accounts[0]);
-      window.location.reload();
-    })
-
-    provider.on('chainChanged', function (networkId) {
-      console.log("chain changed: reloading page");
-      window.location.reload();
-    })
-
-    provider.on("disconnect",function() {
-      console.log("disconnecting");
-      provider.close();
-      web3Modal.clearCachedProvider();
-      provider=null;
-    }
-   );
-    this.setState({web3:web3});
+    var web3Settings = this.state.web3Settings;
+    web3Settings.contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
+    this.setState({web3Settings:web3Settings});
+    console.log(this.state);
   }
 
   onSubmit = async (event) => {
@@ -78,8 +40,10 @@ class MyDapp extends Component{
     this.setState({loading:true, errorMessage:''});
     try{
       const accounts= await this.state.web3.eth.getAccounts();
-      await travelerLoot.methods.claim(this.state.tokenId).send({from:accounts[0]});
-      let uri = await travelerLoot.methods.tokenURI(this.state.tokenId).call()
+      const instance = new this.state.web3.eth.Contract(TravelerLoot.TravelerLoot.abi, this.state.web3Settings.contractAddress );
+
+      await instance.methods.claim(this.state.tokenId).send({from:accounts[0]});
+      let uri = await instance.methods.tokenURI(this.state.tokenId).call()
       .then((result)=> {
           return JSON.parse(window.atob(result.split(',')[1]));
       })
@@ -95,8 +59,10 @@ class MyDapp extends Component{
   }
 
   onSynthetic = async() => {
+    console.log(this.state);
+    const instance = new this.state.web3.eth.Contract(TravelerLoot.TravelerLoot.abi, this.state.web3Settings.contractAddress );
 
-      let uri = await travelerLoot.methods.tokenURI(this.state.tokenId).call()
+      let uri = await instance.methods.tokenURI(this.state.tokenId).call()
       .then((result)=> {
           return JSON.parse(window.atob(result.split(',')[1]));
       })
@@ -124,6 +90,49 @@ class MyDapp extends Component{
     }
 
     connect = async (event) => {
+      var providerOptions={
+       injected:{
+         display:{
+           name: "Injected",
+           description: "Connect with the provider in your Browser"
+         },
+         package:null
+       }
+      }
+      var web3Modal = new Web3Modal({
+        network: "mainnet", // optional
+        cacheProvider: true, // optional
+        providerOptions // required
+      });
+      var provider;
+      try {
+        provider = await web3Modal.connect();
+      } catch(e) {
+        console.log("Could not get a wallet connection", e);
+        return;
+      }
+
+      var web3=new Web3(provider);
+
+      provider.on('accountsChanged', function (accounts) {
+        console.log("account changed "+accounts[0]);
+        window.location.reload();
+      })
+
+      provider.on('chainChanged', function (networkId) {
+        console.log("chain changed: reloading page");
+        window.location.reload();
+      })
+
+      provider.on("disconnect",function() {
+        console.log("disconnecting");
+        provider.close();
+        web3Modal.clearCachedProvider();
+        provider=null;
+      }
+     );
+      this.setState({web3:web3});
+
       console.log(this.state.web3);
        const networkId =  await this.state.web3.eth.net.getId();
        const mainNetwork = 1;
@@ -132,12 +141,14 @@ class MyDapp extends Component{
 
        const ethBalance = await this.state.web3.eth.getBalance(accounts[0]) / 10 ** 18;
        console.log(this.state.web3Settings.isWeb3Connected);
-       this.setState({web3Settings:{account:accounts[0], networkId, ethBalance, isWeb3Connected:accounts.length > 0}})
+       var web3Settings = this.state.web3Settings;
+       web3Settings.account = accounts[0];
+       web3Settings.networkId = networkId;
+       web3Settings.ethBalance = ethBalance;
+       web3Settings.isWeb3Connected = accounts.length > 0;
+       this.setState({web3Settings:web3Settings});
        console.log(this.state.web3Settings.isWeb3Connected);
-
-
     }
-
 
   render(){
 
