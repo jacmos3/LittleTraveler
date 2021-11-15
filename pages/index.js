@@ -198,17 +198,20 @@ class MyDapp extends Component{
                 <Form.Field>
                   <p>Insert an available tokenId between 2223 and 10000</p>
                   <Input
+                  type='number'
+                  max={10000}
+                  min = {2223}
                   value = {this.state.tokenId}
                    onChange = {event => this.setState({tokenId: event.target.value})}/>
                 </Form.Field>
 
                 <Message error header="Oops!" content = {this.state.errorMessage} />
-                <Button loading = {this.state.loading} primary>Mint!</Button>
-                <Button type="button" basic color='grey' onClick={this.onSynthetic} > Synthetic</Button>
+                <Button disabled={this.state.tokenId.length == 0} type="button" basic color='grey' onClick={this.onSynthetic} > Preview</Button>
+                <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} primary>User Mint</Button>
+                <Button target="_blank" href={`https://etherscan.io/address/${this.state.web3Settings.contractAddress}#code`} type="button" basic color='blue' > H4x0r M1n7 </Button>
               </Form>
-
                 {!this.state.minted ? null : (
-                  <Card>
+                  <Card centered>
                     <Image src={`${this.state.image}`} wrapped ui={false} />
                     <Card.Content>
                       <Card.Header>{this.state.name}</Card.Header>
