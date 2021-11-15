@@ -5,9 +5,6 @@ import styles from "../styles/components/Layout.module.scss"; // Styles
 import { useRouter } from "next/router"; // Routing
 import Web3 from "web3";
 import Web3Modal from "web3modal";
-import Menu from '../img/menu.svg';
-import WalletConnectProvider from "@walletconnect/web3-provider";
-
 
 class Header extends Component{
   constructor(props) {
