@@ -19,7 +19,8 @@ class MyDapp extends Component{
     image:'',
     web3Settings:{
       isWeb3Connected:false,
-      mainNetwork : 4 //1 ethereum, 4 rinkeby
+      deployingNetworkId : 4, //1 ethereum, 4 rinkeby
+      deployingNetworkName : "Rinkeby"
     }
   };
 
@@ -144,9 +145,16 @@ class MyDapp extends Component{
        var web3Settings = this.state.web3Settings;
        web3Settings.account = accounts[0];
        web3Settings.networkId = networkId;
+       web3.eth.net.getNetworkType()
+        .then((value) => {
+         web3Settings.networkName = value;
+         this.forceUpdate();
+       });
+
        web3Settings.ethBalance = ethBalance;
        web3Settings.isWeb3Connected = accounts.length > 0;
        this.setState({web3Settings:web3Settings});
+
        console.log(this.state.web3Settings.isWeb3Connected);
     }
 
@@ -190,7 +198,7 @@ class MyDapp extends Component{
         {/* Rendering sample loot bags */}
         {
           this.state.web3Settings.isWeb3Connected
-          ? this.state.web3Settings.networkId == this.state.web3Settings.mainNetwork
+          ? this.state.web3Settings.networkId == this.state.web3Settings.deployingNetworkId
             ?
             (
 
@@ -234,8 +242,8 @@ class MyDapp extends Component{
                 <Dimmer active>
                   <Loader size='massive'>
                   <h1>Wrong Network!</h1>
-                  <h2>You are connected to networkId: {this.state.web3Settings.networkId}</h2>
-                  <h3>Please connect to NetworkId: {this.state.web3Settings.mainNetwork}</h3>
+                  <h2>You are connected to netword {this.state.web3Settings.networkId} - {this.state.web3Settings.networkName}</h2>
+                  <h3>Please connect to network {this.state.web3Settings.deployingNetworkId} - {this.state.web3Settings.deployingNetworkName}</h3>
                   </Loader>
                 </Dimmer>
               )
