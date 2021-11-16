@@ -210,7 +210,7 @@ class MyDapp extends Component{
                   <Message error header="Oops!" content = {this.state.errorMessage} />
                   {/*<Button disabled={this.state.tokenId.length == 0} type="button" basic color='grey' onClick={this.onSynthetic} > Preview</Button>*/}
                   <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} primary>User Mint</Button>
-                  <Button target="_blank" href={`https://etherscan.io/address/${this.state.web3Settings.contractAddress}#code`} type="button" basic color='blue' > H4x0r M1n7 </Button>
+                  <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.state.web3Settings.contractAddress}#code`} type="button" basic color='blue' > H4x0r M1n7 </Button>
                 </Form>
                 {!this.state.minted ? null : (
                   <Card centered>
