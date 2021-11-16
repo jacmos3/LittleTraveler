@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Layout from '../components/Layout.js';
-import {Form, Button, Input, Message,  Card, Icon, Image } from 'semantic-ui-react';
+import {Form, Button, Input, Message,  Card, Icon, Image, Container, Dimmer, Loader, Segment } from 'semantic-ui-react';
 //import web3 from '../ethereum/web3';
 import {Router} from '../routes';
 import TravelerLoot from '../ethereum/build/TravelerLoot.sol.json';
@@ -18,7 +18,8 @@ class MyDapp extends Component{
     description:'',
     image:'',
     web3Settings:{
-      isWeb3Connected:false
+      isWeb3Connected:false,
+      mainNetwork : 4 //1 ethereum, 4 rinkeby
     }
   };
 
@@ -135,7 +136,6 @@ class MyDapp extends Component{
 
       console.log(this.state.web3);
        const networkId =  await this.state.web3.eth.net.getId();
-       const mainNetwork = 1;
        const accounts = await this.state.web3.eth.getAccounts();
        console.log("account:"+ accounts[0]);
 
@@ -190,26 +190,28 @@ class MyDapp extends Component{
         {/* Rendering sample loot bags */}
         {
           this.state.web3Settings.isWeb3Connected
-          ? (
+          ? this.state.web3Settings.networkId == this.state.web3Settings.mainNetwork
+            ?
+            (
 
-              <div className={styles.home__feature}>
-              <h2>Claim your Traveler!</h2>
-              <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
-                <Form.Field>
-                  <p>Insert an available tokenId between 2223 and 10000</p>
-                  <Input
-                  type='number'
-                  max={10000}
-                  min = {2223}
-                  value = {this.state.tokenId}
-                   onChange = {event => this.setState({tokenId: event.target.value})}/>
-                </Form.Field>
+                <div className={styles.home__feature}>
+                <h2>Claim your Traveler!</h2>
+                <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
+                  <Form.Field>
+                    <p>Insert an available tokenId between 2223 and 10000</p>
+                    <Input
+                    type='number'
+                    max={10000}
+                    min = {2223}
+                    value = {this.state.tokenId}
+                     onChange = {event => this.setState({tokenId: event.target.value})}/>
+                  </Form.Field>
 
-                <Message error header="Oops!" content = {this.state.errorMessage} />
-                <Button disabled={this.state.tokenId.length == 0} type="button" basic color='grey' onClick={this.onSynthetic} > Preview</Button>
-                <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} primary>User Mint</Button>
-                <Button target="_blank" href={`https://etherscan.io/address/${this.state.web3Settings.contractAddress}#code`} type="button" basic color='blue' > H4x0r M1n7 </Button>
-              </Form>
+                  <Message error header="Oops!" content = {this.state.errorMessage} />
+                  {/*<Button disabled={this.state.tokenId.length == 0} type="button" basic color='grey' onClick={this.onSynthetic} > Preview</Button>*/}
+                  <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} primary>User Mint</Button>
+                  <Button target="_blank" href={`https://etherscan.io/address/${this.state.web3Settings.contractAddress}#code`} type="button" basic color='blue' > H4x0r M1n7 </Button>
+                </Form>
                 {!this.state.minted ? null : (
                   <Card centered>
                     <Image src={`${this.state.image}`} wrapped ui={false} />
@@ -223,16 +225,29 @@ class MyDapp extends Component{
                       </Card.Description>
                     </Card.Content>
                   </Card>
-                )
-              }
-              </div>
-          )
+                  )
+                }
+                </div>
+            )
+            :
+              (
+                <Dimmer active>
+                  <Loader size='massive'>
+                  <h1>Wrong Network!</h1>
+                  <h2>You are connected to networkId: {this.state.web3Settings.networkId}</h2>
+                  <h3>Please connect to NetworkId: {this.state.web3Settings.mainNetwork}</h3>
+                  </Loader>
+                </Dimmer>
+              )
 
-          : (
-              <Button onClick={this.props.connect}>
-                connect wallet
-              </Button>
-          )
+              : (
+                  <Segment>
+                    <div>
+                      <Container textAlign="center" style={{color:"black"}}>
+                        placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text
+                      </Container></div>
+                  </Segment>
+                )
         }
       </Layout>
     )
