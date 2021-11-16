@@ -31,7 +31,7 @@ function Head() {
       <meta property="twitter:title" content="Traveler Loot" />
       <meta
         property="twitter:description"
-        content="Loot is randomized adventurer gear generated and stored on chain."
+        content="Traveler Loot is randomized character generated and stored on chain."
       />
       <meta property="twitter:image" content="https://travelerloot.web.app/meta.png" />
 
