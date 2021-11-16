@@ -1,5 +1,7 @@
 build
 package-lock.json
+.firebase*
+.github*
 *.DS_Store
 # Logs
 logs

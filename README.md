@@ -77,3 +77,7 @@ go to https://localhost:3000 and feel free to use the dapp
 `npm run test`
 
 NOTE: Tests are not intended to be completed. Feel free to write your own tests.
+
+
+## 7) Exporting for hosting:
+`npm run build && npm run export`
