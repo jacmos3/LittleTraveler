@@ -9,7 +9,7 @@ function Head() {
     <HTMLHead>
       {/* Primary Meta Tags */}
       <title>Loot</title>
-      <meta name="title" content="Loot" />
+      <meta name="title" content="Traveler Loot" />
       <meta
         name="description"
         content="Traveler Loot is randomized character generated and stored on chain."
@@ -17,17 +17,17 @@ function Head() {
 
       {/* OG + Faceook */}
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="#" />
+      <meta property="og:url" content="https://travelerloot.web.app" />
       <meta property="og:title" content="Traveler Loot" />
       <meta
         property="og:description"
         content="Traveler Loot is randomized character generated and stored on chain."
       />
-      <meta property="og:image" content="#" />
+      <meta property="og:image" content="https://travelerloot.web.app/meta.png" />
 
       {/* Twitter */}
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content="#" />
+      <meta property="twitter:url" content="https://travelerloot.web.app" />
       <meta property="twitter:title" content="Traveler Loot" />
       <meta
         property="twitter:description"
