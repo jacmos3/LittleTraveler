@@ -1368,7 +1368,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
    string[] private occupation = ["Host", "Cook", "Writer", "DeeJay", "Youtuber", "Tiktoker", "Traveller", "Tour Guide", "Ship Pilot", "DAO Member", "Bus Driver", "Taxi Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "Proof of Stake validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Developer", "Blockchain Consultant Project Manager", "Crypto Venture Capitalist", "Crypto Business Angel"];
 
     constructor() ERC721("TravelerLoot", "TRAVELER") Ownable(){
-      treasurer = msg.sender;
+      treasurer = 0xce73904422880604e78591fD6c758B0D5106dD50; //TripsCommunity wallet
       LootDetails memory details = LootDetails({bColor:BLACK,fColor:WHITE,counter:0,verified:true});
       detailsByAddress[PH_USERS] = details;
       detailsByAddress[PH_OWNER] = details;
