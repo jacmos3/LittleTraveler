@@ -1490,12 +1490,11 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       if (winner.elected){
         return (winner.addr,winner.count);
       }
-      //in case of tie, Loot Project wins by default
+
       address winningLoot = OR_LOOT;
       uint16 winningCount = uint16(detailsByAddress[winningLoot].counter);
 
-      //The following list is ordered by trading volume based on OpenSea stats taken on October 2021.
-      //In case of two teams will end to score with the same points, this ordering will be decisive.
+      //The following list is ordered by trading volume based on OpenSea stats taken in October 2021
       (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_LootRealm, uint16(detailsByAddress[DL_LootRealm].counter));
       (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_TREASURE, uint16(detailsByAddress[DL_TREASURE].counter));
       (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_SCORE, uint16(detailsByAddress[DL_SCORE].counter));
@@ -1514,7 +1513,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       return (winningLoot, winningCount);
     }
 
-    //Modify the price that patreons pay for a reserved Traveler Loot.
+    //Rebalancing the price patreons have to pay to claim a reserved Traveler Loot.
     function rebalancePrice(uint256 id, address addr, uint8 percentage, bool positive) internal{
       //price is rebalanced after every mint, following simple rules
       uint160 x = priceForPatrons / (100 / percentage);
@@ -1524,8 +1523,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       addressList[id] = addr;
     }
 
-    //Everyone can claim for free (+ gas) a still available tokenId out of the
-    //reserved ranges for the qualified competition loots, and the owner
+    //Everyone can claim for free (+ gas) an available and not reserved tokenId
     function claim(uint256 tokenId) external nonReentrant {
         require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
         require(tokenId > MAX_FOR_QUALIFIED + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
@@ -1547,7 +1545,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //competition can use this function to claim their Traveler Loot in special
     //edition. The first one for each team will be responsible for the color
     //chosen for the whole team.
-    //When all the reserved Traveler Loot are minted, a winner team will be
+    //When all the reserved Traveler Loots are minted, the winner team will be
     //picked and it will gain access to the claimForWinners() function.
     function claimForQualifiedLoots(uint256 tokenId, address contractAddress) external nonReentrant {
         require(!winner.elected, ERROR_COMPETITION_ENDED);
@@ -1577,10 +1575,11 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //Only restricted categories can access to this:
     //- Winners can access because it's the reward for have won the competition,
     //- Looters can access under restrictions:
-    //   . till the winner of the ongoing competitiob has not been elected yet,
-    //   . or till the 40th birthday of Dom Hoffman, the Loot Project father.
+    //   . till the winner of the ongoing competition is not been elected yet,
+    //   . or till the 40th birthday of Dom Hoffman (the Loot Project father).
     //- Patrons can access since they pay the priceForPatrons cost, which is
-    //  designed to grow fast, so it allows practical access to very few people
+    //  designed to grow as fast as more interest gets the project, so it allows
+    //practical access not to everybody because it will become hard to afford
     function reservedMinting(address addr,uint8 percentage, bool positive) internal{
       uint160 castedAddress = uint160(_msgSender());
       require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
@@ -1608,7 +1607,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     //Gives reserved opportunity to the winner team (under conditions)
-    //Only callable when the competition has ended.
+    //Only callable when the competition is ended.
     function claimForWinners() external nonReentrant {
         require(winner.elected, ERROR_COMPETITION_ONGOING);
         require(IERC721(winner.addr).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
