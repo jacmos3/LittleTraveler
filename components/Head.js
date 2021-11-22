@@ -8,7 +8,7 @@ function Head() {
   return (
     <HTMLHead>
       {/* Primary Meta Tags */}
-      <title>Loot</title>
+      <title>Traveler Loot</title>
       <meta name="title" content="Traveler Loot" />
       <meta
         name="description"
