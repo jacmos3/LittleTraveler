@@ -1286,7 +1286,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
 
 contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
-    uint256 private constant DISCOUNT_EXPIRATION = 1790546399; //Sun 27 Sep 2026 21:59:59
+    uint256 private constant DISCOUNT_EXPIRATION = 1790553599; //Sun 27 Sep 2026 21:59:59 UTC
     string private constant WHITE = "white";
     string private constant BLACK = "black";
     string private constant GOLD = "gold";
