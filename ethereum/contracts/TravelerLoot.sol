@@ -1318,7 +1318,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     mapping(uint256 => address) public addressList;
     address public treasurer;
 
-    uint8 public enrolledLoots = 0;
+    uint8 public enrolledDerivative = 0;
     uint16 private qualifiedCounter = 0;
     uint16 public constant MAX_ID = 10000;
     uint16 private constant MAX_LOOT = 8000;
@@ -1554,8 +1554,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         IERC721 looter = IERC721(contractAddress);
         require(tokenId > 0 && looter.ownerOf(tokenId) == _msgSender(), ERROR_NOT_THE_OWNER);
-        if (details.counter == 0 && enrolledLoots < colors.length){
-            details.bColor = colors[enrolledLoots++];
+        if (details.counter == 0 && enrolledDerivative < colors.length && contractAddress != OR_LOOT){
+            details.bColor = colors[enrolledDerivative++];
         }
 
         //the tokenId is discreetized. It means that more loot ids can point to
