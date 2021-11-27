@@ -1326,7 +1326,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint16 public constant MAX_FOR_QUALIFIED = 2000;
     uint160 public priceForPatrons = 1 ether;
 
-    //defining the contestant teams for the qualified competition
+    //defining the contestant guilds for the qualified competition
     //ORiginal Loot and other Derivative Loots
     address constant public OR_LOOT       = 0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7;
     address constant public DL_AL         = 0xcC56775606730C96eA245D9cF3890247f1c57FB1;
@@ -1344,16 +1344,17 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     address constant public DL_SCORE      = 0x42A87e04f87A038774fb39c0A61681e7e859937b;
     address constant public DL_TREASURE   = 0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa;
 
-    //defining a non-competitive owner team using the PlaceHolder address 0
+    //defining a non-competitive owner guild using the PlaceHolder address 0
     address private constant PH_OWNER = address(0);
 
-    //defining other teams which will not compete into the race but which we want to track for future possible rewards
+    //defining other guilds that will not compete into the race but that we want
+    //to track for future possible rewards
     address private constant PH_USERS = address(1);
     address private constant PH_PATRONS = address(2);
     address private constant PH_ORIGINAL_LOOT = address(3);
     address private constant PH_WINNERS = address(4);
 
-   //defining colors that will be assigned to each team. The first member of each team will be responsible for the color assignement for it's whole team.
+   //defining colors that will be assigned to each guild. The first member of each guild will be responsible for the color assignement for it's whole guild.
    string[] private colors = ["#726e6e","#464A97","#6eb7e5","#8d734a","#4bbda9","#949494","#887eaf","#e2a5a2","#d45b5b","#af4242","#91a18b","#935e7e","#c37ec8","#586754"];
 
    string[] private character = ["Energetic", "Good-natured", "Enthusiastic", "Challenging", "Charismatic", "Wise", "Modest", "Honest", "Protective", "Perceptive", "Providential", "Prudent", "Spontaneous", "Insightful", "Intelligent", "Intuitive", "Precise", "Sharing", "Simple", "Sociable", "Sophisticated", "Benevolent", "Admirable", "Brilliant", "Accessible", "Calm", "Capable", "Optimistic", "Respectful", "Responsible"];
@@ -1361,7 +1362,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
    string[] private transport = ["Train", "Car", "Airplane", "Cruise", "4 wheel drive car", "Bus", "Airplane", "Convertible car", "Bicycle", "Motorbike", "Campervan", "Trailer", "Sailboat", "Electric car", "Scooter", "Local train", "Cinquecento", "Hitch-hiking", "VW Beetle", "VW Bus", "Truck", "Off-road Vehicle", "Cab", "Lambo", "Ferrari", "Rocket", "DeLorean", "Kia Sedona", "Magic carpet", "Broomstick"];
    string[] private language = ["English", "Mandarin Chinese", "Hindi", "Spanish", "Arabic", "French", "Russian", "Portuguese", "Indonesian", "German", "Japanese", "Turkish", "Korean", "Vietnamese", "Iranian Persian", "Swahili", "Javanese", "Italian", "Thai", "Filipino", "Burmese", "Polish", "Croatian", "Danish", "Serbian", "Slovenian", "Czech", "Slovakian", "Greek", "Hungarian"];
    string[] private talent = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
-   string[] private place = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Twitter", "Discord", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345"];
+   string[] private place = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
    string[] private experience = ["11", "22", "33", "44", "55", "66", "77", "88", "99"];
    string[] private accomodation = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest house", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
    string[] private bag = ["Pen", "Kindle", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "beauty case", "toothbrush", "toothpaste", "slippers", "shirts", "pants", "thisrts", "socks", "underwears","condoms"];
@@ -1485,7 +1486,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     //It compares original loot & loot-derivatives scores.
     //It excludes contract owner, patrons and normal users because
-    //those three teams are not competing for the win and they cannot win.
+    //those three guilds are not competing for the win and they cannot win.
     function whoIsWinning() public view returns (address, uint16){
       if (winner.elected){
         return (winner.addr,winner.count);
@@ -1543,9 +1544,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     //User who owns at least one of the NFT that have been qualified for this
     //competition can use this function to claim their Traveler Loot in special
-    //edition. The first one for each team will be responsible for the color
-    //chosen for the whole team.
-    //When all the reserved Traveler Loots are minted, the winner team will be
+    //edition. The first one for each guild will be responsible for the color
+    //chosen for the whole guild.
+    //When all the reserved Traveler Loots are minted, the winner guild will be
     //picked and it will gain access to the claimForWinners() function.
     function claimForQualifiedLoots(uint256 tokenId, address contractAddress) external nonReentrant {
         require(!winner.elected, ERROR_COMPETITION_ENDED);
@@ -1597,7 +1598,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //Gives reserved opportunity to original looters (under conditions)
     function claimForLooters() external nonReentrant {
         require(IERC721(OR_LOOT).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
-        //offers valid only till a winner team is elected...
+        //offers valid only till a winner guild is elected...
         require(!winner.elected, ERROR_COMPETITION_ENDED);
 
         //and only before Dom becomes 40 yo
@@ -1606,7 +1607,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         reservedMinting(PH_ORIGINAL_LOOT, 5, false);
     }
 
-    //Gives reserved opportunity to the winner team (under conditions)
+    //Gives reserved opportunity to the winner guild (under conditions)
     //Only callable when the competition is ended.
     function claimForWinners() external nonReentrant {
         require(winner.elected, ERROR_COMPETITION_ONGOING);
