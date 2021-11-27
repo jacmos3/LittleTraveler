@@ -62,7 +62,7 @@ The qualified Loot projects are the first 15 in the list, sorted by trading volu
 
 By using the _**qualifiedClaim(tokenId, contractAddress)**_ function Loot project owners can mint a
 Special Edition **colored NFT** on a first-come-first-served basis.
-There are **15 qualified Loot and Loot derivatives projects** that have
+There are **14 qualified Loot and Loot derivatives projects** that have
 been selected to be qualified for this purpose.
 
 E.g.: if you own the Loot #1 from an eligible Loot project, you would be able to mint the Traveler Loot #1 using
@@ -86,7 +86,7 @@ There will be only 2000 Special Traveler Loot, at maximum: from #1 to #2000.
 ## DERIVATIVE LOOT "GuildS"
 If you have an NFT from an eligible Loot project, you are part of a Guild.
 If you are the first to mint from your Guild, you will decide the Color of your Guild Traveler Loots.
-There are XX Colors.
+There are 14 Colors.
 When all 2000 Special Edition Traveler Loots have been minted, the Guild with most NFTs will WIN.
 Your Guild wins the possibility to mint for free + gas a Patron NFT, which otherwise costs about 1 ETH.
 
