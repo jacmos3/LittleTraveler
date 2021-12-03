@@ -1533,7 +1533,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         _safeMint(_msgSender(), tokenId);
     }
 
-    //Owner can claim the few reserved tokenId.
+    //Owner can claim it's reserved tokenIds.
     function claimForOwner(uint256 tokenId) external nonReentrant onlyOwner{
         require(tokenId > MAX_FOR_QUALIFIED && tokenId <= MAX_FOR_QUALIFIED + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
 
@@ -1558,8 +1558,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             details.bColor = colors[enrolledDerivative++];
         }
 
-        //the tokenId is discreetized. It means that more loot ids can point to
-        //the same Traveler Loot id. The fastest gets it. Sorry for the others!
+        //The tokenIds are discreetized. It means that more loot derivative ids
+        //would likely point to the same Traveler Loot id, so:
+        //First comes first served & sorry for the others!
         uint16 discreetId = uint16(tokenId % MAX_FOR_QUALIFIED);
 
         if (++qualifiedCounter == MAX_FOR_QUALIFIED){
@@ -1617,7 +1618,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     //Owner can withdraw the patron fundings to the treasurer address.
-    //The treasurer address is a DAO and it will decide how to use the funds.
+    //The treasurer address will decide how to use the funds.
+    //The initial treasurer is set to be TripsCommunity address. It will be
+    //changed to a multisig addr. as soon as TripsCommunity will form a DAO addr
     function withdraw() external onlyOwner {
         payable(treasurer).transfer(address(this).balance);
     }
