@@ -7,10 +7,6 @@ import TravelerLoot from '../ethereum/build/TravelerLoot.sol.json';
 import styles from "../styles/pages/INDEX.module.scss"; // Styles
 import Web3 from "web3";
 import Web3Modal from "web3modal";
-import Opensea from "../img/opensea.svg"
-import Twitter from "../img/twitter.svg";
-import ExchangeIcon from "../img/exchangeIcon2.svg";
-import Discord from "../img/discord.svg";
 
 class MyDapp extends Component{
   state = {
@@ -170,109 +166,18 @@ class MyDapp extends Component{
             <div className="w-full sm:w-1/2">
               <div className="sm:px-4">
 
-              <div className={styles.home__cta}>
-                <h1>Traveler Loot</h1>
-                {/* Quicklinks */}
-                <ul>
-                  {this.quicklinks.map(({ name, url }, i) => {
-                    return (
-                      <li key={i}>
-                        {url.startsWith("/") ? (
-                          // If link to local page use Link
-                          <Link href={url}>
-                            <a>{name}</a>
-                          </Link>
-                        ) : (
-                          // Else, redirect in new tab
-                          <a href={url} target="_blank" rel="noopener noreferrer">
-                            {name}
-                          </a>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-                {/* CTA Description */}
-                  <p>
-                    Traveler Loot is randomized character generated and stored on
-                    chain.<br />Stats, images, and other functionality are intentionally
-                    omitted for others to interpret.
-                    <br /> Feel free to use The Traveler Loot in any way you want.
-                  </p>
-
-
-
-                    </div>
+                <div className={styles.home__cta}>
+                  <h1>Traveler Loot</h1>
+                  <p className="text-xl sm:text-2xl text-gray-300">  Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.</p>
+                </div>
 
               <div>
-              <Container>
-              {/* Rendering sample loot bags */}
-              {
-                this.state.web3Settings.isWeb3Connected
-                ? this.state.web3Settings.networkId == this.state.web3Settings.deployingNetworkId
-                  ?
-                  (
-                      <div className={styles.home__feature}>
-                      <h2>Claim your Traveler!</h2>
-                      <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
-                        <Form.Field>
-                          <p>Insert an available tokenId between 2223 and 10000</p>
-                          <Input
-                          type='number'
-                          max={10000}
-                          min = {2223}
-                          value = {this.state.tokenId}
-                           onChange = {event => this.setState({tokenId: event.target.value})}/>
-                        </Form.Field>
 
-                        <Message error header="Oops!" content = {this.state.errorMessage} />
-                        {/*<Button disabled={this.state.tokenId.length == 0} type="button" basic color='grey' onClick={this.onSynthetic} > Preview</Button>*/}
-                        <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} primary>User Mint</Button>
-                        <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.state.web3Settings.contractAddress}#code`} type="button" basic color='blue' > H4x0r M1n7 </Button>
-                      </Form>
-                      {!this.state.minted ? null : (
-                        <Card centered>
-                          <Image src={`${this.state.image}`} wrapped ui={false} />
-                          <Card.Content>
-                            <Card.Header>{this.state.name}</Card.Header>
-                            <Card.Meta>
-                              <span className='date'>Minted on </span>
-                            </Card.Meta>
-                            <Card.Description>
-                              {this.state.description}
-                            </Card.Description>
-                          </Card.Content>
-                        </Card>
-                        )
-                      }
-
-                      </div>
-
-
-                  )
-                  :
-                    (
-                      <Dimmer active>
-                        <Loader size='massive'>
-                        <h1>Wrong Network!</h1>
-                        <h2>You are connected to netword {this.state.web3Settings.networkId} - {this.state.web3Settings.networkName}</h2>
-                        <h3>Please connect to network {this.state.web3Settings.deployingNetworkId} - {this.state.web3Settings.deployingNetworkName}</h3>
-                        </Loader>
-                      </Dimmer>
-                    )
-
-                    : (
-                        <Segment>
-                          <div>
-                            <Container textAlign="center" style={{color:"black"}}>
-                              placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text
-                            </Container></div>
-                        </Segment>
-                      )
-              }
-        </Container>
         </div>
-                <p className="text-xl sm:text-2xl text-gray-300">Loot is randomized adventurer gear generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use Loot in any way you want.</p>
+        <p>
+
+        </p>
+
                 <div>
                   <div className="flex py-8 w-full justify-center space-x-6">
                     <a
@@ -331,6 +236,72 @@ class MyDapp extends Component{
                       <span className="uppercase sm:text-xl tracking-widest text-gray-400">The Quest begins here</span>
                       <h1 className="text-center mt-4 capitalize">Start here: Get a Loot Bag</h1>
                       <p className="text-xl sm:text-2xl text-gray-400">8,000 Bags full of Loot, discovered by Adventurers. Where did they come from? What stories do they hold? Collect a bag, learn its story, and begin your adventure. </p>
+                      <Container>
+                      {/* Rendering sample loot bags */}
+                      {
+                        this.state.web3Settings.isWeb3Connected
+                        ? this.state.web3Settings.networkId == this.state.web3Settings.deployingNetworkId
+                          ?
+                          (
+                              <div className={styles.home__feature}>
+                              <h2>Claim your Traveler!</h2>
+                              <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
+                                <Form.Field>
+                                  <p>Insert an available tokenId between 2223 and 10000</p>
+                                  <Input
+                                  type='number'
+                                  max={10000}
+                                  min = {2223}
+                                  value = {this.state.tokenId}
+                                   onChange = {event => this.setState({tokenId: event.target.value})}/>
+                                </Form.Field>
+
+                                <Message error header="Oops!" content = {this.state.errorMessage} />
+                                {/*<Button disabled={this.state.tokenId.length == 0} type="button" basic color='grey' onClick={this.onSynthetic} > Preview</Button>*/}
+                                <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} primary>User Mint</Button>
+                                <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.state.web3Settings.contractAddress}#code`} type="button" basic color='blue' > H4x0r M1n7 </Button>
+                              </Form>
+                              {!this.state.minted ? null : (
+                                <Card centered>
+                                  <Image src={`${this.state.image}`} wrapped ui={false} />
+                                  <Card.Content>
+                                    <Card.Header>{this.state.name}</Card.Header>
+                                    <Card.Meta>
+                                      <span className='date'>Minted on </span>
+                                    </Card.Meta>
+                                    <Card.Description>
+                                      {this.state.description}
+                                    </Card.Description>
+                                  </Card.Content>
+                                </Card>
+                                )
+                              }
+
+                              </div>
+
+
+                          )
+                          :
+                            (
+                              <Dimmer active>
+                                <Loader size='massive'>
+                                <h1>Wrong Network!</h1>
+                                <h2>You are connected to netword {this.state.web3Settings.networkId} - {this.state.web3Settings.networkName}</h2>
+                                <h3>Please connect to network {this.state.web3Settings.deployingNetworkId} - {this.state.web3Settings.deployingNetworkName}</h3>
+                                </Loader>
+                              </Dimmer>
+                            )
+
+                            : (
+                                <Segment>
+                                  <div>
+                                    <Container textAlign="center" style={{color:"black"}}>
+                                      placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text
+                                    </Container></div>
+                                </Segment>
+                              )
+                      }
+                </Container>
                     </div>
                   </div>
 

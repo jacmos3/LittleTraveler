@@ -15,21 +15,20 @@ class Header extends Component{
 render(){
   return (
     <div className="w-full flex justify-between py-2 bg-black px-4 bg-opacity-90">
-
-      {/* Main logo */}
-      <div className={styles.header__logo}>
-        <Link href="/">
-          <a>Traveler Loot</a>
-        </Link>
-      </div>
+            {/* Main logo */}
+            <div className={styles.header__logo}>
+                <Link href="/">
+                    <a><h2>Traveler Loot</h2></a>
+                </Link>
+            </div>
 
       {/* Navigation */}
-      <div className={styles.header__links}>
-        <ul>
+      <div className="self-center hidden sm:block" >
+        <ul className="flex space-x-8">
           {this.props.links.map(({ name, path }, i) => {
             // For each link, render link
             return (
-              <li key={i}>
+              <li className="self-center text-xl" key={i}>
                 <Link href={path}>
                     {name}
                 </Link>
@@ -38,7 +37,7 @@ render(){
           })}
         </ul>
       </div>
-            <div style={{padding:"20px"}}>
+            <div style={{padding:"5px"}}>
 
             {
               this.props.state.isWeb3Connected
