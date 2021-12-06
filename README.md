@@ -81,3 +81,8 @@ NOTE: Tests are not intended to be completed. Feel free to write your own tests.
 
 ## 7) Exporting for hosting:
 `npm run build && npm run export`
+
+## 8) Deploy to Firebase (example)
+`firebase login`
+
+`firebase deploy`
