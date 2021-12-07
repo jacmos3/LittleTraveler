@@ -33,3 +33,29 @@ html {
     background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('/community.png');
 
 }
+
+.ui.card,
+.ui.cards>.card {
+  background-color: #161619;
+  color: white;
+  position: relative;
+  top: 0;
+  transition: top ease 0.2s;
+}
+
+.ui.card,
+.ui.cards>.card:hover {
+  top: -10px;
+}
+.ui.card > .content > .header, .ui.cards > .card > .content > .header{
+  color:white;
+  font-family: EB Garamond,serif;
+}
+.ui.card .meta, .ui.cards > .card .meta{
+  color:white;
+  font-family: EB Garamond,serif;
+}
+.ui.card > .content > .description, .ui.cards > .card > .content > .description{
+  color: white;
+  font-family: EB Garamond,serif;
+}

@@ -318,7 +318,105 @@ class MyDapp extends Component{
                     </div>
                   </div>
 
+                  <Card.Group itemsPerRow={4}>
+                    <Card>
+                        <Image src='https://storage.opensea.io/files/e8334ee6001611c4aa49b616de22281b.svg' wrapped ui={false} />
+                        <Card.Content>
+                          <Card.Header>Traveler Loot #482220179694193146584410087074499591168223535559</Card.Header>
+                          <Card.Meta>Owned by 0x5477802eb524075612aa9197f009b839e82ae1c7</Card.Meta>
+                          <Card.Description>
+                            Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.
+                          </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          <div align="center">
+                            <Button basic color='grey'>
+                              Button 1
+                            </Button>
+                            <Button basic color='grey'>
+                              Button 2
+                            </Button>
+                            <Button basic color='grey'>
+                              Button 3
+                            </Button>
+                            </div>
+                        </Card.Content>
+                    </Card>
 
+
+                    <Card>
+                        <Image src='https://storage.opensea.io/files/b5453db98be03de689c2c6ce60170831.svg' wrapped ui={false} />
+                        <Card.Content>
+                          <Card.Header>Traveler Loot #4</Card.Header>
+                          <Card.Meta>Owned by 0x5477802eb524075612aa9197f009b839e82ae1c7</Card.Meta>
+                          <Card.Description>
+                            Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.
+                          </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          <div align="center">
+                            <Button basic color='grey'>
+                              Button 1
+                            </Button>
+                            <Button basic color='grey'>
+                              Button 2
+                            </Button>
+                            <Button basic color='grey'>
+                              Button 3
+                            </Button>
+                            </div>
+                        </Card.Content>
+                    </Card>
+
+
+                    <Card>
+                        <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
+                        <Card.Content>
+                          <Card.Header>Traveler Loot #5</Card.Header>
+                          <Card.Meta >Owned by 0x5477802eb524075612aa9197f009b839e82ae1c7</Card.Meta>
+                          <Card.Description>
+                            Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.
+                          </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                          <div align="center">
+                            <Button basic color='grey'>
+                              Button 1
+                            </Button>
+                            <Button basic color='grey'>
+                              Button 2
+                            </Button>
+                            <Button basic color='grey'>
+                              Button 3
+                            </Button>
+                            </div>
+                        </Card.Content>
+                      </Card>
+
+                    <Card>
+                        <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
+                        <Card.Content>
+                          <Card.Header>Traveler Loot #5</Card.Header>
+                          <Card.Meta>Owned by 0x5477802eb524075612aa9197f009b839e82ae1c7</Card.Meta>
+                          <Card.Description>
+                            Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.
+                          </Card.Description>
+                        </Card.Content>
+                        <Card.Content extra>
+                        <div align="center">
+                          <Button basic color='grey'>
+                            Button 1
+                          </Button>
+                          <Button basic color='grey'>
+                            Button 2
+                          </Button>
+                          <Button basic color='grey'>
+                            Button 3
+                          </Button>
+                          </div>
+                        </Card.Content>
+                    </Card>
+                  </Card.Group>
                 </div>
               </div>
               <div id="chapter2" className=" bg-gray-700 py-20">
