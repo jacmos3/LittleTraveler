@@ -80,7 +80,7 @@ class MyDapp extends Component{
 
     quicklinks = [
         {name: "OpenSea", url: "#"},
-        {name: "Twitter",url: "#"},
+        {name: "Twitter",url: "https://twitter.com/tripscommunity"},
         {name: "Contract",url: "#"},
     ];
 
@@ -168,7 +168,8 @@ class MyDapp extends Component{
 
                 <div className={styles.home__cta}>
                   <h1>Traveler Loot</h1>
-                  <p className="text-xl sm:text-2xl text-gray-300">  Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.</p>
+                  <p className="text-xl sm:text-2xl text-gray-300">The Traveler Loot is a Loot derivative for the travel industry and the travel world in general.<br />
+                  It is a public good on which the Travel industry can create marketing campaigns, fidelity programs and airdrops.</p>
                 </div>
 
               <div>
@@ -180,30 +181,30 @@ class MyDapp extends Component{
 
                 <div>
                   <div className="flex py-8 w-full justify-center space-x-6">
-                    <a
+                    {/* <a
                       href="https://www.loot.exchange/"
                       className="self-center p-3 border border-gray-800 rounded-xl bg-black hover:bg-gray-600"
                       target="_blank"
                     >
                     <Image className="fill-current hover:text-gray-200 text-gray-400 w-6 h-6 mx-2" src="../img/exchangeIcon2.svg"  />
 
-                    </a>
+                    </a> */}
                     <a
-                      href="https://opensea.io/collection/lootproject"
+                      href="https://opensea.io/collection/#"
                       className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-gray-600"
                       target="_blank"
                     >
                       <Image className=" hover:text-gray-200  w-6 h-6 mx-2" src="../img/opensea.svg"  />
                     </a>
                     <a
-                      href="https://twitter.com/lootproject"
+                      href="https://twitter.com/tripscommunity"
                       className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-gray-600"
                       target="_blank"
                     >
                       <Image className="fill-current  text-white w-6 h-6 mx-2" src="../img/twitter.svg"/>
                     </a>
                     <a
-                      href="https://discord.gg/KuYyKXam9G"
+                      href="https://discord.gg/tripscommunity"
                       className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-gray-600"
                       target="_blank"
                     >
@@ -233,9 +234,15 @@ class MyDapp extends Component{
                 <div className="container mx-auto mt-8">
                   <div className="flex justify-around">
                     <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 ">
-                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">The Quest begins here</span>
-                      <h1 className="text-center mt-4 capitalize">Start here: Get a Loot Bag</h1>
-                      <p className="text-xl sm:text-2xl text-gray-400">8,000 Bags full of Loot, discovered by Adventurers. Where did they come from? What stories do they hold? Collect a bag, learn its story, and begin your adventure. </p>
+                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">A Real World Loot</span>
+                      <h1 className="text-center mt-4 capitalize">Start Here: Get A Traveler Loot</h1>
+                      <br />
+                             
+                      <p className="text-xl sm:text-2xl text-gray-400">10,000 Loots, discovered by travelers.
+                      <br />
+What treasures do they hold? <br />Which gifts will they attracts? <br />Free nights in hotels? <br />Big discounts on flights?<br />Special offers in restaurants? <br /> <br /></p>
+<Image  src="../1loot.png"/><br />
+
                       <Container>
                       {/* Rendering sample loot bags */}
                       {
@@ -244,10 +251,13 @@ class MyDapp extends Component{
                           ?
                           (
                               <div className={styles.home__feature}>
-                              <h2>Claim your Traveler!</h2>
+                              <h2>Claim your Traveler Loot!</h2>
+                              
+
                               <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
                                 <Form.Field>
                                   <p>Insert an available tokenId between 2223 and 10000</p>
+                                  <br />
                                   <Input
                                   type='number'
                                   max={10000}
@@ -255,6 +265,7 @@ class MyDapp extends Component{
                                   value = {this.state.tokenId}
                                    onChange = {event => this.setState({tokenId: event.target.value})}/>
                                 </Form.Field>
+                                <br />
 
                                 <Message error header="Oops!" content = {this.state.errorMessage} />
                                 {/*<Button disabled={this.state.tokenId.length == 0} type="button" basic color='grey' onClick={this.onSynthetic} > Preview</Button>*/}
@@ -296,7 +307,7 @@ class MyDapp extends Component{
                                 <Segment>
                                   <div>
                                     <Container textAlign="center" style={{color:"black"}}>
-                                      placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text placeholder text
+                                      Connect to Wallet!
                                     </Container></div>
                                 </Segment>
                               )
@@ -312,9 +323,9 @@ class MyDapp extends Component{
                 <div className="container mx-auto mt-8">
                   <div className="flex justify-around">
                     <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Chapter 1</span>
-                      <h1 className="text-center mt-4 capitalize">Gear up</h1>
-                      <p className="sm:text-2xl text-gray-400">Mint, claim, or trade additional items</p>
+                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Special Traveler Loots</span>
+                      <h1 className="text-center mt-4 capitalize">Priorities for Loot owners</h1>
+                      <p className="sm:text-2xl text-gray-400">Mint Special Loots</p>
                     </div>
                   </div>
 
@@ -322,10 +333,12 @@ class MyDapp extends Component{
                     <Card>
                         <Image src='https://storage.opensea.io/files/e8334ee6001611c4aa49b616de22281b.svg' wrapped ui={false} />
                         <Card.Content>
-                          <Card.Header>Traveler Loot #482220179694193146584410087074499591168223535559</Card.Header>
-                          <Card.Meta>Owned by 0x5477802eb524075612aa9197f009b839e82ae1c7</Card.Meta>
+                          <Card.Header>Colored Loots</Card.Header>
+                          <Card.Meta>#1 to #2000</Card.Meta>
                           <Card.Description>
-                            Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.
+                          Colored NFTs reserved for owners of Loot NFT from <a href="#selected">selected Loot projects (*)</a>
+                          <br /> <br /> <br />
+                          <b>Cost: Free + Gas</b>
                           </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
@@ -347,10 +360,15 @@ class MyDapp extends Component{
                     <Card>
                         <Image src='https://storage.opensea.io/files/b5453db98be03de689c2c6ce60170831.svg' wrapped ui={false} />
                         <Card.Content>
-                          <Card.Header>Traveler Loot #4</Card.Header>
-                          <Card.Meta>Owned by 0x5477802eb524075612aa9197f009b839e82ae1c7</Card.Meta>
+                          <Card.Header>Owner Loots</Card.Header>
+                          <Card.Meta>#2001 to #2222</Card.Meta>
                           <Card.Description>
-                            Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.
+                          Black and white Traveler Loots reserved to contract deployer (Trips Community).
+
+                          <br /> <br /> <br />
+                          <b>Cost: Free + Gas</b>
+
+
                           </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
@@ -372,10 +390,14 @@ class MyDapp extends Component{
                     <Card>
                         <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
                         <Card.Content>
-                          <Card.Header>Traveler Loot #5</Card.Header>
-                          <Card.Meta >Owned by 0x5477802eb524075612aa9197f009b839e82ae1c7</Card.Meta>
+                          <Card.Header>Standard Loots</Card.Header>
+                          <Card.Meta >#2223 to #10000</Card.Meta>
                           <Card.Description>
-                            Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.
+                          Black and white Traveler Loots.
+
+                          <br /> <br /> <br />
+                          <b>Cost: Free + Gas</b>
+
                           </Card.Description>
                         </Card.Content>
                         <Card.Content extra>
@@ -396,11 +418,14 @@ class MyDapp extends Component{
                     <Card>
                         <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
                         <Card.Content>
-                          <Card.Header>Traveler Loot #5</Card.Header>
-                          <Card.Meta>Owned by 0x5477802eb524075612aa9197f009b839e82ae1c7</Card.Meta>
+                          <Card.Header>Patron Loots</Card.Header>
+                          <Card.Meta>Over #10,000</Card.Meta>
                           <Card.Description>
-                            Traveler Loot is randomized character generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.
+                          these are golden Patron Traveler Loots with the TokenID in the decimal version of the ETH address (so, something like 1,178,629,251...).
+                          <br /> <br /> <br />
+                          <b>Cost: 1ETH (variable) + Gas</b>
                           </Card.Description>
+                          
                         </Card.Content>
                         <Card.Content extra>
                         <div align="center">
@@ -423,9 +448,13 @@ class MyDapp extends Component{
                 <div className="container mx-auto mt-8">
                   <div className="flex justify-around">
                     <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Chapter 2</span>
-                      <h1 className="text-center mt-4">Get Your Character</h1>
-                      <p className="sm:text-2xl text-gray-400">Who carried these Loot bags? Where did they come from? What are their stories?</p>
+                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Team up</span>
+                      <h1 className="text-center mt-4">Derivative Loot Guilds</h1>
+                      <p className="sm:text-2xl text-gray-400">If you have an NFT from an eligible Loot project, you are part of a Guild.<br />
+If you are the first to mint from your Guild, you will decide the Color of your Guild Traveler Loots.<br />
+There are 14 Colors.<br /><br />
+
+When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.<br /> Your Guild wins the possibility to mint for free + gas a Patron NFT, which otherwise costs about 1 ETH.<br /></p>
                     </div>
                   </div>
 
@@ -451,31 +480,146 @@ class MyDapp extends Component{
                   })}
                 </div>
               </div> */}
+
+              
+               <a name="selected"></a>
               <div id="chapter3" className="bg-white  py-20 text-black ">
                 <div className="container mx-auto mt-8">
                   <div className="flex justify-around ">
                     <div className="px-20 py-8 rounded text-center">
-                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Chapter 3</span>
-                      <h1 className="text-center mt-4">Go on Quests</h1>
+                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Only For Loot Owners</span>
+                    
+                     <br />
+                      <h1 className="text-center mt-4">Selected Loot Projects</h1>
                     </div>
                   </div>
                   <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 ">
-                    <p className="my-4">Your journey continues soon.</p>
+                    <p className="my-4">Owners of NFTs in these projects have priority on Colored Loots</p>
                     <br />
-                    <a
+
+                   <h2><a href="#" target="_blank">LOOT (Original)</a>, <a href="#" target="_blank">LOOTC - LootCreatures</a>, <a href="#" target="_blank">TREASURE</a>, <a href="#" target="_blank">CHAR LOOT</a>, <a href="#" target="_blank">LOOT REALM</a>, <a href="#" target="_blank">MLOOT</a>, <a href="#" target="_blank">AL</a>, <a href="#" target="_blank">LOOT HYMNS</a>, <a href="#" target="_blank">SCORE, DOGGO</a>, <a href="#" target="_blank">LOOT ROCK</a>, <a href="#" target="_blank">GMANA</a>, <a href="#" target="_blank">CYBERLOOT</a>, <a href="#" target="_blank">QUESTS</a> <br /></h2>
+
+              <br /><br />Loot project owners have the priority to mint a Traveler Loot in special edition Colored NFT, opening the doors for other possible future airdrops or advantages.
+                <br />
+               
+                <br />By using the "qualifiedClaim(tokenId, contractAddress)" function Loot project owners can mint a
+                Special Edition colored NFT on a first-come-first-served basis.
+              
+
+                <br />E.g.: if you own the Loot #1 from an eligible Loot project, you would be able to mint the Traveler Loot #1, just providing the tokenId you own
+                and the Loot address.
+                <br /><br />This will be minted in special edition (a different background and text color).
+
+                <br /><br />If you own a higher "tokenId" from a previous eligible Loot project, you can claim your special edition too (for the mathematically inclined: because the number will be % by 2000).
+                E.g. the Traveler Loot Special Edition #500 can be minted only by those who own Loot NFTs with ID #500, #2500, #4500, #6500 etc..
+
+                <br /><br /><b>You can mint your special edition, if you are fast enough to claim it before they go out of supply</b>
+
+                <br /><br />First come, first served: when you mint your number, the other
+                Loot owners won't be able to.
+                <br />
+
+              
+
+              
+                    {/* <a
                       target="_blank"
                       href="https://a.quest"
                       className="bg-gray-800 hover:bg-gray-600 py-2 rounded-xl px-5 my-1 text-lg  text-gray-200 border border-gray-700 w-full text-center"
                     >
                       Coming soon
-                    </a>
+                    </a> */}
+
+                    
                   </div>
+     
                 </div>
+       
               </div>
 
 
+              <div id="chapter2" className=" bg-gray-700 py-20">
+                <div className="container mx-auto mt-8">
+                  <div className="flex justify-around">
+                    <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
+                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Support the Project</span>
+                      <h1 className="text-center mt-4">Get a Patron Loot</h1>
+
+                      <p className="sm:text-2xl text-gray-400">Your ETH address will be the TokenID: rare <br /> <br /><br /></p>
+
+                      <Image src='https://storage.opensea.io/files/e8334ee6001611c4aa49b616de22281b.svg' wrapped ui={false} />
+
+                      <p className="sm:text-2xl text-gray-400"><br />Starting cost: 1 ETH <br />
+                Colour: gold <br />
+
+                <p className="sm:text-2xl text-gray-400"><br /><br /><b>50% of the Patron sales will go to Gitcoin grants in the Climate Change category. The rest will be used to give value to the Traveler Loot.</b> <br /> <br /><br /></p>
+
+                
+                <b>PRICE VARIABILITY</b> <br />
+                The minting price varies according to the number of ordinary Travel Loot NFTs minted: <br />
+
+                <br />
+                Every time a Standard NFT (#2223 to #10000) is minted the Patron NFT minting price ⬆️ <b>increases by 1% </b>. <br /><br />
+               
+                Every time one eligible Loot derivate owner mints a Colored Loot (#1 to #2000) the Patron NFT minting price ⬆️ <b>increases by 2% </b>. <br /><br />
+                Every time a Patron NFT is minted, the Patron NFT minting price ⬆️ <b>increases by 5%</b>.<br /><br />
+
+                <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>. <br /><br />
+
+                <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>. <br /><br />
+                
+                Every time an owner of an <a href="https://opensea.io/collection/lootproject" target="_blank"> original Loot</a> mints a Patron with its own address, the Patron NFT minting price ⬇️ goes down by 5%.
+                <br /> <br />This privileges expires on the 40th birthday of 🔗 <a href="https://twitter.com/dhof" target="_blank">Dhof</a> on 27/09/2026 23:59:59 (UTC) or when all Colored NFTs (#1 to #2000) are minted and we have a winner.
+                <br />Use the <i>claimForLooters()</i> method. <br /><br />
+                Every time a winner (part of the winner Guild/Family) mints with its own address, the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>. <br /> <br /></p>
+                    </div>
+                  </div>
 
 
+
+                </div>
+              </div>
+
+              <div id="chapter3" className="bg-white  py-20 text-black ">
+                <div className="container mx-auto mt-8">
+                  <div className="flex justify-around ">
+                    <div className="px-20 py-8 rounded text-center">
+                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Only For Loot Owners</span>
+                    
+                     <br />
+                      <h1 className="text-center mt-4">Elements and Rarity</h1>
+                    </div>
+                  </div>
+                  <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 ">
+                    <p className="my-4">There are 10 categories:<br />
+                    <br /><i>Character</i>
+<br /><i>Preferred travel environment</i>
+<br /><i>Preferred Means of Transport</i>
+<br /><i>Languages spoken</i>
+<br /><i>Talent</i>
+<br /><i>Preferred place in the world</i>
+<br /><i>Travel experience</i>
+<br /><i>Preferred Accommodation</i>
+<br /><i>In the bag</i>
+<br /><i>Occupation<br /></i><br />
+
+And hundreds of elements with variable rarity.
+The total possible combinations are over a 100 billion.</p>
+                    
+               
+               
+
+             
+              
+
+                    
+                  </div>
+     
+                </div>
+       
+              </div>
+
+          
 
       </Layout>
     )
