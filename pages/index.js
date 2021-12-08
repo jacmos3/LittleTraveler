@@ -202,22 +202,22 @@ class MyDapp extends Component{
         </div>
         <div className="flex flex-wrap mx-auto sticky top-0 bg-black w-full justify-center text-sm space-x-6 sm:space-x-10 py-4 z-10 sm:text-2xl font-display">
           <div>
-            <a className="hover:text-gray-600" href="#start">Get Loot</a>
+            <a className="hover:text-gray-600" href="#start">Get Traveler Loot</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#chapter1">Gear Up</a>
+            <a className="hover:text-gray-600" href="#chapter1">Priorities</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#chapter2">Character</a>
+            <a className="hover:text-gray-600" href="#chapter2">Derivative Loots</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#chapter3">Quests</a>
+            <a className="hover:text-gray-600" href="#chapter3">Selected Guilds</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#chapter4">four</a>
+            <a className="hover:text-gray-600" href="#chapter4">Patrons</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#chapter5">five</a>
+            <a className="hover:text-gray-600" href="#chapter5">Elements and Rarity</a>
           </div>
         </div>
 
