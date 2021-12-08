@@ -162,449 +162,419 @@ class MyDapp extends Component{
     return (
 
       <Layout disconnect = {this.disconnect} connect = {this.connect}  state = {this.state.web3Settings}>
-            <div className="mx-auto px-2 sm:px-4 text-center py-10 sm:py-20 justify-around flex flex-wrap hero-img bg-opacity-10">
-            <div className="w-full sm:w-1/2">
-              <div className="sm:px-4">
-
-                <div className={styles.home__cta}>
-                  <h1>Traveler Loot</h1>
-                  <p className="text-xl sm:text-2xl text-gray-300"><br />The Traveler Loot is a Loot derivative for the travel industry and the travel world in general.<br />
+        <div className="mx-auto px-2 sm:px-4 text-center py-10 sm:py-20 justify-around flex flex-wrap hero-img bg-opacity-10">
+          <div className="w-full sm:w-1/2">
+            <div className="sm:px-4">
+              <div className={styles.home__cta}>
+                <h1>Traveler Loot</h1>
+                <p className="text-xl sm:text-2xl text-gray-300">
+                  <br />
+                  The Traveler Loot is a Loot derivative for the travel industry and the travel world in general.
+                  <br />
                   Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.
-                  </p>
-                </div>
-
-              <div>
-
+                </p>
+              </div>
+              <div className="flex py-8 w-full justify-center space-x-6">
+                <a
+                  href="https://opensea.io/collection/#"
+                  className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
+                  target="_blank"
+                >
+                  <Image className=" hover:text-gray-200  w-6 h-6 mx-2" src="../img/opensea.svg"  />
+                </a>
+                <a
+                  href="https://twitter.com/tripscommunity"
+                  className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
+                  target="_blank"
+                >
+                  <Image className="fill-current w-6 h-6 mx-2" src="../img/twitter.svg"/>
+                </a>
+                <a
+                  href="https://discord.gg/tripscommunity"
+                  className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
+                  target="_blank"
+                >
+                  <Image className="fill-current  text-white w-6 h-6 mx-2" src="../img/discord.svg"/>
+                </a>
+              </div>
+            </div>
+          </div>
         </div>
-        <p>
-
-        </p>
-
-                <div>
-                  <div className="flex py-8 w-full justify-center space-x-6">
-                    {/* <a
-                      href="https://www.loot.exchange/"
-                      className="self-center p-3 border border-gray-800 rounded-xl bg-black hover:bg-gray-600"
-                      target="_blank"
-                    >
-                    <Image className="fill-current hover:text-gray-200 text-gray-400 w-6 h-6 mx-2" src="../img/exchangeIcon2.svg"  />
-
-                    </a> */}
-                    <a
-                      href="https://opensea.io/collection/#"
-                      className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-gray-600"
-                      target="_blank"
-                    >
-                      <Image className=" hover:text-gray-200  w-6 h-6 mx-2" src="../img/opensea.svg"  />
-                    </a>
-                    <a
-                      href="https://twitter.com/tripscommunity"
-                      className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-gray-600"
-                      target="_blank"
-                    >
-                      <Image className="fill-current  text-white w-6 h-6 mx-2" src="../img/twitter.svg"/>
-                    </a>
-                    <a
-                      href="https://discord.gg/tripscommunity"
-                      className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-gray-600"
-                      target="_blank"
-                    >
-                      <Image className="fill-current  text-white w-6 h-6 mx-2" src="../img/discord.svg"/>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div className="flex flex-wrap mx-auto sticky top-0 bg-black w-full justify-center text-sm space-x-6 sm:space-x-10 py-4 z-10 sm:text-2xl font-display">
+          <div>
+            <a className="hover:text-gray-600" href="#start">Get Loot</a>
           </div>
-          <div className="flex flex-wrap mx-auto sticky top-0 bg-black w-full justify-center text-sm space-x-6 sm:space-x-10 py-4 z-10 sm:text-2xl font-display">
-            <div>
-              <a className="hover:text-gray-600" href="#start">Get Loot</a>
-            </div>
-            <div>
-              <a className="hover:text-gray-600" href="#chapter1">Gear Up</a>
-            </div>
-            <div>
-              <a className="hover:text-gray-600" href="#chapter2">Character</a>
-            </div>
-            <div>
-              <a className="hover:text-gray-600" href="#chapter3">Quests</a>
-            </div>
-            <div>
-              <a className="hover:text-gray-600" href="#chapter4">four</a>
-            </div>
-            <div>
-              <a className="hover:text-gray-600" href="#chapter5">five</a>
-            </div>
+          <div>
+            <a className="hover:text-gray-600" href="#chapter1">Gear Up</a>
           </div>
+          <div>
+            <a className="hover:text-gray-600" href="#chapter2">Character</a>
+          </div>
+          <div>
+            <a className="hover:text-gray-600" href="#chapter3">Quests</a>
+          </div>
+          <div>
+            <a className="hover:text-gray-600" href="#chapter4">four</a>
+          </div>
+          <div>
+            <a className="hover:text-gray-600" href="#chapter5">five</a>
+          </div>
+        </div>
 
-          <div id="start" className="bg-black  sm:py-20 py-10 pb-40 ">
-                <div className="container mx-auto mt-8">
-                  <div className="flex justify-around">
-                    <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 ">
-                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">A Real World Loot</span>
-                      <h1 className="text-center mt-4 capitalize">Start Here: Get A Traveler Loot</h1>
-                      <br />
+        <div id="start" className="bg-black  sm:py-20 py-10 pb-40 ">
+          <div className="container mx-auto mt-8">
+            <div className="flex justify-around">
+              <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 ">
+                <span className="uppercase sm:text-xl tracking-widest text-gray-400">
+                  A Real World Loot
+                </span>
+                <h1 className="text-center mt-4 capitalize">Start Here: Get A Traveler Loot</h1>
+                <br />
 
-                      <p className="text-xl sm:text-2xl text-gray-400">10,000 Loots, discovered by travelers.
-                        <br />
-                        What treasures do they hold?
-                        <br />
-                        Which gifts will they attracts?
-                        <br />
-                        Free nights in hotels?
-                        <br />
-                        Big discounts on flights?
-                        <br />
-                        Special offers in restaurants?
-                        <br />
-                        <br />
-                      </p>
-                      <Image  src="../1loot.png"/><br />
+                <p className="text-xl sm:text-2xl text-gray-400">
+                  10,000 Loots, discovered by travelers.
+                  <br />
+                  What treasures do they hold?
+                  <br />
+                  Which gifts will they attracts?
+                  <br />
+                  Free nights in hotels?
+                  <br />
+                  Big discounts on flights?
+                  <br />
+                  Special offers in restaurants?
+                  <br />
+                  <br />
+                </p>
+                <Image  src="../1loot.png"/><br />
 
-                      <Container>
-                      {/* Rendering sample loot bags */}
-                      {
-                        this.state.web3Settings.isWeb3Connected
-                        ? this.state.web3Settings.networkId == this.state.web3Settings.deployingNetworkId
-                          ?
-                          (
-                              <div className={styles.home__feature}>
-                              <h2>Claim your Traveler Loot!</h2>
-
-
-                              <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
-                                <Form.Field>
-                                  <p>Insert an available tokenId between 2223 and 10000</p>
-                                  <br />
-                                  <Input
-                                  type='number'
-                                  max={10000}
-                                  min = {2223}
-                                  value = {this.state.tokenId}
-                                   onChange = {event => this.setState({tokenId: event.target.value})}/>
-                                </Form.Field>
-                                <br />
-
-                                <Message error header="Oops!" content = {this.state.errorMessage} />
-                                {/*<Button disabled={this.state.tokenId.length == 0} type="button" basic color='grey' onClick={this.onSynthetic} > Preview</Button>*/}
-                                <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} primary>User Mint</Button>
-                                <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.state.web3Settings.contractAddress}#code`} type="button" basic color='blue' > H4x0r M1n7 </Button>
-                              </Form>
-                              {!this.state.minted ? null : (
-                                <Card centered>
-                                  <Image src={`${this.state.image}`} wrapped ui={false} />
-                                  <Card.Content>
-                                    <Card.Header>{this.state.name}</Card.Header>
-                                    <Card.Meta>
-                                      <span className='date'>Minted on </span>
-                                    </Card.Meta>
-                                    <Card.Description>
-                                      {this.state.description}
-                                    </Card.Description>
-                                  </Card.Content>
-                                </Card>
-                                )
-                              }
-
-                              </div>
+                <Container>
+                  {/* Rendering sample loot bags */}
+                  {
+                    this.state.web3Settings.isWeb3Connected
+                    ? this.state.web3Settings.networkId == this.state.web3Settings.deployingNetworkId
+                      ?
+                      (
+                          <div className={styles.home__feature}>
+                          <h2>Claim your Traveler Loot!</h2>
 
 
-                          )
-                          :
-                            (
-                              <Dimmer active>
-                                <Loader size='massive'>
-                                <h1>Wrong Network!</h1>
-                                <h2>You are connected to netword {this.state.web3Settings.networkId} - {this.state.web3Settings.networkName}</h2>
-                                <h3>Please connect to network {this.state.web3Settings.deployingNetworkId} - {this.state.web3Settings.deployingNetworkName}</h3>
-                                </Loader>
-                              </Dimmer>
+                          <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
+                            <Form.Field>
+                              <p>Insert an available tokenId between 2223 and 10000</p>
+                              <br />
+                              <Input
+                              type='number'
+                              max={10000}
+                              min = {2223}
+                              value = {this.state.tokenId}
+                               onChange = {event => this.setState({tokenId: event.target.value})}/>
+                            </Form.Field>
+                            <br />
+
+                            <Message error header="Oops!" content = {this.state.errorMessage} />
+                            {/*<Button disabled={this.state.tokenId.length == 0} type="button" basic color='grey' onClick={this.onSynthetic} > Preview</Button>*/}
+                            <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} primary>User Mint</Button>
+                            <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.state.web3Settings.contractAddress}#code`} type="button" basic color='blue' > H4x0r M1n7 </Button>
+                          </Form>
+                          {!this.state.minted ? null : (
+                            <Card centered>
+                              <Image src={`${this.state.image}`} wrapped ui={false} />
+                              <Card.Content>
+                                <Card.Header>{this.state.name}</Card.Header>
+                                <Card.Meta>
+                                  <span className='date'>Minted on </span>
+                                </Card.Meta>
+                                <Card.Description>
+                                  {this.state.description}
+                                </Card.Description>
+                              </Card.Content>
+                            </Card>
                             )
+                          }
 
-                            : (
-                                <Segment>
-                                  <div>
-                                    <Container textAlign="center" style={{color:"black"}}>
-                                      Connect to Wallet!
-                                    </Container></div>
-                                </Segment>
-                              )
-                      }
-                      </Container>
-                    </div>
-                  </div>
+                          </div>
 
 
-                </div>
+                      )
+                      :
+                        (
+                          <Dimmer active>
+                            <Loader size='massive'>
+                            <h1>Wrong Network!</h1>
+                            <h2>You are connected to netword {this.state.web3Settings.networkId} - {this.state.web3Settings.networkName}</h2>
+                            <h3>Please connect to network {this.state.web3Settings.deployingNetworkId} - {this.state.web3Settings.deployingNetworkName}</h3>
+                            </Loader>
+                          </Dimmer>
+                        )
+
+                        : (
+                            <Segment>
+                              <div>
+                                <Container textAlign="center" style={{color:"black"}}>
+                                  Connect to Wallet!
+                                </Container></div>
+                            </Segment>
+                          )
+                  }
+                </Container>
               </div>
-              <div id="chapter1" className="bg-blue-4 sm:py-20 py-10 pb-40  ">
-                <div className="container mx-auto mt-8">
-                  <div className="flex justify-around">
-                    <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Special Traveler Loots</span>
-                      <h1 className="text-center mt-4 capitalize">Priorities for Loot owners</h1>
-                      <p className="sm:text-2xl text-gray-400">Mint Special Loots</p>
-                    </div>
-                  </div>
-
-                  <Card.Group itemsPerRow={4}>
-                    <Card>
-                        <Image src='https://storage.opensea.io/files/e8334ee6001611c4aa49b616de22281b.svg' wrapped ui={false} />
-                        <Card.Content>
-                          <Card.Header>Colored Loots</Card.Header>
-                          <Card.Meta>#1 to #2000</Card.Meta>
-                          <Card.Description>
-                          Colored NFTs reserved for owners of Loot NFT from <a href="#selected">selected Loot projects (*)</a>
-                          <br /> <br /> <br />
-                          <b>Cost: Free + Gas</b>
-                          </Card.Description>
-                        </Card.Content>
-                    </Card>
+            </div>
 
 
-                    <Card>
-                        <Image src='https://storage.opensea.io/files/b5453db98be03de689c2c6ce60170831.svg' wrapped ui={false} />
-                        <Card.Content>
-                          <Card.Header>Owner Loots</Card.Header>
-                          <Card.Meta>#2001 to #2222</Card.Meta>
-                          <Card.Description>
-                          Black and white Traveler Loots reserved to contract deployer (Trips Community).
-
-                          <br /> <br /> <br />
-                          <b>Cost: Free + Gas</b>
-
-
-                          </Card.Description>
-                        </Card.Content>
-
-                    </Card>
-
-
-                    <Card>
-                        <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
-                        <Card.Content>
-                          <Card.Header>Standard Loots</Card.Header>
-                          <Card.Meta >#2223 to #10000</Card.Meta>
-                          <Card.Description>
-                          Black and white Traveler Loots.
-
-                          <br /> <br /> <br />
-                          <b>Cost: Free + Gas</b>
-
-                          </Card.Description>
-                        </Card.Content>
-
-                      </Card>
-
-                    <Card>
-                        <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
-                        <Card.Content>
-                          <Card.Header>Patron Loots</Card.Header>
-                          <Card.Meta>Over #10,000</Card.Meta>
-                          <Card.Description>
-                          these are golden Patron Traveler Loots with the TokenID in the decimal version of the ETH address (so, something like 1,178,629,251...).
-                          <br /> <br /> <br />
-                          <b>Cost: 1ETH (variable) + Gas</b>
-                          </Card.Description>
-
-                        </Card.Content>
-
-                    </Card>
-                  </Card.Group>
-                </div>
+          </div>
+        </div>
+        <div id="chapter1" className="bg-blue-4 sm:py-20 py-10 pb-40  ">
+          <div className="container mx-auto mt-8">
+            <div className="flex justify-around">
+              <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
+                <span className="uppercase sm:text-xl tracking-widest text-gray-400">Special Traveler Loots</span>
+                <h1 className="text-center mt-4 capitalize">Priorities for Loot owners</h1>
+                <p className="sm:text-2xl text-gray-400">Mint Special Loots</p>
               </div>
+            </div>
 
-              <div id="chapter2" className="bg-blue-5 py-20">
-                <div className="container mx-auto mt-8">
-                  <div className="flex justify-around">
-                    <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Team up</span>
-                      <h1 className="text-center mt-4">Derivative Loot Guilds</h1>
-                      <p className="sm:text-2xl text-gray-400">If you have an NFT from an eligible Loot project, you are part of a Guild.<br />
+            <Card.Group itemsPerRow={4}>
+              <Card>
+                  <Image src='https://storage.opensea.io/files/e8334ee6001611c4aa49b616de22281b.svg' wrapped ui={false} />
+                  <Card.Content>
+                    <Card.Header>Colored Loots</Card.Header>
+                    <Card.Meta>#1 to #2000</Card.Meta>
+                    <Card.Description>
+                    Colored NFTs reserved for owners of Loot NFT from <a href="#selected">selected Loot projects (*)</a>
+                    <br /> <br /> <br />
+                    <b>Cost: Free + Gas</b>
+                    </Card.Description>
+                  </Card.Content>
+              </Card>
+
+
+              <Card>
+                  <Image src='https://storage.opensea.io/files/b5453db98be03de689c2c6ce60170831.svg' wrapped ui={false} />
+                  <Card.Content>
+                    <Card.Header>Owner Loots</Card.Header>
+                    <Card.Meta>#2001 to #2222</Card.Meta>
+                    <Card.Description>
+                    Black and white Traveler Loots reserved to contract deployer (Trips Community).
+
+                    <br /> <br /> <br />
+                    <b>Cost: Free + Gas</b>
+
+
+                    </Card.Description>
+                  </Card.Content>
+
+              </Card>
+
+
+              <Card>
+                  <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
+                  <Card.Content>
+                    <Card.Header>Standard Loots</Card.Header>
+                    <Card.Meta >#2223 to #10000</Card.Meta>
+                    <Card.Description>
+                    Black and white Traveler Loots.
+
+                    <br /> <br /> <br />
+                    <b>Cost: Free + Gas</b>
+
+                    </Card.Description>
+                  </Card.Content>
+
+                </Card>
+
+              <Card>
+                  <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
+                  <Card.Content>
+                    <Card.Header>Patron Loots</Card.Header>
+                    <Card.Meta>Over #10,000</Card.Meta>
+                    <Card.Description>
+                    these are golden Patron Traveler Loots with the TokenID in the decimal version of the ETH address (so, something like 1,178,629,251...).
+                    <br /> <br /> <br />
+                    <b>Cost: 1ETH (variable) + Gas</b>
+                    </Card.Description>
+
+                  </Card.Content>
+
+              </Card>
+            </Card.Group>
+          </div>
+        </div>
+
+        <div id="chapter2" className="bg-blue-5 py-20">
+          <div className="container mx-auto mt-8">
+            <div className="flex justify-around">
+              <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
+                <span className="uppercase sm:text-xl tracking-widest text-gray-400">Team up</span>
+                <h1 className="text-center mt-4">Derivative Loot Guilds</h1>
+                <p className="sm:text-2xl text-gray-400">If you have an NFT from an eligible Loot project, you are part of a Guild.<br />
 If you are the first to mint from your Guild, you will decide the Color of your Guild Traveler Loots.<br />
 There are 14 Colors.<br /><br />
 
 When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.<br /> Your Guild wins the possibility to mint for free + gas a Patron NFT, which otherwise costs about 1 ETH.<br /></p>
-                    </div>
-                  </div>
-
-
-
-                </div>
               </div>
-               <a name="selected"></a>
-              <div id="chapter3" className="bg-blue-6  py-20 text-black ">
-                <div className="container mx-auto mt-8">
-                  <div className="flex justify-around ">
-                    <div className="px-20 py-8 rounded text-center">
-                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Only For Loot Owners</span>
-
-                     <br />
-                      <h1 className="text-center mt-4">Selected Loot Projects</h1>
-                    </div>
-                  </div>
-                  <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 ">
-                    <p className="my-4">Owners of NFTs in these projects have priority on Colored Loots</p>
-                    <br />
-
-                    <h2><a href="https://opensea.io/collection/lootproject" target="_blank">LOOT (for Adventure)</a> | <a href="https://opensea.io/collection/lootcreatures" target="_blank">CREATURES</a> | <a href="https://opensea.io/collection/treasure-for-loot" target="_blank">TREASURE</a> | <a href="https://opensea.io/collection/characters-for-loot" target="_blank">CHARACTERS</a> | <a href="https://opensea.io/collection/lootrealms" target="_blank">REALMS</a> | <a href="https://opensea.io/collection/more-loot" target="_blank">MLOOT</a> | <a href="https://opensea.io/collection/abstract-loot" target="_blank">LOOT</a> | <a href="https://opensea.io/collection/hymns" target="_blank">HYMNS</a> | <a href="https://opensea.io/collection/ability-score" target="_blank">SCORE</a> | <a href="https://opensea.io/collection/lootrock-for-adventurers" target="_blank">ROCK</a> | <a href="https://opensea.io/collection/genesis-mana" target="_blank">GMANA</a> | <a href="https://opensea.io/collection/loot-for-cyberpunks" target="_blank">CYBERLOOT</a> | <a href="https://opensea.io/collection/quests-for-adventurers" target="_blank">QUESTS</a> | <a href="https://opensea.io/collection/name-for-adventurers" target="_blank">NAME</a> | <a href="https://opensea.io/collection/doggos-for-dog-owners" target="_blank">DOGGOS</a> <br /></h2>
+            </div>
 
 
 
+          </div>
+        </div>
+         <a name="selected"></a>
+        <div id="chapter3" className="bg-blue-6  py-20 text-black ">
+          <div className="container mx-auto mt-8">
+            <div className="flex justify-around ">
+              <div className="px-20 py-8 rounded text-center">
+                <span className="uppercase sm:text-xl tracking-widest text-gray-400">Only For Loot Owners</span>
+
+               <br />
+                <h1 className="text-center mt-4">Selected Loot Projects</h1>
+              </div>
+            </div>
+            <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 ">
+              <p className="my-4">Owners of NFTs in these projects have priority on Colored Loots</p>
+              <br />
+
+              <h2><a href="https://opensea.io/collection/lootproject" target="_blank">LOOT (for Adventure)</a> | <a href="https://opensea.io/collection/lootcreatures" target="_blank">CREATURES</a> | <a href="https://opensea.io/collection/treasure-for-loot" target="_blank">TREASURE</a> | <a href="https://opensea.io/collection/characters-for-loot" target="_blank">CHARACTERS</a> | <a href="https://opensea.io/collection/lootrealms" target="_blank">REALMS</a> | <a href="https://opensea.io/collection/more-loot" target="_blank">MLOOT</a> | <a href="https://opensea.io/collection/abstract-loot" target="_blank">LOOT</a> | <a href="https://opensea.io/collection/hymns" target="_blank">HYMNS</a> | <a href="https://opensea.io/collection/ability-score" target="_blank">SCORE</a> | <a href="https://opensea.io/collection/lootrock-for-adventurers" target="_blank">ROCK</a> | <a href="https://opensea.io/collection/genesis-mana" target="_blank">GMANA</a> | <a href="https://opensea.io/collection/loot-for-cyberpunks" target="_blank">CYBERLOOT</a> | <a href="https://opensea.io/collection/quests-for-adventurers" target="_blank">QUESTS</a> | <a href="https://opensea.io/collection/name-for-adventurers" target="_blank">NAME</a> | <a href="https://opensea.io/collection/doggos-for-dog-owners" target="_blank">DOGGOS</a> <br /></h2>
+
+              <br />
+              <br />
+              Loot project owners have the priority to mint a Traveler Loot in special edition Colored NFT, opening the doors for other possible future airdrops or advantages.
+              <br />
+
+              <br />
+              By using the "qualifiedClaim(tokenId, contractAddress)" function Loot project owners can mint a Special Edition colored NFT on a first-come-first-served basis.
 
 
-              <br /><br />Loot project owners have the priority to mint a Traveler Loot in special edition Colored NFT, opening the doors for other possible future airdrops or advantages.
+              <br />
+              E.g.: if you own the Loot #1 from an eligible Loot project, you would be able to mint the Traveler Loot #1, just providing the tokenId you own and the Loot address.
+              <br />
+              <br />This will be minted in special edition (a different background and text color).
+              <br />
+              <br />
+              If you own a higher "tokenId" from a previous eligible Loot project, you can claim your special edition too (for the mathematically inclined: because the number will be % by 2000). E.g. the Traveler Loot Special Edition #500 can be minted only by those who own Loot NFTs with ID #500, #2500, #4500, #6500 etc..
+              <br />
+              <br />
+              <b>You can mint your special edition, if you are fast enough to claim it before they go out of supply</b>
+
+              <br />
+              <br />
+              First come, first served: when you mint your number, the other Loot owners won't be able to.
+              <br />
+            </div>
+          </div>
+        </div>
+
+        <div id="chapter4" className="bg-blue-7 py-20">
+          <div className="container mx-auto mt-8">
+            <div className="flex justify-around">
+              <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
+                <span className="uppercase sm:text-xl tracking-widest text-gray-400">Support the Project</span>
+                <h1 className="text-center mt-4">Get a Patron Loot</h1>
+
+                <p className="sm:text-2xl text-gray-400">Your ETH address will be the TokenID: rare
+                  <br />
+                  <br />
+                  <br />
+                </p>
+
+                <Image src='https://storage.opensea.io/files/e8334ee6001611c4aa49b616de22281b.svg' wrapped ui={false} />
+
+                <p className="sm:text-2xl text-gray-400">
+                  <br />
+                  Starting cost: 1 ETH
+                  <br />
+                  Colour: gold
+                  <br />
+                </p>
+                <p className="sm:text-2xl text-gray-400">
+                  <br />
+                  <br />
+                  <b>50% of the Patron sales will go to Gitcoin grants in the Climate Change category. The rest will be used to give value to the Traveler Loot.</b>
+                  <br />
+                  <br />
+                  <br />
+                </p>
+
+                <b>PRICE VARIABILITY</b>
+                <br />
+                The minting price varies according to the number of ordinary Travel Loot NFTs minted:
+                <br />
+                <br />
+                Every time a Standard NFT (#2223 to #10000) is minted the Patron NFT minting price ⬆️ <b>increases by 1% </b>.
+                <br />
                 <br />
 
-                <br />By using the "qualifiedClaim(tokenId, contractAddress)" function Loot project owners can mint a
-                Special Edition colored NFT on a first-come-first-served basis.
-
-
-                <br />E.g.: if you own the Loot #1 from an eligible Loot project, you would be able to mint the Traveler Loot #1, just providing the tokenId you own
-                and the Loot address.
-                <br /><br />This will be minted in special edition (a different background and text color).
-
-                <br /><br />If you own a higher "tokenId" from a previous eligible Loot project, you can claim your special edition too (for the mathematically inclined: because the number will be % by 2000).
-                E.g. the Traveler Loot Special Edition #500 can be minted only by those who own Loot NFTs with ID #500, #2500, #4500, #6500 etc..
-
-                <br /><br /><b>You can mint your special edition, if you are fast enough to claim it before they go out of supply</b>
-
-                <br /><br />First come, first served: when you mint your number, the other
-                Loot owners won't be able to.
+                Every time one eligible Loot derivate owner mints a Colored Loot (#1 to #2000) the Patron NFT minting price ⬆️ <b>increases by 2% </b>.
+                <br />
+                <br />
+                Every time a Patron NFT is minted, the Patron NFT minting price ⬆️ <b>increases by 5%</b>.
+                <br />
                 <br />
 
+                <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>.
+                <br />
+                <br />
 
+                <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>.
+                <br />
+                <br />
 
-
-                    {/* <a
-                      target="_blank"
-                      href="https://a.quest"
-                      className="bg-gray-800 hover:bg-gray-600 py-2 rounded-xl px-5 my-1 text-lg  text-gray-200 border border-gray-700 w-full text-center"
-                    >
-                      Coming soon
-                    </a> */}
-
-
-                  </div>
-
-                </div>
-
+                Every time an owner of an
+                <a href="https://opensea.io/collection/lootproject" target="_blank"> original Loot</a>
+                mints a Patron with its own address, the Patron NFT minting price ⬇️ goes down by 5%.
+                <br />
+                <br />
+                This privileges expires on the 40th birthday of 🔗
+                <a href="https://twitter.com/dhof" target="_blank">Dhof</a>
+                on 27/09/2026 23:59:59 (UTC) or when all Colored NFTs (#1 to #2000) are minted and we have a winner.
+                <br />
+                Use the
+                <i>claimForLooters()</i>
+                method.
+                <br />
+                <br />
+                Every time a winner (part of the winner Guild/Family) mints with its own address, the Patron NFT minting price  ⬇️
+                <b>goes down by 5% </b>.
+                <br />
+                <br />
               </div>
+            </div>
+          </div>
+        </div>
 
+        <div id="chapter5" className="bg-blue-8  py-20 text-black ">
+          <div className="container mx-auto mt-8">
+            <div className="flex justify-around ">
+              <div className="px-20 py-8 rounded text-center">
+                <span className="uppercase sm:text-xl tracking-widest text-gray-400">Only For Loot Owners</span>
 
-              <div id="chapter4" className="bg-blue-7 py-20">
-                <div className="container mx-auto mt-8">
-                  <div className="flex justify-around">
-                    <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Support the Project</span>
-                      <h1 className="text-center mt-4">Get a Patron Loot</h1>
-
-                      <p className="sm:text-2xl text-gray-400">Your ETH address will be the TokenID: rare
-                        <br />
-                        <br />
-                        <br />
-                      </p>
-
-                      <Image src='https://storage.opensea.io/files/e8334ee6001611c4aa49b616de22281b.svg' wrapped ui={false} />
-
-                      <p className="sm:text-2xl text-gray-400">
-                        <br />
-                        Starting cost: 1 ETH
-                        <br />
-                        Colour: gold
-                        <br />
-                      </p>
-                      <p className="sm:text-2xl text-gray-400">
-                        <br />
-                        <br />
-                        <b>50% of the Patron sales will go to Gitcoin grants in the Climate Change category. The rest will be used to give value to the Traveler Loot.</b>
-                        <br />
-                        <br />
-                        <br />
-                      </p>
-
-                      <b>PRICE VARIABILITY</b>
-                      <br />
-                      The minting price varies according to the number of ordinary Travel Loot NFTs minted:
-                      <br />
-                      <br />
-                      Every time a Standard NFT (#2223 to #10000) is minted the Patron NFT minting price ⬆️ <b>increases by 1% </b>.
-                      <br />
-                      <br />
-
-                      Every time one eligible Loot derivate owner mints a Colored Loot (#1 to #2000) the Patron NFT minting price ⬆️ <b>increases by 2% </b>.
-                      <br />
-                      <br />
-                      Every time a Patron NFT is minted, the Patron NFT minting price ⬆️ <b>increases by 5%</b>.
-                      <br />
-                      <br />
-
-                      <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>.
-                      <br />
-                      <br />
-
-                      <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>.
-                      <br />
-                      <br />
-
-                      Every time an owner of an
-                      <a href="https://opensea.io/collection/lootproject" target="_blank"> original Loot</a>
-                      mints a Patron with its own address, the Patron NFT minting price ⬇️ goes down by 5%.
-                      <br />
-                      <br />
-                      This privileges expires on the 40th birthday of 🔗
-                      <a href="https://twitter.com/dhof" target="_blank">Dhof</a>
-                      on 27/09/2026 23:59:59 (UTC) or when all Colored NFTs (#1 to #2000) are minted and we have a winner.
-                      <br />
-                      Use the
-                      <i>claimForLooters()</i>
-                      method.
-                      <br />
-                      <br />
-                      Every time a winner (part of the winner Guild/Family) mints with its own address, the Patron NFT minting price  ⬇️
-                      <b>goes down by 5% </b>.
-                      <br />
-                      <br />
-                    </div>
-                  </div>
-                </div>
+               <br />
+                <h1 className="text-center mt-4">Elements and Rarity</h1>
               </div>
+            </div>
+            <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 ">
+              <p className="my-4">There are 10 categories:
+                <br />
+                <br /><i>Character</i>
+                <br /><i>Preferred travel environment</i>
+                <br /><i>Preferred Means of Transport</i>
+                <br /><i>Languages spoken</i>
+                <br /><i>Talent</i>
+                <br /><i>Preferred place in the world</i>
+                <br /><i>Travel experience</i>
+                <br /><i>Preferred Accommodation</i>
+                <br /><i>In the bag</i>
+                <br /><i>Occupation<br /></i>
+                <br />
 
-              <div id="chapter5" className="bg-blue-8  py-20 text-black ">
-                <div className="container mx-auto mt-8">
-                  <div className="flex justify-around ">
-                    <div className="px-20 py-8 rounded text-center">
-                      <span className="uppercase sm:text-xl tracking-widest text-gray-400">Only For Loot Owners</span>
+                And hundreds of elements with variable rarity.
+                The total possible combinations are over a 100 billion.
+              </p>
+            </div>
 
-                     <br />
-                      <h1 className="text-center mt-4">Elements and Rarity</h1>
-                    </div>
-                  </div>
-                  <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 ">
-                    <p className="my-4">There are 10 categories:
-                      <br />
-                      <br /><i>Character</i>
-                      <br /><i>Preferred travel environment</i>
-                      <br /><i>Preferred Means of Transport</i>
-                      <br /><i>Languages spoken</i>
-                      <br /><i>Talent</i>
-                      <br /><i>Preferred place in the world</i>
-                      <br /><i>Travel experience</i>
-                      <br /><i>Preferred Accommodation</i>
-                      <br /><i>In the bag</i>
-                      <br /><i>Occupation<br /></i>
-                      <br />
+          </div>
 
-                      And hundreds of elements with variable rarity.
-                      The total possible combinations are over a 100 billion.
-                    </p>
-                  </div>
-
-                </div>
-
-              </div>
-
-
+        </div>
 
       </Layout>
     )
