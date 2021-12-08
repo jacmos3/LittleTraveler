@@ -47,15 +47,17 @@ html {
 .ui.cards>.card:hover {
   top: -10px;
 }
-.ui.card > .content > .header, .ui.cards > .card > .content > .header{
+
+.ui.card .meta, .ui.cards > .card .meta,
+.ui.card > .content,
+.ui.cards > .card > .content,
+.ui.card > .content > .header, .ui.cards > .card > .content > .header,
+.ui.card > .content > .description, .ui.cards > .card > .content > .description
+{
   color:white;
   font-family: EB Garamond,serif;
 }
-.ui.card .meta, .ui.cards > .card .meta{
-  color:white;
-  font-family: EB Garamond,serif;
-}
-.ui.card > .content > .description, .ui.cards > .card > .content > .description{
-  color: white;
-  font-family: EB Garamond,serif;
+
+.ui.cards > .card > .content{
+  font-weight: bold;
 }

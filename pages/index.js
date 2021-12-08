@@ -34,7 +34,7 @@ class MyDapp extends Component{
     var web3Settings = this.state.web3Settings;
     web3Settings.contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
     this.setState({web3Settings:web3Settings});
-    console.log(this.state);
+    //console.log(this.state);
   }
 
   onSubmit = async (event) => {
@@ -341,10 +341,11 @@ class MyDapp extends Component{
                     <Card.Header>Colored Loots</Card.Header>
                     <Card.Meta>#1 to #2000</Card.Meta>
                     <Card.Description>
-                    Colored NFTs reserved for owners of Loot NFT from <a href="#selected">selected Loot projects (*)</a>
-                    <br /> <br /> <br />
-                    <b>Cost: Free + Gas</b>
+                      Colored NFTs reserved for owners of Loot NFT from <a href="#selected">selected Loot projects (*)</a>
                     </Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    Cost: Free + Gas
                   </Card.Content>
               </Card>
 
@@ -353,17 +354,14 @@ class MyDapp extends Component{
                   <Image src='https://storage.opensea.io/files/b5453db98be03de689c2c6ce60170831.svg' wrapped ui={false} />
                   <Card.Content>
                     <Card.Header>Owner Loots</Card.Header>
-                    <Card.Meta>#2001 to #2222</Card.Meta>
+                    <Card.Meta>TokenId: #2001 to #2222</Card.Meta>
                     <Card.Description>
-                    Black and white Traveler Loots reserved to contract deployer (Trips Community).
-
-                    <br /> <br /> <br />
-                    <b>Cost: Free + Gas</b>
-
-
+                      Black and white Traveler Loots reserved to contract deployer (Trips Community).
                     </Card.Description>
                   </Card.Content>
-
+                  <Card.Content extra>
+                    Cost: Free + Gas
+                  </Card.Content>
               </Card>
 
 
@@ -371,31 +369,29 @@ class MyDapp extends Component{
                   <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
                   <Card.Content>
                     <Card.Header>Standard Loots</Card.Header>
-                    <Card.Meta >#2223 to #10000</Card.Meta>
+                    <Card.Meta >TokenId: #2223 to #10000</Card.Meta>
                     <Card.Description>
-                    Black and white Traveler Loots.
-
-                    <br /> <br /> <br />
-                    <b>Cost: Free + Gas</b>
-
+                      Black and white Traveler Loots.
                     </Card.Description>
                   </Card.Content>
-
+                  <Card.Content extra>
+                    Cost: Free + Gas
+                  </Card.Content>
                 </Card>
 
               <Card>
                   <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
                   <Card.Content>
-                    <Card.Header>Patron Loots</Card.Header>
-                    <Card.Meta>Over #10,000</Card.Meta>
+                    <Card.Header>Patron Traveler Loots</Card.Header>
+                    <Card.Meta>TokenId: Your address</Card.Meta>
                     <Card.Description>
-                    these are golden Patron Traveler Loots with the TokenID in the decimal version of the ETH address (so, something like 1,178,629,251...).
-                    <br /> <br /> <br />
-                    <b>Cost: 1ETH (variable) + Gas</b>
+                      Colored Traveler Loots. Each address can only claim one and the tokenId is the address number who mints it
                     </Card.Description>
 
                   </Card.Content>
-
+                  <Card.Content extra>
+                    Cost: 1ETH (variable) + Gas
+                  </Card.Content>
               </Card>
             </Card.Group>
           </div>
