@@ -168,8 +168,9 @@ class MyDapp extends Component{
 
                 <div className={styles.home__cta}>
                   <h1>Traveler Loot</h1>
-                  <p className="text-xl sm:text-2xl text-gray-300">The Traveler Loot is a Loot derivative for the travel industry and the travel world in general.<br />
-                  It is a public good on which the Travel industry can create marketing campaigns, fidelity programs and airdrops.</p>
+                  <p className="text-xl sm:text-2xl text-gray-300"><br />The Traveler Loot is a Loot derivative for the travel industry and the travel world in general.<br />
+                  Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.
+                  </p>
                 </div>
 
               <div>
@@ -341,19 +342,6 @@ What treasures do they hold? <br />Which gifts will they attracts? <br />Free ni
                           <b>Cost: Free + Gas</b>
                           </Card.Description>
                         </Card.Content>
-                        <Card.Content extra>
-                          <div align="center">
-                            <Button basic color='grey'>
-                              Button 1
-                            </Button>
-                            <Button basic color='grey'>
-                              Button 2
-                            </Button>
-                            <Button basic color='grey'>
-                              Button 3
-                            </Button>
-                            </div>
-                        </Card.Content>
                     </Card>
 
 
@@ -371,19 +359,7 @@ What treasures do they hold? <br />Which gifts will they attracts? <br />Free ni
 
                           </Card.Description>
                         </Card.Content>
-                        <Card.Content extra>
-                          <div align="center">
-                            <Button basic color='grey'>
-                              Button 1
-                            </Button>
-                            <Button basic color='grey'>
-                              Button 2
-                            </Button>
-                            <Button basic color='grey'>
-                              Button 3
-                            </Button>
-                            </div>
-                        </Card.Content>
+                        
                     </Card>
 
 
@@ -400,19 +376,7 @@ What treasures do they hold? <br />Which gifts will they attracts? <br />Free ni
 
                           </Card.Description>
                         </Card.Content>
-                        <Card.Content extra>
-                          <div align="center">
-                            <Button basic color='grey'>
-                              Button 1
-                            </Button>
-                            <Button basic color='grey'>
-                              Button 2
-                            </Button>
-                            <Button basic color='grey'>
-                              Button 3
-                            </Button>
-                            </div>
-                        </Card.Content>
+                        
                       </Card>
 
                     <Card>
@@ -427,19 +391,7 @@ What treasures do they hold? <br />Which gifts will they attracts? <br />Free ni
                           </Card.Description>
                           
                         </Card.Content>
-                        <Card.Content extra>
-                        <div align="center">
-                          <Button basic color='grey'>
-                            Button 1
-                          </Button>
-                          <Button basic color='grey'>
-                            Button 2
-                          </Button>
-                          <Button basic color='grey'>
-                            Button 3
-                          </Button>
-                          </div>
-                        </Card.Content>
+                        
                     </Card>
                   </Card.Group>
                 </div>
@@ -497,7 +449,11 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                     <p className="my-4">Owners of NFTs in these projects have priority on Colored Loots</p>
                     <br />
 
-                   <h2><a href="#" target="_blank">LOOT (Original)</a>, <a href="#" target="_blank">LOOTC - LootCreatures</a>, <a href="#" target="_blank">TREASURE</a>, <a href="#" target="_blank">CHAR LOOT</a>, <a href="#" target="_blank">LOOT REALM</a>, <a href="#" target="_blank">MLOOT</a>, <a href="#" target="_blank">AL</a>, <a href="#" target="_blank">LOOT HYMNS</a>, <a href="#" target="_blank">SCORE, DOGGO</a>, <a href="#" target="_blank">LOOT ROCK</a>, <a href="#" target="_blank">GMANA</a>, <a href="#" target="_blank">CYBERLOOT</a>, <a href="#" target="_blank">QUESTS</a> <br /></h2>
+                    <h2><a href="https://opensea.io/collection/lootproject" target="_blank">LOOT (for Adventure)</a> | <a href="https://opensea.io/collection/lootcreatures" target="_blank">CREATURES</a> | <a href="https://opensea.io/collection/treasure-for-loot" target="_blank">TREASURE</a> | <a href="https://opensea.io/collection/characters-for-loot" target="_blank">CHARACTERS</a> | <a href="https://opensea.io/collection/lootrealms" target="_blank">REALMS</a> | <a href="https://opensea.io/collection/more-loot" target="_blank">MLOOT</a> | <a href="https://opensea.io/collection/abstract-loot" target="_blank">LOOT</a> | <a href="https://opensea.io/collection/hymns" target="_blank">HYMNS</a> | <a href="https://opensea.io/collection/ability-score" target="_blank">SCORE</a> | <a href="https://opensea.io/collection/lootrock-for-adventurers" target="_blank">ROCK</a> | <a href="https://opensea.io/collection/genesis-mana" target="_blank">GMANA</a> | <a href="https://opensea.io/collection/loot-for-cyberpunks" target="_blank">CYBERLOOT</a> | <a href="https://opensea.io/collection/quests-for-adventurers" target="_blank">QUESTS</a> | <a href="https://opensea.io/collection/name-for-adventurers" target="_blank">NAME</a> | <a href="https://opensea.io/collection/doggos-for-dog-owners" target="_blank">DOGGOS</a> <br /></h2>
+
+                   
+                   
+                   
 
               <br /><br />Loot project owners have the priority to mint a Traveler Loot in special edition Colored NFT, opening the doors for other possible future airdrops or advantages.
                 <br />
