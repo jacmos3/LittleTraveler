@@ -200,7 +200,7 @@ class MyDapp extends Component{
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap mx-auto sticky top-0 bg-black w-full justify-center text-sm space-x-6 sm:space-x-10 py-4 z-10 sm:text-2xl font-display">
+        <div className="flex flex-wrap mx-auto sticky top-0 bg-blue-1 w-full justify-center text-sm space-x-6 sm:space-x-10 py-4 z-10 sm:text-2xl font-display">
           <div>
             <a className="hover:text-gray-600" href="#start">Get Traveler Loot</a>
           </div>
@@ -221,7 +221,7 @@ class MyDapp extends Component{
           </div>
         </div>
 
-        <div id="start" className="bg-black  sm:py-20 py-10 pb-40 ">
+        <div id="start" className="bg-blue-3  sm:py-20 py-10 pb-40 ">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 ">
