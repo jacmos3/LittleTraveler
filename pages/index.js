@@ -238,7 +238,7 @@ class MyDapp extends Component{
                       <span className="uppercase sm:text-xl tracking-widest text-gray-400">A Real World Loot</span>
                       <h1 className="text-center mt-4 capitalize">Start Here: Get A Traveler Loot</h1>
                       <br />
-                             
+
                       <p className="text-xl sm:text-2xl text-gray-400">10,000 Loots, discovered by travelers.
                       <br />
 What treasures do they hold? <br />Which gifts will they attracts? <br />Free nights in hotels? <br />Big discounts on flights?<br />Special offers in restaurants? <br /> <br /></p>
@@ -253,7 +253,7 @@ What treasures do they hold? <br />Which gifts will they attracts? <br />Free ni
                           (
                               <div className={styles.home__feature}>
                               <h2>Claim your Traveler Loot!</h2>
-                              
+
 
                               <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
                                 <Form.Field>
@@ -313,7 +313,7 @@ What treasures do they hold? <br />Which gifts will they attracts? <br />Free ni
                                 </Segment>
                               )
                       }
-                </Container>
+                      </Container>
                     </div>
                   </div>
 
@@ -359,7 +359,7 @@ What treasures do they hold? <br />Which gifts will they attracts? <br />Free ni
 
                           </Card.Description>
                         </Card.Content>
-                        
+
                     </Card>
 
 
@@ -376,7 +376,7 @@ What treasures do they hold? <br />Which gifts will they attracts? <br />Free ni
 
                           </Card.Description>
                         </Card.Content>
-                        
+
                       </Card>
 
                     <Card>
@@ -389,13 +389,14 @@ What treasures do they hold? <br />Which gifts will they attracts? <br />Free ni
                           <br /> <br /> <br />
                           <b>Cost: 1ETH (variable) + Gas</b>
                           </Card.Description>
-                          
+
                         </Card.Content>
-                        
+
                     </Card>
                   </Card.Group>
                 </div>
               </div>
+
               <div id="chapter2" className=" bg-gray-700 py-20">
                 <div className="container mx-auto mt-8">
                   <div className="flex justify-around">
@@ -433,14 +434,14 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                 </div>
               </div> */}
 
-              
+
                <a name="selected"></a>
               <div id="chapter3" className="bg-white  py-20 text-black ">
                 <div className="container mx-auto mt-8">
                   <div className="flex justify-around ">
                     <div className="px-20 py-8 rounded text-center">
                       <span className="uppercase sm:text-xl tracking-widest text-gray-400">Only For Loot Owners</span>
-                    
+
                      <br />
                       <h1 className="text-center mt-4">Selected Loot Projects</h1>
                     </div>
@@ -451,16 +452,16 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
 
                     <h2><a href="https://opensea.io/collection/lootproject" target="_blank">LOOT (for Adventure)</a> | <a href="https://opensea.io/collection/lootcreatures" target="_blank">CREATURES</a> | <a href="https://opensea.io/collection/treasure-for-loot" target="_blank">TREASURE</a> | <a href="https://opensea.io/collection/characters-for-loot" target="_blank">CHARACTERS</a> | <a href="https://opensea.io/collection/lootrealms" target="_blank">REALMS</a> | <a href="https://opensea.io/collection/more-loot" target="_blank">MLOOT</a> | <a href="https://opensea.io/collection/abstract-loot" target="_blank">LOOT</a> | <a href="https://opensea.io/collection/hymns" target="_blank">HYMNS</a> | <a href="https://opensea.io/collection/ability-score" target="_blank">SCORE</a> | <a href="https://opensea.io/collection/lootrock-for-adventurers" target="_blank">ROCK</a> | <a href="https://opensea.io/collection/genesis-mana" target="_blank">GMANA</a> | <a href="https://opensea.io/collection/loot-for-cyberpunks" target="_blank">CYBERLOOT</a> | <a href="https://opensea.io/collection/quests-for-adventurers" target="_blank">QUESTS</a> | <a href="https://opensea.io/collection/name-for-adventurers" target="_blank">NAME</a> | <a href="https://opensea.io/collection/doggos-for-dog-owners" target="_blank">DOGGOS</a> <br /></h2>
 
-                   
-                   
-                   
+
+
+
 
               <br /><br />Loot project owners have the priority to mint a Traveler Loot in special edition Colored NFT, opening the doors for other possible future airdrops or advantages.
                 <br />
-               
+
                 <br />By using the "qualifiedClaim(tokenId, contractAddress)" function Loot project owners can mint a
                 Special Edition colored NFT on a first-come-first-served basis.
-              
+
 
                 <br />E.g.: if you own the Loot #1 from an eligible Loot project, you would be able to mint the Traveler Loot #1, just providing the tokenId you own
                 and the Loot address.
@@ -475,9 +476,9 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                 Loot owners won't be able to.
                 <br />
 
-              
 
-              
+
+
                     {/* <a
                       target="_blank"
                       href="https://a.quest"
@@ -486,11 +487,11 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                       Coming soon
                     </a> */}
 
-                    
+
                   </div>
-     
+
                 </div>
-       
+
               </div>
 
 
@@ -501,38 +502,74 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                       <span className="uppercase sm:text-xl tracking-widest text-gray-400">Support the Project</span>
                       <h1 className="text-center mt-4">Get a Patron Loot</h1>
 
-                      <p className="sm:text-2xl text-gray-400">Your ETH address will be the TokenID: rare <br /> <br /><br /></p>
+                      <p className="sm:text-2xl text-gray-400">Your ETH address will be the TokenID: rare
+                        <br />
+                        <br />
+                        <br />
+                      </p>
 
                       <Image src='https://storage.opensea.io/files/e8334ee6001611c4aa49b616de22281b.svg' wrapped ui={false} />
 
-                      <p className="sm:text-2xl text-gray-400"><br />Starting cost: 1 ETH <br />
-                Colour: gold <br />
+                      <p className="sm:text-2xl text-gray-400">
+                        <br />
+                        Starting cost: 1 ETH
+                        <br />
+                        Colour: gold
+                        <br />
+                      </p>
+                      <p className="sm:text-2xl text-gray-400">
+                        <br />
+                        <br />
+                        <b>50% of the Patron sales will go to Gitcoin grants in the Climate Change category. The rest will be used to give value to the Traveler Loot.</b>
+                        <br />
+                        <br />
+                        <br />
+                      </p>
 
-                <p className="sm:text-2xl text-gray-400"><br /><br /><b>50% of the Patron sales will go to Gitcoin grants in the Climate Change category. The rest will be used to give value to the Traveler Loot.</b> <br /> <br /><br /></p>
+                      <b>PRICE VARIABILITY</b>
+                      <br />
+                      The minting price varies according to the number of ordinary Travel Loot NFTs minted:
+                      <br />
+                      <br />
+                      Every time a Standard NFT (#2223 to #10000) is minted the Patron NFT minting price ⬆️ <b>increases by 1% </b>.
+                      <br />
+                      <br />
 
-                
-                <b>PRICE VARIABILITY</b> <br />
-                The minting price varies according to the number of ordinary Travel Loot NFTs minted: <br />
+                      Every time one eligible Loot derivate owner mints a Colored Loot (#1 to #2000) the Patron NFT minting price ⬆️ <b>increases by 2% </b>.
+                      <br />
+                      <br />
+                      Every time a Patron NFT is minted, the Patron NFT minting price ⬆️ <b>increases by 5%</b>.
+                      <br />
+                      <br />
 
-                <br />
-                Every time a Standard NFT (#2223 to #10000) is minted the Patron NFT minting price ⬆️ <b>increases by 1% </b>. <br /><br />
-               
-                Every time one eligible Loot derivate owner mints a Colored Loot (#1 to #2000) the Patron NFT minting price ⬆️ <b>increases by 2% </b>. <br /><br />
-                Every time a Patron NFT is minted, the Patron NFT minting price ⬆️ <b>increases by 5%</b>.<br /><br />
+                      <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>.
+                      <br />
+                      <br />
 
-                <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>. <br /><br />
+                      <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>.
+                      <br />
+                      <br />
 
-                <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>. <br /><br />
-                
-                Every time an owner of an <a href="https://opensea.io/collection/lootproject" target="_blank"> original Loot</a> mints a Patron with its own address, the Patron NFT minting price ⬇️ goes down by 5%.
-                <br /> <br />This privileges expires on the 40th birthday of 🔗 <a href="https://twitter.com/dhof" target="_blank">Dhof</a> on 27/09/2026 23:59:59 (UTC) or when all Colored NFTs (#1 to #2000) are minted and we have a winner.
-                <br />Use the <i>claimForLooters()</i> method. <br /><br />
-                Every time a winner (part of the winner Guild/Family) mints with its own address, the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>. <br /> <br /></p>
+                      Every time an owner of an
+                      <a href="https://opensea.io/collection/lootproject" target="_blank"> original Loot</a>
+                      mints a Patron with its own address, the Patron NFT minting price ⬇️ goes down by 5%.
+                      <br />
+                      <br />
+                      This privileges expires on the 40th birthday of 🔗
+                      <a href="https://twitter.com/dhof" target="_blank">Dhof</a>
+                      on 27/09/2026 23:59:59 (UTC) or when all Colored NFTs (#1 to #2000) are minted and we have a winner.
+                      <br />
+                      Use the
+                      <i>claimForLooters()</i>
+                      method.
+                      <br />
+                      <br />
+                      Every time a winner (part of the winner Guild/Family) mints with its own address, the Patron NFT minting price  ⬇️
+                      <b>goes down by 5% </b>.
+                      <br />
+                      <br />
                     </div>
                   </div>
-
-
-
                 </div>
               </div>
 
@@ -541,41 +578,36 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                   <div className="flex justify-around ">
                     <div className="px-20 py-8 rounded text-center">
                       <span className="uppercase sm:text-xl tracking-widest text-gray-400">Only For Loot Owners</span>
-                    
+
                      <br />
                       <h1 className="text-center mt-4">Elements and Rarity</h1>
                     </div>
                   </div>
                   <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 ">
-                    <p className="my-4">There are 10 categories:<br />
-                    <br /><i>Character</i>
-<br /><i>Preferred travel environment</i>
-<br /><i>Preferred Means of Transport</i>
-<br /><i>Languages spoken</i>
-<br /><i>Talent</i>
-<br /><i>Preferred place in the world</i>
-<br /><i>Travel experience</i>
-<br /><i>Preferred Accommodation</i>
-<br /><i>In the bag</i>
-<br /><i>Occupation<br /></i><br />
+                    <p className="my-4">There are 10 categories:
+                      <br />
+                      <br /><i>Character</i>
+                      <br /><i>Preferred travel environment</i>
+                      <br /><i>Preferred Means of Transport</i>
+                      <br /><i>Languages spoken</i>
+                      <br /><i>Talent</i>
+                      <br /><i>Preferred place in the world</i>
+                      <br /><i>Travel experience</i>
+                      <br /><i>Preferred Accommodation</i>
+                      <br /><i>In the bag</i>
+                      <br /><i>Occupation<br /></i>
+                      <br />
 
-And hundreds of elements with variable rarity.
-The total possible combinations are over a 100 billion.</p>
-                    
-               
-               
-
-             
-              
-
-                    
+                      And hundreds of elements with variable rarity.
+                      The total possible combinations are over a 100 billion.
+                    </p>
                   </div>
-     
+
                 </div>
-       
+
               </div>
 
-          
+
 
       </Layout>
     )
