@@ -37,14 +37,14 @@ html {
 .ui.card,
 .ui.cards>.card {
   background-color: #161619;
-  color: white;
+  color: black;
   position: relative;
   top: 0;
   transition: top ease 0.2s;
 }
 
 .ui.card,
-.ui.cards>.card:hover {
+.ui.cards>.card:hover{
   top: -10px;
 }
 
@@ -57,7 +57,6 @@ html {
   color:white;
   font-family: EB Garamond,serif;
 }
-
 .ui.cards > .card > .content{
   font-weight: bold;
 }

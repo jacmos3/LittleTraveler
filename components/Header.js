@@ -11,16 +11,15 @@ class Header extends Component{
      super(props)
   }
 
-
-render(){
-  return (
-    <div className="w-full flex justify-between py-2 bg-black px-4 bg-opacity-90">
-            {/* Main logo */}
-            <div className={styles.header__logo}>
-                <Link href="/">
-                    <a><h2>Traveler Loot</h2></a>
-                </Link>
-            </div>
+  render(){
+    return (
+      <div className="w-full flex justify-between py-2 bg-black px-4 bg-opacity-90">
+      {/* Main logo */}
+      <div className={styles.header__logo}>
+        <Link href="/">
+          <h2>Traveler Loot</h2>
+        </Link>
+      </div>
 
       {/* Navigation */}
       <div className="self-center hidden sm:block" >
@@ -37,26 +36,24 @@ render(){
           })}
         </ul>
       </div>
-            <div style={{padding:"5px"}}>
+      <div style={{padding:"5px"}}>
+      {
+        this.props.state.isWeb3Connected
+        ? (
+            <Button onClick={this.props.disconnect}>
+              {this.props.state.account}
+            </Button>
+        )
 
-            {
-              this.props.state.isWeb3Connected
-              ? (
-                  <Button onClick={this.props.disconnect}>
-                    {this.props.state.account}
-                  </Button>
-              )
-
-              : (
-                  <Button onClick={this.props.connect}>
-                    Connect wallet
-                  </Button>
-              )
-            }
-
-            </div>
+        : (
+            <Button onClick={this.props.connect}>
+              Connect wallet
+            </Button>
+        )
+      }
+      </div>
     </div>
-  );
-}
+    );
+  }
 }
 export default Header;
