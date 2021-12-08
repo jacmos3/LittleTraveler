@@ -1290,7 +1290,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant WHITE = "white";
     string private constant BLACK = "black";
     string private constant GOLD = "gold";
-    string private constant PLATINUM = "#d5d6d8";
+    string private constant PLATINUM = "#D5D6D8";
     string private constant ERROR_TOKEN_ID_INVALID = "Token ID invalid";
     string private constant ERROR_ADDRESS_NOT_VERIFIED = "Loot derivative address not verified. Try another";
     string private constant ERROR_NOT_THE_OWNER = "You do not own token(s) of the address";
@@ -1355,7 +1355,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     address private constant PH_WINNERS = address(4);
 
    //defining colors that will be assigned to each guild. The first member of each guild will be responsible for the color assignement for it's whole guild.
-   string[] private colors = ["#726e6e","#464A97","#6eb7e5","#8d734a","#4bbda9","#949494","#887eaf","#e2a5a2","#d45b5b","#af4242","#91a18b","#935e7e","#c37ec8","#586754"];
+   string[] private colors = ["#1B2837","#2F4660","#0F2854","#42648A","#456990","#467494","#467F97","#5A82AF","#83A1C3","#47949D","#48A9A4","#49BEAA","#3FCAAA","#27CE9C"];
 
    string[] private character = ["Energetic", "Good-natured", "Enthusiastic", "Challenging", "Charismatic", "Wise", "Modest", "Honest", "Protective", "Perceptive", "Providential", "Prudent", "Spontaneous", "Insightful", "Intelligent", "Intuitive", "Precise", "Sharing", "Simple", "Sociable", "Sophisticated", "Benevolent", "Admirable", "Brilliant", "Accessible", "Calm", "Capable", "Optimistic", "Respectful", "Responsible"];
    string[] private environment = ["Beaches", "Mountains", "Urban", "Countrysides", "Lakes", "Rivers", "Party islands", "Farms", "Tropical areas", "Snowy places", "Forests", "Historical cities", "Islands", "Wilderness", "Deserts", "Natural parks", "Old towns", "Lakes", "Small cities", "Villages", "Forests", "Small towns", "Tropical islands", "Rivers", "Coral Reefs", "Wetlands", "Rainforests", "Grasslands", "Volcanic islands", "Chaparral"];
@@ -1387,7 +1387,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       detailsByAddress[DL_QUESTS] = details;
       detailsByAddress[DL_SCORE] = details;
       detailsByAddress[DL_TREASURE] = details;
-      detailsByAddress[PH_PATRONS] = LootDetails({bColor:"#f76754",fColor:"#052d49",counter:0,verified:true});
+      detailsByAddress[PH_PATRONS] = LootDetails({bColor:"#C37EC8",fColor:"#052D49",counter:0,verified:true});
       detailsByAddress[PH_ORIGINAL_LOOT] = LootDetails({bColor:GOLD,fColor:BLACK,counter:0,verified:true});
       detailsByAddress[PH_WINNERS] = LootDetails({bColor:BLACK,fColor:GOLD,counter:0,verified:true});
       detailsByAddress[OR_LOOT] = LootDetails({bColor:PLATINUM,fColor:BLACK,counter:0,verified:true});
