@@ -229,6 +229,12 @@ class MyDapp extends Component{
             <div>
               <a className="hover:text-gray-600" href="#chapter3">Quests</a>
             </div>
+            <div>
+              <a className="hover:text-gray-600" href="#chapter4">four</a>
+            </div>
+            <div>
+              <a className="hover:text-gray-600" href="#chapter5">five</a>
+            </div>
           </div>
 
           <div id="start" className="bg-black  sm:py-20 py-10 pb-40 ">
@@ -240,9 +246,20 @@ class MyDapp extends Component{
                       <br />
 
                       <p className="text-xl sm:text-2xl text-gray-400">10,000 Loots, discovered by travelers.
-                      <br />
-What treasures do they hold? <br />Which gifts will they attracts? <br />Free nights in hotels? <br />Big discounts on flights?<br />Special offers in restaurants? <br /> <br /></p>
-<Image  src="../1loot.png"/><br />
+                        <br />
+                        What treasures do they hold?
+                        <br />
+                        Which gifts will they attracts?
+                        <br />
+                        Free nights in hotels?
+                        <br />
+                        Big discounts on flights?
+                        <br />
+                        Special offers in restaurants?
+                        <br />
+                        <br />
+                      </p>
+                      <Image  src="../1loot.png"/><br />
 
                       <Container>
                       {/* Rendering sample loot bags */}
@@ -320,7 +337,7 @@ What treasures do they hold? <br />Which gifts will they attracts? <br />Free ni
 
                 </div>
               </div>
-              <div id="chapter1" className=" sm:py-20 py-10 pb-40  bg-gray-800">
+              <div id="chapter1" className="bg-blue-4 sm:py-20 py-10 pb-40  ">
                 <div className="container mx-auto mt-8">
                   <div className="flex justify-around">
                     <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
@@ -397,7 +414,7 @@ What treasures do they hold? <br />Which gifts will they attracts? <br />Free ni
                 </div>
               </div>
 
-              <div id="chapter2" className=" bg-gray-700 py-20">
+              <div id="chapter2" className="bg-blue-5 py-20">
                 <div className="container mx-auto mt-8">
                   <div className="flex justify-around">
                     <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
@@ -415,28 +432,8 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
 
                 </div>
               </div>
-              {/* <div id="chapter2" className="bg-gradient-to-b from-gray-700 to-gray-600 py-20">
-                <div className="container mx-auto mt-8">
-                  <div className="flex justify-around">
-                    <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                      <span className="uppercase sm:text-2xl">Chapter 3</span>
-                      <h1 className="text-center mt-4">Fun & Games</h1>
-                      <p className="sm:text-2xl">Who carried these Loot bags? Where did they come from? What can you do with these treasures? Your adventure begins now.</p>
-                    </div>
-                  </div>
-
-
-                  {whatToDo.map(({ name, description, project }, i) => {
-                    return (
-                      <CardRow key={i} name={name} description={description} project={project} />
-                    );
-                  })}
-                </div>
-              </div> */}
-
-
                <a name="selected"></a>
-              <div id="chapter3" className="bg-white  py-20 text-black ">
+              <div id="chapter3" className="bg-blue-6  py-20 text-black ">
                 <div className="container mx-auto mt-8">
                   <div className="flex justify-around ">
                     <div className="px-20 py-8 rounded text-center">
@@ -495,7 +492,7 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
               </div>
 
 
-              <div id="chapter2" className=" bg-gray-700 py-20">
+              <div id="chapter4" className="bg-blue-7 py-20">
                 <div className="container mx-auto mt-8">
                   <div className="flex justify-around">
                     <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
@@ -573,7 +570,7 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                 </div>
               </div>
 
-              <div id="chapter3" className="bg-white  py-20 text-black ">
+              <div id="chapter5" className="bg-blue-8  py-20 text-black ">
                 <div className="container mx-auto mt-8">
                   <div className="flex justify-around ">
                     <div className="px-20 py-8 rounded text-center">

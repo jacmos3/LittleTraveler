@@ -2,7 +2,7 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {      
+    extend: {
       fontFamily: {
       display: ['EB Garamond', 'serif'],
       body: ['Inconsolata', 'monospace'],
@@ -20,6 +20,23 @@ module.exports = {
         900: '#161619',
         1000: '#0e0e0e',
       },
+
+      blue:{
+        1:"#1B2837",
+        2:"#2F4660",
+        3:"#0F2854",
+        4:"#42648A",
+        5:"#456990",
+        6:"#467494",
+        7:"#467F97",
+        8:"#5A82AF",
+        9:"#83A1C3",
+        10:"#47949D",
+        11:"#48A9A4",
+        12:"#49BEAA",
+        13:"#3FCAAA",
+        14:"#27CE9C",
+      }
     },
     minHeight: {
       0: '0',
