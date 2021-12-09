@@ -1387,7 +1387,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       detailsByAddress[DL_QUESTS] = details;
       detailsByAddress[DL_SCORE] = details;
       detailsByAddress[DL_TREASURE] = details;
-      detailsByAddress[PH_PATRONS] = LootDetails({bColor:"#C37EC8",fColor:"#052D49",counter:0,verified:true});
+      detailsByAddress[PH_PATRONS] = LootDetails({bColor:"#F87151",fColor:"#002348",counter:0,verified:true});
       detailsByAddress[PH_ORIGINAL_LOOT] = LootDetails({bColor:GOLD,fColor:BLACK,counter:0,verified:true});
       detailsByAddress[PH_WINNERS] = LootDetails({bColor:BLACK,fColor:GOLD,counter:0,verified:true});
       detailsByAddress[OR_LOOT] = LootDetails({bColor:PLATINUM,fColor:BLACK,counter:0,verified:true});
