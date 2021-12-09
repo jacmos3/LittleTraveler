@@ -262,8 +262,8 @@ class MyDapp extends Component{
                       ?
                       (
                           <div className={styles.home__feature}>
-                            <div className=" justify-center grid grid-cols-6 gap-4">
-                            <div className="col-start-2 col-span-4">
+                            <div className=" justify-center grid grid-cols-5 gap-4">
+                            <div className="col-start-2 col-span-3">
                             <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
                               <Form.Field>
                                 <p>Insert an available tokenId between 2223 and 10000</p>
