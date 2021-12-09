@@ -461,10 +461,6 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
             </div>
             <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 text-white">
               <p className="my-4">Owners of NFTs in these projects have priority on Colored Loots</p>
-              <br />
-
-              <h2><a href="https://opensea.io/collection/lootproject" target="_blank">LOOT (for Adventure)</a> | <a href="https://opensea.io/collection/lootcreatures" target="_blank">CREATURES</a> | <a href="https://opensea.io/collection/treasure-for-loot" target="_blank">TREASURE</a> | <a href="https://opensea.io/collection/characters-for-loot" target="_blank">CHARACTERS</a> | <a href="https://opensea.io/collection/lootrealms" target="_blank">REALMS</a> | <a href="https://opensea.io/collection/more-loot" target="_blank">MLOOT</a> | <a href="https://opensea.io/collection/abstract-loot" target="_blank">LOOT</a> | <a href="https://opensea.io/collection/hymns" target="_blank">HYMNS</a> | <a href="https://opensea.io/collection/ability-score" target="_blank">SCORE</a> | <a href="https://opensea.io/collection/lootrock-for-adventurers" target="_blank">ROCK</a> | <a href="https://opensea.io/collection/genesis-mana" target="_blank">GMANA</a> | <a href="https://opensea.io/collection/loot-for-cyberpunks" target="_blank">CYBERLOOT</a> | <a href="https://opensea.io/collection/quests-for-adventurers" target="_blank">QUESTS</a> | <a href="https://opensea.io/collection/name-for-adventurers" target="_blank">NAME</a> | <a href="https://opensea.io/collection/doggos-for-dog-owners" target="_blank">DOGGOS</a> <br /></h2>
-
               <Card.Group itemsPerRow={3} centered items={derivatives} />
 
               <br />
