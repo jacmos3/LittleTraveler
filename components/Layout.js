@@ -16,8 +16,8 @@ class Layout extends Component{
 render(){
 
   const links = [
-    { name: "FAQ", path: "/faq" },
-    { name: "Resources", path: "/resources" },
+    // { name: "FAQ", path: "/faq" },
+    // { name: "Resources", path: "/resources" },
   ];
 
   return (

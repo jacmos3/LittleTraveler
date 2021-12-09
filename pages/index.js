@@ -360,7 +360,7 @@ class MyDapp extends Component{
 
             <Card.Group itemsPerRow={4}>
               <Card>
-                  <Image src='https://storage.opensea.io/files/e8334ee6001611c4aa49b616de22281b.svg' wrapped ui={false} />
+              <Image src='loots/COLORED_LOOT.svg' wrapped ui={false} />
                   <Card.Content>
                     <Card.Header>Colored Loots</Card.Header>
                     <Card.Meta>#1 to #2000</Card.Meta>
@@ -375,7 +375,7 @@ class MyDapp extends Component{
 
 
               <Card>
-                  <Image src='https://storage.opensea.io/files/b5453db98be03de689c2c6ce60170831.svg' wrapped ui={false} />
+                  <Image src='loots/BW_LOOT.svg' wrapped ui={false} />
                   <Card.Content>
                     <Card.Header>Owner Loots</Card.Header>
                     <Card.Meta>TokenId: #2001 to #2222</Card.Meta>
@@ -390,7 +390,7 @@ class MyDapp extends Component{
 
 
               <Card>
-                  <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
+              <Image src='loots/BW_LOOT2.svg' wrapped ui={false} />
                   <Card.Content>
                     <Card.Header>Standard Loots</Card.Header>
                     <Card.Meta >TokenId: #2223 to #10000</Card.Meta>
@@ -404,7 +404,7 @@ class MyDapp extends Component{
                 </Card>
 
               <Card>
-                  <Image src='https://storage.opensea.io/files/40acdc427b768cb761c4ae626c4f1f11.svg' wrapped ui={false} />
+              <Image src='loots/PH_PATRONS.svg' wrapped ui={false} />
                   <Card.Content>
                     <Card.Header>Patron Traveler Loots</Card.Header>
                     <Card.Meta>TokenId: Your address</Card.Meta>
@@ -431,7 +431,7 @@ class MyDapp extends Component{
 If you are the first to mint from your Guild, you will decide the Color of your Guild Traveler Loots.<br />
 There are 14 Colors.<br /><br />
 
-When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.<br /> Your Guild wins the possibility to mint for free + gas a Patron NFT, which otherwise costs about 1 ETH.<br /></p>
+When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.<br /> Your Guild wins the possibility to mint for free + gas a <a href="#patron">Patron NFT</a>, which otherwise costs about 1 ETH.<br /></p>
               </div>
             </div>
 
@@ -481,7 +481,7 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
             </div>
           </div>
         </div>
-
+        <a name ="patron"></a>
         <div id="chapter4" className="bg-blue-7 py-20">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around">
@@ -495,8 +495,7 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                   <br />
                 </p>
 
-                <Image src='https://storage.opensea.io/files/e8334ee6001611c4aa49b616de22281b.svg' wrapped ui={false} />
-
+                <Image src='loots/PH_PATRONS.svg' wrapped ui={false} />
                 <p className="sm:text-2xl text-white">
                   <br />
                   Starting cost: 1 ETH
@@ -565,7 +564,7 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
           <div className="container mx-auto mt-8">
             <div className="flex justify-around ">
               <div className="px-20 py-8 rounded text-center">
-                <span className="uppercase sm:text-xl tracking-widest text-white">Only For Loot Owners</span>
+                <span className="uppercase sm:text-xl tracking-widest text-white">Under The Hood</span>
 
                <br />
                 <h1 className="text-center mt-4">Elements and Rarity</h1>
@@ -586,7 +585,7 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                 <br /><i>Occupation<br /></i>
                 <br />
 
-                And hundreds of elements with variable rarity.
+                And hundreds of elements with variable rarity.<br />
                 The total possible combinations are over a 100 billion.
               </p>
             </div>
