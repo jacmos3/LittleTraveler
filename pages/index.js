@@ -235,6 +235,8 @@ class MyDapp extends Component{
                 </span>
                 <h1 className="text-center mt-4 capitalize">Start Here: Get A Traveler Loot</h1>
                 <br />
+                {
+                  this.state.web3Settings.isWeb3Connected ? (<div></div>) :(
 
                 <p className="text-xl sm:text-2xl text-white">
                   10,000 Loots, discovered by travelers.
@@ -251,9 +253,9 @@ class MyDapp extends Component{
                   <br />
                   <br />
                 </p>
-
+)
+}
                 <Container>
-                <Segment className="text-black">
                   {
                     this.state.web3Settings.isWeb3Connected
                     ? this.state.web3Settings.networkId == this.state.web3Settings.deployingNetworkId
@@ -262,9 +264,6 @@ class MyDapp extends Component{
                           <div className={styles.home__feature}>
                             <div className=" justify-center grid grid-cols-6 gap-4">
                             <div className="col-start-2 col-span-4">
-                            <h2>Claim your Traveler Loot now!</h2>
-
-
                             <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
                               <Form.Field>
                                 <p>Insert an available tokenId between 2223 and 10000</p>
@@ -332,13 +331,11 @@ class MyDapp extends Component{
                                     : (
                                       <div className="grid grid-cols-10 gap-4">
                                         <div
-                                          className="col-start-5 col-span-2  self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
-
-                                          onClick={this.connect}
+                                          className="col-start-5 col-span-2"
                                         >
-                                          <span className=" hover:text-white  mx-2"  >Connect Wallet</span>
+                                          <Button className=" hover:text-white  mx-2" secondary onClick={this.connect}>Connect Wallet</Button>
                                         </div>
-                                        </div>
+                                      </div>
                                     )
                                   }
                                   </div>
@@ -349,7 +346,6 @@ class MyDapp extends Component{
 
                           )
                   }
-                  </Segment>
                 </Container>
               </div>
             </div>
@@ -520,7 +516,7 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                   <br />
                   <br />
                   <br />
-                </p>
+
 
                 <b>PRICE VARIABILITY</b>
                 <br />
@@ -564,6 +560,7 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                 <b>goes down by 5% </b>.
                 <br />
                 <br />
+                </p>
               </div>
             </div>
           </div>
