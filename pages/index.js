@@ -174,7 +174,7 @@ class MyDapp extends Component{
                 <h1>Traveler Loot</h1>
                 <p className="text-xl sm:text-2xl text-white">
                   <br />
-                  The Traveler Loot is a Loot derivative for the travel industry and the travel world in general.
+                  The Traveler Loot is a Loot derivative for the travel industry, generated and stored on chain.
                   <br />
                   Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.
                 </p>
