@@ -302,8 +302,7 @@ class MyDapp extends Component{
                           </div>
 
                       )
-                      :
-                        (
+                      :(
                           <Segment className="h-80">
                             <Dimmer active>
                               <Loader size='massive'>
@@ -315,36 +314,32 @@ class MyDapp extends Component{
                           </Segment>
                         )
 
-                        : (
+                        :(
+                          <div>
+                            <Container style={{color:"white"}}>
+                              <div style={{padding:"5px"}}>
+                              {
+                                this.state.web3Settings.isWeb3Connected
+                                ? (
+                                    <Button onClick={this.disconnect}>
+                                      {this.state.web3Settingsaccount}
+                                    </Button>
+                                )
 
-                              <div>
-                                <Container style={{color:"white"}}>
-                                  <div style={{padding:"5px"}}>
-                                  {
-                                    this.state.web3Settings.isWeb3Connected
-                                    ? (
-                                        <Button onClick={this.disconnect}>
-                                          {this.state.web3Settingsaccount}
-                                        </Button>
-                                    )
-
-                                    : (
-                                      <div className="grid grid-cols-10 gap-4">
-                                        <div
-                                          className="col-start-5 col-span-2"
-                                        >
-                                          <Button className=" hover:text-white  mx-2" secondary onClick={this.connect}>Connect Wallet</Button>
-                                        </div>
-                                      </div>
-                                    )
-                                  }
+                                :(
+                                  <div className="grid grid-cols-10 gap-4">
+                                    <div
+                                      className="col-start-5 col-span-2"
+                                    >
+                                      <Button className=" hover:text-white  mx-2" secondary onClick={this.connect}>Connect Wallet</Button>
+                                    </div>
                                   </div>
-                                </Container>
-                                </div>
-
-
-
-                          )
+                                )
+                              }
+                              </div>
+                            </Container>
+                          </div>
+                        )
                   }
                 </Container>
               </div>
