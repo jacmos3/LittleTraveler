@@ -348,7 +348,7 @@ class MyDapp extends Component{
 
           </div>
         </div>
-        <div id="chapter1" className="bg-blue-4 sm:py-20 py-10 pb-40  ">
+        <div id="chapter1" className="bg-gray-600 sm:py-20 py-10 pb-40  ">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
@@ -362,61 +362,60 @@ class MyDapp extends Component{
               <Card>
               <Image src='loots/COLORED_LOOT.svg' wrapped ui={false} />
                   <Card.Content>
-                    <Card.Header>Colored Loots</Card.Header>
+                    <Card.Header>Qualified Traveler Loots</Card.Header>
                     <Card.Meta>#1 to #2000</Card.Meta>
                     <Card.Description>
                       Colored NFTs reserved for owners of Loot NFT from <a href="#selected">selected Loot projects (*)</a>
                     </Card.Description>
                   </Card.Content>
                   <Card.Content extra>
-                    Cost: Free + Gas
+                    Cost: Free + Gas, with restrictions
                   </Card.Content>
               </Card>
 
-
               <Card>
-                  <Image src='loots/BW_LOOT.svg' wrapped ui={false} />
-                  <Card.Content>
-                    <Card.Header>Owner Loots</Card.Header>
-                    <Card.Meta>TokenId: #2001 to #2222</Card.Meta>
-                    <Card.Description>
-                      Black and white Traveler Loots reserved to contract deployer (Trips Community).
-                    </Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    Cost: Free + Gas
-                  </Card.Content>
+                <Image src='loots/BW_LOOT2.svg' wrapped ui={false} />
+                <Card.Content>
+                  <Card.Header>Standard Traveler Loots</Card.Header>
+                  <Card.Meta >TokenId: #2001 to #10000</Card.Meta>
+                  <Card.Description>
+                    Black and white Traveler Loots. Everybody can claim them till the end of supply.<br/>#2001 to #2222 are are reserved to Trips Community.<br />#2222 to #10000 are open to everybody.
+                  </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                  Cost: Free + Gas
+                </Card.Content>
+              </Card>
+              <Card>
+                <Image src='loots/PH_WINNERS.svg' wrapped ui={false} />
+                <Card.Content>
+                  <Card.Header>Conqueror Traveler Loots</Card.Header>
+                  <Card.Meta>TokenId: Conqueror Addresses </Card.Meta>
+                  <Card.Description>
+                    The Guild which mints the major number of Qualified Traveler Loots, will have the right to mint the Conqueror Traveler Loot
+                  </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                  Cost: Free + Gas, with restrictions
+                </Card.Content>
+              </Card>
+              <Card>
+                <Image src='loots/PH_PATRONS.svg' wrapped ui={false} />
+                <Card.Content>
+                  <Card.Header>Patron Traveler Loots</Card.Header>
+                  <Card.Meta>TokenId: Your address</Card.Meta>
+                  <Card.Description>
+                    Colored Traveler Loots. Each address can only claim one and the tokenId is the address number who mints it
+                  </Card.Description>
+
+                </Card.Content>
+                <Card.Content extra>
+                  Cost: 1ETH* + Gas
+                  <br />
+                  *Price varies (check how)
+                </Card.Content>
               </Card>
 
-
-              <Card>
-              <Image src='loots/BW_LOOT2.svg' wrapped ui={false} />
-                  <Card.Content>
-                    <Card.Header>Standard Loots</Card.Header>
-                    <Card.Meta >TokenId: #2223 to #10000</Card.Meta>
-                    <Card.Description>
-                      Black and white Traveler Loots.
-                    </Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    Cost: Free + Gas
-                  </Card.Content>
-                </Card>
-
-              <Card>
-              <Image src='loots/PH_PATRONS.svg' wrapped ui={false} />
-                  <Card.Content>
-                    <Card.Header>Patron Traveler Loots</Card.Header>
-                    <Card.Meta>TokenId: Your address</Card.Meta>
-                    <Card.Description>
-                      Colored Traveler Loots. Each address can only claim one and the tokenId is the address number who mints it
-                    </Card.Description>
-
-                  </Card.Content>
-                  <Card.Content extra>
-                    Cost: 1ETH (variable) + Gas
-                  </Card.Content>
-              </Card>
             </Card.Group>
           </div>
         </div>
@@ -543,14 +542,14 @@ When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.
                 <br />
                 This privileges expires on the 40th birthday of 🔗
                 <a href="https://twitter.com/dhof" target="_blank">Dhof</a>
-                on 27/09/2026 23:59:59 (UTC) or when all Colored NFTs (#1 to #2000) are minted and we have a winner.
+                on 27/09/2026 23:59:59 (UTC) or when all Colored NFTs (#1 to #2000) are minted and we have a Conqueror.
                 <br />
                 Use the
                 <i>claimForLooters()</i>
                 method.
                 <br />
                 <br />
-                Every time a winner (part of the winner Guild/Family) mints with its own address, the Patron NFT minting price  ⬇️
+                Every time a Conqueror (part of the winner Guild/Family) mints with its own address, the Patron NFT minting price  ⬇️
                 <b>goes down by 5% </b>.
                 <br />
                 <br />
