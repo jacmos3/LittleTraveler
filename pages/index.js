@@ -177,7 +177,14 @@ class MyDapp extends Component{
                   The Traveler Loot is a Loot derivative for the travel industry, generated and stored on chain.
                   <br />
                   Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.
-                </p>
+                  <br /><br />The Traveler Loot is a COO Public Domain Project.
+                  <br /> [ADD IMAGE http://i.creativecommons.org/p/zero/1.0/88x31.png HERE]
+                  </p>
+
+                
+        
+
+
               </div>
               <div className="flex py-8 w-full justify-center space-x-6">
                 <a
@@ -208,7 +215,14 @@ class MyDapp extends Component{
                 >
                   <Image className="fill-current  text-white w-6 h-6 mx-2" src="../img/discord.svg"/>
                 </a>
+
+               
+
+                
               </div>
+              
+
+
             </div>
           </div>
         </div>
