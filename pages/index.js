@@ -375,10 +375,11 @@ class MyDapp extends Component{
                 <h1 className="text-center mt-4">Loot derivatives are Guilds</h1>
                 <p className="sm:text-2xl">If you own a Loot derivative or a Loot (for Adventurers) NFT, you may be part of a Guild and you still don't know it!
                   <br />
-                  <br />There are 15 Guilds, each one with an assigned color wich represents the Flag of the guild.
-                  <br />#1 to #2000 are reserved for those Guilds. Those loots come out colored depending on the Flag of the Guild who mints it, and the color will remain attached to it forever.
+                  <br />There are 15 Guilds, each one with an assigned color wich represents the Flag of the Guild.
+                  <br />Traveler Loots from #1 to #2000 are reserved for those Guilds and come out colored depending on the Flag of the Guild who mints it.
+                  <br />The Guild color will remain attached to that Traveler Loot forever.
                   <br />
-                  <br />Guilds are in competition between each others with the purpose to maximize the number of Traveler Loots coming out colored with their Guild Flag.
+                  <br />Guilds are in competition between each others. The purpose is to maximize the number of Traveler Loots coming out colored with their Guild Flag.
                   <br />At the end of the game, the Guild who colored most Traveler Loots, become a Conqueror.
                   <br />
                   <br />Conqueror Guild gains the right to mint a <a href="#patron">Patron version</a> for free, which otherwise is designed to be expensive (Patron price starts from 1 ETH and it varies mint by mint).<br /></p>
@@ -498,7 +499,7 @@ class MyDapp extends Component{
               </div>
             </div>
             <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 text-white">
-              
+
               <Card.Group itemsPerRow={3} centered items={derivatives} />
 
               <br />
