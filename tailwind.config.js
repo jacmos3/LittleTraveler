@@ -19,6 +19,7 @@ module.exports = {
         800: '#424242',
         900: '#161619',
         1000: '#0e0e0e',
+        PLATINUM:'#D5D6D8'
       },
 
       blue:{
@@ -36,6 +37,7 @@ module.exports = {
         12:"#49BEAA",
         13:"#3FCAAA",
         14:"#27CE9C",
+        COLORED:"#83A1C3"
       }
     },
     minHeight: {

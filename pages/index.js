@@ -181,6 +181,13 @@ class MyDapp extends Component{
               </div>
               <div className="flex py-8 w-full justify-center space-x-6">
                 <a
+                  href="https://rinkeby.etherscan.io/"
+                  className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
+                  target="_blank"
+                >
+                  <Image className=" hover:text-white  w-6 h-6 mx-2" src="../img/exchangeIcon2.svg"  />
+                </a>
+                <a
                   href="https://opensea.io/collection/#"
                   className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
                   target="_blank"
@@ -210,11 +217,12 @@ class MyDapp extends Component{
             <a className="hover:text-gray-600" href="#start">Get Traveler Loot</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#chapter1">Priorities</a>
+            <a className="hover:text-gray-600" href="#GUILDS">Guilds</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#chapter2">Derivative Loots</a>
+            <a className="hover:text-gray-600" href="#TYPES">Traveler Types</a>
           </div>
+
           <div>
             <a className="hover:text-gray-600" href="#chapter3">Selected Guilds</a>
           </div>
@@ -348,24 +356,45 @@ class MyDapp extends Component{
 
           </div>
         </div>
-        <div id="chapter1" className="bg-gray-600 sm:py-20 py-10 pb-40  ">
-          <div className="container mx-auto mt-8">
+
+        <div id="GUILDS" className="bg-gray-PLATINUM py-20">
+          <div className="container mx-auto mt-8 text-black">
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                <span className="uppercase sm:text-xl tracking-widest text-white">Special Traveler Loots</span>
-                <h1 className="text-center mt-4 capitalize">Priorities for Loot owners</h1>
-                <p className="sm:text-2xl text-white">Mint Special Loots</p>
+                <span className="uppercase sm:text-xl tracking-widest">Guilds</span>
+                <h1 className="text-center mt-4">Loot derivatives are Guilds</h1>
+                <p className="sm:text-2xl">If you own a Loot (for Adventurers) NFT or a Loot derivative one, you may be part of a Guild and you still don't know it!.
+                  <br /> All the addresses who own a NFT of the selected projects are part of a specific Guild.
+                  <br /> There are 15 Guilds and each of them has a different color (flag of the guild).<br />
+                  <br />Those Guilds have reserved slots, but they are in competition between each other because there are not enough slots for each guilds member to be claimed.
+                  <br />The Guild with most NFTs become a Conqueror.
+                  <br />Conqueror Guild gains the right to mint for free + gas a <a href="#patron">Patron NFT</a>, which otherwise is designed to be expensive (price starts from 1 ETH but it increases over time).<br /></p>
               </div>
             </div>
 
-            <Card.Group itemsPerRow={4}>
+
+
+          </div>
+        </div>
+
+        <div id="TYPES" className="bg-gray-PLATINUM sm:py-20 py-10 pb-40  ">
+          <div className="container mx-auto mt-8 text-black" >
+            <div className="flex justify-around">
+              <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
+                <span className="uppercase sm:text-xl tracking-widest ">Traveler Types</span>
+                <h1 className="text-center mt-4 capitalize">Each Traveler has a slot</h1>
+                <p className="sm:text-2xl">Find yours</p>
+              </div>
+            </div>
+
+            <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
               <Card>
               <Image src='loots/COLORED_LOOT.svg' wrapped ui={false} />
                   <Card.Content>
-                    <Card.Header>Qualified Traveler Loots</Card.Header>
-                    <Card.Meta>#1 to #2000</Card.Meta>
+                    <Card.Header>Traveler Loot for Guilds</Card.Header>
+                    <Card.Meta>Supply: 2000 (#1 to #2000)</Card.Meta>
                     <Card.Description>
-                      Colored NFTs reserved for owners of Loot NFT from <a href="#selected">selected Loot projects (*)</a>
+                      <a href="#chapter3">Selected Loot projects (*)</a> owners (members of the Guilds) can claim those slots till the end of supply, by calling claimForQualifiedLoots() function by passing the Derivative Loot address contract and the tokenId they own,
                     </Card.Description>
                   </Card.Content>
                   <Card.Content extra>
@@ -376,10 +405,12 @@ class MyDapp extends Component{
               <Card>
                 <Image src='loots/BW_LOOT2.svg' wrapped ui={false} />
                 <Card.Content>
-                  <Card.Header>Standard Traveler Loots</Card.Header>
-                  <Card.Meta >TokenId: #2001 to #10000</Card.Meta>
+                  <Card.Header>Traveler Loot Standard</Card.Header>
+                  <Card.Meta >Supply: 8000 (#2001 to #10000)</Card.Meta>
                   <Card.Description>
-                    Black and white Traveler Loots. Everybody can claim them till the end of supply.<br/>#2001 to #2222 are are reserved to Trips Community.<br />#2222 to #10000 are open to everybody.
+                    Black and white Traveler Loots. Everybody can claim one (or more) till the end of supply, by using <a href="#start">the form above</a> or by calling claim(tokenId) function on etherscan.
+                    <br/>222 slots from #2001 to #2222 are are reserved to Trips Community.
+                    <br />7778 slots from #2223 to #10000 are open to everybody. No restrictions applied.
                   </Card.Description>
                 </Card.Content>
                 <Card.Content extra>
@@ -389,30 +420,56 @@ class MyDapp extends Component{
               <Card>
                 <Image src='loots/PH_WINNERS.svg' wrapped ui={false} />
                 <Card.Content>
-                  <Card.Header>Conqueror Traveler Loots</Card.Header>
-                  <Card.Meta>TokenId: Conqueror Addresses </Card.Meta>
+                  <Card.Header>Traveler Loot for Conquerors</Card.Header>
+                  <Card.Meta>Supply: with restriction. Only a small subset of "Traveler Loot for Guilds" owners can access to this claim, depending on the history evolution of the mints. </Card.Meta>
                   <Card.Description>
-                    The Guild which mints the major number of Qualified Traveler Loots, will have the right to mint the Conqueror Traveler Loot
+                    Only the guild that arranges to mint the major number of the "Traveler Loot for Guilds", will have open doors to the "Traveler Loot for Conquerors" mintings.
                   </Card.Description>
                 </Card.Content>
                 <Card.Content extra>
                   Cost: Free + Gas, with restrictions
                 </Card.Content>
               </Card>
+              </Card.Group>
+              <Card.Group itemsPerRow={2}>
               <Card>
                 <Image src='loots/PH_PATRONS.svg' wrapped ui={false} />
                 <Card.Content>
-                  <Card.Header>Patron Traveler Loots</Card.Header>
-                  <Card.Meta>TokenId: Your address</Card.Meta>
+                  <Card.Header>Traveler Loot for Patrons</Card.Header>
+                  <Card.Meta>Supply: with restriction. Minting price is designed to become unaffordable because it increases after each Patron minting. So very few Traveler Loot for Patrons will be in circulation over time.</Card.Meta>
                   <Card.Description>
-                    Colored Traveler Loots. Each address can only claim one and the tokenId is the address number who mints it
+                    TokenId is the address number of the sender.
+                    <br />Everybody can claim it by using claimForPatrons() function.
+                    <br />Allowed one claim per address and there is a Price fee.
                   </Card.Description>
 
                 </Card.Content>
                 <Card.Content extra>
                   Cost: 1ETH* + Gas
                   <br />
-                  *Price varies (check how)
+                  *Price varies (check here how)
+                </Card.Content>
+              </Card>
+
+              <Card>
+                <Image src='loots/PH_ORIGINAL_LOOT.svg' wrapped ui={false} />
+                <Card.Content>
+                  <Card.Header>Traveler Loot for Original Looters</Card.Header>
+                  <Card.Meta>Supply: with restriction. Minting is only allowed to those who owns an Original Loot (for Adventurers) NFT.</Card.Meta>
+                  <Card.Description>
+                    TokenId is the address number of the sender.
+                    <br />Loot (for Adventurers) owners can claim it by using claimForLooters() function.
+                    <br />It is allowed one claim per address and there are two deadlines:
+                    <br />Claim expires on the 40th birthday of 🔗
+                    <a href="https://twitter.com/dhof" target="_blank">Dhof </a>
+                     on 27/09/2026 23:59:59 (UTC) or when the Conqueror guild has been determined.
+                  </Card.Description>
+
+                </Card.Content>
+                <Card.Content extra>
+                  Cost: 1ETH* + Gas
+                  <br />
+                  *Price varies (check here how)
                 </Card.Content>
               </Card>
 
@@ -420,26 +477,8 @@ class MyDapp extends Component{
           </div>
         </div>
 
-        <div id="chapter2" className="bg-blue-5 py-20">
-          <div className="container mx-auto mt-8">
-            <div className="flex justify-around">
-              <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                <span className="uppercase sm:text-xl tracking-widest text-white">Team up</span>
-                <h1 className="text-center mt-4">Derivative Loot Guilds</h1>
-                <p className="sm:text-2xl text-white">If you have an NFT from an eligible Loot project, you are part of a Guild.<br />
-If you are the first to mint from your Guild, you will decide the Color of your Guild Traveler Loots.<br />
-There are 14 Colors.<br /><br />
 
-When all 2000 Colored Loots have been minted, the Guild with most NFTs will WIN.<br /> Your Guild wins the possibility to mint for free + gas a <a href="#patron">Patron NFT</a>, which otherwise costs about 1 ETH.<br /></p>
-              </div>
-            </div>
-
-
-
-          </div>
-        </div>
-         <a name="selected"></a>
-        <div id="chapter3" className="bg-blue-6  py-20 text-black ">
+        <div id="chapter3" className="bg-blue-COLORED  py-20 text-black ">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around ">
               <div className="px-20 py-8 rounded text-center">
