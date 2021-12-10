@@ -1,6 +1,6 @@
 export const derivatives = [
   {
-    header: 'LOOT (for Adventure)',
+    header: 'LOOT (for Adventurers)',
     //description: '',
     //meta: '',
     href: 'https://opensea.io/collection/lootproject',
