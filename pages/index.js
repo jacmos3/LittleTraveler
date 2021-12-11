@@ -211,9 +211,9 @@ class MyDapp extends Component{
               </div>
               <div className="flex py-8 w-full justify-center space-x-6">
                 <div>
-                  <p>The Traveler Loot is a COO Public Domain Project</p>
+                  <p>The Traveler Loot is a CC0 Public Domain Project</p>
                   <div className="flex py-8 w-full justify-center space-x-6">
-                    <Image className="text-white mx-2" src="http://i.creativecommons.org/p/zero/1.0/88x31.png" />
+                    <Image className="text-white mx-2" src="https://i.creativecommons.org/p/zero/1.0/88x31.png" />
                   </div>
                 </div>
               </div>
@@ -227,14 +227,14 @@ class MyDapp extends Component{
             <a className="hover:text-gray-600" href="#start">Get Traveler Loot</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#PLOT">Plot</a>
+            <a className="hover:text-gray-600" href="#Plot">Plot</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#TYPES">Traveler Types</a>
+            <a className="hover:text-gray-600" href="#Types">Traveler Types</a>
           </div>
 
           <div>
-            <a className="hover:text-gray-600" href="#GUILDS">Guilds</a>
+            <a className="hover:text-gray-600" href="#Guilds">Guilds</a>
           </div>
           <div>
             <a className="hover:text-gray-600" href="#chapter4">Patrons</a>
@@ -367,7 +367,7 @@ class MyDapp extends Component{
           </div>
         </div>
 
-        <div id="PLOT" className="bg-gray-PLATINUM py-20">
+        <div id="Plot" className="bg-gray-PLATINUM py-20">
           <div className="container mx-auto mt-8 text-black">
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
@@ -388,7 +388,7 @@ class MyDapp extends Component{
           </div>
         </div>
 
-        <div id="TYPES" className="bg-gray-PLATINUM sm:py-20 py-10 pb-40  ">
+        <div id="Types" className="bg-gray-PLATINUM sm:py-20 py-10 pb-40  ">
           <div className="container mx-auto mt-8 text-black" >
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
@@ -398,14 +398,14 @@ class MyDapp extends Component{
               </div>
             </div>
 
-            <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
+            <Card.Group itemsPerRow={5} stackable={true} doubling={true}>
               <Card>
               <Image src='loots/COLORED_LOOT.svg' wrapped ui={false} />
                   <Card.Content>
                     <Card.Header>Traveler Loot for Guilds</Card.Header>
                     <Card.Meta>Supply: 2000 (#1 to #2000)</Card.Meta>
                     <Card.Description>
-                      <a href="#chapter3">Selected Loot projects (*)</a> owners (members of the Guilds) can claim those slots till the end of supply, by calling claimForQualifiedLoots() function by passing the Derivative Loot address contract and the tokenId they own,
+                      <a href="#Guilds">Selected projects (*)</a> owners (members of the Guilds) can claim those slots till the end of supply, by calling claimForQualifiedLoots() function by passing the Derivative Loot address contract and the tokenId they own,
                     </Card.Description>
                   </Card.Content>
                   <Card.Content extra>
@@ -447,8 +447,6 @@ class MyDapp extends Component{
                   *Price varies (check here how)
                 </Card.Content>
               </Card>
-              </Card.Group>
-              <Card.Group itemsPerRow={2} stackable={true} doubling={true}>
               <Card>
                 <Image src='loots/PH_WINNERS.svg' wrapped ui={false} />
                 <Card.Content>
@@ -467,7 +465,7 @@ class MyDapp extends Component{
                 <Image src='loots/PH_ORIGINAL_LOOT.svg' wrapped ui={false} />
                 <Card.Content>
                   <Card.Header>Traveler Loot for Patrons (Looters version)</Card.Header>
-                  <Card.Meta>Supply: with restriction. Minting is only allowed to those who owns a Loot (for Adventurers) NFT.</Card.Meta>
+                  <Card.Meta>Supply: with restriction. Minting is only allowed to those which own a Loot (for Adventurers) NFT.</Card.Meta>
                   <Card.Description>
                     TokenId is the address number of the sender.
                     <br />Loot (for Adventurers) owners can claim it by using claimForLooters() function.
@@ -482,13 +480,12 @@ class MyDapp extends Component{
                   Cost: Free + Gas, with restrictions
                 </Card.Content>
               </Card>
-
-            </Card.Group>
+              </Card.Group>
           </div>
         </div>
 
 
-        <div id="GUILDS" className="bg-black  py-20 text-black ">
+        <div id="Guilds" className="bg-black  py-20 text-black ">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around ">
               <div className="px-20 py-8 rounded text-center">
@@ -499,33 +496,33 @@ class MyDapp extends Component{
               </div>
             </div>
             <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 text-white">
-
+              <div>
+              Each one of those projects represents a Guild:
+              <br />
+              <br />
               <Card.Group itemsPerRow={3} centered items={derivatives} />
+              </div>
+              <br />
+              <br />
+               If you own at least one NFT of those Guilds, then you may be elegible to claim a reserved Traveler Loot in the range #1-#2000, opening the doors to be part of a restricted elite of members (who could be, for example, targeted by future possible airdrops or advantages provided by the Travel Industry approaching Web3.
+              <br />
+              <br />
+              To claim yours you have to go on etherscan and call the following function:
+              <br />
+              <br />
+              <code>
+              claimForQualified(tokenId, contractAddress);
+              </code>
+              <br />
+              <br />
+              Traveler Loots #1 - #2000 are provided in first-come-first-served basis, which means members of the other Guilds may pick the NFT you are elegible to, before you do.
+              E.g.: if you own the tokenId #1 of a Guild (projects above), you would be able to mint the Traveler Loot #1, but other guy who hold tokenId #1 of another Guild would do too... and not only.
+              <br />
+              <br />
+              The minting function is regulated by <a href="https://en.wikipedia.org/wiki/Modulo_operation" target="_blank">🔗modulo operation</a> which means that more Guild tokenIds point to the same Traveler Loot tokenId.
+              <br />The given Guild tokenId is actually moduled by 2000. So the Traveler Loot #500 (i.g.) is reserved to the fastest of those who own Guild NFTs with tokenId #500 and to those who own #2500, #4500, #6500 etc..
+              <br />Once Traveler Loot #500 is picked by the fastest of them, it will get the flag color of him/her (important for final results), and (more important) all the others cannot claim Traveler Loot #500 anymore.
 
-              <br />
-              <br />
-              Loot project owners have the priority to mint a Traveler Loot in special edition Colored NFT, opening the doors for other possible future airdrops or advantages.
-              <br />
-
-              <br />
-              By using the "qualifiedClaim(tokenId, contractAddress)" function Loot project owners can mint a Special Edition colored NFT on a first-come-first-served basis.
-
-
-              <br />
-              E.g.: if you own the Loot #1 from an eligible Loot project, you would be able to mint the Traveler Loot #1, just providing the tokenId you own and the Loot address.
-              <br />
-              <br />This will be minted in special edition (a different background and text color).
-              <br />
-              <br />
-              If you own a higher "tokenId" from a previous eligible Loot project, you can claim your special edition too (for the mathematically inclined: because the number will be % by 2000). E.g. the Traveler Loot Special Edition #500 can be minted only by those who own Loot NFTs with ID #500, #2500, #4500, #6500 etc..
-              <br />
-              <br />
-              <b>You can mint your special edition, if you are fast enough to claim it before they go out of supply</b>
-
-              <br />
-              <br />
-              First come, first served: when you mint your number, the other Loot owners won't be able to.
-              <br />
             </div>
           </div>
         </div>
