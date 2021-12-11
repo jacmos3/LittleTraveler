@@ -230,17 +230,17 @@ class MyDapp extends Component{
             <a className="hover:text-gray-600" href="#Plot">Plot</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#Types">Traveler Types</a>
+            <a className="hover:text-gray-600" href="#Types">Types</a>
           </div>
 
           <div>
             <a className="hover:text-gray-600" href="#Guilds">Guilds</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#chapter4">Patrons</a>
+            <a className="hover:text-gray-600" href="#Patrons">Patrons</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#chapter5">Elements and Rarity</a>
+            <a className="hover:text-gray-600" href="#Elements">Elements</a>
           </div>
         </div>
 
@@ -382,7 +382,7 @@ class MyDapp extends Component{
                   <br />Guilds are in competition between each others. The purpose is to maximize the number of Traveler Loots coming out colored with their Guild Flag.
                   <br />At the end of the game, the Guild who colored most Traveler Loots, become a Conqueror.
                   <br />
-                  <br />Conqueror Guild gains the right to mint a <a href="#patron">Patron version</a> for free, which otherwise is designed to be expensive (Patron price starts from 1 ETH and it varies mint by mint).<br /></p>
+                  <br />Conqueror Guild gains the right to mint a <a href="#Patrons">Patron version</a> for free, which otherwise is designed to be expensive (Patron price starts from 1 ETH and it varies mint by mint).<br /></p>
               </div>
             </div>
           </div>
@@ -526,12 +526,12 @@ class MyDapp extends Component{
             </div>
           </div>
         </div>
-        <a name ="patron"></a>
-        <div id="chapter4" className="bg-blue-7 py-20">
+
+        <div id="Patrons" className="bg-blue-COLORED py-20">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                <span className="uppercase sm:text-xl tracking-widest text-white">Support the Project</span>
+                <span className="uppercase sm:text-xl tracking-widest text-white">Patrons</span>
                 <h1 className="text-center mt-4">Get a Patron Loot</h1>
 
                 <p className="sm:text-2xl text-white">Your ETH address will be the TokenID: rare
@@ -605,40 +605,30 @@ class MyDapp extends Component{
           </div>
         </div>
 
-        <div id="chapter5" className="bg-blue-8  py-20 text-white ">
+        <div id="Elements" className="bg-blue-8  py-20 text-white ">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around ">
               <div className="px-20 py-8 rounded text-center">
                 <span className="uppercase sm:text-xl tracking-widest text-white">Under The Hood</span>
-
-               <br />
-                <h1 className="text-center mt-4">Elements and Rarity</h1>
+                <br />
+                <h1 className="text-center mt-4">100 trillion combinations</h1>
+                And 10 categories with 264 elements with variable rarities.
               </div>
             </div>
-            <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 ">
-              <p className="my-4">There are 10 categories:
-                <br />
-                <br /><i>Character</i>
-                <br /><i>Preferred travel environment</i>
-                <br /><i>Preferred Means of Transport</i>
-                <br /><i>Languages spoken</i>
-                <br /><i>Talent</i>
-                <br /><i>Preferred place in the world</i>
-                <br /><i>Travel experience</i>
-                <br /><i>Preferred Accommodation</i>
-                <br /><i>In the bag</i>
-                <br /><i>Occupation<br /></i>
-                <br />
-
-                And hundreds of elements with variable rarity.<br />
-                The total possible combinations are over a 100 billion.
-              </p>
+            <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">
+                <br />30 Characters
+                <br />24 Preferred travel environments
+                <br />30 Preferred Means of Transports
+                <br />30 Languages spoken
+                <br />30 Talents
+                <br />30 Preferred places in the world
+                <br />9 Travel experience levels
+                <br />30 Preferred Accommodations
+                <br />21 Stuff in the bag
+                <br />30 Occupations
             </div>
-
           </div>
-
         </div>
-
       </Layout>
     )
   }
