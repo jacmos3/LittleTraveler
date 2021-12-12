@@ -385,7 +385,7 @@ class MyDapp extends Component{
           <div className="container mx-auto mt-8 text-black" >
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                <span className="uppercase sm:text-xl tracking-widest ">Travelers</span>
+                <span className="uppercase sm:text-xl tracking-widest ">Types</span>
                 <h1 className="text-center mt-4 capitalize">Each Traveler has a Type</h1>
                 <p className="sm:text-2xl">Find yours</p>
               </div>
@@ -601,9 +601,9 @@ class MyDapp extends Component{
                         </Table.Cell>
                         <Table.Cell>
                           Every time a Conqueror member mints a <span className="italic">Traveler Loot for Patrons (Conqueror edition)</span>, Patron's price  ⬇️ <span className="font-bold">decreases by 5%</span>.
-                          <br />
-                          <br />
-                          This is a privilege offered to the Conqueror Guild only after that all <span className="italic">Traveler Loot for Guilds</span> (range #1 to #2000) have been minted and a Conqueror Guild has been found.
+                          <div className="sm:text-sm">
+                            This is a privilege offered to the Conqueror Guild only after that all <span className="italic">Traveler Loot for Guilds</span> (range #1 to #2000) have been minted and a Conqueror Guild has been found.
+                          </div>
                         </Table.Cell>
                       </Table.Row>
                       <Table.Row>
@@ -617,11 +617,11 @@ class MyDapp extends Component{
                         <Table.Cell>
                           Every time a <a href="https://opensea.io/collection/lootproject" target="_blank">🔗 Loot Project's owner</a>{" "}
                           mints a <span className="italic">Traveler Loot for Patron (Looters edition)</span>, Patron's price ⬇️ <span className="font-bold">decreases by 5%</span>.
-                          <br />
-                          <br />
-                          This is a privilege granted for a limited period of time to <span className="italic">Loot (for Adventurers)</span> owners. It expires on the 40th birthday of 🔗
-                          <a href="https://twitter.com/dhof" target="_blank">Dhof</a>{" "}
-                          on 27/09/2026 23:59:59 (UTC) or when all <span className="italic">Traveler Loot for Guilds</span> (range #1 to #2000) are minted and a Conqueror Guild has been found.
+                          <div className="sm:text-sm">
+                            This is a privilege granted for a limited period of time to <span className="italic">Loot (for Adventurers)</span> owners. It expires on the 40th birthday of 🔗
+                            <a href="https://twitter.com/dhof" target="_blank">Dhof</a>{" "}
+                            on 27/09/2026 23:59:59 (UTC) or when all <span className="italic">Traveler Loot for Guilds</span> (range #1 to #2000) are minted and a Conqueror Guild has been found.
+                          </div>
                         </Table.Cell>
                       </Table.Row>
                     </Table.Body>
