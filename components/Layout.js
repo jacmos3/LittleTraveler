@@ -21,7 +21,7 @@ render(){
   ];
 
   return (
-    <div class="overflow-hidden">
+    <div>
       <Head />
       <Header links = {links} disconnect = {this.props.disconnect} connect = {this.props.connect} state = {this.props.state}/>
       {this.props.children}
