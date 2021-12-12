@@ -1296,7 +1296,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_NOT_THE_OWNER = "You do not own token(s) of the address";
     string private constant ERROR_DOM_40TH_BIRTHDAY = "Function only valid till Dom's 40th bday";
     string private constant ERROR_LOW_VALUE = "Set a higher value";
-    string private constant ERROR_COMPETITION_ENDED = "Competition has endend. Check the winner!";
+    string private constant ERROR_COMPETITION_ENDED = "Competition has endend. Check the conqueror!";
     string private constant ERROR_COMPETITION_ONGOING = "Competition is still ongoing!";
     string private constant ERROR_OWNER_NOT_ALLOWED = "Owner cannot claim free slots. Use claimForOwner() instead";
 
@@ -1307,13 +1307,13 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         bool verified;
     }
 
-    struct Winner {
+    struct Conqueror {
       address addr;
       uint16 count;
       bool elected;
     }
 
-    Winner public winner;
+    Conqueror public conqueror;
     mapping(address => LootDetails) public detailsByAddress;
     mapping(uint256 => address) public addressList;
     address public treasurer;
@@ -1352,7 +1352,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     address private constant PH_USERS = address(1);
     address private constant PH_PATRONS = address(2);
     address private constant PH_ORIGINAL_LOOT = address(3);
-    address private constant PH_WINNERS = address(4);
+    address private constant PH_CONQUERORS = address(4);
 
    //defining colors that will be assigned to each guild. The first member of each guild will be responsible for the color assignement for it's whole guild.
    string[] private colors = ["#1B2837","#2F4660","#0F2854","#42648A","#456990","#467494","#467F97","#5A82AF","#83A1C3","#47949D","#48A9A4","#49BEAA","#3FCAAA","#27CE9C"];
@@ -1364,7 +1364,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
    string[] private talent = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
    string[] private place = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
    string[] private experience = ["11", "22", "33", "44", "55", "66", "77", "88", "99"];
-   string[] private accomodation = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
+   string[] private accommodation = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
    string[] private bag = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwears","Condoms"];
    string[] private occupation = ["Host", "Cook", "Writer", "DeeJay", "Employee", "Doctor", "Traveler", "Tour Guide", "Ship Pilot", "DAO Member", "Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "PoS validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Developer", "Blockchain Consultant", "Crypto VC", "Crypto Business Angel","Metaverse Realtor"];
 
@@ -1389,7 +1389,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       detailsByAddress[DL_TREASURE] = details;
       detailsByAddress[PH_PATRONS] = LootDetails({bColor:"#F87151",fColor:"#002348",counter:0,verified:true});
       detailsByAddress[PH_ORIGINAL_LOOT] = LootDetails({bColor:GOLD,fColor:BLACK,counter:0,verified:true});
-      detailsByAddress[PH_WINNERS] = LootDetails({bColor:BLACK,fColor:GOLD,counter:0,verified:true});
+      detailsByAddress[PH_CONQUERORS] = LootDetails({bColor:BLACK,fColor:GOLD,counter:0,verified:true});
       detailsByAddress[OR_LOOT] = LootDetails({bColor:PLATINUM,fColor:BLACK,counter:0,verified:true});
 
     }
@@ -1440,8 +1440,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return pluck(tokenId, "OCCUPATION", occupation);
     }
 
-    function getAccomodation(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "ACCOMODATION", accomodation);
+    function getAccommodation(uint256 tokenId) public view returns (string memory) {
+        return pluck(tokenId, "ACCOMMODATION", accommodation);
     }
 
     function getBag(uint256 tokenId) public view returns (string memory) {
@@ -1465,7 +1465,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         string[3] memory parts;
         parts[0] = string(abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill:', details.fColor,'; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="',details.bColor,'" /><text x="10" y="20" class="base">'));
         parts[1] = string(abi.encodePacked(getEnvironment(tokenId),'</text><text x="10" y="40" class="base">',getTalent(tokenId),'</text><text x="10" y="60" class="base">',getPlace(tokenId),'</text><text x="10" y="80" class="base">',getCharacter(tokenId),'</text><text x="10" y="100" class="base">',getTransport(tokenId),'</text><text x="10" y="120" class="base">',getLanguage(tokenId)));
-        parts[2] = string(abi.encodePacked('</text><text x="10" y="140" class="base">',getExperience(tokenId),'</text><text x="10" y="160" class="base">',getOccupation(tokenId),'</text><text x="10" y="180" class="base">',getAccomodation(tokenId),'</text><text x="10" y="200" class="base">',getBag(tokenId),'</text></svg>'));
+        parts[2] = string(abi.encodePacked('</text><text x="10" y="140" class="base">',getExperience(tokenId),'</text><text x="10" y="160" class="base">',getOccupation(tokenId),'</text><text x="10" y="180" class="base">',getAccommodation(tokenId),'</text><text x="10" y="200" class="base">',getBag(tokenId),'</text></svg>'));
 
         string memory compact = string(abi.encodePacked(parts[0], parts[1], parts[2]));
         string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler Loot #', toString(tokenId), '", "description": "The Traveler Loot is a Loot derivative for the travel industry, generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(compact)), '"}'))));
@@ -1488,8 +1488,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //It excludes contract owner, patrons and normal users because
     //those three guilds are not competing for the win and they cannot win.
     function whoIsWinning() public view returns (address, uint16){
-      if (winner.elected){
-        return (winner.addr,winner.count);
+      if (conqueror.elected){
+        return (conqueror.addr,conqueror.count);
       }
 
       address winningLoot = OR_LOOT;
@@ -1546,10 +1546,10 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //competition can use this function to claim their Traveler Loot in special
     //edition. The first one for each guild will be responsible for the color
     //chosen for the whole guild.
-    //When all the reserved Traveler Loots are minted, the winner guild will be
-    //picked and it will gain access to the claimForWinners() function.
+    //When all the reserved Traveler Loots are minted, the conqueror guild will be
+    //picked and it will gain access to the claimForConquerors() function.
     function claimForQualifiedLoots(uint256 tokenId, address contractAddress) external nonReentrant {
-        require(!winner.elected, ERROR_COMPETITION_ENDED);
+        require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         LootDetails storage details = detailsByAddress[contractAddress];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         IERC721 looter = IERC721(contractAddress);
@@ -1564,8 +1564,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         uint16 discreetId = uint16(tokenId % MAX_FOR_QUALIFIED);
 
         if (++qualifiedCounter == MAX_FOR_QUALIFIED){
-            (winner.addr, winner.count) = whoIsWinning();
-            winner.elected = true;
+            (conqueror.addr, conqueror.count) = whoIsWinning();
+            conqueror.elected = true;
         }
         //after this mint, the price for patrons will be increased by 2%
         uint16 finalId = discreetId == 0 ? MAX_FOR_QUALIFIED : discreetId;
@@ -1575,9 +1575,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     //It mints the Traveler Loot using the address as tokenId.
     //Only restricted categories can access to this:
-    //- Winners can access because it's the reward for have won the competition,
+    //- conquerors can access because it's the reward for have won the competition,
     //- Looters can access under restrictions:
-    //   . till the winner of the ongoing competition is not been elected yet,
+    //   . till the conqueror of the ongoing competition is not been elected yet,
     //   . or till the 40th birthday of Dom Hoffman (the Loot Project father).
     //- Patrons can access since they pay the priceForPatrons cost, which is
     //  designed to grow as fast as more interest gets the project, so it allows
@@ -1599,8 +1599,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //Gives reserved opportunity to original looters (under conditions)
     function claimForLooters() external nonReentrant {
         require(IERC721(OR_LOOT).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
-        //offers valid only till a winner guild is elected...
-        require(!winner.elected, ERROR_COMPETITION_ENDED);
+        //offers valid only till a conqueror guild is elected...
+        require(!conqueror.elected, ERROR_COMPETITION_ENDED);
 
         //and only before Dom becomes 40 yo
         require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
@@ -1608,13 +1608,13 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         reservedMinting(PH_ORIGINAL_LOOT, 5, false);
     }
 
-    //Gives reserved opportunity to the winner guild (under conditions)
+    //Gives reserved opportunity to the conqueror guild (under conditions)
     //Only callable when the competition is ended.
-    function claimForWinners() external nonReentrant {
-        require(winner.elected, ERROR_COMPETITION_ONGOING);
-        require(IERC721(winner.addr).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
+    function claimForConquerors() external nonReentrant {
+        require(conqueror.elected, ERROR_COMPETITION_ONGOING);
+        require(IERC721(conqueror.addr).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         //after this mint, the price for patrons is decreased by 5%
-        reservedMinting(PH_WINNERS, 5, false);
+        reservedMinting(PH_CONQUERORS, 5, false);
     }
 
     //Owner can withdraw the patron fundings to the treasurer address.
