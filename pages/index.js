@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Layout from '../components/Layout.js';
-import {Form, Button, Input, Message,  Card, Icon, Image, Container, Dimmer, Loader, Segment } from 'semantic-ui-react';
+import {Form, Button, Input, Message,  Card, Icon, Image, Container, Dimmer, Loader, Segment, Table, Header } from 'semantic-ui-react';
 //import web3 from '../ethereum/web3';
 import {Router} from '../routes';
 import TravelerLoot from '../ethereum/build/TravelerLoot.sol.json';
@@ -181,13 +181,6 @@ class MyDapp extends Component{
               </div>
               <div className="flex py-8 w-full justify-center space-x-6">
                 <a
-                  href="https://rinkeby.etherscan.io/"
-                  className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
-                  target="_blank"
-                >
-                  <Image className=" hover:text-white  w-6 h-6 mx-2" src="../img/exchangeIcon2.svg"  />
-                </a>
-                <a
                   href="https://opensea.io/collection/#"
                   className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
                   target="_blank"
@@ -208,23 +201,23 @@ class MyDapp extends Component{
                 >
                   <Image className="fill-current  text-white w-6 h-6 mx-2" src="../img/discord.svg"/>
                 </a>
+                <a
+                  href="https://rinkeby.etherscan.io/"
+                  className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
+                  target="_blank"
+                >
+                  <Image className=" hover:text-white  w-6 h-6 mx-2" src="../img/exchangeIcon2.svg"  />
+                </a>
               </div>
-              <div className="flex py-8 w-full justify-center space-x-6">
-                <div>
-                  <p>The Traveler Loot is a CC0 Public Domain Project</p>
-                  <div className="flex py-8 w-full justify-center space-x-6">
-                    <Image className="text-white mx-2" src="https://i.creativecommons.org/p/zero/1.0/88x31.png" />
-                  </div>
-                </div>
-              </div>
+
 
 
             </div>
           </div>
         </div>
-        <div className="bg-black flex flex-wrap mx-auto sticky top-0 w-full justify-center text-sm space-x-6 sm:space-x-10 py-4 z-10 sm:text-2xl font-display">
+        <div className="bg-black flex flex-wrap mx-auto sticky top-0 w-full justify-center space-x-6 sm:space-x-10 py-4 z-10 sm:text-2xl font-display">
           <div>
-            <a className="hover:text-gray-600" href="#start">Get Traveler Loot</a>
+            <a className="hover:text-gray-600" href="#start">Claim</a>
           </div>
           <div>
             <a className="hover:text-gray-600" href="#Plot">Plot</a>
@@ -382,7 +375,7 @@ class MyDapp extends Component{
                   <br />Guilds are in competition between each others. The purpose is to maximize the number of Traveler Loots coming out colored with their Guild Flag.
                   <br />At the end of the game, the Guild who colored most Traveler Loots, become a Conqueror.
                   <br />
-                  <br />Conqueror Guild gains the right to mint a <a href="#Patrons">Patron version</a> for free, which otherwise is designed to be expensive (Patron price starts from 1 ETH and it varies mint by mint).<br /></p>
+                  <br />Conqueror Guild gains the right to mint a <a href="#Patrons">Patron edition</a> for free, which otherwise is designed to be expensive (Patron price starts from 1 ETH and it varies mint by mint).<br /></p>
               </div>
             </div>
           </div>
@@ -450,7 +443,7 @@ class MyDapp extends Component{
               <Card>
                 <Image src='loots/PH_WINNERS.svg' wrapped ui={false} />
                 <Card.Content>
-                  <Card.Header>Traveler Loot for Patrons (Conquerors version)</Card.Header>
+                  <Card.Header>Traveler Loot for Patrons (Conquerors edition)</Card.Header>
                   <Card.Meta>Supply: with restriction. Only a small subset of "Traveler Loot for Guilds" owners can access to this claim, depending on the history evolution of the mints. </Card.Meta>
                   <Card.Description>
                     Only the guild that arranges to mint the major number of the "Traveler Loot for Guilds", will have open doors to the "Traveler Loot for Conquerors" mintings.
@@ -464,7 +457,7 @@ class MyDapp extends Component{
               <Card>
                 <Image src='loots/PH_ORIGINAL_LOOT.svg' wrapped ui={false} />
                 <Card.Content>
-                  <Card.Header>Traveler Loot for Patrons (Looters version)</Card.Header>
+                  <Card.Header>Traveler Loot for Patrons (Looters edition)</Card.Header>
                   <Card.Meta>Supply: with restriction. Minting is only allowed to those which own a Loot (for Adventurers) NFT.</Card.Meta>
                   <Card.Description>
                     TokenId is the address number of the sender.
@@ -527,28 +520,119 @@ class MyDapp extends Component{
           </div>
         </div>
 
-        <div id="Patrons" className="bg-blue-COLORED py-20">
+        <div id="Patrons" className="bg-gray-PLATINUM py-20">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around">
-              <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                <span className="uppercase sm:text-xl tracking-widest text-white">Patrons</span>
-                <h1 className="text-center mt-4">Get a Patron Loot</h1>
+              <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 text-black">
+                <span className="uppercase sm:text-xl tracking-widest">Patrons</span>
+                <h1 className="text-center mt-4">Claim your reserved Traveler Loot</h1>
 
-                <p className="sm:text-2xl text-white">Your ETH address will be the TokenID: rare
+                <p className="sm:text-2xl ">Become a patron now!
                   <br />
                   <br />
                   <br />
+                  <b>PRICE VARIABILITY</b>
+                  <br />
+                  <br />
+                  Patrons minting price varies according to the number of other Traveler Loot NFTs minted:
+                  <Table basic='very' collapsing>
+                    <Table.Header>
+                      <Table.Row>
+                        <Table.HeaderCell>Traveler Loot Type</Table.HeaderCell>
+                        <Table.HeaderCell>Price for Patrons variation</Table.HeaderCell>
+                      </Table.Row>
+                    </Table.Header>
+
+                    <Table.Body>
+                      <Table.Row>
+                        <Table.Cell>
+                          <Header as='h4' image>
+
+                            <Header.Content>  <Image src='loots/COLORED_LOOT.svg' rounded size='tiny' />
+
+                            </Header.Content>
+                          </Header>
+                        </Table.Cell>
+                        <Table.Cell>
+                          Every time a Guild member mints a reserved <span className="italic">Traveler Loot for Guilds</span> in range <span className="font-bold">#1 to #2000</span>, Patron's price ⬆️ <span className="font-bold">increases by 2%</span>.
+                        </Table.Cell>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Cell>
+                          <Header as='h4' image>
+                            <Header.Content>
+                              <Image src='loots/BW_LOOT2.svg' rounded size='tiny' />
+                            </Header.Content>
+                          </Header>
+                        </Table.Cell>
+                        <Table.Cell>Every time Trips Community mints one of it's reserved <span className="italic">Standard Traveler Loot</span> in range <span className="font-bold">#2001 to #2222</span>, Patron's price  ⬇️ <span className="font-bold">decreases by 5%</span>.</Table.Cell>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Cell>
+                          <Header as='h4' image>
+                            <Header.Content>
+                              <Image src='loots/BW_LOOT2.svg' rounded size='tiny' />
+                            </Header.Content>
+                          </Header>
+                        </Table.Cell>
+                        <Table.Cell>
+                          Every time a blockchain user mints an available <span className="italic">Standard Traveler Loot</span> in range <span className="font-bold">#2223 to #10000</span>, Patron's price ⬆️ <span className="font-bold">increases by 1%</span>.
+                        </Table.Cell>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Cell>
+                          <Header as='h4' image>
+                            <Header.Content>
+                              <Image src='loots/PH_PATRONS.svg' rounded size='tiny' />
+                            </Header.Content>
+                          </Header>
+                        </Table.Cell>
+                        <Table.Cell>
+                          Every time a Patron mints a <span className="italic">Traveler Loot for Patrons</span>, the (next) Patrons price ⬆️ <span className="font-bold">increases by 5%</span>.
+                        </Table.Cell>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Cell>
+                          <Header as='h4' image>
+                            <Header.Content>
+                              <Image src='loots/PH_WINNERS.svg' rounded size='tiny' />
+                            </Header.Content>
+                          </Header>
+                        </Table.Cell>
+                        <Table.Cell>
+                          Every time a Conqueror member mints a <span className="italic">Traveler Loot for Patrons (Conqueror edition)</span>, Patron's price  ⬇️ <span className="font-bold">decreases by 5%</span>.
+                          <br />
+                          <br />
+                          This is a privilege offered to the Conqueror Guild only after that all <span className="italic">Traveler Loot for Guilds</span> (range #1 to #2000) have been minted and a Conqueror Guild has been found.
+                        </Table.Cell>
+                      </Table.Row>
+                      <Table.Row>
+                        <Table.Cell>
+                          <Header as='h4' image>
+                            <Header.Content>
+                              <Image src='loots/PH_ORIGINAL_LOOT.svg' rounded size='tiny' />
+                            </Header.Content>
+                          </Header>
+                        </Table.Cell>
+                        <Table.Cell>
+                          Every time a <a href="https://opensea.io/collection/lootproject" target="_blank">🔗 Loot Project's owner</a>{" "}
+                          mints a <span className="italic">Traveler Loot for Patron (Looters edition)</span>, Patron's price ⬇️ <span className="font-bold">decreases by 5%</span>.
+                          <br />
+                          <br />
+                          This is a privilege granted for a limited period of time to <span className="italic">Loot (for Adventurers)</span> owners. It expires on the 40th birthday of 🔗
+                          <a href="https://twitter.com/dhof" target="_blank">Dhof</a>{" "}
+                          on 27/09/2026 23:59:59 (UTC) or when all <span className="italic">Traveler Loot for Guilds</span> (range #1 to #2000) are minted and a Conqueror Guild has been found.
+                        </Table.Cell>
+                      </Table.Row>
+                    </Table.Body>
+                  </Table>
+
+
                 </p>
 
-                <Image src='loots/PH_PATRONS.svg' wrapped ui={false} />
-                <p className="sm:text-2xl text-white">
-                  <br />
-                  Starting cost: 1 ETH
-                  <br />
-                  Colour: gold
-                  <br />
-                </p>
-                <p className="sm:text-2xl text-white">
+
+
+                <p className="sm:text-2xl">
                   <br />
                   <br />
                   <b>50% of the Patron sales will go to Gitcoin grants in the Climate Change category. The rest will be used to give value to the Traveler Loot.</b>
@@ -557,62 +641,21 @@ class MyDapp extends Component{
                   <br />
 
 
-                <b>PRICE VARIABILITY</b>
-                <br />
-                The minting price varies according to the number of ordinary Travel Loot NFTs minted:
-                <br />
-                <br />
-                Every time a Standard NFT (#2223 to #10000) is minted the Patron NFT minting price ⬆️ <b>increases by 1% </b>.
-                <br />
-                <br />
 
-                Every time one eligible Loot derivate owner mints a Colored Loot (#1 to #2000) the Patron NFT minting price ⬆️ <b>increases by 2% </b>.
-                <br />
-                <br />
-                Every time a Patron NFT is minted, the Patron NFT minting price ⬆️ <b>increases by 5%</b>.
-                <br />
-                <br />
-
-                <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>.
-                <br />
-                <br />
-
-                <br />Every time one of the Owner Loots (#2001 to #2222) is minted, the the Patron NFT minting price  ⬇️ <b>goes down by 5% </b>.
-                <br />
-                <br />
-
-                Every time an owner of an
-                <a href="https://opensea.io/collection/lootproject" target="_blank"> original Loot</a>
-                mints a Patron with its own address, the Patron NFT minting price ⬇️ goes down by 5%.
-                <br />
-                <br />
-                This privileges expires on the 40th birthday of 🔗
-                <a href="https://twitter.com/dhof" target="_blank">Dhof</a>
-                on 27/09/2026 23:59:59 (UTC) or when all Colored NFTs (#1 to #2000) are minted and we have a Conqueror.
-                <br />
-                Use the
-                <i>claimForLooters()</i>
-                method.
-                <br />
-                <br />
-                Every time a Conqueror (part of the winner Guild/Family) mints with its own address, the Patron NFT minting price  ⬇️
-                <b>goes down by 5% </b>.
-                <br />
-                <br />
                 </p>
               </div>
             </div>
           </div>
         </div>
 
-        <div id="Elements" className="bg-blue-8  py-20 text-white ">
+        <div id="Elements" className="bg-black  py-20 text-white ">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around ">
               <div className="px-20 py-8 rounded text-center">
-                <span className="uppercase sm:text-xl tracking-widest text-white">Under The Hood</span>
+                <span className="uppercase sm:text-xl tracking-widest">Under The Hood</span>
                 <br />
                 <h1 className="text-center mt-4">100 trillion combinations</h1>
-                And 10 categories with 264 elements with variable rarities.
+                And 10 categories with 264 elements, and variable rarities.
               </div>
             </div>
             <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">

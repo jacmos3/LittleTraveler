@@ -13,7 +13,7 @@ class Header extends Component{
 
   render(){
     return (
-      <div className="w-full flex justify-between py-2 bg-black px-4 bg-opacity-90">
+      <div className="w-full flex justify-between py-2 bg-black px-4 ">
       {/* Main logo */}
       <div className={styles.header__logo}>
         <Link href="/">
