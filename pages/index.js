@@ -36,7 +36,7 @@ class MyDapp extends Component{
     web3Settings.contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
     this.setState({web3Settings:web3Settings});
     //console.log(this.state);
-    console.log(derivatives);
+    //console.log(derivatives);
   }
 
   onSubmit = async (event) => {
@@ -493,7 +493,9 @@ class MyDapp extends Component{
               Each one of those projects represents a Guild:
               <br />
               <br />
-              <Card.Group itemsPerRow={3} centered items={derivatives} />
+              <div id="derivatives">
+                <Card.Group itemsPerRow={3} centered items={derivatives} />
+              </div>
               </div>
               <br />
               <br />
