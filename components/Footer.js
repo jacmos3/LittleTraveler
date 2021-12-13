@@ -12,7 +12,7 @@ function Footer() {
     <div className="bg-black">
       <div className={styles.footer}>
 
-        Website code and Smart Contract code are
+        Website code and Smart Contract code are{" "}
         <a
           href="https://github.com/jacmos3/TravelerLoot"
           target="_blank"
