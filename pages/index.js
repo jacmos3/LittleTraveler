@@ -535,6 +535,7 @@ class MyDapp extends Component{
                   <br />
                   <br />
                   Patrons minting price varies according to the number of other Traveler Loot NFTs minted:
+                  </p>
                   <Table basic='very' collapsing>
                     <Table.Header>
                       <Table.Row>
@@ -628,7 +629,7 @@ class MyDapp extends Component{
                   </Table>
 
 
-                </p>
+
 
 
 
