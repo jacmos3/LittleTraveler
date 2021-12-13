@@ -545,11 +545,11 @@ class MyDapp extends Component{
                     </Table.Header>
 
                     <Table.Body>
-                      <Table.Row>
-                        <Table.Cell>
+                      <Table.Row className="text-center">
+                        <Table.Cell >
                           <Header as='h4' image>
 
-                            <Header.Content>  <Image src='loots/COLORED_LOOT.svg' rounded size='tiny' />
+                            <Header.Content >  <Image src='loots/COLORED_LOOT.svg' rounded size='tiny' />
 
                             </Header.Content>
                           </Header>
@@ -558,7 +558,7 @@ class MyDapp extends Component{
                           Every time a Guild member mints a reserved <span className="italic">Traveler Loot for Guilds</span> in range <span className="font-bold">#1 to #2000</span>, Patron's price ⬆️ <span className="font-bold">increases by 2%</span>.
                         </Table.Cell>
                       </Table.Row>
-                      <Table.Row>
+                      <Table.Row className="text-center">
                         <Table.Cell>
                           <Header as='h4' image>
                             <Header.Content>
@@ -568,7 +568,7 @@ class MyDapp extends Component{
                         </Table.Cell>
                         <Table.Cell>Every time Trips Community mints one of it's reserved <span className="italic">Standard Traveler Loot</span> in range <span className="font-bold">#2001 to #2222</span>, Patron's price  ⬇️ <span className="font-bold">decreases by 5%</span>.</Table.Cell>
                       </Table.Row>
-                      <Table.Row>
+                      <Table.Row className="text-center">
                         <Table.Cell>
                           <Header as='h4' image>
                             <Header.Content>
@@ -580,7 +580,7 @@ class MyDapp extends Component{
                           Every time a blockchain user mints an available <span className="italic">Standard Traveler Loot</span> in range <span className="font-bold">#2223 to #10000</span>, Patron's price ⬆️ <span className="font-bold">increases by 1%</span>.
                         </Table.Cell>
                       </Table.Row>
-                      <Table.Row>
+                      <Table.Row className="text-center">
                         <Table.Cell>
                           <Header as='h4' image>
                             <Header.Content>
@@ -592,8 +592,8 @@ class MyDapp extends Component{
                           Every time a Patron mints a <span className="italic">Traveler Loot for Patrons</span>, the (next) Patrons price ⬆️ <span className="font-bold">increases by 5%</span>.
                         </Table.Cell>
                       </Table.Row>
-                      <Table.Row>
-                        <Table.Cell>
+                      <Table.Row className="text-center">
+                        <Table.Cell >
                           <Header as='h4' image>
                             <Header.Content>
                               <Image src='loots/PH_WINNERS.svg' rounded size='tiny' />
@@ -607,7 +607,7 @@ class MyDapp extends Component{
                           </div>
                         </Table.Cell>
                       </Table.Row>
-                      <Table.Row>
+                      <Table.Row className="text-center">
                         <Table.Cell>
                           <Header as='h4' image>
                             <Header.Content>
