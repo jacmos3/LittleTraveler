@@ -557,7 +557,7 @@ class MyDapp extends Component{
                           </Header>
                         </Table.Cell>
                         <Table.Cell>
-                          Every time a Guild member mints a reserved <span className="italic">Traveler Loot for Guilds</span> in range <span className="font-bold">#1 to #2000</span>, Patron's price ⬆️ <span className="font-bold">increases by 2%</span>.
+                          Every time a Guild member mints a reserved <span className="italic">Traveler Loot for Guilds</span> in range <span className="font-bold">#1 to #2000</span>, Patron's price ⬇️ <span className="font-bold">decreases by 1%</span>.
                         </Table.Cell>
                       </Table.Row>
                       <Table.Row className="text-center">
@@ -568,7 +568,7 @@ class MyDapp extends Component{
                             </Header.Content>
                           </Header>
                         </Table.Cell>
-                        <Table.Cell>Every time Trips Community mints one of it's reserved <span className="italic">Standard Traveler Loot</span> in range <span className="font-bold">#2001 to #2222</span>, Patron's price  ⬇️ <span className="font-bold">decreases by 5%</span>.</Table.Cell>
+                        <Table.Cell>Every time Trips Community mints one of it's reserved <span className="italic">Standard Traveler Loot</span> in range <span className="font-bold">#2001 to #2222</span>, Patron's price has no variations.</Table.Cell>
                       </Table.Row>
                       <Table.Row className="text-center">
                         <Table.Cell>
@@ -591,7 +591,7 @@ class MyDapp extends Component{
                           </Header>
                         </Table.Cell>
                         <Table.Cell>
-                          Every time a Patron mints a <span className="italic">Traveler Loot for Patrons</span>, the (next) Patrons price ⬆️ <span className="font-bold">increases by 5%</span>.
+                          Every time a Patron mints a <span className="italic">Traveler Loot for Patrons</span>, Patrons price ⬇️ <span className="font-bold">decreases by 5%</span>.
                         </Table.Cell>
                       </Table.Row>
                       <Table.Row className="text-center">
@@ -603,7 +603,7 @@ class MyDapp extends Component{
                           </Header>
                         </Table.Cell>
                         <Table.Cell>
-                          Every time a Conqueror member mints a <span className="italic">Traveler Loot for Patrons (Conqueror edition)</span>, Patron's price  ⬇️ <span className="font-bold">decreases by 5%</span>.
+                          Every time a Conqueror member mints a <span className="italic">Traveler Loot for Patrons (Conqueror edition)</span>, Patron's price  ⬆️ <span className="font-bold">increases by 5%</span>.
                           <div className="sm:text-sm">
                             This is a privilege offered to the Conqueror Guild only after that all <span className="italic">Traveler Loot for Guilds</span> (range #1 to #2000) have been minted and a Conqueror Guild has been found.
                           </div>
@@ -619,7 +619,7 @@ class MyDapp extends Component{
                         </Table.Cell>
                         <Table.Cell>
                           Every time a <a href="https://opensea.io/collection/lootproject" target="_blank">🔗 Loot Project's owner</a>{" "}
-                          mints a <span className="italic">Traveler Loot for Patron (Looters edition)</span>, Patron's price ⬇️ <span className="font-bold">decreases by 5%</span>.
+                          mints a <span className="italic">Traveler Loot for Patron (Looters edition)</span>, Patron's price ⬆️ <span className="font-bold">increases by 5%</span>.
                           <div className="sm:text-sm">
                             This is a privilege granted for a limited period of time to <span className="italic">Loot (for Adventurers)</span> owners. It expires on the 40th birthday of 🔗
                             <a href="https://twitter.com/dhof" target="_blank">Dhof</a>{" "}
