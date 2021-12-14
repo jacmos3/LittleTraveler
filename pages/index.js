@@ -440,11 +440,11 @@ class MyDapp extends Component{
                     <Card.Header>Traveler Loot for Guilds</Card.Header>
                     <Card.Meta>Supply: 2000 (#1 to #2000)</Card.Meta>
                     <Card.Description>
-                      <a href="#Guilds">Selected projects (*)</a> owners (members of the Guilds) can claim those slots till the end of supply, by calling claimForQualifiedLoots() function by passing the Derivative Loot address contract and the tokenId they own,
+                      <a href="#Guilds">Guilds</a> members can claim these slots by calling claimForGuilds() function on etherscan.
                     </Card.Description>
                   </Card.Content>
                   <Card.Content extra>
-                    Cost: Free + Gas, with restrictions
+                    Cost: Free + Gas
                   </Card.Content>
               </Card>
 
@@ -454,9 +454,9 @@ class MyDapp extends Component{
                   <Card.Header>Traveler Loot Standard</Card.Header>
                   <Card.Meta >Supply: 8000 (#2001 to #10000)</Card.Meta>
                   <Card.Description>
-                    Black and white Traveler Loots. Everybody can claim one (or more) till the end of supply, by using <a href="#start">the form above</a> or by calling claim(tokenId) function on etherscan.
-                    <br/>222 slots from #2001 to #2222 are are reserved to Trips Community.
-                    <br />7778 slots from #2223 to #10000 are open to everybody. No restrictions applied.
+                    Everybody can claim one (or more) Traveler Loot Standard <a href="#Start">🔗 here</a>.
+                    <br/>From #2001 to #2222 are reserved to Trips Community.
+                    <br />From #2223 to #10000 are open to everybody. No restrictions applied.
                   </Card.Description>
                 </Card.Content>
                 <Card.Content extra>
@@ -468,31 +468,31 @@ class MyDapp extends Component{
                 <Image src='loots/PH_PATRONS.svg' wrapped ui={false} />
                 <Card.Content>
                   <Card.Header>Traveler Loot for Patrons</Card.Header>
-                  <Card.Meta>Supply: with restriction. Minting price is designed to become unaffordable because it increases after each Patron minting. So very few Traveler Loot for Patrons will be in circulation over time.</Card.Meta>
+                  <Card.Meta>Paying NFT. Price varies depending on mints history.</Card.Meta>
                   <Card.Description>
                     TokenId is the address number of the sender.
-                    <br />Everybody can claim it by using claimForPatrons() function.
-                    <br />Allowed one claim per address and there is a Price fee.
+                    <br />Everybody can claim it by using claimForPatrons() function on etherscan.
                   </Card.Description>
 
                 </Card.Content>
                 <Card.Content extra>
-                  Cost: 1ETH* + Gas
+                  Cost: starting from 1ETH + Gas.
                   <br />
-                  *Price varies
                 </Card.Content>
               </Card>
               <Card>
                 <Image src='loots/PH_WINNERS.svg' wrapped ui={false} />
                 <Card.Content>
                   <Card.Header>Traveler Loot for Patrons (Conquerors edition)</Card.Header>
-                  <Card.Meta>Supply: with restriction. Only a small subset of "Traveler Loot for Guilds" owners can access to this claim, depending on the history evolution of the mints. </Card.Meta>
+                  <Card.Meta>Conqueror Guild can access to this Traveler Loots. </Card.Meta>
                   <Card.Description>
-                    Only the guild that arranges to mint the major number of the "Traveler Loot for Guilds", will have open doors to the "Traveler Loot for Conquerors" mintings.
+                    TokenId is the address number of the sender.
+                    <br />
+                    The guild that arranges to mint the major number of the "Traveler Loot for Guilds", will have open doors to the "Traveler Loot for Patrons (Conquerors edition)" for free.
                   </Card.Description>
                 </Card.Content>
                 <Card.Content extra>
-                  Cost: Free + Gas, with restrictions
+                  Cost: Free + Gas
                 </Card.Content>
               </Card>
 
@@ -500,19 +500,18 @@ class MyDapp extends Component{
                 <Image src='loots/PH_ORIGINAL_LOOT.svg' wrapped ui={false} />
                 <Card.Content>
                   <Card.Header>Traveler Loot for Patrons (Looters edition)</Card.Header>
-                  <Card.Meta>Supply: with restriction. Minting is only allowed to those which own a Loot (for Adventurers) NFT.</Card.Meta>
+                  <Card.Meta>Minting is allowed to those which own a Loot (for Adventurers) NFT.</Card.Meta>
                   <Card.Description>
                     TokenId is the address number of the sender.
-                    <br />Loot (for Adventurers) owners can claim it by using claimForLooters() function.
-                    <br />It is allowed one claim per address and there are two deadlines:
-                    <br />Claim expires on the 40th birthday of 🔗
+                    <br />Loot (for Adventurers) owners can claim by using claimForLooters() function on etherscan.
+                    <br />Claims expire on the 40th birthday of 🔗
                     <a href="https://twitter.com/dhof" target="_blank">Dhof </a>
-                     on 27/09/2026 23:59:59 (UTC) or when the Conqueror guild has been determined.
+                     on 27/09/2026 23:59:59 UTC, or when the Conqueror guild has been defined.
                   </Card.Description>
 
                 </Card.Content>
                 <Card.Content extra>
-                  Cost: Free + Gas, with restrictions
+                  Cost: Free + Gas
                 </Card.Content>
               </Card>
               </Card.Group>
