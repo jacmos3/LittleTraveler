@@ -46,9 +46,11 @@ class Header extends Component{
         )
 
         : (
+          <a href="#Start">
             <Button onClick={this.props.connect}>
               Connect wallet
             </Button>
+            </a>
         )
       }
       </div>
