@@ -526,7 +526,7 @@ class MyDapp extends Component{
 
           <br />
           <p>
-          Traveler Loot Project is a layer built on top of Loot Project and 14 other Loot Derivatives (listed above in the <a href="#Guilds">🔗Guild section</a>). Holding one of those NFT, will give access to the <span className="italic">Traveler Loot for Guilds</span> in range #1 - #2000 that will be forged with the Guild Flag attached on them.  If you do not own any, you should choose one project, and mint one NFT directly in their website/etherscan, or buy them in secondary market if direct mints are not available anymore. Derivatives Loots are indipendent and there are no royalities or referrals related to this project.
+          Traveler Loot Project is a layer built on top of Loot Project and 14 other Loot Derivatives (listed above in the <a href="#Guilds">🔗Guild section</a>). By holding one of those NFT, you will have access to the <span className="italic">Traveler Loot for Guilds</span> in range #1 - #2000 that will be forged with the Guild Flag attached to them. If you do not have any, some of those projects still have available NFT to be minted in their website/etherscan, just pick one and you'll be instantly eligible. Otherwise you are always free to mint a <span className="italic">Traveler Loot Standard</span> in range #2222 - #10000 till they go out of supply. Loot Project and Derivatives Loots are indipendent projects and there are no royalities or referrals related to this project.
           </p>
           </div>
         </div>
