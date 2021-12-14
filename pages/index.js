@@ -415,7 +415,7 @@ class MyDapp extends Component{
                If you own at least one NFT of these Guilds, then you may be elegible to claim a reserved Traveler Loot in the range #1-#2000.
               <br />
               <br />
-              Traveler Loots #1 - #2000 are called Traveler Loot for Guilds and are provided in first-come-first-served basis, which means other Guilds may pick the NFT you are elegible to before you do, if you are not faster enough.
+              Traveler Loots #1 - #2000 are called <span className="italic">Traveler Loot for Guilds</span> and are provided in first-come-first-served basis, which means other Guilds may pick the NFT you are elegible to before you do, if you are not faster enough.
               <br />
               <br />
               The minting function is regulated by <a href="https://en.wikipedia.org/wiki/Modulo_operation" target="_blank">🔗modulo operation</a> (mod 2000) which means that more Guilds-tokenIds point to the same single Traveler-Loot-tokenId.
@@ -526,7 +526,7 @@ class MyDapp extends Component{
 
           <br />
           <p>
-          Traveler Loot Project is a layer built on top of the Loot Derivatives listed in the <a href="#Guilds">🔗Guild section</a> and it requires them to get access to the range #1 - #2000, which means that to mint a tokenId in this range you should mint a Guild before, so you need to choose and select one of those projects, and mint directly in their website/etherscan, or buy them in secondary market if direct mints are not available anymore. Derivatives Loots are indipendent and there are no royalities or referrals related to this.
+          Traveler Loot Project is a layer built on top of Loot Project and 14 other Loot Derivatives (listed above in the <a href="#Guilds">🔗Guild section</a>). Holding one of those NFT, will give access to the <span className="italic">Traveler Loot for Guilds</span> in range #1 - #2000 that will be forged with the Guild Flag attached on them.  If you do not own any, you should choose one project, and mint one NFT directly in their website/etherscan, or buy them in secondary market if direct mints are not available anymore. Derivatives Loots are indipendent and there are no royalities or referrals related to this project.
           </p>
           </div>
         </div>
