@@ -379,7 +379,13 @@ class MyDapp extends Component{
                   <br />Guild who forges most Traveler Loots with it's own Flag, becomes the Conqueror.
                   <br />
                   <br />
-                  Conqueror will be elected when all the 2000 Traveler Loot for Guilds are fully minted, and from that moment gains the right to mint a Patron edition for free, which otherwise is a paying NFT.<br />
+                  Conqueror will be elected when all the 2000 Traveler Loot for Guilds are fully minted, and it will gain the right to mint for free a Traveler Loot Patron version, which otherwise is a paying NFT.
+                  <br />
+                  <br />
+                  <span className="italic">Traveler Loot for Patrons</span> are special Traveler Loots where the tokenId is the decimal version of the wallet address who mints it.
+                  <br />It can be minted once per address and it has a price cost that varies depending on the history of previous mintings.
+                  <br />They could become interesting when Travel Industry will onboard web3.<br />
+                  <br />To mint them, code is open. Figure it out how.
                 </p>
               </div>
             </div>
@@ -406,14 +412,13 @@ class MyDapp extends Component{
               </div>
               <br />
               <br />
-               If you own at least one NFT of those Guilds, then you may be elegible to claim a reserved Traveler Loot in the range #1-#2000.
+               If you own at least one NFT of these Guilds, then you may be elegible to claim a reserved Traveler Loot in the range #1-#2000.
               <br />
               <br />
-              Traveler Loots #1 - #2000 are provided in first-come-first-served basis, which means other Guilds may pick the NFT you are elegible to, before you do.
+              Traveler Loots #1 - #2000 are called Traveler Loot for Guilds and are provided in first-come-first-served basis, which means other Guilds may pick the NFT you are elegible to before you do, if you are not faster enough.
               <br />
               <br />
               The minting function is regulated by <a href="https://en.wikipedia.org/wiki/Modulo_operation" target="_blank">🔗modulo operation</a> (mod 2000) which means that more Guilds-tokenIds point to the same single Traveler-Loot-tokenId.
-              <br />
               <br />
               Claims are possible on etherscan by calling the function:
               <br />
@@ -423,8 +428,8 @@ class MyDapp extends Component{
               </div>
           </div>
         </div>
-        <div id="Types" className="bg-gray-PLATINUM sm:py-20 py-10 pb-40  ">
-          <div className="container mx-auto mt-8 text-black" >
+        <div id="Types" className="bg-gray-PLATINUM sm:py-20 py-10 pb-40 text-black ">
+          <div className="container mx-auto mt-8 " >
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
                 <span className="uppercase sm:text-xl tracking-widest ">Types</span>
@@ -433,7 +438,7 @@ class MyDapp extends Component{
               </div>
             </div>
 
-            <Card.Group itemsPerRow={5} stackable={true} doubling={true}>
+            <Card.Group itemsPerRow={2} stackable={true} doubling={true}>
               <Card>
               <Image src='loots/COLORED_LOOT.svg' wrapped ui={false} />
                   <Card.Content>
@@ -463,7 +468,8 @@ class MyDapp extends Component{
                   Cost: Free + Gas
                 </Card.Content>
               </Card>
-
+{
+  /*
               <Card>
                 <Image src='loots/PH_PATRONS.svg' wrapped ui={false} />
                 <Card.Content>
@@ -514,7 +520,14 @@ class MyDapp extends Component{
                   Cost: Free + Gas
                 </Card.Content>
               </Card>
+              */
+            }
               </Card.Group>
+
+          <br />
+          <p>
+          Traveler Loot Project is a layer built on top of the Loot Derivatives listed in the <a href="#Guilds">🔗Guild section</a> and it requires them to get access to the range #1 - #2000, which means that to mint a tokenId in this range you should mint a Guild before, so you need to choose and select one of those projects, and mint directly in their website/etherscan, or buy them in secondary market if direct mints are not available anymore. Derivatives Loots are indipendent and there are no royalities or referrals related to this.
+          </p>
           </div>
         </div>
 
@@ -528,19 +541,19 @@ class MyDapp extends Component{
                 <span className="uppercase sm:text-xl tracking-widest">Under The Hood</span>
                 <br />
                 <h1 className="text-center mt-4">100 trillion combinations</h1>
-                And 10 categories with 264 elements, and variable rarities.
+                10 categories with 264 elements, and variable rarities.
               </div>
             </div>
             <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">
                 <br />30 Characters
-                <br />24 Preferred travel environments
+                <br />24 Preferred Travel Environments
                 <br />30 Preferred Means of Transports
-                <br />30 Languages spoken
+                <br />30 Spoken Languages
                 <br />30 Talents
-                <br />30 Preferred places in the world
-                <br />9 Travel experience levels
+                <br />30 Preferred Places in the World
+                <br />9 Travel Experience Levels
                 <br />30 Preferred Accommodations
-                <br />21 Stuff in the bag
+                <br />21 Stuff in the Bag
                 <br />30 Occupations
             </div>
             <br />
