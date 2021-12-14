@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Layout from '../components/Layout.js';
-import {Form, Button, Input, Message,  Card, Icon, Image, Container, Dimmer, Loader, Segment, Table, Header } from 'semantic-ui-react';
+import {Form, Button, Input, Message,  Card, Icon, Image, Container, Dimmer, Loader, Segment, Table, Header, Popup} from 'semantic-ui-react';
 //import web3 from '../ethereum/web3';
 import {Router} from '../routes';
 import TravelerLoot from '../ethereum/build/TravelerLoot.sol.json';
@@ -174,9 +174,9 @@ class MyDapp extends Component{
                 <h1>Traveler Loot</h1>
                 <p className="text-xl sm:text-2xl text-white">
                   <br />
-                  The Traveler Loot is a Loot derivative for the travel industry, generated and stored on chain.
+                  Traveler Loot is a <a target= "_blank" href="https://www.lootproject.com/">Loot</a> derivative for the travel industry, generated and stored on chain.
                   <br />
-                  Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use The Traveler Loot in any way you want.
+                  Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use Traveler Loot in any way you want.
                 </p>
               </div>
               <div className="flex py-8 w-full justify-center space-x-6">
@@ -201,15 +201,9 @@ class MyDapp extends Component{
                 >
                   <Image className="fill-current  text-white w-6 h-6 mx-2" src="../img/discord.svg"/>
                 </a>
-                <a
-                  href="https://rinkeby.etherscan.io/"
-                  className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
-                  target="_blank"
-                >
-                  <Image className=" hover:text-white  w-6 h-6 mx-2" src="../img/exchangeIcon2.svg"  />
-                </a>
-              </div>
 
+              </div>
+              <div><a href="href=https://rinkeby.etherscan.io/">VIEW CONTRACT</a></div>
 
 
             </div>
@@ -217,7 +211,7 @@ class MyDapp extends Component{
         </div>
         <div className="bg-black flex flex-wrap mx-auto sticky top-0 w-full justify-center space-x-6 sm:space-x-10 py-4 z-10 sm:text-2xl font-display">
           <div>
-            <a className="hover:text-gray-600" href="#start">Claim</a>
+            <a className="hover:text-gray-600" href="#Start">Claim</a>
           </div>
           <div>
             <a className="hover:text-gray-600" href="#Plot">Plot</a>
@@ -230,14 +224,11 @@ class MyDapp extends Component{
             <a className="hover:text-gray-600" href="#Guilds">Guilds</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#Patrons">Patrons</a>
-          </div>
-          <div>
             <a className="hover:text-gray-600" href="#Elements">Elements</a>
           </div>
         </div>
 
-        <div id="start" className="bg-black  sm:py-20 py-10 pb-40 ">
+        <div id="Start" className="bg-black  sm:py-20 py-10 pb-40 ">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 ">
@@ -247,25 +238,26 @@ class MyDapp extends Component{
                 <h1 className="text-center mt-4 capitalize">Start Here: Get A Traveler Loot</h1>
                 <br />
                 {
-                  this.state.web3Settings.isWeb3Connected ? (<div></div>) :(
-
-                <p className="text-xl sm:text-2xl text-white">
-                  10,000 Loots, discovered by travelers.
-                  <br />
-                  What treasures do they hold?
-                  <br />
-                  Which gifts will they attracts?
-                  <br />
-                  Free nights in hotels?
-                  <br />
-                  Big discounts on flights?
-                  <br />
-                  Special offers in restaurants?
-                  <br />
-                  <br />
-                </p>
-)
-}
+                  this.state.web3Settings.isWeb3Connected
+                  ? (<div></div>)
+                  :(
+                    <p className="text-xl sm:text-2xl text-white">
+                      10,000 Loots, discovered by travelers.
+                      <br />
+                      What treasures do they hold?
+                      <br />
+                      Which gifts will they attracts?
+                      <br />
+                      Free nights in hotels?
+                      <br />
+                      Big discounts on flights?
+                      <br />
+                      Special offers in restaurants?
+                      <br />
+                      <br />
+                    </p>
+                  )
+                }
                 <Container>
                   {
                     this.state.web3Settings.isWeb3Connected
@@ -277,7 +269,13 @@ class MyDapp extends Component{
                             <div className="col-start-2 col-span-3">
                             <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
                               <Form.Field>
-                                <p>Insert an available tokenId between 2223 and 10000</p>
+                                <p>
+                                  Insert an available tokenId between 2223 and 10000
+                                  <Popup content='#1 - #2222 are reserved. Minting is possible on etherscan by eligible guilds'
+                                    size='tiny'
+                                    trigger={<Icon name='info' color='question circle' size='medium' circular />}
+                                  />
+                                </p>
                                 <br />
                                 <Input
                                 type='number'
@@ -290,8 +288,8 @@ class MyDapp extends Component{
 
                               <Message error header="Oops!" content = {this.state.errorMessage} />
                               {/*<Button disabled={this.state.tokenId.length == 0} type="button" basic color='grey' onClick={this.onSynthetic} > Preview</Button>*/}
-                              <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} secondary>User Mint</Button>
-                              <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.state.web3Settings.contractAddress}#code`} type="button" basic color='black' > H4x0r M1n7 </Button>
+                              <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} secondary>Claim</Button>
+                              <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.state.web3Settings.contractAddress}#code`} type="button" basic color='black' >H4x0r</Button>
                             </Form>
                             {!this.state.minted ? null : (
                               <Card centered>
@@ -366,21 +364,65 @@ class MyDapp extends Component{
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
                 <span className="uppercase sm:text-xl tracking-widest">Plot</span>
                 <h1 className="text-center mt-4">Loot derivatives are Guilds</h1>
-                <p className="sm:text-2xl">If you own a Loot derivative or a Loot (for Adventurers) NFT, you may be part of a Guild and you still don't know it!
+
+                <p className="sm:text-2xl">
                   <br />
-                  <br />There are 15 Guilds, each one with an assigned color wich represents the Flag of the Guild.
-                  <br />Traveler Loots from #1 to #2000 are reserved for those Guilds and come out colored depending on the Flag of the Guild who mints it.
-                  <br />The Guild color will remain attached to that Traveler Loot forever.
+                  There are 15 Guilds, each one with an assigned color wich represents the Flag of the Guild.
                   <br />
-                  <br />Guilds are in competition between each others. The purpose is to maximize the number of Traveler Loots coming out colored with their Guild Flag.
-                  <br />At the end of the game, the Guild who colored most Traveler Loots, become a Conqueror.
+                  <br />If you own a Loot derivative or a Loot (for Adventurers) NFT, you may be part of a Guild and you still don't know it.
                   <br />
-                  <br />Conqueror Guild gains the right to mint a <a href="#Patrons">Patron edition</a> for free, which otherwise is designed to be expensive (Patron price starts from 1 ETH and it varies mint by mint).<br /></p>
+                  <br />Traveler Loots mints from #1 to #2000 are reserved for these Guilds and come out colored depending on the Flag of the Guild who mints it.
+                  <br />
+                  <br />Once minted, the Guild flag will remain attached to that Traveler Loot forever.
+                  <br />
+                  <br />Guilds are in competition between each others. The goal is to attach it's Flag to more Traveler Loot as possible.
+                  <br />
+                  <br />The Guild who forges most Traveler Loots with it's own Flag, becomes the Conqueror and it will be elected when all the 2000 Traveler Loot for Guilds are fully minted.
+                  <br />
+                  <br />Conqueror Guild gains the right to mint a Patron edition for free, which otherwise is a paying NFT.<br />
+                </p>
               </div>
             </div>
           </div>
         </div>
+        <div id="Guilds" className="bg-black  py-20 text-white ">
+          <div className="container mx-auto mt-8">
+            <div className="flex justify-around ">
+              <div className="px-20 py-8 rounded text-center">
+                <span className="uppercase sm:text-xl tracking-widest">Guilds</span>
 
+               <br />
+                <h1 className="text-center mt-4 text-white">Selected Loot Projects</h1>
+              </div>
+            </div>
+            <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4">
+              <div>
+              Each one of those projects represents a Guild:
+              <br />
+              <br />
+              <div id="derivatives">
+                <Card.Group itemsPerRow={3} centered items={derivatives} />
+              </div>
+              </div>
+              <br />
+              <br />
+               If you own at least one NFT of those Guilds, then you may be elegible to claim a reserved Traveler Loot in the range #1-#2000.
+              <br />
+              <br />
+              Traveler Loots #1 - #2000 are provided in first-come-first-served basis, which means other Guilds may pick the NFT you are elegible to, before you do.
+              <br />
+              <br />
+              The minting function is regulated by <a href="https://en.wikipedia.org/wiki/Modulo_operation" target="_blank">🔗modulo operation</a> (mod 2000) which means that more Guilds-tokenIds point to the same single Traveler-Loot-tokenId.
+              <br />
+              <br />
+              Claims are possible on etherscan by calling the function:
+              <br />
+              </div>
+              <div className="text-center">
+              claimForGuilds(tokenId, contractAddress);
+              </div>
+          </div>
+        </div>
         <div id="Types" className="bg-gray-PLATINUM sm:py-20 py-10 pb-40  ">
           <div className="container mx-auto mt-8 text-black" >
             <div className="flex justify-around">
@@ -437,7 +479,7 @@ class MyDapp extends Component{
                 <Card.Content extra>
                   Cost: 1ETH* + Gas
                   <br />
-                  *Price varies (check here how)
+                  *Price varies
                 </Card.Content>
               </Card>
               <Card>
@@ -478,178 +520,7 @@ class MyDapp extends Component{
         </div>
 
 
-        <div id="Guilds" className="bg-black  py-20 text-black ">
-          <div className="container mx-auto mt-8">
-            <div className="flex justify-around ">
-              <div className="px-20 py-8 rounded text-center">
-                <span className="uppercase sm:text-xl tracking-widest text-white">Guilds</span>
 
-               <br />
-                <h1 className="text-center mt-4 text-white">Selected Loot Projects</h1>
-              </div>
-            </div>
-            <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 text-white">
-              <div>
-              Each one of those projects represents a Guild:
-              <br />
-              <br />
-              <div id="derivatives">
-                <Card.Group itemsPerRow={3} centered items={derivatives} />
-              </div>
-              </div>
-              <br />
-              <br />
-               If you own at least one NFT of those Guilds, then you may be elegible to claim a reserved Traveler Loot in the range #1-#2000, opening the doors to be part of a restricted elite of members (who could be, for example, targeted by future possible airdrops or advantages provided by the Travel Industry approaching Web3.
-              <br />
-              <br />
-              To claim yours you have to go on etherscan and call the following function:
-              <br />
-              <br />
-              <code>
-              claimForQualified(tokenId, contractAddress);
-              </code>
-              <br />
-              <br />
-              Traveler Loots #1 - #2000 are provided in first-come-first-served basis, which means members of the other Guilds may pick the NFT you are elegible to, before you do.
-              E.g.: if you own the tokenId #1 of a Guild (projects above), you would be able to mint the Traveler Loot #1, but other guy who hold tokenId #1 of another Guild would do too... and not only.
-              <br />
-              <br />
-              The minting function is regulated by <a href="https://en.wikipedia.org/wiki/Modulo_operation" target="_blank">🔗modulo operation</a> which means that more Guild tokenIds point to the same Traveler Loot tokenId.
-              <br />The given Guild tokenId is actually moduled by 2000. So the Traveler Loot #500 (i.g.) is reserved to the fastest of those who own Guild NFTs with tokenId #500 and to those who own #2500, #4500, #6500 etc..
-              <br />Once Traveler Loot #500 is picked by the fastest of them, it will get the flag color of him/her (important for final results), and (more important) all the others cannot claim Traveler Loot #500 anymore.
-
-            </div>
-          </div>
-        </div>
-
-        <div id="Patrons" className="bg-gray-PLATINUM py-20">
-          <div className="container mx-auto mt-8">
-            <div className="flex justify-around">
-              <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 text-black">
-                <span className="uppercase sm:text-xl tracking-widest">Patrons</span>
-                <h1 className="text-center mt-4">Claim your reserved Traveler Loot</h1>
-
-                <p className="sm:text-2xl ">Become a patron now!
-                  <br />
-                  <br />
-                  <br />
-                  <b>PRICE VARIABILITY</b>
-                  <br />
-                  <br />
-                  Patrons minting price varies according to the number of other Traveler Loot NFTs minted:
-                  </p>
-                  <Table basic='very' collapsing>
-                    <Table.Header>
-                      <Table.Row>
-                        <Table.HeaderCell>Traveler Loot Type</Table.HeaderCell>
-                        <Table.HeaderCell>Price for Patrons variation</Table.HeaderCell>
-                      </Table.Row>
-                    </Table.Header>
-
-                    <Table.Body>
-                      <Table.Row className="text-center">
-                        <Table.Cell >
-                          <Header as='h4' image>
-
-                            <Header.Content >  <Image src='loots/COLORED_LOOT.svg' rounded size='tiny' />
-
-                            </Header.Content>
-                          </Header>
-                        </Table.Cell>
-                        <Table.Cell>
-                          Every time a Guild member mints a reserved <span className="italic">Traveler Loot for Guilds</span> in range <span className="font-bold">#1 to #2000</span>, Patron's price ⬇️ <span className="font-bold">decreases by 1%</span>.
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row className="text-center">
-                        <Table.Cell>
-                          <Header as='h4' image>
-                            <Header.Content>
-                              <Image src='loots/BW_LOOT2.svg' rounded size='tiny' />
-                            </Header.Content>
-                          </Header>
-                        </Table.Cell>
-                        <Table.Cell>Every time Trips Community mints one of it's reserved <span className="italic">Standard Traveler Loot</span> in range <span className="font-bold">#2001 to #2222</span>, Patron's price has no variations.</Table.Cell>
-                      </Table.Row>
-                      <Table.Row className="text-center">
-                        <Table.Cell>
-                          <Header as='h4' image>
-                            <Header.Content>
-                              <Image src='loots/BW_LOOT2.svg' rounded size='tiny' />
-                            </Header.Content>
-                          </Header>
-                        </Table.Cell>
-                        <Table.Cell>
-                          Every time a blockchain user mints an available <span className="italic">Standard Traveler Loot</span> in range <span className="font-bold">#2223 to #10000</span>, Patron's price ⬆️ <span className="font-bold">increases by 1%</span>.
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row className="text-center">
-                        <Table.Cell>
-                          <Header as='h4' image>
-                            <Header.Content>
-                              <Image src='loots/PH_PATRONS.svg' rounded size='tiny' />
-                            </Header.Content>
-                          </Header>
-                        </Table.Cell>
-                        <Table.Cell>
-                          Every time a Patron mints a <span className="italic">Traveler Loot for Patrons</span>, Patrons price ⬇️ <span className="font-bold">decreases by 5%</span>.
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row className="text-center">
-                        <Table.Cell >
-                          <Header as='h4' image>
-                            <Header.Content>
-                              <Image src='loots/PH_WINNERS.svg' rounded size='tiny' />
-                            </Header.Content>
-                          </Header>
-                        </Table.Cell>
-                        <Table.Cell>
-                          Every time a Conqueror member mints a <span className="italic">Traveler Loot for Patrons (Conqueror edition)</span>, Patron's price  ⬆️ <span className="font-bold">increases by 5%</span>.
-                          <div className="sm:text-sm">
-                            This is a privilege offered to the Conqueror Guild only after that all <span className="italic">Traveler Loot for Guilds</span> (range #1 to #2000) have been minted and a Conqueror Guild has been found.
-                          </div>
-                        </Table.Cell>
-                      </Table.Row>
-                      <Table.Row className="text-center">
-                        <Table.Cell>
-                          <Header as='h4' image>
-                            <Header.Content>
-                              <Image src='loots/PH_ORIGINAL_LOOT.svg' rounded size='tiny' />
-                            </Header.Content>
-                          </Header>
-                        </Table.Cell>
-                        <Table.Cell>
-                          Every time a <a href="https://opensea.io/collection/lootproject" target="_blank">🔗 Loot Project's owner</a>{" "}
-                          mints a <span className="italic">Traveler Loot for Patron (Looters edition)</span>, Patron's price ⬆️ <span className="font-bold">increases by 5%</span>.
-                          <div className="sm:text-sm">
-                            This is a privilege granted for a limited period of time to <span className="italic">Loot (for Adventurers)</span> owners. It expires on the 40th birthday of 🔗
-                            <a href="https://twitter.com/dhof" target="_blank">Dhof</a>{" "}
-                            on 27/09/2026 23:59:59 (UTC) or when all <span className="italic">Traveler Loot for Guilds</span> (range #1 to #2000) are minted and a Conqueror Guild has been found.
-                          </div>
-                        </Table.Cell>
-                      </Table.Row>
-                    </Table.Body>
-                  </Table>
-
-
-
-
-
-
-                <p className="sm:text-2xl">
-                  <br />
-                  <br />
-                  <b>50% of the Patron sales will go to Gitcoin grants in the Climate Change category. The rest will be used to give value to the Traveler Loot.</b>
-                  <br />
-                  <br />
-                  <br />
-
-
-
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div id="Elements" className="bg-black  py-20 text-white ">
           <div className="container mx-auto mt-8">
@@ -672,6 +543,12 @@ class MyDapp extends Component{
                 <br />30 Preferred Accommodations
                 <br />21 Stuff in the bag
                 <br />30 Occupations
+            </div>
+            <br />
+            <div className="text-center">
+              <a href="#Start">
+                <Button className=" hover:text-white  mx-2" secondary >Claim a Traveler Loot</Button>
+              </a>
             </div>
           </div>
         </div>
