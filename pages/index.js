@@ -375,11 +375,11 @@ class MyDapp extends Component{
                   <br />
                   <br />Once minted, the Guild flag will remain attached to that Traveler Loot forever.
                   <br />
-                  <br />Guilds are in competition between each others. The goal is to attach it's Flag to more Traveler Loot as possible.
+                  <br />Guilds are in competition between each others. The goal is to attach their Flag to more Traveler Loot as possible.
+                  <br />Guild who forges most Traveler Loots with it's own Flag, becomes the Conqueror.
                   <br />
-                  <br />The Guild who forges most Traveler Loots with it's own Flag, becomes the Conqueror and it will be elected when all the 2000 Traveler Loot for Guilds are fully minted.
                   <br />
-                  <br />Conqueror Guild gains the right to mint a Patron edition for free, which otherwise is a paying NFT.<br />
+                  Conqueror will be elected when all the 2000 Traveler Loot for Guilds are fully minted, and from that moment gains the right to mint a Patron edition for free, which otherwise is a paying NFT.<br />
                 </p>
               </div>
             </div>
