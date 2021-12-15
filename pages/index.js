@@ -217,11 +217,10 @@ class MyDapp extends Component{
             <a className="hover:text-gray-600" href="#Plot">Plot</a>
           </div>
           <div>
-            <a className="hover:text-gray-600" href="#Types">Types</a>
-          </div>
-
-          <div>
             <a className="hover:text-gray-600" href="#Guilds">Guilds</a>
+          </div>
+          <div>
+            <a className="hover:text-gray-600" href="#Types">Types</a>
           </div>
           <div>
             <a className="hover:text-gray-600" href="#Elements">Elements</a>
@@ -363,29 +362,32 @@ class MyDapp extends Component{
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
                 <span className="uppercase sm:text-xl tracking-widest">Plot</span>
-                <h1 className="text-center mt-4">Loot derivatives are Guilds</h1>
+                <h1 className="text-center mt-4">Context and Details</h1>
 
                 <p className="sm:text-2xl">
                   <br />
-                  There are 15 Guilds, each one with an assigned color wich represents the Flag of the Guild.
+                  Once upon a time there was a World populated by Explorers living their lives in search of expeditions. Over the centuries, evolution brought these explorers to build and live in coordination and civilization.
+                  <br />They istituited Guilds each one with own flag and civility rules.
                   <br />
-                  <br />If you own a Loot derivative or a Loot (for Adventurers) NFT, you may be part of a Guild and you still don't know it.
+                  <br />World was still not fully explored due of lack of knowledge and resources so far, but thanks to recent details coming from Anonymous Entity, Explorers were now able to start new discovering researches. They knew it could take years, but they don't care.
                   <br />
-                  <br />Traveler Loots mints from #1 to #2000 are reserved for these Guilds and come out colored depending on the Flag of the Guild who mints it.
+                  <br />Entity's details tell about some "Traveler Loots" that are waiting to be discovered all over the World.
+                  <br />Evidence shows about of #10.000 of them to be found. At least.
                   <br />
-                  <br />Once minted, the Guild flag will remain attached to that Traveler Loot forever.
+                  <br />Local Explorers have also been noticed that Explorers from Stranger Worlds were coming to pick some of the Traveler Loots, but their tools are not sofisticated enough to let them find the ones in range #1 - #2000. Traveler Loots in this range have special characteristic: they get forged with the Guild's Flag by its discoverer. That seems interesting!
                   <br />
-                  <br />Guilds are in competition between each others. The goal is to attach their Flag to more Traveler Loot as possible.
-                  <br />Guild who forges most Traveler Loots with it's own Flag, becomes the Conqueror.
+                  <br />If you own a Loot derivative or a Loot (for Adventurers) NFT, you may be part of a Guild, otherwise you are a Stranger.
                   <br />
-                  <br />
-                  Conqueror will be elected when all the 2000 Traveler Loot for Guilds are fully minted, and it will gain the right to mint for free a Traveler Loot Patron version, which otherwise is a paying NFT.
+                  <br />Since Strangers and Locals are in competition between each other in the process of finding all the 10.000 Traveler Loots, Local Guilds are also in competition between themselves for the specific range #1 - #2000: their goal is to forge the Guild Flag into more Traveler Loot as possible during the process. There will be no loosers, but the one forging the most, becomes the Conqueror of the World.
                   <br />
                   <br />
-                  <span className="italic">Traveler Loot for Patrons</span> are special Traveler Loots where the tokenId is the decimal version of the wallet address who mints it.
-                  <br />It can be minted once per address and it has a price cost that varies depending on the history of previous mintings.
-                  <br />They could become interesting when Travel Industry will onboard web3.<br />
-                  <br />To mint them, code is open. Figure it out how.
+                  After some studies and investigations, Explorers figured out that Conqueror Guild gains access to some knowledge letting them access to a special <span className="italic">Traveler Loot</span> called "for Patrons". They don't know much about <span className="italic">Traveler Loot for Patrons</span>, but they found others need to pay an expensive price to get access to the same knowledges the Conqueror has for free.
+                  <br />
+                  <br />
+                  Entity did not spoil anything about other advantages yet, but all the clues made the explorers confident that will be given more details.
+                  <br />
+                  <br />
+                  Traces are open and accessible to everybody interested. <a href="https://www.etherscan.com" target="_blank">Here</a>.
                 </p>
               </div>
             </div>
@@ -403,7 +405,7 @@ class MyDapp extends Component{
             </div>
             <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4">
               <div>
-              Each one of those projects represents a Guild:
+              Each project of this list represents a Guild:
               <br />
               <br />
               <div id="derivatives">
@@ -412,18 +414,19 @@ class MyDapp extends Component{
               </div>
               <br />
               <br />
-               If you own at least one NFT of these Guilds, then you may be elegible to claim a reserved Traveler Loot in the range #1-#2000.
+               If you own one NFT of these Guilds, then you are in a Guild.
               <br />
               <br />
               Traveler Loots #1 - #2000 are called <span className="italic">Traveler Loot for Guilds</span> and are provided in first-come-first-served basis, which means other Guilds may pick the NFT you are elegible to before you do, if you are not faster enough.
+            </div>
+
+            <div className="text-center">
               <br />
               <br />
               The minting function is regulated by <a href="https://en.wikipedia.org/wiki/Modulo_operation" target="_blank">🔗modulo operation</a> (mod 2000) which means that more Guilds-tokenIds point to the same single Traveler-Loot-tokenId.
               <br />
               Claims are possible on etherscan by calling the function:
               <br />
-              </div>
-              <div className="text-center">
               claimForGuilds(tokenId, contractAddress);
               </div>
           </div>
@@ -468,71 +471,14 @@ class MyDapp extends Component{
                   Cost: Free + Gas
                 </Card.Content>
               </Card>
-{
-  /*
-              <Card>
-                <Image src='loots/PH_PATRONS.svg' wrapped ui={false} />
-                <Card.Content>
-                  <Card.Header>Traveler Loot for Patrons</Card.Header>
-                  <Card.Meta>Paying NFT. Price varies depending on mints history.</Card.Meta>
-                  <Card.Description>
-                    TokenId is the address number of the sender.
-                    <br />Everybody can claim it by using claimForPatrons() function on etherscan.
-                  </Card.Description>
-
-                </Card.Content>
-                <Card.Content extra>
-                  Cost: starting from 1ETH + Gas.
-                  <br />
-                </Card.Content>
-              </Card>
-              <Card>
-                <Image src='loots/PH_WINNERS.svg' wrapped ui={false} />
-                <Card.Content>
-                  <Card.Header>Traveler Loot for Patrons (Conquerors edition)</Card.Header>
-                  <Card.Meta>Conqueror Guild can access to this Traveler Loots. </Card.Meta>
-                  <Card.Description>
-                    TokenId is the address number of the sender.
-                    <br />
-                    The guild that arranges to mint the major number of the "Traveler Loot for Guilds", will have open doors to the "Traveler Loot for Patrons (Conquerors edition)" for free.
-                  </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                  Cost: Free + Gas
-                </Card.Content>
-              </Card>
-
-              <Card>
-                <Image src='loots/PH_ORIGINAL_LOOT.svg' wrapped ui={false} />
-                <Card.Content>
-                  <Card.Header>Traveler Loot for Patrons (Looters edition)</Card.Header>
-                  <Card.Meta>Minting is allowed to those which own a Loot (for Adventurers) NFT.</Card.Meta>
-                  <Card.Description>
-                    TokenId is the address number of the sender.
-                    <br />Loot (for Adventurers) owners can claim by using claimForLooters() function on etherscan.
-                    <br />Claims expire on the 40th birthday of 🔗
-                    <a href="https://twitter.com/dhof" target="_blank">Dhof </a>
-                     on 27/09/2026 23:59:59 UTC, or when the Conqueror guild has been defined.
-                  </Card.Description>
-
-                </Card.Content>
-                <Card.Content extra>
-                  Cost: Free + Gas
-                </Card.Content>
-              </Card>
-              */
-            }
-              </Card.Group>
+            </Card.Group>
 
           <br />
           <p>
-          Traveler Loot Project is a layer built on top of Loot Project and 14 other Loot Derivatives (listed above in the <a href="#Guilds">🔗Guild section</a>). By holding one of those NFT, you will have access to the <span className="italic">Traveler Loot for Guilds</span> in range #1 - #2000 that will be forged with the Guild Flag attached to them. If you do not have any, some of those projects still have available NFT to be minted in their website/etherscan, just pick one and you'll be instantly eligible. Otherwise you are always free to mint a <span className="italic">Traveler Loot Standard</span> in range #2222 - #10000 till they go out of supply. Loot Project and Derivatives Loots are indipendent projects and there are no royalities or referrals related to this project.
+          Traveler Loot Project is a layer built on top of Loot Project and 14 other Loot Derivatives (<a href="#Guilds">🔗Guilds</a>). By holding one of their NFT, you have access to the <span className="italic">Traveler Loot for Guilds</span> mints ranging between #1 and #2000, with the Guild Flag attached to them. If you do not own any Guild's NFT, you can choose one project from them and mint one or you can buy in the secondary market. Once done you'll get instant eligibility for <span className="italic">Traveler Loot for Guild</span> NFT. <span className="italic">Traveler Loot Standard</span> ranging between #2222 and #10000 are open and free (+ gas) minting instead. Loot Project and Derivatives Loots are indipendent projects and there are no royalities or referrals related to Traveler Loot Project.
           </p>
           </div>
         </div>
-
-
-
 
         <div id="Elements" className="bg-black  py-20 text-white ">
           <div className="container mx-auto mt-8">
