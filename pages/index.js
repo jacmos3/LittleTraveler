@@ -369,16 +369,16 @@ class MyDapp extends Component{
                   Once upon a time there was a World populated by Explorers living their lives in search of expeditions. Over the centuries, evolution brought these explorers to build and live in coordination and civilization.
                   <br />They istituited Guilds each one with own flag and civility rules.
                   <br />
-                  <br />World was still not fully explored due of lack of knowledge and resources so far, but thanks to recent details coming from Anonymous Entity, Explorers were now able to start new discovering researches. They knew it could take years, but they don't care.
+                  <br />World was still not fully explored due of lack of knowledge and resources so far, but thanks to recent details coming from Anonymous Entity, Explorers were now able to start new discovering researches. They knew it could take years, but they didn't care.
                   <br />
-                  <br />Entity's details tell about some "Traveler Loots" that are waiting to be discovered all over the World.
-                  <br />Evidence shows about of #10.000 of them to be found. At least.
+                  <br />Entity's details told about some "Traveler Loots" that needed to be found, crossing all over the World.
+                  <br />Evidence was showing about 10.000 Traveler Loots to be found, at least!
                   <br />
-                  <br />Local Explorers have also been noticed that Explorers from Stranger Worlds were coming to pick some of the Traveler Loots, but their tools are not sofisticated enough to let them find the ones in range #1 - #2000. Traveler Loots in this range have special characteristic: they get forged with the Guild's Flag by its discoverer. That seems interesting!
+                  <br />Explorers from other Worlds decided to come to help local Guilds. Traveler Loots in range #1 - #2000 have the characteristic to be forged with the discoverer Flag when they get discovered and it can be done only by local Guilds. Range #2222 to #10000 is public domain instead. That seems interesting!
                   <br />
-                  <br />If you own a Loot derivative or a Loot (for Adventurers) NFT, you may be part of a Guild, otherwise you are a Stranger.
+                  <br />If you own a Loot derivative or a Loot (for Adventurers) NFT, you may be part of a Guild having privilege access to #1 - #2000, otherwise you are one of the Explorers from the other Worlds having access to the #2222 to #10000 range.
                   <br />
-                  <br />Since Strangers and Locals are in competition between each other in the process of finding all the 10.000 Traveler Loots, Local Guilds are also in competition between themselves for the specific range #1 - #2000: their goal is to forge the Guild Flag into more Traveler Loot as possible during the process. There will be no loosers, but the one forging the most, becomes the Conqueror of the World.
+                  <br />Since Strangers and Locals are in competition between each other for the 10.000 Traveler Loots, Local Guilds are also in sub-competition between themselves for the specific range #1 - #2000: their goal is to forge the Guild Flag into more <span className="italic">Traveler Loot for Guilds</span> as possible during the process. There will be no loosers, but the Guild forging the most, becomes the Conqueror of the World.
                   <br />
                   <br />
                   After some studies and investigations, Explorers figured out that Conqueror Guild gains access to some knowledge letting them access to a special <span className="italic">Traveler Loot</span> called "for Patrons". They don't know much about <span className="italic">Traveler Loot for Patrons</span>, but they found others need to pay an expensive price to get access to the same knowledges the Conqueror has for free.
