@@ -1299,6 +1299,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_COMPETITION_ENDED = "Competition has endend. Check the conqueror!";
     string private constant ERROR_COMPETITION_ONGOING = "Competition is still ongoing!";
     string private constant ERROR_OWNER_NOT_ALLOWED = "Owner cannot claim free slots. Use claimForOwner() instead";
+    string private constant ERROR_MINTING_NOT_ACTIVE = "Minting not yet active. Come back later!";
 
     struct LootDetails {
         string familyType;
@@ -1317,7 +1318,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     mapping(address => LootDetails) public detailsByAddress;
     mapping(uint256 => address) public addressList;
     address public treasurer;
-
+    bool public mintingActive = false;
     uint8 public enrolledDerivative = 0;
     uint16 private guildCounter = 0;
     uint16 public constant MAX_ID = 10000;
@@ -1513,7 +1514,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       return (winningLoot, winningCount);
     }
 
-    //Rebalancing the price patrons have to pay for claiming a Traveler Loot.
+    //Rebalancing the price that patrons will have to pay
     function rebalancePrice(uint256 id, address addr, uint8 percentage, bool positive) internal{
       if (percentage != 0){
         uint160 x = priceForPatrons / (100 / percentage);
@@ -1525,6 +1526,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     //Everyone can claim for free (+ gas) an available tokenId
     function claim(uint256 tokenId) external nonReentrant {
+        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
         require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
         require(tokenId > MAX_FOR_GUILDS + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
         //after this mint, the price for patrons will be increased by 1%
@@ -1534,8 +1536,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     //Owner can claim it's reserved tokenIds.
     function claimForOwner(uint256 tokenId) external nonReentrant onlyOwner{
+        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
         require(tokenId > MAX_FOR_GUILDS && tokenId <= MAX_FOR_GUILDS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
-
         //after this mint, the price for patrons will remain the same
         rebalancePrice(tokenId,PH_OWNER,0,true);
         _safeMint(_msgSender(), tokenId);
@@ -1546,6 +1548,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //When all the forgeable TL are minted, the guild who forged the most becomes
     //Conqueror. All it's members gain access to claimForConquerors() function
     function claimForGuilds(uint256 tokenId, address contractAddress) external nonReentrant {
+        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         LootDetails storage details = detailsByAddress[contractAddress];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
@@ -1571,9 +1574,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //It mints the Traveler Loot using the address as tokenId.
     //Only particular cases can access to this:
     //- Users who decide to become Patrons by paying the patronPrice
-    //- Guild conqueror members as the prize for have won the competition
-
-
+    //- Conqueror members, as the prize for have won the competition
     function reservedMinting(address addr,uint8 percentage, bool positive) internal{
       uint160 castedAddress = uint160(_msgSender());
       require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
@@ -1583,6 +1584,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     //Becoming a Patron. Requires payment.
     function claimForPatrons() external payable nonReentrant {
+        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
         require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
         //after this mint, the price for next patrons will be decreased by 5%
         reservedMinting(PH_PATRONS, 5, false);
@@ -1592,6 +1594,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //   . the Conqueror Guild is not yet elected,
     //   . or Dominik Hoffman (@dhof) is younger than 40 yo.
     function claimForLooters() external nonReentrant {
+        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
         require(IERC721(OR_LOOT).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
@@ -1603,6 +1606,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //Conquerors can become Patron.
     //Each member of Conqueror Guild will have access to this function for free.
     function claimForConquerors() external nonReentrant {
+        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
         require(conqueror.elected, ERROR_COMPETITION_ONGOING);
         require(IERC721(conqueror.addr).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         //after this mint, the price for patrons is increased by 5%
@@ -1615,6 +1619,10 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function setTreasurer(address newAddress) external onlyOwner{
       treasurer = newAddress;
+    }
+
+    function activation() external onlyOwner{
+      mintingActive = true;
     }
 
     function toString(uint256 value) internal pure returns (string memory) {

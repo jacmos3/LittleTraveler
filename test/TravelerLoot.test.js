@@ -33,11 +33,6 @@ describe('TravelerLoot', ()=>{
     assert.ok(hash.transactionHash);
   });
 
-  it ('can download token uri', async () => {
-    const tokenURI = await travelerLoot.methods.tokenURI("2001").call();
-    assert.ok(tokenURI);
-  });
-
   it ('owner cant claim a Traveler Loot in range #2223-#10000 range', async ()=>{
     try{
     const hash = await travelerLoot.methods.claimForOwner("2223").send({from: accounts[0],gas: 30000000, gasPrice: 1000000});
@@ -70,5 +65,10 @@ describe('TravelerLoot', ()=>{
     assert.ok(false,"owner or user has minted");
   });
 
+  it ('can download token uri', async () => {
+    const tokenURI = await travelerLoot.methods.tokenURI("2001").call();
+    console.log(tokenURI);
+    assert.ok(tokenURI);
+  });
 
 })
