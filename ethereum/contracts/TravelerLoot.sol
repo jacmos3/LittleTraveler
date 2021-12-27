@@ -1292,14 +1292,15 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant GOLD = "gold";
     string private constant PLATINUM = "#D5D6D8";
     string private constant ERROR_TOKEN_ID_INVALID = "Token ID invalid";
-    string private constant ERROR_ADDRESS_NOT_VERIFIED = "Loot derivative address not verified. Try another";
+    string private constant ERROR_ADDRESS_NOT_VERIFIED = "Address not verified. Try another";
     string private constant ERROR_NOT_THE_OWNER = "You do not own token(s) of the address";
-    string private constant ERROR_DOM_40TH_BIRTHDAY = "Function only valid till Dom's 40th bday";
+    string private constant ERROR_DOM_40TH_BIRTHDAY = "Only valid till Dom's 40th bday";
     string private constant ERROR_LOW_VALUE = "Set a higher value";
     string private constant ERROR_COMPETITION_ENDED = "Competition has endend. Check the conqueror!";
     string private constant ERROR_COMPETITION_ONGOING = "Competition is still ongoing!";
-    string private constant ERROR_OWNER_NOT_ALLOWED = "Owner cannot claim free slots. Use claimForOwner() instead";
-    string private constant ERROR_MINTING_NOT_ACTIVE = "Minting not yet active. Come back later!";
+    string private constant ERROR_OWNER_NOT_ALLOWED = "Use claimForOwner() instead";
+    string private constant ERROR_ALREADY_ACTIVATED = "Already Activated";
+    string private constant ERROR_COME_BACK_LATER = "Come back Later";
 
     struct LootDetails {
         string familyType;
@@ -1314,17 +1315,24 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       bool elected;
     }
 
+    struct Treasurer {
+      address old;
+      address current;
+      uint blockNumber;
+    }
     Conqueror public conqueror;
     mapping(address => LootDetails) public detailsByAddress;
     mapping(uint256 => address) public addressList;
-    address public treasurer;
-    bool public mintingActive = false;
+    Treasurer public treasurer;
     uint8 public enrolledDerivative = 0;
     uint16 private guildCounter = 0;
     uint16 public constant MAX_ID = 10000;
     uint16 public constant MAX_FOR_OWNER = 222;
     uint16 public constant MAX_FOR_GUILDS = 2000;
+    uint16 constant public LOCK_TIME = 5760 * 3; //it's three days
     uint160 public priceForPatrons = 1 ether;
+    uint public blockActivation = 0;
+    address constant private INITIAL_TREASURER = 0xce73904422880604e78591fD6c758B0D5106dD50; //TripsCommunity address
 
     //defining the Guilds
     address constant public OR_LOOT       = 0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7;
@@ -1365,7 +1373,11 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
    string[] private occupation = ["Host", "Cook", "Writer", "DeeJay", "Employee", "Doctor", "Traveler", "Tour Guide", "Ship Pilot", "DAO Member", "Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "PoS validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Developer", "Blockchain Consultant", "Crypto VC", "Crypto Business Angel","Metaverse Realtor"];
 
     constructor() ERC721("TravelerLoot", "TRAVELER") Ownable(){
-      treasurer = 0xce73904422880604e78591fD6c758B0D5106dD50; //TripsCommunity wallet
+      uint blockNumber = block.number;
+
+      treasurer.old = address(0);
+      treasurer.current = INITIAL_TREASURER;
+      treasurer.blockNumber = blockNumber;
 
       LootDetails memory guildDetails = LootDetails({color:BLACK,familyType:"GUILD",counter:0,verified:true});
       detailsByAddress[DL_AL] = guildDetails;
@@ -1383,15 +1395,17 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       detailsByAddress[DL_SCORE] = guildDetails;
       detailsByAddress[DL_TREASURE] = guildDetails;
       detailsByAddress[OR_LOOT] = LootDetails({color:PLATINUM,familyType:"GUILD",counter:0,verified:true});
-
       detailsByAddress[PH_USERS] = LootDetails({color:BLACK,familyType:"",counter:0,verified:true});
-
       detailsByAddress[PH_PATRONS] = LootDetails({color:"#F87151",familyType:"PATRON",counter:0,verified:true});
       detailsByAddress[PH_ORIGINAL_LOOT] = LootDetails({color:GOLD,familyType:"PATRON",counter:0,verified:true});
-      detailsByAddress[PH_CONQUERORS] = LootDetails({color:BLACK,familyType:"CONQUEROR",counter:0,verified:true});
+      detailsByAddress[PH_CONQUERORS] = LootDetails({color:WHITE,familyType:"CONQUEROR",counter:0,verified:true});
       detailsByAddress[PH_OWNER] = LootDetails({color:BLACK,familyType:" ",counter:0,verified:true});
 
+    }
 
+    modifier checkStart() {
+      require(blockActivation > 0 && block.number >= blockActivation,ERROR_COME_BACK_LATER);
+      _;
     }
 
     function random(string memory input) internal pure returns (uint256) {
@@ -1525,8 +1539,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     //Everyone can claim for free (+ gas) an available tokenId
-    function claim(uint256 tokenId) external nonReentrant {
-        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
+    function claim(uint256 tokenId) external nonReentrant checkStart {
         require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
         require(tokenId > MAX_FOR_GUILDS + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
         //after this mint, the price for patrons will be increased by 1%
@@ -1535,8 +1548,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     //Owner can claim it's reserved tokenIds.
-    function claimForOwner(uint256 tokenId) external nonReentrant onlyOwner{
-        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
+    function claimForOwner(uint256 tokenId) external nonReentrant onlyOwner checkStart{
         require(tokenId > MAX_FOR_GUILDS && tokenId <= MAX_FOR_GUILDS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
         //after this mint, the price for patrons will remain the same
         rebalancePrice(tokenId,PH_OWNER,0,true);
@@ -1547,8 +1559,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //Forged TL are recognizable by a colored line on top of the NFT.
     //When all the forgeable TL are minted, the guild who forged the most becomes
     //Conqueror. All it's members gain access to claimForConquerors() function
-    function claimForGuilds(uint256 tokenId, address contractAddress) external nonReentrant {
-        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
+    function claimForGuilds(uint256 tokenId, address contractAddress) external nonReentrant checkStart{
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         LootDetails storage details = detailsByAddress[contractAddress];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
@@ -1564,6 +1575,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         if (++guildCounter == MAX_FOR_GUILDS){
             (conqueror.addr, conqueror.count) = whoIsWinning();
             conqueror.elected = true;
+            detailsByAddress[PH_CONQUERORS].color = details.color;
         }
         //after this mint, the price for patrons will be decreased by 1%
         uint16 finalId = discreetId == 0 ? MAX_FOR_GUILDS : discreetId;
@@ -1583,8 +1595,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     //Becoming a Patron. Requires payment.
-    function claimForPatrons() external payable nonReentrant {
-        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
+    function claimForPatrons() external payable nonReentrant checkStart{
         require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
         //after this mint, the price for next patrons will be decreased by 5%
         reservedMinting(PH_PATRONS, 5, false);
@@ -1593,8 +1604,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //- Loot (for Adventurers) holders can become Patrons for free if:
     //   . the Conqueror Guild is not yet elected,
     //   . or Dominik Hoffman (@dhof) is younger than 40 yo.
-    function claimForLooters() external nonReentrant {
-        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
+    function claimForLooters() external nonReentrant checkStart{
         require(IERC721(OR_LOOT).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
@@ -1605,8 +1615,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     //Conquerors can become Patron.
     //Each member of Conqueror Guild will have access to this function for free.
-    function claimForConquerors() external nonReentrant {
-        require(mintingActive,ERROR_MINTING_NOT_ACTIVE);
+    function claimForConquerors() external nonReentrant checkStart{
         require(conqueror.elected, ERROR_COMPETITION_ONGOING);
         require(IERC721(conqueror.addr).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         //after this mint, the price for patrons is increased by 5%
@@ -1614,15 +1623,22 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function withdraw() external onlyOwner {
-        payable(treasurer).transfer(address(this).balance);
+      require(block.number >= treasurer.blockNumber, ERROR_COME_BACK_LATER);
+      payable(treasurer.current).transfer(address(this).balance);
     }
 
     function setTreasurer(address newAddress) external onlyOwner{
-      treasurer = newAddress;
+      uint blockNumber = block.number + LOCK_TIME;
+      treasurer.old = treasurer.current;
+      treasurer.current = newAddress;
+      treasurer.blockNumber = blockNumber;
+
     }
 
     function activation() external onlyOwner{
-      mintingActive = true;
+      require (blockActivation == 0, ERROR_ALREADY_ACTIVATED);
+      //mint activating
+      blockActivation = block.number + LOCK_TIME;
     }
 
     function toString(uint256 value) internal pure returns (string memory) {
