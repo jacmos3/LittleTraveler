@@ -1296,11 +1296,11 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_NOT_THE_OWNER = "You do not own token(s) of the address";
     string private constant ERROR_DOM_40TH_BIRTHDAY = "Only valid till Dom's 40th bday";
     string private constant ERROR_LOW_VALUE = "Set a higher value";
-    string private constant ERROR_COMPETITION_ENDED = "Competition has endend. Check the conqueror!";
+    string private constant ERROR_COMPETITION_ENDED = "Competition has ended. Check the conqueror!";
     string private constant ERROR_COMPETITION_ONGOING = "Competition is still ongoing!";
     string private constant ERROR_OWNER_NOT_ALLOWED = "Use claimForOwner() instead";
-    string private constant ERROR_ALREADY_ACTIVATED = "Already Activated";
-    string private constant ERROR_COME_BACK_LATER = "Come back Later";
+    string private constant ERROR_ALREADY_ACTIVATED = "Already activated";
+    string private constant ERROR_COME_BACK_LATER = "Come back later";
 
     struct LootDetails {
         string familyType;
@@ -1375,7 +1375,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       elements[categories[6]] = ["11", "22", "33", "44", "55", "66", "77", "88", "99"];
       elements[categories[7]] = ["Host", "Cook", "Writer", "DeeJay", "Employee", "Doctor", "Traveler", "Tour Guide", "Ship Pilot", "DAO Member", "Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "PoS validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Developer", "Blockchain Consultant", "Crypto VC", "Crypto Business Angel","Metaverse Realtor"];
       elements[categories[8]] = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
-      elements[categories[9]] = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwears","Condoms"];
+      elements[categories[9]] = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwear","Condoms"];
 
       treasurer.old = address(0);
       treasurer.current = INITIAL_TREASURER;
