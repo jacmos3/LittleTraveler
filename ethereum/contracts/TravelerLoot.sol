@@ -1318,7 +1318,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     struct Treasurer {
       address old;
       address current;
-      uint blockNumber;
+      uint256 blockNumber;
     }
     Conqueror public conqueror;
     mapping(address => LootDetails) public detailsByAddress;
@@ -1331,7 +1331,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint16 public constant MAX_FOR_GUILDS = 2000;
     uint16 constant public LOCK_TIME = 5760 * 3; //it's three days
     uint160 public priceForPatrons = 1 ether;
-    uint public blockActivation = 0;
+    uint256 public blockActivation = 0;
     address constant private INITIAL_TREASURER = 0xce73904422880604e78591fD6c758B0D5106dD50; //TripsCommunity address
 
     //defining the Guilds
@@ -1361,19 +1361,21 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
    //defining colors that will be assigned to each guild
    string[] private colors = ["#726e6e","#464A97","#6eb7e5","#8d734a","#4bbda9","#122b03","#887eaf","#e2a5a2","#d45b5b","#af4242","#91a18b","#935e7e","#c37ec8","#53cf32"];
 
-   string[] private character = ["Energetic", "Good-Natured", "Enthusiastic", "Challenging", "Charismatic", "Wise", "Modest", "Honest", "Protective", "Perceptive", "Providential", "Prudent", "Spontaneous", "Insightful", "Intelligent", "Intuitive", "Precise", "Sharing", "Simple", "Sociable", "Sophisticated", "Benevolent", "Admirable", "Brilliant", "Accessible", "Calm", "Capable", "Optimistic", "Respectful", "Responsible"];
-   string[] private environment = ["Beaches", "Mountains", "Urban", "Countrysides", "Lakes", "Rivers", "Farms", "Tropical areas", "Snowy places", "Forests", "Historical cities", "Islands", "Wilderness", "Deserts", "Natural parks", "Old towns", "Lakes", "Villages", "Forests", "Coral Reefs", "Wetlands", "Rainforests", "Grasslands", "Chaparral"];
-   string[] private transport = ["Train", "Car", "Airplane", "Cruise", "4 wheel drive car", "Bus", "Convertible car", "Bicycle", "Motorbike", "Campervan", "Trailer", "Sailboat", "Electric car", "Sidecar", "Scooter", "Tram", "Cinquecento", "Hitch-hiking", "VW Beetle", "VW Bus", "Truck", "Off-road Vehicle", "Cab", "Lambo", "Ferrari", "Rocket", "DeLorean", "Kia Sedona", "Magic carpet", "Broomstick"];
-   string[] private language = ["English", "Mandarin Chinese", "Hindi", "Spanish", "Arabic", "French", "Russian", "Portuguese", "Indonesian", "German", "Japanese", "Turkish", "Korean", "Vietnamese", "Iranian Persian", "Swahili", "Javanese", "Italian", "Thai", "Filipino", "Burmese", "Polish", "Croatian", "Danish", "Serbian", "Slovenian", "Czech", "Slovakian", "Greek", "Hungarian"];
-   string[] private talent = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
-   string[] private place = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
-   string[] private experience = ["11", "22", "33", "44", "55", "66", "77", "88", "99"];
-   string[] private accommodation = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
-   string[] private bag = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwears","Condoms"];
-   string[] private occupation = ["Host", "Cook", "Writer", "DeeJay", "Employee", "Doctor", "Traveler", "Tour Guide", "Ship Pilot", "DAO Member", "Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "PoS validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Developer", "Blockchain Consultant", "Crypto VC", "Crypto Business Angel","Metaverse Realtor"];
+   string [] categories = ["ENVIRONMENT","TALENT","PLACE","CHARACTER","TRANSPORT","LANGUAGE","EXPERIENCE","OCCUPATION","ACCOMMODATION","BAG"];
+   mapping(string => string[]) elements;
 
     constructor() ERC721("TravelerLoot", "TRAVELER") Ownable(){
-      uint blockNumber = block.number;
+      uint256 blockNumber = block.number;
+      elements[categories[0]] = ["Beaches", "Mountains", "Urban", "Countrysides", "Lakes", "Rivers", "Farms", "Tropical areas", "Snowy places", "Forests", "Historical cities", "Islands", "Wilderness", "Deserts", "Natural parks", "Old towns", "Lakes", "Villages", "Forests", "Coral Reefs", "Wetlands", "Rainforests", "Grasslands", "Chaparral"];
+      elements[categories[1]] = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
+      elements[categories[2]] = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
+      elements[categories[3]] = ["Energetic", "Good-Natured", "Enthusiastic", "Challenging", "Charismatic", "Wise", "Modest", "Honest", "Protective", "Perceptive", "Providential", "Prudent", "Spontaneous", "Insightful", "Intelligent", "Intuitive", "Precise", "Sharing", "Simple", "Sociable", "Sophisticated", "Benevolent", "Admirable", "Brilliant", "Accessible", "Calm", "Capable", "Optimistic", "Respectful", "Responsible"];
+      elements[categories[4]] = ["Train", "Car", "Airplane", "Cruise", "4 wheel drive car", "Bus", "Convertible car", "Bicycle", "Motorbike", "Campervan", "Trailer", "Sailboat", "Electric car", "Sidecar", "Scooter", "Tram", "Cinquecento", "Hitch-hiking", "VW Beetle", "VW Bus", "Truck", "Off-road Vehicle", "Cab", "Lambo", "Ferrari", "Rocket", "DeLorean", "Kia Sedona", "Magic carpet", "Broomstick"];
+      elements[categories[5]] = ["English", "Mandarin Chinese", "Hindi", "Spanish", "Arabic", "French", "Russian", "Portuguese", "Indonesian", "German", "Japanese", "Turkish", "Korean", "Vietnamese", "Iranian Persian", "Swahili", "Javanese", "Italian", "Thai", "Filipino", "Burmese", "Polish", "Croatian", "Danish", "Serbian", "Slovenian", "Czech", "Slovakian", "Greek", "Hungarian"];
+      elements[categories[6]] = ["11", "22", "33", "44", "55", "66", "77", "88", "99"];
+      elements[categories[7]] = ["Host", "Cook", "Writer", "DeeJay", "Employee", "Doctor", "Traveler", "Tour Guide", "Ship Pilot", "DAO Member", "Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "PoS validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Developer", "Blockchain Consultant", "Crypto VC", "Crypto Business Angel","Metaverse Realtor"];
+      elements[categories[8]] = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
+      elements[categories[9]] = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwears","Condoms"];
 
       treasurer.old = address(0);
       treasurer.current = INITIAL_TREASURER;
@@ -1422,44 +1424,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return sourceArray[rand];
     }
 
-    function getEnvironment(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "ENVIRONMENT", environment);
-    }
-
-    function getTalent(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "TALENT", talent);
-    }
-
-    function getPlace(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "PLACE", place);
-    }
-
-    function getCharacter(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "CHARACTER", character);
-    }
-
-    function getTransport(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "TRANSPORT", transport);
-    }
-
-    function getLanguage(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "LANGUAGE", language);
-    }
-
-    function getExperience(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "EXPERIENCE", experience);
-    }
-
-    function getOccupation(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "OCCUPATION", occupation);
-    }
-
-    function getAccommodation(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "ACCOMMODATION", accommodation);
-    }
-
-    function getBag(uint256 tokenId) public view returns (string memory) {
-        return pluck(tokenId, "BAG", bag);
+    function getElement(uint256 tokenId, uint8 categoryId) public view returns (string memory){
+      return pluck(tokenId, categories[categoryId], elements[categories[categoryId]]);
     }
 
     function pluck(uint256 tokenId, string memory keyPrefix, string[] memory sourceArray) internal view returns (string memory) {
@@ -1478,15 +1444,31 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         LootDetails memory details = detailsByAddress[addressList[tokenId]];
         string[4] memory parts;
         parts[0] = string(abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill:white; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="black" /><text x="10" y="20" class="base">'));
-        parts[1] = string(abi.encodePacked(getEnvironment(tokenId),'</text><text x="10" y="40" class="base">',getTalent(tokenId),'</text><text x="10" y="60" class="base">',getPlace(tokenId),'</text><text x="10" y="80" class="base">',getCharacter(tokenId),'</text><text x="10" y="100" class="base">',getTransport(tokenId),'</text><text x="10" y="120" class="base">',getLanguage(tokenId)));
-        parts[2] = string(abi.encodePacked('</text><text x="10" y="140" class="base">',getExperience(tokenId),'</text><text x="10" y="160" class="base">',getOccupation(tokenId),'</text><text x="10" y="180" class="base">',getAccommodation(tokenId),'</text><text x="10" y="200" class="base">',getBag(tokenId),'</text>'));
+        parts[1] = string(abi.encodePacked(getElement(tokenId,0),'</text><text x="10" y="40" class="base">',getElement(tokenId,1),'</text><text x="10" y="60" class="base">',getElement(tokenId,2),'</text><text x="10" y="80" class="base">',getElement(tokenId,3),'</text><text x="10" y="100" class="base">',getElement(tokenId,4),'</text><text x="10" y="120" class="base">',getElement(tokenId,5)));
+        parts[2] = string(abi.encodePacked('</text><text x="10" y="140" class="base">',getElement(tokenId,6),'</text><text x="10" y="160" class="base">',getElement(tokenId,7),'</text><text x="10" y="180" class="base">',getElement(tokenId,8),'</text><text x="10" y="200" class="base">',getElement(tokenId,9),'</text>'));
         parts[3] = string(abi.encodePacked('<line x1="0" x2="350" y1="300" y2="300" stroke="',details.color,'" stroke-width="4"/>','<text x="340" y="294" text-anchor="end" class="base">',details.familyType,'</text></svg>'));
 
         string memory compact = string(abi.encodePacked(parts[0], parts[1], parts[2],parts[3]));
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler #', toString(tokenId), '", "description": "The Traveler Loot is a Loot derivative for the travel industry, generated and stored on chain. Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use the Traveler Loot in any way you want.", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(compact)), '"}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Equipment #', toString(tokenId), '", "description": "Feel free to use the Traveler Loot in any way you want", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(compact)), '","attributes":[',metadata(tokenId,details),']}'))));
 
         return string(abi.encodePacked('data:application/json;base64,', json));
     }
+
+    function metadata(uint256 tokenId, LootDetails memory details) internal view returns (string memory){
+     string memory temp = "";
+     for (uint8 i = 0; i < 10; i++){
+        temp = string(abi.encodePacked(temp,'{"trait_type": "', categories[i], '","value":"',getElement(tokenId,i),'"}, '));
+     }
+     if (keccak256(abi.encodePacked(details.color)) != keccak256(abi.encodePacked(BLACK))) {
+      temp = string(abi.encodePacked(temp,'{"trait_type": "Type","value":"',details.familyType,'"}, '));
+      temp = string(abi.encodePacked(temp,'{"trait_type": "Flag Color","value":"',details.color,'"} '));
+     }
+     else{
+        temp = string(abi.encodePacked(temp,'{"trait_type": "Type","value":"EXPLORER"} '));
+     }
+
+     return temp;
+   }
 
     //Given a guild loot-derivative address, returns the count for that addr
     function counts(address addr) external view returns (uint256){
@@ -1628,14 +1610,14 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function setTreasurer(address newAddress) external onlyOwner{
-      uint blockNumber = block.number + LOCK_TIME;
+      uint256 blockNumber = block.number + LOCK_TIME;
       treasurer.old = treasurer.current;
       treasurer.current = newAddress;
       treasurer.blockNumber = blockNumber;
 
     }
 
-    function activation() external onlyOwner{
+    function activateClaims() external onlyOwner{
       require (blockActivation == 0, ERROR_ALREADY_ACTIVATED);
       //mint activating
       blockActivation = block.number + LOCK_TIME;
