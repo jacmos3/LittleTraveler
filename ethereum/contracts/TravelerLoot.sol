@@ -1447,7 +1447,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         parts[3] = string(abi.encodePacked('<line x1="0" x2="350" y1="300" y2="300" stroke="',details.color,'" stroke-width="4"/>','<text x="340" y="294" text-anchor="end" class="b">',details.familyType,'</text><text x="340" y="312" text-anchor="end" style="fill:white; font-size:8px">',details.familyName,'</text></svg>'));
 
         string memory compact = string(abi.encodePacked(parts[0], parts[1], parts[2],parts[3]));
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler #', toString(tokenId), '", "description": "Feel free to use the Traveler Loot in any way you want", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(compact)), '","attributes":[',metadata(tokenId,details),']}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler #', toString(tokenId), '", "description": "Traveler Loot is a Loot derivative for the Travel Industry, generated and stored on chain. Feel free to use the Traveler Loot in any way you want", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(compact)), '","attributes":[',metadata(tokenId,details),']}'))));
 
         return string(abi.encodePacked('data:application/json;base64,', json));
     }
