@@ -1304,6 +1304,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     struct LootDetails {
         string familyType;
+        string familyName;
         string color;
         uint256 counter;
         bool verified;
@@ -1320,52 +1321,46 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       address current;
       uint256 blockNumber;
     }
+
+    struct Guild {
+      string name;
+      address contractAddress;
+    }
+
+    Guild[15] public guilds;
     Conqueror public conqueror;
+    Treasurer public treasurer;
+
     mapping(address => LootDetails) public detailsByAddress;
     mapping(uint256 => address) public addressList;
-    Treasurer public treasurer;
+
     uint8 public enrolledDerivative = 0;
     uint16 private guildCounter = 0;
     uint16 public constant MAX_ID = 10000;
     uint16 public constant MAX_FOR_OWNER = 222;
     uint16 public constant MAX_FOR_GUILDS = 2000;
-    uint16 constant public LOCK_TIME = 5760 * 3; //it's three days
+    uint16 public constant LOCK_TIME = 5760 * 3; //it's three days
     uint160 public priceForPatrons = 1 ether;
     uint256 public blockActivation = 0;
-    address constant private INITIAL_TREASURER = 0xce73904422880604e78591fD6c758B0D5106dD50; //TripsCommunity address
+    address private constant INITIAL_TREASURER = 0xce73904422880604e78591fD6c758B0D5106dD50; //TripsCommunity address
 
-    //defining the Guilds
-    address constant public OR_LOOT       = 0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7;
-    address constant public DL_AL         = 0xcC56775606730C96eA245D9cF3890247f1c57FB1;
-    address constant public DL_CHAR       = 0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3;
-    address constant public DL_CYBERLOOT  = 0x13a48f723f4AD29b6da6e7215Fe53172C027d98f;
-    address constant public DL_DOGGO      = 0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f;
-    address constant public DL_GMANA      = 0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463;
-    address constant public DL_LOOTC      = 0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2;
-    address constant public DL_LootHymns  = 0x83f1d1396B19Fed8FBb31Ed189579D07362d661d;
-    address constant public DL_LootRealm  = 0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d;
-    address constant public DL_LootRock   = 0xeC43a2546625c4C82D905503bc83e66262f0EF84;
-    address constant public DL_MLOOT      = 0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF;
-    address constant public DL_NAME       = 0xb9310aF43F4763003F42661f6FC098428469aDAB;
-    address constant public DL_QUESTS     = 0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d;
-    address constant public DL_SCORE      = 0x42A87e04f87A038774fb39c0A61681e7e859937b;
-    address constant public DL_TREASURE   = 0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa;
-
-    //defining other placeholders (may be useful for possible future targetings like airdrops/rewards or not only)
     address private constant PH_USERS = address(1);
     address private constant PH_PATRONS = address(2);
     address private constant PH_ORIGINAL_LOOT = address(3);
     address private constant PH_CONQUERORS = address(4);
     address private constant PH_OWNER = address(0);
 
-   //defining colors that will be assigned to each guild
    string[] private colors = ["#726e6e","#464A97","#6eb7e5","#8d734a","#4bbda9","#122b03","#887eaf","#e2a5a2","#d45b5b","#af4242","#91a18b","#935e7e","#c37ec8","#53cf32"];
+   string[] private categories = ["ENVIRONMENT","TALENT","PLACE","CHARACTER","TRANSPORT","LANGUAGE","EXPERIENCE","OCCUPATION","ACCOMMODATION","BAG"];
 
-   string [] categories = ["ENVIRONMENT","TALENT","PLACE","CHARACTER","TRANSPORT","LANGUAGE","EXPERIENCE","OCCUPATION","ACCOMMODATION","BAG"];
    mapping(string => string[]) elements;
 
     constructor() ERC721("TravelerLoot", "TRAVELER") Ownable(){
       uint256 blockNumber = block.number;
+      treasurer.old = address(0);
+      treasurer.current = INITIAL_TREASURER;
+      treasurer.blockNumber = blockNumber;
+
       elements[categories[0]] = ["Beaches", "Mountains", "Urban", "Countrysides", "Lakes", "Rivers", "Farms", "Tropical areas", "Snowy places", "Forests", "Historical cities", "Islands", "Wilderness", "Deserts", "Natural parks", "Old towns", "Lakes", "Villages", "Forests", "Coral Reefs", "Wetlands", "Rainforests", "Grasslands", "Chaparral"];
       elements[categories[1]] = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
       elements[categories[2]] = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
@@ -1377,31 +1372,34 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       elements[categories[8]] = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
       elements[categories[9]] = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwear","Condoms"];
 
-      treasurer.old = address(0);
-      treasurer.current = INITIAL_TREASURER;
-      treasurer.blockNumber = blockNumber;
+      guilds[0] = Guild({name:"- LOOT -",contractAddress:0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7});
+      guilds[1] = Guild({name:"- AL -",contractAddress:0xcC56775606730C96eA245D9cF3890247f1c57FB1});
+      guilds[2] = Guild({name:"- CHAR -",contractAddress:0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3});
+      guilds[3] = Guild({name:"- CYBERLOOT -",contractAddress:0x13a48f723f4AD29b6da6e7215Fe53172C027d98f});
+      guilds[4] = Guild({name:"- DOGGO -",contractAddress:0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f});
+      guilds[5] = Guild({name:"- GMANA -",contractAddress:0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463});
+      guilds[6] = Guild({name:"- LOOTC -",contractAddress:0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2});
+      guilds[7] = Guild({name:"- LootHymns -",contractAddress:0x83f1d1396B19Fed8FBb31Ed189579D07362d661d});
+      guilds[8] = Guild({name:"- LootRealm -",contractAddress:0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d});
+      guilds[9] = Guild({name:"- LootRock -",contractAddress:0xeC43a2546625c4C82D905503bc83e66262f0EF84});
+      guilds[10] = Guild({name:"- MLOOT -",contractAddress:0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF});
+      guilds[11] = Guild({name:"- NAME -",contractAddress:0xb9310aF43F4763003F42661f6FC098428469aDAB});
+      guilds[12] = Guild({name:"- QUESTS -",contractAddress:0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d});
+      guilds[13] = Guild({name:"- SCORE -",contractAddress:0x42A87e04f87A038774fb39c0A61681e7e859937b});
+      guilds[14] = Guild({name:"- TREASURE -",contractAddress:0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa});
 
-      LootDetails memory guildDetails = LootDetails({color:BLACK,familyType:"GUILD",counter:0,verified:true});
-      detailsByAddress[DL_AL] = guildDetails;
-      detailsByAddress[DL_CHAR] = guildDetails;
-      detailsByAddress[DL_CYBERLOOT] = guildDetails;
-      detailsByAddress[DL_DOGGO] = guildDetails;
-      detailsByAddress[DL_GMANA] = guildDetails;
-      detailsByAddress[DL_LOOTC] = guildDetails;
-      detailsByAddress[DL_LootHymns] = guildDetails;
-      detailsByAddress[DL_LootRealm] = guildDetails;
-      detailsByAddress[DL_LootRock] = guildDetails;
-      detailsByAddress[DL_MLOOT] = guildDetails;
-      detailsByAddress[DL_NAME] = guildDetails;
-      detailsByAddress[DL_QUESTS] = guildDetails;
-      detailsByAddress[DL_SCORE] = guildDetails;
-      detailsByAddress[DL_TREASURE] = guildDetails;
-      detailsByAddress[OR_LOOT] = LootDetails({color:PLATINUM,familyType:"GUILD",counter:0,verified:true});
-      detailsByAddress[PH_USERS] = LootDetails({color:BLACK,familyType:"",counter:0,verified:true});
-      detailsByAddress[PH_PATRONS] = LootDetails({color:"#F87151",familyType:"PATRON",counter:0,verified:true});
-      detailsByAddress[PH_ORIGINAL_LOOT] = LootDetails({color:GOLD,familyType:"PATRON",counter:0,verified:true});
-      detailsByAddress[PH_CONQUERORS] = LootDetails({color:WHITE,familyType:"CONQUEROR",counter:0,verified:true});
-      detailsByAddress[PH_OWNER] = LootDetails({color:BLACK,familyType:" ",counter:0,verified:true});
+
+      detailsByAddress[guilds[0].contractAddress] = LootDetails({color:PLATINUM,familyType:"GUILD",familyName:guilds[0].name,counter:0,verified:true});
+      for (uint8 i = 1; i < guilds.length; i++){
+        LootDetails memory guildDetails = LootDetails({color:BLACK,familyType:"GUILD",familyName:guilds[i].name,counter:0,verified:true});
+        detailsByAddress[guilds[i].contractAddress] = guildDetails;
+      }
+
+      detailsByAddress[PH_USERS] = LootDetails({color:BLACK,familyType:"",familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_PATRONS] = LootDetails({color:"#F87151",familyType:"PATRON",familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_ORIGINAL_LOOT] = LootDetails({color:GOLD,familyType:"PATRON",familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_CONQUERORS] = LootDetails({color:WHITE,familyType:"CONQUEROR",familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_OWNER] = LootDetails({color:BLACK,familyType:" ",familyName:"",counter:0,verified:true});
 
     }
 
@@ -1443,31 +1441,31 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
         LootDetails memory details = detailsByAddress[addressList[tokenId]];
         string[4] memory parts;
-        parts[0] = string(abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.base { fill:white; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="black" /><text x="10" y="20" class="base">'));
-        parts[1] = string(abi.encodePacked(getElement(tokenId,0),'</text><text x="10" y="40" class="base">',getElement(tokenId,1),'</text><text x="10" y="60" class="base">',getElement(tokenId,2),'</text><text x="10" y="80" class="base">',getElement(tokenId,3),'</text><text x="10" y="100" class="base">',getElement(tokenId,4),'</text><text x="10" y="120" class="base">',getElement(tokenId,5)));
-        parts[2] = string(abi.encodePacked('</text><text x="10" y="140" class="base">',getElement(tokenId,6),'</text><text x="10" y="160" class="base">',getElement(tokenId,7),'</text><text x="10" y="180" class="base">',getElement(tokenId,8),'</text><text x="10" y="200" class="base">',getElement(tokenId,9),'</text>'));
-        parts[3] = string(abi.encodePacked('<line x1="0" x2="350" y1="300" y2="300" stroke="',details.color,'" stroke-width="4"/>','<text x="340" y="294" text-anchor="end" class="base">',details.familyType,'</text></svg>'));
+        parts[0] = string(abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.b { fill:white; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="black" /><text x="10" y="20" class="b">'));
+        parts[1] = string(abi.encodePacked(getElement(tokenId,0),'</text><text x="10" y="40" class="b">',getElement(tokenId,1),'</text><text x="10" y="60" class="b">',getElement(tokenId,2),'</text><text x="10" y="80" class="b">',getElement(tokenId,3),'</text><text x="10" y="100" class="b">',getElement(tokenId,4),'</text><text x="10" y="120" class="b">',getElement(tokenId,5)));
+        parts[2] = string(abi.encodePacked('</text><text x="10" y="140" class="b">',getElement(tokenId,6),'</text><text x="10" y="160" class="b">',getElement(tokenId,7),'</text><text x="10" y="180" class="b">',getElement(tokenId,8),'</text><text x="10" y="200" class="b">',getElement(tokenId,9),'</text>'));
+        parts[3] = string(abi.encodePacked('<line x1="0" x2="350" y1="300" y2="300" stroke="',details.color,'" stroke-width="4"/>','<text x="340" y="294" text-anchor="end" class="b">',details.familyType,'</text><text x="340" y="312" text-anchor="end" style="fill:white; font-size:8px">',details.familyName,'</text></svg>'));
 
         string memory compact = string(abi.encodePacked(parts[0], parts[1], parts[2],parts[3]));
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Equipment #', toString(tokenId), '", "description": "Feel free to use the Traveler Loot in any way you want", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(compact)), '","attributes":[',metadata(tokenId,details),']}'))));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler #', toString(tokenId), '", "description": "Feel free to use the Traveler Loot in any way you want", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(compact)), '","attributes":[',metadata(tokenId,details),']}'))));
 
         return string(abi.encodePacked('data:application/json;base64,', json));
     }
 
     function metadata(uint256 tokenId, LootDetails memory details) internal view returns (string memory){
-     string memory temp = "";
+     string memory toRet = "";
      for (uint8 i = 0; i < 10; i++){
-        temp = string(abi.encodePacked(temp,'{"trait_type": "', categories[i], '","value":"',getElement(tokenId,i),'"}, '));
+        toRet = string(abi.encodePacked(toRet,'{"trait_type": "', categories[i], '","value":"',getElement(tokenId,i),'"}, '));
      }
      if (keccak256(abi.encodePacked(details.color)) != keccak256(abi.encodePacked(BLACK))) {
-      temp = string(abi.encodePacked(temp,'{"trait_type": "Type","value":"',details.familyType,'"}, '));
-      temp = string(abi.encodePacked(temp,'{"trait_type": "Flag Color","value":"',details.color,'"} '));
+      toRet = string(abi.encodePacked(toRet,'{"trait_type": "Type","value":"',details.familyType,'"}, '));
+      toRet = string(abi.encodePacked(toRet,'{"trait_type": "Flag Color","value":"',details.color,'"} '));
      }
      else{
-        temp = string(abi.encodePacked(temp,'{"trait_type": "Type","value":"EXPLORER"} '));
+        toRet = string(abi.encodePacked(toRet,'{"trait_type": "Type","value":"EXPLORER"} '));
      }
 
-     return temp;
+     return toRet;
    }
 
     //Given a guild loot-derivative address, returns the count for that addr
@@ -1487,26 +1485,12 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       if (conqueror.elected){
         return (conqueror.addr,conqueror.count);
       }
-
-      address winningLoot = OR_LOOT;
+      address winningLoot = guilds[0].contractAddress;
       uint16 winningCount = uint16(detailsByAddress[winningLoot].counter);
 
-      //The following list is ordered by trading volume based on OpenSea stats taken in October 2021
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_LootRealm, uint16(detailsByAddress[DL_LootRealm].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_TREASURE, uint16(detailsByAddress[DL_TREASURE].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_SCORE, uint16(detailsByAddress[DL_SCORE].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_CHAR, uint16(detailsByAddress[DL_CHAR].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_AL, uint16(detailsByAddress[DL_AL].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_CYBERLOOT, uint16(detailsByAddress[DL_CYBERLOOT].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_MLOOT, uint16(detailsByAddress[DL_MLOOT].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_LOOTC, uint16(detailsByAddress[DL_LOOTC].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_LootRock, uint16(detailsByAddress[DL_LootRock].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_GMANA, uint16(detailsByAddress[DL_GMANA].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_QUESTS, uint16(detailsByAddress[DL_QUESTS].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_NAME, uint16(detailsByAddress[DL_NAME].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_LootHymns, uint16(detailsByAddress[DL_LootHymns].counter));
-      (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, DL_DOGGO, uint16(detailsByAddress[DL_DOGGO].counter));
-
+      for (uint8 i = 1; i < 15; i++){
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, guilds[i].contractAddress, uint16(detailsByAddress[guilds[i].contractAddress].counter));
+      }
       return (winningLoot, winningCount);
     }
 
@@ -1547,7 +1531,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         IERC721 looter = IERC721(contractAddress);
         require(tokenId > 0 && looter.ownerOf(tokenId) == _msgSender(), ERROR_NOT_THE_OWNER);
-        if (details.counter == 0 && enrolledDerivative < colors.length && contractAddress != OR_LOOT){
+        if (details.counter == 0 && enrolledDerivative < colors.length && contractAddress != guilds[0].contractAddress){
             details.color = colors[enrolledDerivative++];
         }
 
@@ -1587,7 +1571,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //   . the Conqueror Guild is not yet elected,
     //   . or Dominik Hoffman (@dhof) is younger than 40 yo.
     function claimForLooters() external nonReentrant checkStart{
-        require(IERC721(OR_LOOT).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
+        require(IERC721(guilds[0].contractAddress).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
 
