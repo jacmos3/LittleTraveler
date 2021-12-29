@@ -13,6 +13,6 @@
   <text x="10" y="200" class="b">Cigarettes</text>
 
 <line x1="0" x2="350" y1="300" y2="300" stroke="yellow" stroke-width="4"/>
-<text x="340" y="294" text-anchor="end" class="b">GUILD</text>
-<text x="340" y="312" text-anchor="end" style="fill:white; font-size:8px">-  GMANA - </text>
+<text x="340" y="294" text-anchor="end" class="b">PATRON</text>
+<text x="340" y="312" text-anchor="end" style="fill:white; font-size:8px">-  Loot (for Adventurers) - </text>
 </svg>
