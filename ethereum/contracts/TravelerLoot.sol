@@ -1391,8 +1391,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
       detailsByAddress[guilds[0].contractAddress] = LootDetails({color:PLATINUM,familyType:"GUILD",familyName:guilds[0].name,counter:0,verified:true});
       for (uint8 i = 1; i < guilds.length; i++){
-        LootDetails memory guildDetails = LootDetails({color:BLACK,familyType:"GUILD",familyName:guilds[i].name,counter:0,verified:true});
-        detailsByAddress[guilds[i].contractAddress] = guildDetails;
+        detailsByAddress[guilds[i].contractAddress] = LootDetails({color:BLACK,familyType:"GUILD",familyName:guilds[i].name,counter:0,verified:true});
       }
 
       detailsByAddress[PH_USERS] = LootDetails({color:BLACK,familyType:"",familyName:"",counter:0,verified:true});
@@ -1536,7 +1535,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             details.color = colors[enrolledDerivative++];
         }
 
-        //tokenIds are discreetized, so first come first served rule is applied!
+        //tokenIds are discreetized, so first-come-first-served rule is applied!
         uint16 discreetId = uint16(tokenId % MAX_FOR_GUILDS);
 
         if (++guildCounter == MAX_FOR_GUILDS){
