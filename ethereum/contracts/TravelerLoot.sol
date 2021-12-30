@@ -1337,8 +1337,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint8 public enrolledDerivative = 0;
     uint16 private guildCounter = 0;
     uint16 public constant MAX_ID = 10000;
-    uint16 public constant MAX_FOR_OWNER = 222;
-    uint16 public constant MAX_FOR_GUILDS = 2000;
+    uint16 public constant MAX_FOR_OWNER = 100;
+    uint16 public constant MAX_FOR_GUILDS = 900;
     uint16 public constant LOCK_TIME = 5760 * 3; //it's three days
     uint160 public priceForPatrons = 1 ether;
     uint256 public blockActivation = 0;
@@ -1397,7 +1397,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       detailsByAddress[PH_USERS] = LootDetails({color:BLACK,familyType:"",familyName:"",counter:0,verified:true});
       detailsByAddress[PH_PATRONS] = LootDetails({color:"#F87151",familyType:"PATRON",familyName:"",counter:0,verified:true});
       detailsByAddress[PH_ORIGINAL_LOOT] = LootDetails({color:GOLD,familyType:"PATRON",familyName:"Loot (for Adventurers)",counter:0,verified:true});
-      detailsByAddress[PH_CONQUERORS] = LootDetails({color:WHITE,familyType:"PATRON",familyName:"Conqueror",counter:0,verified:true});
+      detailsByAddress[PH_CONQUERORS] = LootDetails({color:WHITE,familyType:"CONQUEROR",familyName:"",counter:0,verified:true});
       detailsByAddress[PH_OWNER] = LootDetails({color:BLACK,familyType:" ",familyName:"",counter:0,verified:true});
 
     }
@@ -1542,6 +1542,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             (conqueror.addr, conqueror.count) = whoIsWinning();
             conqueror.elected = true;
             detailsByAddress[PH_CONQUERORS].color = details.color;
+            detailsByAddress[PH_CONQUERORS].familyName = details.familyName;
         }
         //after this mint, the price for patrons will be decreased by 1%
         uint16 finalId = discreetId == 0 ? MAX_FOR_GUILDS : discreetId;
