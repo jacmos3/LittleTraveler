@@ -1301,6 +1301,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_OWNER_NOT_ALLOWED = "Use claimForOwner() instead";
     string private constant ERROR_ALREADY_ACTIVATED = "Already activated";
     string private constant ERROR_COME_BACK_LATER = "Come back later";
+    string private constant ERROR_WITHDRAW_NEEDED = "Treasurer already changed. Perform a withdrawal before change it again";
 
     struct LootDetails {
         string familyType;
@@ -1330,7 +1331,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     Guild[15] public guilds;
     Conqueror public conqueror;
     Treasurer public treasurer;
-
+    bool public canChangeTreasurer = true;
     mapping(address => LootDetails) public detailsByAddress;
     mapping(uint256 => address) public addressList;
 
@@ -1592,14 +1593,24 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     function withdraw() external onlyOwner {
       require(block.number >= treasurer.blockNumber, ERROR_COME_BACK_LATER);
       payable(treasurer.current).transfer(address(this).balance);
+      canChangeTreasurer = true; //release treasurer
     }
 
-    function setTreasurer(address newAddress) external onlyOwner{
+    //owner calls this function with lockTreasurer = true if the intent is to do
+    //a donation to a public-good project. Lock guarantees that nobody (nor the
+    //owner) can change treasurer till the donation is made.
+    //owner calls this function with lockTreasurer = false if the intent is to
+    //keep open the chance to change the treasurer even if no any withdrawal has
+    //been performed in the meanwhile
+    function setTreasurer(address newAddress, bool lockTreasurer) external onlyOwner{
+      require(canChangeTreasurer, ERROR_WITHDRAW_NEEDED); //this is a safety measure for when donating to public goods
+      if (lockTreasurer){
+        canChangeTreasurer = false;
+      }
       uint256 blockNumber = block.number + LOCK_TIME;
       treasurer.old = treasurer.current;
       treasurer.current = newAddress;
       treasurer.blockNumber = blockNumber;
-
     }
 
     function activateClaims() external onlyOwner{
