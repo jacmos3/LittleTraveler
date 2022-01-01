@@ -1,3 +1,5 @@
+[The instruction to install and run the code are at the bottom]
+
 ## A Loot for the Travel Industry
 The Traveler Loot is a Loot derivative for the travel industry and the travel world in general.
 The original Loot provided a public good on which the community can create games.
@@ -39,10 +41,8 @@ There are 4 kinds of Traveler Loot NFTs:
 3) #1001 to #10000: Black and white Traveler Loots (standard). Free + gas.
 4) #address: will be Patron Traveler Loots (price starts from 1 ETH and then varies depending on the formula described in *price variability* section).
 
-------------
 
-
-**PRIORITY FOR ELIGIBLE LOOT PROJECT OWNERS**
+## PRIORITY FOR ELIGIBLE LOOT PROJECT OWNERS
 
 The owners of 15 Loot projects (Original Loot Project and 14 it's derivatives) have the **elegibility** to mint a Traveler Loot in special edition **Guild NFT**, opening the doors for other possible future airdrops or advantages.
 The qualification for the Loot projects was based on the trading volume on OpenSea.
@@ -124,6 +124,8 @@ The total possible combinations are much over 100 Trillion.
 NOTE
 All which is explained here is coded in the Smart Contracts and you are free to read it on etherscan [LINK]
 
+------------
+
 ## 1. Installing components:
 `npm install`
 
@@ -140,10 +142,10 @@ PROVIDER_URL = "[INFURA_PROVIDER_URL]" #insert here your infura url (go to
 infura.io, create account and new project, then select testnet you want to use
 i.e. rinkeby and then copy the link here)`
 
-## 3) Compiling and generating json interface
+## 3. Compiling and generating json interface
 `node compile.js`
 
-## 4) Deploying on the blockchain
+## 4. Deploying on the blockchain
 `node deploy.js`
 
 Once the deploy is succeeded, it will be generated `/.env.local` file with a
@@ -151,22 +153,22 @@ env variable containing the contract address you have deployed.
 
 This file is used by the frontend to interact with the contract using web3.
 
-## 5) Launch server:
+## 5. Launch server:
 `npm run dev`
 
 go to https://localhost:3000 and feel free to use the dapp
 
-## 6) Launching tests:
+## 6. Launching tests:
 
 `npm run test`
 
 NOTE: Tests are not intended to be completed. Feel free to write your own tests.
 
 
-## 7) Exporting for hosting:
+## 7. Exporting for hosting:
 `npm run build && npm run export`
 
-## 8) Deploy to Firebase (example)
+## 8. Deploy to Firebase (example)
 `firebase login`
 
 `firebase deploy`
