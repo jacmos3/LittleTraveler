@@ -1291,6 +1291,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant BLACK = "black";
     string private constant GOLD = "gold";
     string private constant PLATINUM = "#D5D6D8";
+    uint160 private constant INITIAL_PRICE_FOR_PATRONS = 1 ether;
     string private constant ERROR_TOKEN_ID_INVALID = "Token ID invalid";
     string private constant ERROR_ADDRESS_NOT_VERIFIED = "Address not verified. Try another";
     string private constant ERROR_NOT_THE_OWNER = "You do not own token(s) of the address";
@@ -1341,7 +1342,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint16 public constant MAX_FOR_OWNER = 100;
     uint16 public constant MAX_FOR_GUILDS = 900;
     uint16 public constant LOCK_TIME = 5760 * 3; //it's three days
-    uint160 public priceForPatrons = 1 ether;
+    uint160 public priceForPatrons;
     uint256 public blockActivation = 0;
     address private constant INITIAL_TREASURER = 0xce73904422880604e78591fD6c758B0D5106dD50; //TripsCommunity address
 
@@ -1361,7 +1362,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       treasurer.old = address(0);
       treasurer.current = INITIAL_TREASURER;
       treasurer.blockNumber = blockNumber;
-
+      priceForPatrons = INITIAL_PRICE_FOR_PATRONS;
       elements[categories[0]] = ["Beaches", "Mountains", "Urban", "Countrysides", "Lakes", "Rivers", "Farms", "Tropical areas", "Snowy places", "Forests", "Historical cities", "Islands", "Wilderness", "Deserts", "Natural parks", "Old towns", "Lakes", "Villages", "Forests", "Coral Reefs", "Wetlands", "Rainforests", "Grasslands", "Chaparral"];
       elements[categories[1]] = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
       elements[categories[2]] = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
@@ -1509,8 +1510,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     function claim(uint256 tokenId) external nonReentrant checkStart {
         require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
         require(tokenId > MAX_FOR_GUILDS + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
-        //after this mint, the price for patrons will be increased by 1%
-        rebalancePrice(tokenId,PH_USERS,1,true);
+        //after this mint, the price for patrons will be decreased by 1%
+        rebalancePrice(tokenId,PH_USERS,1,false);
         _safeMint(_msgSender(), tokenId);
     }
 
@@ -1545,9 +1546,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             detailsByAddress[PH_CONQUERORS].color = details.color;
             detailsByAddress[PH_CONQUERORS].familyName = details.familyName;
         }
-        //after this mint, the price for patrons will be decreased by 1%
+        //after this mint, the price for patrons will be increased by 1%
         uint16 finalId = discreetId == 0 ? MAX_FOR_GUILDS : discreetId;
-        rebalancePrice(finalId, contractAddress, 1, false);
+        rebalancePrice(finalId, contractAddress, 1, true);
         _safeMint(_msgSender(), finalId);
     }
 
@@ -1565,8 +1566,12 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //Becoming a Patron. Requires payment.
     function claimForPatrons() external payable nonReentrant checkStart{
         require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
-        //after this mint, the price for next patrons will be decreased by 5%
-        reservedMinting(PH_PATRONS, 5, false);
+        
+        if (priceForPatrons < INITIAL_PRICE_FOR_PATRONS){
+          priceForPatrons == INITIAL_PRICE_FOR_PATRONS;
+        }
+        //after this mint, the price for next patrons will be increased by 5%
+        reservedMinting(PH_PATRONS, 5, true);
     }
 
     //- Loot (for Adventurers) holders can become Patrons for free if:
@@ -1586,8 +1591,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     function claimForConquerors() external nonReentrant checkStart{
         require(conqueror.elected, ERROR_COMPETITION_ONGOING);
         require(IERC721(conqueror.addr).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
-        //after this mint, the price for patrons is increased by 5%
-        reservedMinting(PH_CONQUERORS, 5, true);
+        //after this mint, the price for patrons is increased by 2%
+        reservedMinting(PH_CONQUERORS, 2, true);
     }
 
     function withdraw() external onlyOwner {
