@@ -9,6 +9,7 @@ import Web3 from "web3";
 import Web3Modal from "web3modal";
 import {derivatives} from "../derivatives.js"
 
+
 class MyDapp extends Component{
   state = {
     errorMessage:'',
@@ -160,10 +161,8 @@ class MyDapp extends Component{
        console.log(this.state.web3Settings.isWeb3Connected);
     }
 
+
   render(){
-
-
-
     return (
 
       <Layout disconnect = {this.disconnect} connect = {this.connect}  state = {this.state.web3Settings}>
@@ -175,7 +174,6 @@ class MyDapp extends Component{
                 <p className="text-xl sm:text-2xl text-white">
                   <br />
                   Traveler Loot is a <a target= "_blank" href="https://www.lootproject.com/">Loot</a> derivative for the travel industry, generated and stored on chain.
-                  <br />
                   Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use Traveler Loot in any way you want.
                 </p>
               </div>
@@ -227,11 +225,11 @@ class MyDapp extends Component{
           </div>
         </div>
 
-        <div id="Start" className="bg-black  sm:py-20 py-10 pb-40 ">
+        <div id="Start" className="bg-gray-PLATINUM  sm:py-20 py-10 pb-40 text-black">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 ">
-                <span className="uppercase sm:text-xl tracking-widest text-white">
+                <span className="uppercase sm:text-xl tracking-widest ">
                   A Real World Loot
                 </span>
                 <h1 className="text-center mt-4 capitalize">Start Here: Get A Traveler Loot</h1>
@@ -240,8 +238,8 @@ class MyDapp extends Component{
                   this.state.web3Settings.isWeb3Connected
                   ? (<div></div>)
                   :(
-                    <p className="text-xl sm:text-2xl text-white">
-                      10,000 Loots, discovered by travelers.
+                    <p className="text-xl sm:text-2xl ">
+                      10,000 loots, discovered by travelers.
                       <br />
                       What treasures do they hold?
                       <br />
@@ -269,8 +267,8 @@ class MyDapp extends Component{
                             <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
                               <Form.Field>
                                 <p>
-                                  Insert an available tokenId between 2223 and 10000
-                                  <Popup content='#1 - #2222 are reserved. Minting is possible on etherscan by eligible guilds'
+                                  Insert an available tokenId between 1001 and 10000
+                                  <Popup content='#1 - #1000 are reserved. Minting is possible on etherscan by eligible guilds'
                                     size='tiny'
                                     trigger={<Icon name='info' color='question circle' size='medium' circular />}
                                   />
@@ -279,7 +277,7 @@ class MyDapp extends Component{
                                 <Input
                                 type='number'
                                 max = {10000}
-                                min = {2223}
+                                min = {1001}
                                 value = {this.state.tokenId}
                                  onChange = {event => this.setState({tokenId: event.target.value})}/>
                               </Form.Field>
@@ -357,42 +355,83 @@ class MyDapp extends Component{
           </div>
         </div>
 
-        <div id="Plot" className="bg-gray-PLATINUM py-20">
-          <div className="container mx-auto mt-8 text-black">
+        <div id="Plot" className="bg-black py-20">
+          <div className="container mx-auto mt-8 text-white">
             <div className="flex justify-around">
               <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
                 <span className="uppercase sm:text-xl tracking-widest">Plot</span>
                 <h1 className="text-center mt-4">Context and Details</h1>
-
-                <p className="sm:text-2xl">
-                  <br />
-                  Once upon a time there was a World populated by Explorers living their lives in search of expeditions. Over the centuries, evolution brought these explorers to build and live in coordination and civilization.
-                  <br />They istituited Guilds each one with own flag and civility rules.
-                  <br />
-                  <br />World was still not fully explored due of lack of knowledge and resources so far, but thanks to recent details coming from Anonymous Entity, Explorers were now able to start new discovering researches. They knew it could take years, but they didn't care.
-                  <br />
-                  <br />Entity's details told about some "Traveler Loots" that needed to be found, crossing all over the World.
-                  <br />Evidence was showing about 10.000 Traveler Loots to be found, at least!
-                  <br />
-                  <br />Explorers from other Worlds decided to come to help local Guilds. Traveler Loots in range #1 - #2000 have the characteristic to be forged with the discoverer Flag when they get discovered and it can be done only by local Guilds. Range #2222 to #10000 is public domain instead. That seems interesting!
-                  <br />
-                  <br />If you own a Loot derivative or a Loot (for Adventurers) NFT, you may be part of a Guild having privilege access to #1 - #2000, otherwise you are one of the Explorers from the other Worlds having access to the #2222 to #10000 range.
-                  <br />
-                  <br />Since Strangers and Locals are in competition between each other for the 10.000 Traveler Loots, Local Guilds are also in sub-competition between themselves for the specific range #1 - #2000: their goal is to forge the Guild Flag into more <span className="italic">Traveler Loot for Guilds</span> as possible during the process. There will be no loosers, but the Guild forging the most, becomes the Conqueror of the World.
-                  <br />
-                  <br />
-                  After some studies and investigations, Explorers figured out that Conqueror Guild gains access to some knowledge letting them access to a special <span className="italic">Traveler Loot</span> called "for Patrons". They don't know much about <span className="italic">Traveler Loot for Patrons</span>, but they found others need to pay an expensive price to get access to the same knowledges the Conqueror has for free.
-                  <br />
-                  <br />
-                  Entity did not spoil anything about other advantages yet, but all the clues made the explorers confident that will be given more details.
-                  <br />
-                  <br />
-                  Traces are open and accessible to everybody interested. <a href="https://www.etherscan.com" target="_blank">Here</a>.
-                </p>
+                <embed
+                  src="../plot.pdf#navpanes=0&scrollbar=0"
+                  width="100%" height="700px"
+                />
               </div>
             </div>
           </div>
         </div>
+
+        <div id="Types" className="bg-gray-PLATINUM sm:py-20 py-10 pb-40 text-black ">
+          <div className="container mx-auto mt-8 " >
+            <div className="flex justify-around">
+              <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
+                <span className="uppercase sm:text-xl tracking-widest ">Types</span>
+                <h1 className="text-center mt-4 capitalize">Each Traveler has a Type</h1>
+                <p className="sm:text-2xl">Find yours</p>
+              </div>
+            </div>
+            <Container>
+              <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
+                <Card>
+                <Image src='loots/guild_loot.svg' wrapped ui={false} />
+                    <Card.Content>
+                      <Card.Header>Traveler Loot for Guilds</Card.Header>
+                      <Card.Meta>Supply: 900 (#1 to #900)</Card.Meta>
+                      <Card.Description>
+                        <a href="#Guilds">Guilds</a> members can claim these slots by calling claimForGuilds() function on etherscan.
+                      </Card.Description>
+                    </Card.Content>
+                    <Card.Content extra>
+                      Cost: Free + Gas
+                    </Card.Content>
+                </Card>
+
+                <Card>
+                  <Image src='loots/standard_loot.svg' wrapped ui={false} />
+                  <Card.Content>
+                    <Card.Header>Traveler Loot Standard</Card.Header>
+                    <Card.Meta >Supply: 9100 (#901 to #10000)</Card.Meta>
+                    <Card.Description>
+                      Everybody can claim one (or more) Traveler Loot Standard <a href="#Start">🔗 here</a>.
+                      <br/>From #901 to #1000 are reserved to Trips Community.
+                      <br />From #1001 to #10000 are open to everybody. No restrictions applied.
+                    </Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    Cost: Free + Gas
+                  </Card.Content>
+                </Card>
+                <Card>
+                  <Image src='loots/patron_loot.svg' wrapped ui={false} />
+                  <Card.Content>
+                    <Card.Header>Traveler Loot for Patrons</Card.Header>
+                    <Card.Meta >Supply: undefined</Card.Meta>
+                    <Card.Description>
+                      Everybody can claim one (and only one) Traveler Loot for Patron as long as they can afford it. Traveler Loot for Patrons has a starting cost of 1 ether and it's designed to increase as much as the project gains popularity till it becomes unaffordable to everybody.
+                    </Card.Description>
+                  </Card.Content>
+                  <Card.Content extra>
+                    Cost: Free + Gas
+                  </Card.Content>
+                </Card>
+              </Card.Group>
+            </Container>
+          <br />
+          <p>
+          Traveler Loot Project is a layer built on top of Loot Project and 14 other Loot Derivatives (<a href="#Guilds">🔗Guilds</a>). By holding one of their NFT, you have access to the <span className="italic">Traveler Loot for Guilds</span> mints ranging between #1 and #900, with the Guild Flag attached to them. If you do not own any Guild's NFT, you can choose one project from them and mint one or you can buy in the secondary market. Once done you'll get instant eligibility for <span className="italic">Traveler Loot for Guild</span> NFT. <span className="italic">Traveler Loot Standard</span> ranging between #1001 and #10000 are open and free (+ gas) minting instead. Loot Project and Derivatives Loots are indipendent projects and there are no royalities or referrals related to Traveler Loot Project.
+          </p>
+          </div>
+        </div>
+
         <div id="Guilds" className="bg-black  py-20 text-white ">
           <div className="container mx-auto mt-8">
             <div className="flex justify-around ">
@@ -414,16 +453,16 @@ class MyDapp extends Component{
               </div>
               <br />
               <br />
-               If you own one NFT of these Guilds, then you are in a Guild.
+               If you own one NFT of these Projects, then you are in a Guild.
               <br />
               <br />
-              Traveler Loots #1 - #2000 are called <span className="italic">Traveler Loot for Guilds</span> and are provided in first-come-first-served basis, which means other Guilds may pick the NFT you are elegible to before you do, if you are not faster enough.
+              Traveler Loots #1 - #900 are called <span className="italic">Traveler Loot for Guilds</span> and are provided in first-come-first-served basis, which means other Guilds may pick the NFT you are elegible to before you do, if you are not faster enough.
             </div>
 
             <div className="text-center">
               <br />
               <br />
-              The minting function is regulated by <a href="https://en.wikipedia.org/wiki/Modulo_operation" target="_blank">🔗modulo operation</a> (mod 2000) which means that more Guilds-tokenIds point to the same single Traveler-Loot-tokenId.
+              The minting function is regulated by <a href="https://en.wikipedia.org/wiki/Modulo_operation" target="_blank">🔗modulo operation</a> (mod 900) which means that more Guilds-tokenIds point to the same single Traveler-Loot-tokenId.
               <br />
               Claims are possible on etherscan by calling the function:
               <br />
@@ -431,54 +470,7 @@ class MyDapp extends Component{
               </div>
           </div>
         </div>
-        <div id="Types" className="bg-gray-PLATINUM sm:py-20 py-10 pb-40 text-black ">
-          <div className="container mx-auto mt-8 " >
-            <div className="flex justify-around">
-              <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-                <span className="uppercase sm:text-xl tracking-widest ">Types</span>
-                <h1 className="text-center mt-4 capitalize">Each Traveler has a Type</h1>
-                <p className="sm:text-2xl">Find yours</p>
-              </div>
-            </div>
 
-            <Card.Group itemsPerRow={2} stackable={true} doubling={true}>
-              <Card>
-              <Image src='loots/COLORED_LOOT.svg' wrapped ui={false} />
-                  <Card.Content>
-                    <Card.Header>Traveler Loot for Guilds</Card.Header>
-                    <Card.Meta>Supply: 2000 (#1 to #2000)</Card.Meta>
-                    <Card.Description>
-                      <a href="#Guilds">Guilds</a> members can claim these slots by calling claimForGuilds() function on etherscan.
-                    </Card.Description>
-                  </Card.Content>
-                  <Card.Content extra>
-                    Cost: Free + Gas
-                  </Card.Content>
-              </Card>
-
-              <Card>
-                <Image src='loots/BW_LOOT2.svg' wrapped ui={false} />
-                <Card.Content>
-                  <Card.Header>Traveler Loot Standard</Card.Header>
-                  <Card.Meta >Supply: 8000 (#2001 to #10000)</Card.Meta>
-                  <Card.Description>
-                    Everybody can claim one (or more) Traveler Loot Standard <a href="#Start">🔗 here</a>.
-                    <br/>From #2001 to #2222 are reserved to Trips Community.
-                    <br />From #2223 to #10000 are open to everybody. No restrictions applied.
-                  </Card.Description>
-                </Card.Content>
-                <Card.Content extra>
-                  Cost: Free + Gas
-                </Card.Content>
-              </Card>
-            </Card.Group>
-
-          <br />
-          <p>
-          Traveler Loot Project is a layer built on top of Loot Project and 14 other Loot Derivatives (<a href="#Guilds">🔗Guilds</a>). By holding one of their NFT, you have access to the <span className="italic">Traveler Loot for Guilds</span> mints ranging between #1 and #2000, with the Guild Flag attached to them. If you do not own any Guild's NFT, you can choose one project from them and mint one or you can buy in the secondary market. Once done you'll get instant eligibility for <span className="italic">Traveler Loot for Guild</span> NFT. <span className="italic">Traveler Loot Standard</span> ranging between #2222 and #10000 are open and free (+ gas) minting instead. Loot Project and Derivatives Loots are indipendent projects and there are no royalities or referrals related to Traveler Loot Project.
-          </p>
-          </div>
-        </div>
 
         <div id="Elements" className="bg-black  py-20 text-white ">
           <div className="container mx-auto mt-8">
@@ -486,8 +478,8 @@ class MyDapp extends Component{
               <div className="px-20 py-8 rounded text-center">
                 <span className="uppercase sm:text-xl tracking-widest">Under The Hood</span>
                 <br />
-                <h1 className="text-center mt-4">100 trillion combinations</h1>
-                10 categories with 264 elements, and variable rarities.
+                <h1 className="text-center mt-4">132 trillion combinations</h1>
+                10 categories with 267 elements, and variable rarities.
               </div>
             </div>
             <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">
@@ -497,7 +489,7 @@ class MyDapp extends Component{
                 <br />30 Spoken Languages
                 <br />30 Talents
                 <br />30 Preferred Places in the World
-                <br />9 Travel Experience Levels
+                <br />12 Travel Experience Levels
                 <br />30 Preferred Accommodations
                 <br />21 Stuff in the Bag
                 <br />30 Occupations

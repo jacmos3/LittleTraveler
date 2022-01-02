@@ -1,6 +1,6 @@
-[The instruction to install and run the code are at the bottom]
+[The instructions for install & run the code are at the bottom]
 
-## A Loot for the Travel Industry
+# Traveler Loot: A Loot for the Travel Industry
 The Traveler Loot is a Loot derivative for the travel industry and the travel world in general.
 The original Loot provided a public good on which the community can create games.
 We are creating a public good on which the Travel industry can create marketing campaigns, fidelity programs, airdrops and so on.
@@ -30,7 +30,7 @@ We will mostly spend them to market the idea to travel incumbents who will then 
 The Traveler loot has been presented on the 2nd of December 2021 at the [Hicon, Innovation in Travel conference] (https://www.hicon.it/eng/speaker/luca-degiglio/) in Bologna, Italy.
 
 
-# How it works
+## How it works
 Everybody can mint a Traveler Loot NFT on Ethereum, by using Etherscan here:
 __ADD_LINK__ or by using our native frontend here: __ADD_LINK__
 
