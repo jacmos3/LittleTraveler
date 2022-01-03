@@ -1348,7 +1348,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     address private constant PH_USERS = address(1);
     address private constant PH_PATRONS = address(2);
-    address private constant PH_ORIGINAL_LOOT = address(3);
+    address private constant PH_OG_LOOT = address(3);
     address private constant PH_CONQUERORS = address(4);
     address private constant PH_OWNER = address(0);
 
@@ -1398,7 +1398,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
       detailsByAddress[PH_USERS] = LootDetails({color:BLACK,familyType:"",familyName:"",counter:0,verified:true});
       detailsByAddress[PH_PATRONS] = LootDetails({color:"#F87151",familyType:"PATRON",familyName:"",counter:0,verified:true});
-      detailsByAddress[PH_ORIGINAL_LOOT] = LootDetails({color:GOLD,familyType:"PATRON",familyName:"Loot (for Adventurers)",counter:0,verified:true});
+      detailsByAddress[PH_OG_LOOT] = LootDetails({color:GOLD,familyType:"PATRON",familyName:"Loot (for Adventurers)",counter:0,verified:true});
       detailsByAddress[PH_CONQUERORS] = LootDetails({color:WHITE,familyType:"CONQUEROR",familyName:"",counter:0,verified:true});
       detailsByAddress[PH_OWNER] = LootDetails({color:BLACK,familyType:" ",familyName:"",counter:0,verified:true});
 
@@ -1481,7 +1481,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return newCount > winningCount ? (newAddress, newCount) : (winningAddress, winningCount);
     }
 
-    // It only compares original loot & loot-derivatives scores between them.
+    // It only compares OG loot & loot-derivatives scores between them.
     // It excludes contract owner, patron and standard, because not qualified for the competition
     function whoIsWinning() public view returns (address, uint16){
       if (conqueror.elected){
@@ -1490,7 +1490,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       address winningLoot = guilds[0].contractAddress;
       uint16 winningCount = uint16(detailsByAddress[winningLoot].counter);
 
-      for (uint8 i = 1; i < 15; i++){
+      for (uint8 i = 1; i < guilds.length; i++){
         (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, guilds[i].contractAddress, uint16(detailsByAddress[guilds[i].contractAddress].counter));
       }
       return (winningLoot, winningCount);
@@ -1537,8 +1537,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             details.color = colors[enrolledGuild++];
         }
 
-        // tokenIds are discreetized, so first-come-first-served rule is applied!
-        uint16 discreetId = uint16(tokenId % MAX_FOR_GUILDS);
+        // tokenIds are discretized, so first-come-first-served rule is applied!
+        uint16 discretId = uint16(tokenId % MAX_FOR_GUILDS);
 
         if (++guildCounter == MAX_FOR_GUILDS){
             (conqueror.addr, conqueror.count) = whoIsWinning();
@@ -1555,7 +1555,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     // It mints the Traveler Loot using the address as tokenId.
     // Only particular cases can access to this:
     // - Users who decide to become Patrons by paying the patronPrice
-    // - Conqueror members, as the prize for have won the competition
+    // - Conqueror Guild members, as the prize for have won the competition
+    // - OG Loot owners, as privilegiate users till @dhof 40 bday or till Conqueror Guild election
     function reservedMinting(address addr,uint8 percentage, bool positive) internal{
       uint160 castedAddress = uint160(_msgSender());
       require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
@@ -1583,7 +1584,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
 
         // After this mint, the price for patrons will be decreased by 5%
-        reservedMinting(PH_ORIGINAL_LOOT, 5, false);
+        reservedMinting(PH_OG_LOOT, 5, false);
     }
 
     // Conquerors can become Patron.
