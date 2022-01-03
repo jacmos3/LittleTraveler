@@ -1297,12 +1297,12 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_NOT_THE_OWNER = "You do not own token(s) of the address";
     string private constant ERROR_DOM_40TH_BIRTHDAY = "Only valid till Dom's 40th bday";
     string private constant ERROR_LOW_VALUE = "Set a higher value";
-    string private constant ERROR_COMPETITION_ENDED = "Competition has ended. Check the conqueror!";
+    string private constant ERROR_COMPETITION_ENDED = "Competition has ended. Check the Conqueror!";
     string private constant ERROR_COMPETITION_ONGOING = "Competition is still ongoing!";
     string private constant ERROR_OWNER_NOT_ALLOWED = "Use claimForOwner() instead";
     string private constant ERROR_ALREADY_ACTIVATED = "Already activated";
     string private constant ERROR_COME_BACK_LATER = "Come back later";
-    string private constant ERROR_WITHDRAW_NEEDED = "Treasurer already changed. Perform a withdrawal before change it again";
+    string private constant ERROR_WITHDRAW_NEEDED = "Treasurer already changed. Perform a withdrawal before changing it";
 
     struct LootDetails {
         string familyType;
@@ -1336,7 +1336,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     mapping(address => LootDetails) public detailsByAddress;
     mapping(uint256 => address) public addressList;
 
-    uint8 public enrolledDerivative = 0;
+    uint8 public enrolledGuild = 0;
     uint16 private guildCounter = 0;
     uint16 public constant MAX_ID = 10000;
     uint16 public constant MAX_FOR_OWNER = 100;
@@ -1533,8 +1533,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         IERC721 looter = IERC721(contractAddress);
         require(tokenId > 0 && looter.ownerOf(tokenId) == _msgSender(), ERROR_NOT_THE_OWNER);
-        if (details.counter == 0 && enrolledDerivative < colors.length && contractAddress != guilds[0].contractAddress){
-            details.color = colors[enrolledDerivative++];
+        if (details.counter == 0 && enrolledGuild < colors.length && contractAddress != guilds[0].contractAddress){
+            details.color = colors[enrolledGuild++];
         }
 
         //tokenIds are discreetized, so first-come-first-served rule is applied!
@@ -1566,7 +1566,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     //Becoming a Patron. Requires payment.
     function claimForPatrons() external payable nonReentrant checkStart{
         require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
-        
+
         if (priceForPatrons < INITIAL_PRICE_FOR_PATRONS){
           priceForPatrons == INITIAL_PRICE_FOR_PATRONS;
         }
