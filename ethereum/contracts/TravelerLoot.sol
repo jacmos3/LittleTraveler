@@ -1470,7 +1470,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
      return toRet;
    }
 
-    //Given a guild loot-derivative address, returns the count for that addr
+    // Given a guild loot-derivative address, returns the count for that addr
     function counts(address addr) external view returns (uint256){
         LootDetails memory details = detailsByAddress[addr];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
@@ -1481,8 +1481,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return newCount > winningCount ? (newAddress, newCount) : (winningAddress, winningCount);
     }
 
-    //It only compares original loot & loot-derivatives scores between them.
-    //It excludes contract owner, patron and standard because not qualified for the competition
+    // It only compares original loot & loot-derivatives scores between them.
+    // It excludes contract owner, patron and standard, because not qualified for the competition
     function whoIsWinning() public view returns (address, uint16){
       if (conqueror.elected){
         return (conqueror.addr,conqueror.count);
@@ -1496,7 +1496,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       return (winningLoot, winningCount);
     }
 
-    //Rebalancing the price that patrons will have to pay
+    // Rebalancing the price that patrons will have to pay
     function rebalancePrice(uint256 id, address addr, uint8 percentage, bool positive) internal{
       if (percentage != 0){
         uint160 x = priceForPatrons / (100 / percentage);
@@ -1506,7 +1506,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       addressList[id] = addr;
     }
 
-    //Everyone can claim for free (+ gas) an available tokenId
+    // Everyone can claim an available tokenId for free (+ gas)
     function claim(uint256 tokenId) external nonReentrant checkStart {
         require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
         require(tokenId > MAX_FOR_GUILDS + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
@@ -1515,7 +1515,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         _safeMint(_msgSender(), tokenId);
     }
 
-    //Owner can claim it's reserved tokenIds.
+    // Owners can claim their reserved tokenIds.
     function claimForOwner(uint256 tokenId) external nonReentrant onlyOwner checkStart{
         require(tokenId > MAX_FOR_GUILDS && tokenId <= MAX_FOR_GUILDS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
         //after this mint, the price for patrons will remain the same
@@ -1523,10 +1523,10 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         _safeMint(_msgSender(), tokenId);
     }
 
-    //Guilds can use this function to mint a forged Traveler Loot.
-    //Forged TL are recognizable by a colored line on top of the NFT.
-    //When all the forgeable TL are minted, the guild who forged the most becomes
-    //Conqueror. All it's members gain access to claimForConquerors() function
+    // Guilds can use this function to mint a forged Traveler Loot.
+    // Forged TLs are recognizable by a colored line on the NFT.
+    // When all the forgeable TLs are minted, the guild who forged the most becomes
+    // Conqueror. All their members gain access to claimForConquerors() function
     function claimForGuilds(uint256 tokenId, address contractAddress) external nonReentrant checkStart{
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         LootDetails storage details = detailsByAddress[contractAddress];
@@ -1537,7 +1537,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             details.color = colors[enrolledGuild++];
         }
 
-        //tokenIds are discreetized, so first-come-first-served rule is applied!
+        // tokenIds are discreetized, so first-come-first-served rule is applied!
         uint16 discreetId = uint16(tokenId % MAX_FOR_GUILDS);
 
         if (++guildCounter == MAX_FOR_GUILDS){
@@ -1546,16 +1546,16 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             detailsByAddress[PH_CONQUERORS].color = details.color;
             detailsByAddress[PH_CONQUERORS].familyName = details.familyName;
         }
-        //after this mint, the price for patrons will be increased by 1%
+        // after this mint, the price for patrons will be increased by 1%
         uint16 finalId = discreetId == 0 ? MAX_FOR_GUILDS : discreetId;
         rebalancePrice(finalId, contractAddress, 1, true);
         _safeMint(_msgSender(), finalId);
     }
 
-    //It mints the Traveler Loot using the address as tokenId.
-    //Only particular cases can access to this:
-    //- Users who decide to become Patrons by paying the patronPrice
-    //- Conqueror members, as the prize for have won the competition
+    // It mints the Traveler Loot using the address as tokenId.
+    // Only particular cases can access to this:
+    // - Users who decide to become Patrons by paying the patronPrice
+    // - Conqueror members, as the prize for have won the competition
     function reservedMinting(address addr,uint8 percentage, bool positive) internal{
       uint160 castedAddress = uint160(_msgSender());
       require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
@@ -1563,35 +1563,35 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       _safeMint(_msgSender(), castedAddress);
     }
 
-    //Becoming a Patron. Requires payment.
+    // Becoming a Patron. Requires payment.
     function claimForPatrons() external payable nonReentrant checkStart{
         require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
 
         if (priceForPatrons < INITIAL_PRICE_FOR_PATRONS){
           priceForPatrons == INITIAL_PRICE_FOR_PATRONS;
         }
-        //after this mint, the price for next patrons will be increased by 5%
+        // After this mint, the price for next patrons will be increased by 5%
         reservedMinting(PH_PATRONS, 5, true);
     }
 
-    //- Loot (for Adventurers) holders can become Patrons for free if:
+    // - Loot (for Adventurers) holders can become Patrons for free if:
     //   . the Conqueror Guild is not yet elected,
-    //   . or Dominik Hoffman (@dhof) is younger than 40 yo.
+    //   . or Dominik Hoffman (@dhof) is younger than 40 y/o.
     function claimForLooters() external nonReentrant checkStart{
         require(IERC721(guilds[0].contractAddress).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
 
-        //after this mint, the price for patrons will be decreased by 5%
+        // After this mint, the price for patrons will be decreased by 5%
         reservedMinting(PH_ORIGINAL_LOOT, 5, false);
     }
 
-    //Conquerors can become Patron.
-    //Each member of Conqueror Guild will have access to this function for free.
+    // Conquerors can become Patron.
+    // Each member of Conqueror Guild will have access to this function for free.
     function claimForConquerors() external nonReentrant checkStart{
         require(conqueror.elected, ERROR_COMPETITION_ONGOING);
         require(IERC721(conqueror.addr).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
-        //after this mint, the price for patrons is increased by 2%
+        // After this mint, the price for patrons is increased by 2%
         reservedMinting(PH_CONQUERORS, 2, true);
     }
 
@@ -1601,12 +1601,12 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       canChangeTreasurer = true; //release treasurer
     }
 
-    //owner calls this function with lockTreasurer = true if the intent is to do
-    //a donation to a public-good project. Lock guarantees that nobody (nor the
-    //owner) can change treasurer till the donation is made.
-    //owner calls this function with lockTreasurer = false if the intent is to
-    //keep open the chance to change the treasurer even if no any withdrawal has
-    //been performed in the meanwhile
+    // Owner calls this function with lockTreasurer = true if the intent is to do
+    // a donation to a public-good project. Lock guarantees that nobody (not even the
+    // owner) can change treasurer till the donation is made.
+    // Owner calls this function with lockTreasurer = false if the intent is to
+    // keep open the chance to change the treasurer even if no any withdrawal has
+    // been performed in the meanwhile.
     function setTreasurer(address newAddress, bool lockTreasurer) external onlyOwner{
       require(canChangeTreasurer, ERROR_WITHDRAW_NEEDED); //this is a safety measure for when donating to public goods
       if (lockTreasurer){
@@ -1620,7 +1620,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     function activateClaims() external onlyOwner{
       require (blockActivation == 0, ERROR_ALREADY_ACTIVATED);
-      //mint activating
+      // Mint activating
       blockActivation = block.number + LOCK_TIME;
     }
 
