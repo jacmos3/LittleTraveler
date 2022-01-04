@@ -1547,7 +1547,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
             detailsByAddress[PH_CONQUERORS].familyName = details.familyName;
         }
         // after this mint, the price for patrons will be increased by 1%
-        uint16 finalId = discreetId == 0 ? MAX_FOR_GUILDS : discreetId;
+        uint16 finalId = discretId == 0 ? MAX_FOR_GUILDS : discretId;
         rebalancePrice(finalId, contractAddress, 1, true);
         _safeMint(_msgSender(), finalId);
     }
