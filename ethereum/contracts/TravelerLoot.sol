@@ -1291,6 +1291,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant BLACK = "black";
     string private constant GOLD = "gold";
     string private constant PLATINUM = "#D5D6D8";
+    string private constant GUILD = "GUILD";
+    string private constant PATRON = "PATRON";
+    string private constant CONQUEROR = "CONQUEROR";
     uint160 private constant INITIAL_PRICE_FOR_PATRONS = 1 ether;
     string private constant ERROR_TOKEN_ID_INVALID = "Token ID invalid";
     string private constant ERROR_ADDRESS_NOT_VERIFIED = "Address not verified. Try another";
@@ -1303,6 +1306,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_ALREADY_ACTIVATED = "Already activated";
     string private constant ERROR_COME_BACK_LATER = "Come back later";
     string private constant ERROR_WITHDRAW_NEEDED = "Treasurer already changed. Perform a withdrawal before changing it";
+    string private constant ERROR_GUILD_ALREADY_WHITELISTED = "Guild already whitelisted!";
+    string private constant ERROR_CANNOT_ADD_THIS_CONTRACT = "Not possible";
+    string private constant ERROR_NOT_ENTITLED = "Check conditions before add to whitelist";
 
     struct LootDetails {
         string familyType;
@@ -1324,12 +1330,10 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       uint256 blockNumber;
     }
 
-    struct Guild {
-      string name;
-      address contractAddress;
+    struct Initial{
+        address addr;
+        string symbol;
     }
-
-    Guild[15] public guilds;
     Conqueror public conqueror;
     Treasurer public treasurer;
     bool public canChangeTreasurer = true;
@@ -1339,6 +1343,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint8 public enrolledGuild = 0;
     uint16 private guildCounter = 0;
     uint16 public constant MAX_ID = 10000;
+    uint16 public standardCounter = 0;
     uint16 public constant MAX_FOR_OWNER = 100;
     uint16 public constant MAX_FOR_GUILDS = 900;
     uint16 public constant LOCK_TIME = 5760 * 3; //it's three days
@@ -1352,12 +1357,11 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     address private constant PH_CONQUERORS = address(4);
     address private constant PH_OWNER = address(0);
 
-   string[] private colors = ["#726e6e","#464A97","#6eb7e5","#8d734a","#4bbda9","#122b03","#887eaf","#e2a5a2","#d45b5b","#af4242","#91a18b","#935e7e","#c37ec8","#53cf32"];
    string[] private categories = ["ENVIRONMENT","TALENT","PLACE","CHARACTER","TRANSPORT","LANGUAGE","EXPERIENCE","OCCUPATION","ACCOMMODATION","BAG"];
-
+   address[] public whiteListedGuilds;
    mapping(string => string[]) elements;
 
-    constructor() ERC721("TravelerLoot", "TRAVELER") Ownable(){
+    constructor() ERC721("TravelerLoot", "TRVLR") Ownable(){
       uint256 blockNumber = block.number;
       treasurer.old = address(0);
       treasurer.current = INITIAL_TREASURER;
@@ -1374,33 +1378,40 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       elements[categories[8]] = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
       elements[categories[9]] = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwear","Condoms"];
 
-      guilds[0] = Guild({name:"LOOT",contractAddress:0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7});
-      guilds[1] = Guild({name:"AL",contractAddress:0xcC56775606730C96eA245D9cF3890247f1c57FB1});
-      guilds[2] = Guild({name:"CHAR",contractAddress:0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3});
-      guilds[3] = Guild({name:"CYBERLOOT",contractAddress:0x13a48f723f4AD29b6da6e7215Fe53172C027d98f});
-      guilds[4] = Guild({name:"DOGGO",contractAddress:0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f});
-      guilds[5] = Guild({name:"GMANA",contractAddress:0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463});
-      guilds[6] = Guild({name:"LOOTC",contractAddress:0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2});
-      guilds[7] = Guild({name:"LootHymns",contractAddress:0x83f1d1396B19Fed8FBb31Ed189579D07362d661d});
-      guilds[8] = Guild({name:"LootRealm",contractAddress:0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d});
-      guilds[9] = Guild({name:"LootRock",contractAddress:0xeC43a2546625c4C82D905503bc83e66262f0EF84});
-      guilds[10] = Guild({name:"MLOOT",contractAddress:0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF});
-      guilds[11] = Guild({name:"NAME",contractAddress:0xb9310aF43F4763003F42661f6FC098428469aDAB});
-      guilds[12] = Guild({name:"QUESTS",contractAddress:0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d});
-      guilds[13] = Guild({name:"SCORE",contractAddress:0x42A87e04f87A038774fb39c0A61681e7e859937b});
-      guilds[14] = Guild({name:"TREASURE",contractAddress:0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa});
 
+    // START DEFAULT WHITELISTED LOOT DERIVATIVE
+    // NOTE: new derivatives can be added by calling the function addNewGuildToWhiteList()
+        Initial[15] memory initials;
+        initials[0] = Initial({addr:0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7,symbol:"LOOT"});
+        initials[1] = Initial({addr:0xcC56775606730C96eA245D9cF3890247f1c57FB1,symbol:"AL"});
+        initials[2] = Initial({addr:0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3,symbol:"CHAR"});
+        initials[3] = Initial({addr:0x13a48f723f4AD29b6da6e7215Fe53172C027d98f,symbol:"CYBERLOOT"});
+        initials[4] = Initial({addr:0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f,symbol:"DOGGO"});
+        initials[5] = Initial({addr:0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463,symbol:"GMANA"});
+        initials[6] = Initial({addr:0x83f1d1396B19Fed8FBb31Ed189579D07362d661d,symbol:"LootHymns"});
+        initials[7] = Initial({addr:0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d,symbol:"LootRealm"});
+        initials[8] = Initial({addr:0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2,symbol:"LOOTC"});
+        initials[9] = Initial({addr:0xeC43a2546625c4C82D905503bc83e66262f0EF84,symbol:"LootRock (for adventurers)"});
+        initials[10] = Initial({addr:0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF,symbol:"MLOOT"});
+        initials[11] = Initial({addr:0xb9310aF43F4763003F42661f6FC098428469aDAB,symbol:"NAME"});
+        initials[12] = Initial({addr:0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d,symbol:"QUESTS"});
+        initials[13] = Initial({addr:0x42A87e04f87A038774fb39c0A61681e7e859937b,symbol:"SCORE"});
+        initials[14] = Initial({addr:0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa,symbol:"TREASURE"});
 
-      detailsByAddress[guilds[0].contractAddress] = LootDetails({color:PLATINUM,familyType:"GUILD",familyName:guilds[0].name,counter:0,verified:true});
-      for (uint8 i = 1; i < guilds.length; i++){
-        detailsByAddress[guilds[i].contractAddress] = LootDetails({color:BLACK,familyType:"GUILD",familyName:guilds[i].name,counter:0,verified:true});
-      }
+    // END DEFAULT WHITELISTED DERIVATIVES
 
       detailsByAddress[PH_USERS] = LootDetails({color:BLACK,familyType:"",familyName:"",counter:0,verified:true});
-      detailsByAddress[PH_PATRONS] = LootDetails({color:"#F87151",familyType:"PATRON",familyName:"",counter:0,verified:true});
-      detailsByAddress[PH_OG_LOOT] = LootDetails({color:GOLD,familyType:"PATRON",familyName:"Loot (for Adventurers)",counter:0,verified:true});
-      detailsByAddress[PH_CONQUERORS] = LootDetails({color:WHITE,familyType:"CONQUEROR",familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_PATRONS] = LootDetails({color:"#F87151",familyType:PATRON,familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_OG_LOOT] = LootDetails({color:GOLD,familyType:PATRON,familyName:"Loot (for Adventurers)",counter:0,verified:true});
+      detailsByAddress[PH_CONQUERORS] = LootDetails({color:WHITE,familyType:CONQUEROR,familyName:"",counter:0,verified:true});
       detailsByAddress[PH_OWNER] = LootDetails({color:BLACK,familyType:" ",familyName:"",counter:0,verified:true});
+
+     for (uint16 i = 0; i < initials.length; i++){
+        Initial memory initial = initials[i];
+        whiteListedGuilds.push(initial.addr);
+        detailsByAddress[initial.addr] = LootDetails({color:BLACK,familyType:GUILD,familyName:initial.symbol,counter:0,verified:true});
+     }
+      detailsByAddress[whiteListedGuilds[0]].color = PLATINUM;
 
     }
 
@@ -1409,132 +1420,30 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       _;
     }
 
-    function random(string memory input) internal pure returns (uint256) {
-        return uint256(keccak256(abi.encodePacked(input)));
-    }
-
-    function extractOutput(string[] memory sourceArray, uint8 toHoundred, string memory keyPrefix) internal view returns (string memory){
-        uint8 delta = toHoundred > 95 ? 1 : toHoundred > 80 ? 2 : 3;
-        uint8 len = uint8(sourceArray.length);
-        uint8 x = len / 3;
-        uint8 min = len - (delta * x);
-        uint8 max = (len - 1) - ((delta - 1) * x);
-        uint8 rand = uint8((random(string(abi.encodePacked(msg.sender, toHoundred, keyPrefix ))) % (max - min + 1)) + min);
-        return sourceArray[rand];
-    }
-
-    function getElement(uint256 tokenId, uint8 categoryId) public view returns (string memory){
-      return pluck(tokenId, categories[categoryId], elements[categories[categoryId]]);
-    }
-
-    function pluck(uint256 tokenId, string memory keyPrefix, string[] memory sourceArray) internal view returns (string memory) {
-        uint256 rand = random(string(abi.encodePacked(keyPrefix, toString(tokenId))));
-        uint8 toHoundred = uint8(rand % 100);
-        string memory output = extractOutput(sourceArray,toHoundred, keyPrefix);
-
-        return output;
-    }
-
-    function addressURI(address addr) external view returns (string memory){
-        return tokenURI(uint160(addr));
-    }
-
-    function tokenURI(uint256 tokenId) override public view returns (string memory) {
-        LootDetails memory details = detailsByAddress[addressList[tokenId]];
-        string[4] memory parts;
-        parts[0] = string(abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.b { fill:white; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="black" /><text x="10" y="20" class="b">'));
-        parts[1] = string(abi.encodePacked(getElement(tokenId,0),'</text><text x="10" y="40" class="b">',getElement(tokenId,1),'</text><text x="10" y="60" class="b">',getElement(tokenId,2),'</text><text x="10" y="80" class="b">',getElement(tokenId,3),'</text><text x="10" y="100" class="b">',getElement(tokenId,4),'</text><text x="10" y="120" class="b">',getElement(tokenId,5)));
-        parts[2] = string(abi.encodePacked('</text><text x="10" y="140" class="b">',getElement(tokenId,6),'</text><text x="10" y="160" class="b">',getElement(tokenId,7),'</text><text x="10" y="180" class="b">',getElement(tokenId,8),'</text><text x="10" y="200" class="b">',getElement(tokenId,9),'</text>'));
-        parts[3] = string(abi.encodePacked('<line x1="0" x2="350" y1="300" y2="300" stroke="',details.color,'" stroke-width="4"/>','<text x="340" y="294" text-anchor="end" class="b">',details.familyType,'</text></svg>'));
-
-        string memory compact = string(abi.encodePacked(parts[0], parts[1], parts[2],parts[3]));
-        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler #', toString(tokenId), '", "description": "Traveler Loot is a Loot derivative for the Travel Industry, generated and stored on chain. Feel free to use the Traveler Loot in any way you want", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(compact)), '","attributes":[',metadata(tokenId,details),']}'))));
-
-        return string(abi.encodePacked('data:application/json;base64,', json));
-    }
-
-    function metadata(uint256 tokenId, LootDetails memory details) internal view returns (string memory){
-     string memory toRet = "";
-     for (uint8 i = 0; i < 10; i++){
-        toRet = string(abi.encodePacked(toRet,'{"trait_type":"', categories[i], '","value":"',getElement(tokenId,i),'"},'));
-     }
-     if (keccak256(abi.encodePacked(details.color)) != keccak256(abi.encodePacked(BLACK))) {
-      toRet = string(abi.encodePacked(toRet,'{"trait_type":"Type","value":"',details.familyType,'"}'));
-      toRet = string(abi.encodePacked(toRet,',{"trait_type":"Flag Color","value":"',details.color,'"}'));
-      toRet = string(abi.encodePacked(toRet,',{"trait_type":"',details.familyType,'","value":"',details.familyName,'"}'));
-     }
-     else{
-        toRet = string(abi.encodePacked(toRet,'{"trait_type":"Type","value":"EXPLORER"}'));
-     }
-
-     return toRet;
-   }
-
-    // Given a guild loot-derivative address, returns the count for that addr
-    function counts(address addr) external view returns (uint256){
-        LootDetails memory details = detailsByAddress[addr];
-        require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
-        return details.counter;
-    }
-
-    function checkWinning(address winningAddress, uint16 winningCount, address newAddress, uint16 newCount) internal pure returns(address,uint16){
-        return newCount > winningCount ? (newAddress, newCount) : (winningAddress, winningCount);
-    }
-
-    // It only compares OG loot & loot-derivatives scores between them.
-    // It excludes contract owner, patron and standard, because not qualified for the competition
-    function whoIsWinning() public view returns (address, uint16){
-      if (conqueror.elected){
-        return (conqueror.addr,conqueror.count);
-      }
-      address winningLoot = guilds[0].contractAddress;
-      uint16 winningCount = uint16(detailsByAddress[winningLoot].counter);
-
-      for (uint8 i = 1; i < guilds.length; i++){
-        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, guilds[i].contractAddress, uint16(detailsByAddress[guilds[i].contractAddress].counter));
-      }
-      return (winningLoot, winningCount);
-    }
-
-    // Rebalancing the price that patrons will have to pay
-    function rebalancePrice(uint256 id, address addr, uint8 percentage, bool positive) internal{
-      if (percentage != 0){
-        uint160 x = priceForPatrons / (100 / percentage);
-        priceForPatrons = positive ? priceForPatrons + x : priceForPatrons - x;
-      }
-      detailsByAddress[addr].counter++;
-      addressList[id] = addr;
-    }
+    // START EXTERNAL FUNCTIONS
 
     // Everyone can claim an available tokenId for free (+ gas)
-    function claim(uint256 tokenId) external nonReentrant checkStart {
+    function claim() external nonReentrant checkStart {
         require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
-        require(tokenId > MAX_FOR_GUILDS + MAX_FOR_OWNER && tokenId <= MAX_ID, ERROR_TOKEN_ID_INVALID);
+        standardCounter++;
+        require(standardCounter > MAX_FOR_GUILDS + MAX_FOR_OWNER && standardCounter <= MAX_ID, ERROR_TOKEN_ID_INVALID);
         //after this mint, the price for patrons will be decreased by 1%
-        rebalancePrice(tokenId,PH_USERS,1,false);
-        _safeMint(_msgSender(), tokenId);
-    }
-
-    // Owners can claim their reserved tokenIds.
-    function claimForOwner(uint256 tokenId) external nonReentrant onlyOwner checkStart{
-        require(tokenId > MAX_FOR_GUILDS && tokenId <= MAX_FOR_GUILDS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
-        //after this mint, the price for patrons will remain the same
-        rebalancePrice(tokenId,PH_OWNER,0,true);
-        _safeMint(_msgSender(), tokenId);
+        rebalancePrice(standardCounter,PH_USERS,1,false);
+        _safeMint(_msgSender(), standardCounter);
     }
 
     // Guilds can use this function to mint a forged Traveler Loot.
     // Forged TLs are recognizable by a colored line on the NFT.
     // When all the forgeable TLs are minted, the guild who forged the most becomes
     // Conqueror. All their members gain access to claimForConquerors() function
-    function claimForGuilds(uint256 tokenId, address contractAddress) external nonReentrant checkStart{
+    function claimByGuilds(uint256 tokenId, address contractAddress) external nonReentrant checkStart{
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         LootDetails storage details = detailsByAddress[contractAddress];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         IERC721 looter = IERC721(contractAddress);
         require(tokenId > 0 && looter.ownerOf(tokenId) == _msgSender(), ERROR_NOT_THE_OWNER);
-        if (details.counter == 0 && enrolledGuild < colors.length && contractAddress != guilds[0].contractAddress){
-            details.color = colors[enrolledGuild++];
+        if (details.counter == 0 && contractAddress != whiteListedGuilds[0]){
+            details.color = pickAColor();
         }
 
         // tokenIds are discretized, so first-come-first-served rule is applied!
@@ -1552,20 +1461,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         _safeMint(_msgSender(), finalId);
     }
 
-    // It mints the Traveler Loot using the address as tokenId.
-    // Only particular cases can access to this:
-    // - Users who decide to become Patrons by paying the patronPrice
-    // - Conqueror Guild members, as the prize for have won the competition
-    // - OG Loot owners, as privilegiate users till @dhof 40 bday or till Conqueror Guild election
-    function reservedMinting(address addr,uint8 percentage, bool positive) internal{
-      uint160 castedAddress = uint160(_msgSender());
-      require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
-      rebalancePrice(castedAddress, addr, percentage, positive);
-      _safeMint(_msgSender(), castedAddress);
-    }
-
-    // Becoming a Patron. Requires payment.
-    function claimForPatrons() external payable nonReentrant checkStart{
+    // Becoming a Patron. Requires payment
+    function claimByPatrons() external payable nonReentrant checkStart{
         require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
 
         if (priceForPatrons < INITIAL_PRICE_FOR_PATRONS){
@@ -1577,9 +1474,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     // - Loot (for Adventurers) holders can become Patrons for free if:
     //   . the Conqueror Guild is not yet elected,
-    //   . or Dominik Hoffman (@dhof) is younger than 40 y/o.
-    function claimForLooters() external nonReentrant checkStart{
-        require(IERC721(guilds[0].contractAddress).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
+    //   . or Dominik Hoffman (@dhof) is still younger than 40 y/o.
+    function claimByLooters() external nonReentrant checkStart{
+        require(IERC721(whiteListedGuilds[0]).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
 
@@ -1589,17 +1486,31 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     // Conquerors can become Patron.
     // Each member of Conqueror Guild will have access to this function for free.
-    function claimForConquerors() external nonReentrant checkStart{
+    function claimByConquerors() external nonReentrant checkStart{
         require(conqueror.elected, ERROR_COMPETITION_ONGOING);
         require(IERC721(conqueror.addr).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         // After this mint, the price for patrons is increased by 2%
         reservedMinting(PH_CONQUERORS, 2, true);
     }
 
+    // Owners can claim their reserved tokenIds.
+    function claimByOwner(uint256 tokenId) external nonReentrant onlyOwner checkStart{
+        require(tokenId > MAX_FOR_GUILDS && tokenId <= MAX_FOR_GUILDS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
+        //after this mint, the price for patrons will remain the same
+        rebalancePrice(tokenId,PH_OWNER,0,true);
+        _safeMint(_msgSender(), tokenId);
+    }
+
+    function activateClaims() external onlyOwner{
+      require (blockActivation == 0, ERROR_ALREADY_ACTIVATED);
+      // Mint activating
+      blockActivation = block.number + LOCK_TIME;
+    }
+
     function withdraw() external onlyOwner {
       require(block.number >= treasurer.blockNumber, ERROR_COME_BACK_LATER);
-      payable(treasurer.current).transfer(address(this).balance);
       canChangeTreasurer = true; //release treasurer
+      payable(treasurer.current).transfer(address(this).balance);
     }
 
     // Owner calls this function with lockTreasurer = true if the intent is to do
@@ -1619,10 +1530,159 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       treasurer.blockNumber = blockNumber;
     }
 
-    function activateClaims() external onlyOwner{
-      require (blockActivation == 0, ERROR_ALREADY_ACTIVATED);
-      // Mint activating
-      blockActivation = block.number + LOCK_TIME;
+    // You can add a new contracts to the whitelist, if:
+    // - You own at least 50 Traveler Loots in your address
+    // - Or if you have mint a Patron version by using claimForPatrons() or claimForLooters() functions (no matter if you still have it or not)
+    // - Or if you are the owner of this Contract
+    // But remember: you should do that before the competition ends.
+    function addNewGuildToWhiteList(address[] calldata addresses) nonReentrant external {
+        require(!conqueror.elected, ERROR_COMPETITION_ENDED);
+
+        for (uint8 j = 0; j< addresses.length; j++){
+            address addr = addresses[j];
+            require(address(this) != addr, ERROR_CANNOT_ADD_THIS_CONTRACT);
+            require(IERC721(address(this)).balanceOf(_msgSender()) > 50
+                        || _exists(uint160(_msgSender()))
+                        || owner() == _msgSender()
+                    ,ERROR_NOT_ENTITLED);
+            for (uint16 i = 0; i < whiteListedGuilds.length; i++){
+                require(whiteListedGuilds[i] != addr, ERROR_GUILD_ALREADY_WHITELISTED);
+            }
+            whiteListedGuilds.push(addr);
+            detailsByAddress[addr] = LootDetails({color:BLACK,familyType:GUILD,familyName:familyName(addr),counter:0,verified:true});
+        }
+    }
+
+    function addressURI(address addr) external view returns (string memory){
+        return tokenURI(uint160(addr));
+    }
+
+    // Given a guild loot-derivative address, returns the count for that addr
+    function getGuildCounter(address addr) external view returns (uint256){
+        LootDetails memory details = detailsByAddress[addr];
+        require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
+        return details.counter;
+    }
+
+    function getWhiteListedGuilds() external view returns (address[] memory){
+        return whiteListedGuilds;
+    }
+    // END EXTERNAL FUNCTIONS
+
+    // START PUBLIC FUNCTIONS
+    function getElement(uint256 tokenId, uint8 categoryId) public view returns (string memory){
+      return pluck(tokenId, categories[categoryId], elements[categories[categoryId]]);
+    }
+
+    function tokenURI(uint256 tokenId) override public view returns (string memory) {
+        LootDetails memory details = detailsByAddress[addressList[tokenId]];
+        string[4] memory parts;
+        parts[0] = string(abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.b { fill:white; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="black" /><text x="10" y="20" class="b">'));
+        parts[1] = string(abi.encodePacked(getElement(tokenId,0),'</text><text x="10" y="40" class="b">',getElement(tokenId,1),'</text><text x="10" y="60" class="b">',getElement(tokenId,2),'</text><text x="10" y="80" class="b">',getElement(tokenId,3),'</text><text x="10" y="100" class="b">',getElement(tokenId,4),'</text><text x="10" y="120" class="b">',getElement(tokenId,5)));
+        parts[2] = string(abi.encodePacked('</text><text x="10" y="140" class="b">',getElement(tokenId,6),'</text><text x="10" y="160" class="b">',getElement(tokenId,7),'</text><text x="10" y="180" class="b">',getElement(tokenId,8),'</text><text x="10" y="200" class="b">',getElement(tokenId,9),'</text>'));
+        parts[3] = string(abi.encodePacked('<line x1="0" x2="350" y1="300" y2="300" stroke="',details.color,'" stroke-width="4"/>','<text x="340" y="294" text-anchor="end" class="b">',details.familyType,'</text></svg>'));
+
+        string memory compact = string(abi.encodePacked(parts[0], parts[1], parts[2],parts[3]));
+        string memory json = Base64.encode(bytes(string(abi.encodePacked('{"name": "Traveler #', toString(tokenId), '", "description": "Traveler Loot is a Loot derivative for the Travel Industry, generated and stored on chain. Feel free to use the Traveler Loot in any way you want", "image": "data:image/svg+xml;base64,', Base64.encode(bytes(compact)), '","attributes":[',metadata(tokenId,details),']}'))));
+
+        return string(abi.encodePacked('data:application/json;base64,', json));
+    }
+
+    // It only compares OG loot & loot-derivatives scores between them.
+    // It excludes contract owner, patron and standard, because not qualified for the competition
+    function whoIsWinning() public view returns (address, uint16){
+      if (conqueror.elected){
+        return (conqueror.addr,conqueror.count);
+      }
+      address winningLoot = whiteListedGuilds[0];
+      uint16 winningCount = uint16(detailsByAddress[winningLoot].counter);
+
+      for (uint8 i = 1; i < whiteListedGuilds.length; i++){
+        address addr = whiteListedGuilds[i];
+        (winningLoot, winningCount) = checkWinning(winningLoot,winningCount, addr, uint16(detailsByAddress[addr].counter));
+      }
+      return (winningLoot, winningCount);
+    }
+    // END PUBLIC FUNCTIONS
+
+    // INTERNAL FUNCTIONS
+    function pickAColor() internal view returns (string memory){
+        string[16] memory list = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
+        string memory color = "#";
+        for (uint8 i=0; i<6;i++){
+          uint rand = uint(keccak256(abi.encodePacked(block.difficulty, block.timestamp, i )));
+          color = string(abi.encodePacked(color,list[rand % list.length]));
+        }
+        return color;
+    }
+
+    function familyName(address addr) internal view returns (string memory){
+      return IERC721Metadata(addr).symbol();
+    }
+
+    function random(string memory input) internal pure returns (uint256) {
+        return uint256(keccak256(abi.encodePacked(input)));
+    }
+
+    // Rebalancing the price that patrons will have to pay
+    function rebalancePrice(uint256 id, address addr, uint8 percentage, bool positive) internal{
+      if (percentage != 0){
+        uint160 x = priceForPatrons / (100 / percentage);
+        priceForPatrons = positive ? priceForPatrons + x : priceForPatrons - x;
+      }
+      detailsByAddress[addr].counter++;
+      addressList[id] = addr;
+    }
+
+    function extractOutput(string[] memory sourceArray, uint8 toHoundred, string memory keyPrefix) internal view returns (string memory){
+        uint8 delta = toHoundred > 95 ? 1 : toHoundred > 80 ? 2 : 3;
+        uint8 len = uint8(sourceArray.length);
+        uint8 x = len / 3;
+        uint8 min = len - (delta * x);
+        uint8 max = (len - 1) - ((delta - 1) * x);
+        uint8 rand = uint8((random(string(abi.encodePacked(msg.sender, toHoundred, keyPrefix ))) % (max - min + 1)) + min);
+        return sourceArray[rand];
+    }
+
+    // It mints the Traveler Loot using the address as tokenId.
+    // Only particular cases can access to this:
+    // - Users who decide to become Patrons by paying the patronPrice
+    // - Conqueror Guild members, as the prize for have won the competition
+    // - OG Loot owners, as privilegiate users till @dhof 40 bday or till Conqueror Guild election
+    function reservedMinting(address addr,uint8 percentage, bool positive) internal{
+      uint160 castedAddress = uint160(_msgSender());
+      require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
+      rebalancePrice(castedAddress, addr, percentage, positive);
+      _safeMint(_msgSender(), castedAddress);
+    }
+
+     function pluck(uint256 tokenId, string memory keyPrefix, string[] memory sourceArray) internal view returns (string memory) {
+        uint256 rand = random(string(abi.encodePacked(keyPrefix, toString(tokenId))));
+        uint8 toHoundred = uint8(rand % 100);
+        string memory output = extractOutput(sourceArray,toHoundred, keyPrefix);
+
+        return output;
+    }
+
+    function metadata(uint256 tokenId, LootDetails memory details) internal view returns (string memory){
+     string memory toRet = "";
+     for (uint8 i = 0; i < 10; i++){
+        toRet = string(abi.encodePacked(toRet,'{"trait_type":"', categories[i], '","value":"',getElement(tokenId,i),'"},'));
+     }
+     if (keccak256(abi.encodePacked(details.color)) != keccak256(abi.encodePacked(BLACK))) {
+      toRet = string(abi.encodePacked(toRet,'{"trait_type":"Type","value":"',details.familyType,'"}'));
+      toRet = string(abi.encodePacked(toRet,',{"trait_type":"Flag Color","value":"',details.color,'"}'));
+      toRet = string(abi.encodePacked(toRet,',{"trait_type":"',details.familyType,'","value":"',details.familyName,'"}'));
+     }
+     else{
+        toRet = string(abi.encodePacked(toRet,'{"trait_type":"Type","value":"EXPLORER"}'));
+     }
+
+     return toRet;
+   }
+
+    function checkWinning(address winningAddress, uint16 winningCount, address newAddress, uint16 newCount) internal pure returns(address,uint16){
+        return newCount > winningCount ? (newAddress, newCount) : (winningAddress, winningCount);
     }
 
     function toString(uint256 value) internal pure returns (string memory) {
@@ -1646,6 +1706,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         }
         return string(buffer);
     }
+    //END INTERNAL FUNCTIONS
 }
 
 
