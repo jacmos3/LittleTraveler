@@ -1302,7 +1302,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_LOW_VALUE = "Set a higher value";
     string private constant ERROR_COMPETITION_ENDED = "Competition has ended. Check the Conqueror!";
     string private constant ERROR_COMPETITION_ONGOING = "Competition is still ongoing!";
-    string private constant ERROR_OWNER_NOT_ALLOWED = "Use claimForOwner() instead";
+    string private constant ERROR_OWNER_NOT_ALLOWED = "Use claimByOwner() instead";
     string private constant ERROR_ALREADY_ACTIVATED = "Already activated";
     string private constant ERROR_COME_BACK_LATER = "Come back later";
     string private constant ERROR_WITHDRAW_NEEDED = "Treasurer already changed. Perform a withdrawal before changing it";
@@ -1310,7 +1310,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_CANNOT_ADD_THIS_CONTRACT = "Not possible";
     string private constant ERROR_NOT_ENTITLED = "Check conditions before add to whitelist";
 
-    struct LootDetails {
+    struct Traveler {
         string familyType;
         string familyName;
         string color;
@@ -1337,7 +1337,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     Conqueror public conqueror;
     Treasurer public treasurer;
     bool public canChangeTreasurer = true;
-    mapping(address => LootDetails) public detailsByAddress;
+    mapping(address => Traveler) public detailsByAddress;
     mapping(uint256 => address) public addressList;
 
     uint8 public enrolledGuild = 0;
@@ -1400,16 +1400,16 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     // END DEFAULT WHITELISTED DERIVATIVES
 
-      detailsByAddress[PH_USERS] = LootDetails({color:BLACK,familyType:"",familyName:"",counter:0,verified:true});
-      detailsByAddress[PH_PATRONS] = LootDetails({color:"#F87151",familyType:PATRON,familyName:"",counter:0,verified:true});
-      detailsByAddress[PH_OG_LOOT] = LootDetails({color:GOLD,familyType:PATRON,familyName:"Loot (for Adventurers)",counter:0,verified:true});
-      detailsByAddress[PH_CONQUERORS] = LootDetails({color:WHITE,familyType:CONQUEROR,familyName:"",counter:0,verified:true});
-      detailsByAddress[PH_OWNER] = LootDetails({color:BLACK,familyType:" ",familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_USERS] = Traveler({color:BLACK,familyType:"",familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_PATRONS] = Traveler({color:"#F87151",familyType:PATRON,familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_OG_LOOT] = Traveler({color:GOLD,familyType:PATRON,familyName:"Loot (for Adventurers)",counter:0,verified:true});
+      detailsByAddress[PH_CONQUERORS] = Traveler({color:WHITE,familyType:CONQUEROR,familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_OWNER] = Traveler({color:BLACK,familyType:" ",familyName:"",counter:0,verified:true});
 
      for (uint16 i = 0; i < initials.length; i++){
         Initial memory initial = initials[i];
         whiteListedGuilds.push(initial.addr);
-        detailsByAddress[initial.addr] = LootDetails({color:BLACK,familyType:GUILD,familyName:initial.symbol,counter:0,verified:true});
+        detailsByAddress[initial.addr] = Traveler({color:BLACK,familyType:GUILD,familyName:initial.symbol,counter:0,verified:true});
      }
       detailsByAddress[whiteListedGuilds[0]].color = PLATINUM;
 
@@ -1435,10 +1435,10 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     // Guilds can use this function to mint a forged Traveler Loot.
     // Forged TLs are recognizable by a colored line on the NFT.
     // When all the forgeable TLs are minted, the guild who forged the most becomes
-    // Conqueror. All their members gain access to claimForConquerors() function
+    // Conqueror. All their members gain access to claimByConquerors() function
     function claimByGuilds(uint256 tokenId, address contractAddress) external nonReentrant checkStart{
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
-        LootDetails storage details = detailsByAddress[contractAddress];
+        Traveler storage details = detailsByAddress[contractAddress];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         IERC721 looter = IERC721(contractAddress);
         require(tokenId > 0 && looter.ownerOf(tokenId) == _msgSender(), ERROR_NOT_THE_OWNER);
@@ -1475,7 +1475,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     // - Loot (for Adventurers) holders can become Patrons for free if:
     //   . the Conqueror Guild is not yet elected,
     //   . or Dominik Hoffman (@dhof) is still younger than 40 y/o.
-    function claimByLooters() external nonReentrant checkStart{
+    function claimByOGLooters() external nonReentrant checkStart{
         require(IERC721(whiteListedGuilds[0]).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
@@ -1532,7 +1532,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     // You can add a new contracts to the whitelist, if:
     // - You own at least 50 Traveler Loots in your address
-    // - Or if you have mint a Patron version by using claimForPatrons() or claimForLooters() functions (no matter if you still have it or not)
+    // - Or if you have mint a Patron version by using claimByPatrons() or claimByOGLooters() functions (no matter if you still have it or not)
     // - Or if you are the owner of this Contract
     // But remember: you should do that before the competition ends.
     function addNewGuildToWhiteList(address[] calldata addresses) nonReentrant external {
@@ -1549,7 +1549,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
                 require(whiteListedGuilds[i] != addr, ERROR_GUILD_ALREADY_WHITELISTED);
             }
             whiteListedGuilds.push(addr);
-            detailsByAddress[addr] = LootDetails({color:BLACK,familyType:GUILD,familyName:familyName(addr),counter:0,verified:true});
+            detailsByAddress[addr] = Traveler({color:BLACK,familyType:GUILD,familyName:familyName(addr),counter:0,verified:true});
         }
     }
 
@@ -1559,7 +1559,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     // Given a guild loot-derivative address, returns the count for that addr
     function getGuildCounter(address addr) external view returns (uint256){
-        LootDetails memory details = detailsByAddress[addr];
+        Traveler memory details = detailsByAddress[addr];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         return details.counter;
     }
@@ -1575,7 +1575,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
-        LootDetails memory details = detailsByAddress[addressList[tokenId]];
+        Traveler memory details = detailsByAddress[addressList[tokenId]];
         string[4] memory parts;
         parts[0] = string(abi.encodePacked('<svg xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMinYMin meet" viewBox="0 0 350 350"><style>.b { fill:white; font-family: serif; font-size: 14px; }</style> <rect width="100%" height="100%" fill="black" /><text x="10" y="20" class="b">'));
         parts[1] = string(abi.encodePacked(getElement(tokenId,0),'</text><text x="10" y="40" class="b">',getElement(tokenId,1),'</text><text x="10" y="60" class="b">',getElement(tokenId,2),'</text><text x="10" y="80" class="b">',getElement(tokenId,3),'</text><text x="10" y="100" class="b">',getElement(tokenId,4),'</text><text x="10" y="120" class="b">',getElement(tokenId,5)));
@@ -1664,7 +1664,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return output;
     }
 
-    function metadata(uint256 tokenId, LootDetails memory details) internal view returns (string memory){
+    function metadata(uint256 tokenId, Traveler memory details) internal view returns (string memory){
      string memory toRet = "";
      for (uint8 i = 0; i < 10; i++){
         toRet = string(abi.encodePacked(toRet,'{"trait_type":"', categories[i], '","value":"',getElement(tokenId,i),'"},'));
