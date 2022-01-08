@@ -1374,7 +1374,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       elements[categories[4]] = ["Train", "Car", "Airplane", "Cruise", "4 wheel drive car", "Bus", "Convertible car", "Bicycle", "Motorbike", "Campervan", "Trailer", "Sailboat", "Electric car", "Sidecar", "Scooter", "Tram", "Cinquecento", "Hitch-hiking", "VW Beetle", "VW Bus", "Truck", "Off-road Vehicle", "Cab", "Lambo", "Ferrari", "Rocket", "DeLorean", "Kia Sedona", "Magic carpet", "Broomstick"];
       elements[categories[5]] = ["English", "Mandarin Chinese", "Hindi", "Spanish", "Arabic", "French", "Russian", "Portuguese", "Indonesian", "German", "Japanese", "Turkish", "Korean", "Vietnamese", "Iranian Persian", "Swahili", "Javanese", "Italian", "Thai", "Filipino", "Burmese", "Polish", "Croatian", "Danish", "Serbian", "Slovenian", "Czech", "Slovakian", "Greek", "Hungarian"];
       elements[categories[6]] = ["2", "3", "4", "5", "6", "7", "8", "9","10","100","0","1"];
-      elements[categories[7]] = ["Host", "Cook", "Writer", "DeeJay", "Employee", "Doctor", "Traveler", "Tour Guide", "Ship Pilot", "DAO Member", "Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "PoS validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Developer", "Blockchain Consultant", "Crypto VC", "Crypto Business Angel","Metaverse Realtor"];
+      elements[categories[7]] = ["Host", "Cook", "Writer", "DeeJay", "Employee", "Doctor", "Traveler", "Tour Guide", "Ship Pilot", "DAO Member", "Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "PoS validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Engineer", "Blockchain Consultant", "Crypto VC", "Miner","Metaverse Realtor"];
       elements[categories[8]] = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
       elements[categories[9]] = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwear","Condoms"];
 
@@ -1538,7 +1538,6 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     // NOTE: no Guilds can be registered once the competition has ended
     function addNewGuildToWhiteList(address[] calldata addresses) nonReentrant external {
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
-
         for (uint8 j = 0; j< addresses.length; j++){
             address addr = addresses[j];
             require(address(this) != addr, ERROR_CANNOT_ADD_THIS_CONTRACT);
