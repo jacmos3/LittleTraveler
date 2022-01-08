@@ -1301,14 +1301,14 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_DOM_40TH_BIRTHDAY = "Only valid till Dom's 40th bday";
     string private constant ERROR_LOW_VALUE = "Set a higher value";
     string private constant ERROR_COMPETITION_ENDED = "Competition has ended. Check the Conqueror!";
-    string private constant ERROR_COMPETITION_ONGOING = "Competition is still ongoing!";
+    string private constant ERROR_COMPETITION_ONGOING = "Conqueror not yet elected!";
     string private constant ERROR_OWNER_NOT_ALLOWED = "Use claimByOwner() instead";
     string private constant ERROR_ALREADY_ACTIVATED = "Already activated";
     string private constant ERROR_COME_BACK_LATER = "Come back later";
     string private constant ERROR_WITHDRAW_NEEDED = "Treasurer already changed. Perform a withdrawal before changing it";
     string private constant ERROR_GUILD_ALREADY_WHITELISTED = "Guild already whitelisted!";
     string private constant ERROR_CANNOT_ADD_THIS_CONTRACT = "Not possible";
-    string private constant ERROR_NOT_ENTITLED = "Check conditions before add to whitelist";
+    string private constant ERROR_NOT_ENTITLED = "Check conditions before whitelisting";
 
     struct Traveler {
         string familyType;
@@ -1339,18 +1339,16 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     bool public canChangeTreasurer = true;
     mapping(address => Traveler) public detailsByAddress;
     mapping(uint256 => address) public addressList;
-
-    uint8 public enrolledGuild = 0;
-    uint16 private guildCounter = 0;
+    uint8 public counterOwner = 0;
+    uint16 public counterStandard = 0;
+    uint16 private counterGuild = 0;
     uint16 public constant MAX_ID = 10000;
-    uint16 public standardCounter = 0;
     uint16 public constant MAX_FOR_OWNER = 100;
     uint16 public constant MAX_FOR_GUILDS = 900;
     uint16 public constant LOCK_TIME = 5760 * 3; //it's three days
     uint160 public priceForPatrons;
     uint256 public blockActivation = 0;
     address private constant INITIAL_TREASURER = 0xce73904422880604e78591fD6c758B0D5106dD50; //TripsCommunity address
-
     address private constant PH_USERS = address(1);
     address private constant PH_PATRONS = address(2);
     address private constant PH_OG_LOOT = address(3);
@@ -1367,6 +1365,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       treasurer.current = INITIAL_TREASURER;
       treasurer.blockNumber = blockNumber;
       priceForPatrons = INITIAL_PRICE_FOR_PATRONS;
+      counterOwner = 0;
+      counterStandard = 0;
       elements[categories[0]] = ["Beaches", "Mountains", "Urban", "Countrysides", "Lakes", "Rivers", "Farms", "Tropical areas", "Snowy places", "Forests", "Historical cities", "Islands", "Wilderness", "Deserts", "Natural parks", "Old towns", "Lakes", "Villages", "Forests", "Coral Reefs", "Wetlands", "Rainforests", "Grasslands", "Chaparral"];
       elements[categories[1]] = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
       elements[categories[2]] = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
@@ -1425,11 +1425,11 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     // Everyone can claim an available tokenId for free (+ gas)
     function claim() external nonReentrant checkStart {
         require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
-        standardCounter++;
-        require(standardCounter > MAX_FOR_GUILDS + MAX_FOR_OWNER && standardCounter <= MAX_ID, ERROR_TOKEN_ID_INVALID);
+        uint16 adjusted = ++counterStandard + MAX_FOR_GUILDS + MAX_FOR_OWNER;
+        require(adjusted <= MAX_ID, ERROR_TOKEN_ID_INVALID);
         //after this mint, the price for patrons will be decreased by 1%
-        rebalancePrice(standardCounter,PH_USERS,1,false);
-        _safeMint(_msgSender(), standardCounter);
+        rebalancePrice(adjusted,PH_USERS,1,false);
+        _safeMint(_msgSender(), adjusted);
     }
 
     // Guilds can use this function to mint a forged Traveler Loot.
@@ -1449,7 +1449,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         // tokenIds are discretized, so first-come-first-served rule is applied!
         uint16 discretId = uint16(tokenId % MAX_FOR_GUILDS);
 
-        if (++guildCounter == MAX_FOR_GUILDS){
+        if (++counterGuild == MAX_FOR_GUILDS){
             (conqueror.addr, conqueror.count) = whoIsWinning();
             conqueror.elected = true;
             detailsByAddress[PH_CONQUERORS].color = details.color;
@@ -1494,11 +1494,12 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     // Owners can claim their reserved tokenIds.
-    function claimByOwner(uint256 tokenId) external nonReentrant onlyOwner checkStart{
-        require(tokenId > MAX_FOR_GUILDS && tokenId <= MAX_FOR_GUILDS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
+    function claimByOwner() external nonReentrant onlyOwner checkStart{
+        uint16 adjusted = ++counterOwner + MAX_FOR_GUILDS;
+        require(adjusted <= MAX_FOR_GUILDS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
         //after this mint, the price for patrons will remain the same
-        rebalancePrice(tokenId,PH_OWNER,0,true);
-        _safeMint(_msgSender(), tokenId);
+        rebalancePrice(adjusted,PH_OWNER,0,true);
+        _safeMint(_msgSender(), adjusted);
     }
 
     function activateClaims() external onlyOwner{
@@ -1530,11 +1531,11 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       treasurer.blockNumber = blockNumber;
     }
 
-    // You can add a new contracts to the whitelist, if:
+    // You can register new Guilds to the whitelist, if:
     // - You own at least 50 Traveler Loots in your address
-    // - Or if you have mint a Patron version by using claimByPatrons() or claimByOGLooters() functions (no matter if you still have it or not)
+    // - Or if you have mint a Patron version by using claimByPatrons() or claimByOGLooters() functions (no matter if you dont own them anymore)
     // - Or if you are the owner of this Contract
-    // But remember: you should do that before the competition ends.
+    // NOTE: no Guilds can be registered once the competition has ended
     function addNewGuildToWhiteList(address[] calldata addresses) nonReentrant external {
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
 
@@ -1558,7 +1559,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     }
 
     // Given a guild loot-derivative address, returns the count for that addr
-    function getGuildCounter(address addr) external view returns (uint256){
+    function getCounterForAddress(address addr) external view returns (uint256){
         Traveler memory details = detailsByAddress[addr];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         return details.counter;
