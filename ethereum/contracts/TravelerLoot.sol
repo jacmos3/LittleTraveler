@@ -1283,7 +1283,9 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
     }
 }
 
-
+/// @title A Loot-Derivative Project for the Travel Industry
+/// @author jacopo.crypto - TripsCommunity
+/// @notice Text-based NFTs thought for the Travel Industry appannage. Hotels, restaurants, hospitality etc can use them both in the real or metaverse worlds
 contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     uint256 private constant DISCOUNT_EXPIRATION = 1790553599; //Sun 27 Sep 2026 21:59:59 UTC
@@ -1310,6 +1312,18 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     string private constant ERROR_CANNOT_ADD_THIS_CONTRACT = "Not possible";
     string private constant ERROR_NOT_ENTITLED = "Check conditions before whitelisting";
 
+    address private constant INITIAL_TREASURER = 0xce73904422880604e78591fD6c758B0D5106dD50; //TripsCommunity address
+    address private constant ADDRESS_OG_LOOT = 0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7;
+    address private constant PH_USERS = address(1);
+    address private constant PH_PATRONS = address(2);
+    address private constant PH_OG_LOOT = address(3);
+    address private constant PH_CONQUERORS = address(4);
+    address private constant PH_OWNER = address(0);
+
+    uint16 public constant MAX_ID = 10000;
+    uint16 public constant MAX_FOR_OWNER = 100;
+    uint16 public constant MAX_FOR_GUILDS = 900;
+    uint16 public constant LOCK_TIME = 5760 * 3; //it's three days
     struct Traveler {
         string familyType;
         string familyName;
@@ -1342,77 +1356,42 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint8 public counterOwner = 0;
     uint16 public counterStandard = 0;
     uint16 private counterGuild = 0;
-    uint16 public constant MAX_ID = 10000;
-    uint16 public constant MAX_FOR_OWNER = 100;
-    uint16 public constant MAX_FOR_GUILDS = 900;
-    uint16 public constant LOCK_TIME = 5760 * 3; //it's three days
     uint160 public priceForPatrons;
     uint256 public blockActivation = 0;
-    address private constant INITIAL_TREASURER = 0xce73904422880604e78591fD6c758B0D5106dD50; //TripsCommunity address
-    address private constant PH_USERS = address(1);
-    address private constant PH_PATRONS = address(2);
-    address private constant PH_OG_LOOT = address(3);
-    address private constant PH_CONQUERORS = address(4);
-    address private constant PH_OWNER = address(0);
+    string[] private categories = ["ENVIRONMENT","TALENT","PLACE","CHARACTER","TRANSPORT","LANGUAGE","EXPERIENCE","OCCUPATION","ACCOMMODATION","BAG"];
 
-   string[] private categories = ["ENVIRONMENT","TALENT","PLACE","CHARACTER","TRANSPORT","LANGUAGE","EXPERIENCE","OCCUPATION","ACCOMMODATION","BAG"];
-   address[] public whiteListedGuilds;
-   mapping(string => string[]) elements;
+    address[] public whiteListedGuilds;
+    mapping(string => string[]) elements;
+
+
 
     constructor() ERC721("TravelerLoot", "TRVLR") Ownable(){
       uint256 blockNumber = block.number;
-      treasurer.old = address(0);
-      treasurer.current = INITIAL_TREASURER;
-      treasurer.blockNumber = blockNumber;
-      priceForPatrons = INITIAL_PRICE_FOR_PATRONS;
-      counterOwner = 0;
-      counterStandard = 0;
-      elements[categories[0]] = ["Beaches", "Mountains", "Urban", "Countrysides", "Lakes", "Rivers", "Farms", "Tropical areas", "Snowy places", "Forests", "Historical cities", "Islands", "Wilderness", "Deserts", "Natural parks", "Old towns", "Lakes", "Villages", "Forests", "Coral Reefs", "Wetlands", "Rainforests", "Grasslands", "Chaparral"];
-      elements[categories[1]] = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
-      elements[categories[2]] = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
-      elements[categories[3]] = ["Energetic", "Good-Natured", "Enthusiastic", "Challenging", "Charismatic", "Wise", "Modest", "Honest", "Protective", "Perceptive", "Providential", "Prudent", "Spontaneous", "Insightful", "Intelligent", "Intuitive", "Precise", "Sharing", "Simple", "Sociable", "Sophisticated", "Benevolent", "Admirable", "Brilliant", "Accessible", "Calm", "Capable", "Optimistic", "Respectful", "Responsible"];
-      elements[categories[4]] = ["Train", "Car", "Airplane", "Cruise", "4 wheel drive car", "Bus", "Convertible car", "Bicycle", "Motorbike", "Campervan", "Trailer", "Sailboat", "Electric car", "Sidecar", "Scooter", "Tram", "Cinquecento", "Hitch-hiking", "VW Beetle", "VW Bus", "Truck", "Off-road Vehicle", "Cab", "Lambo", "Ferrari", "Rocket", "DeLorean", "Kia Sedona", "Magic carpet", "Broomstick"];
-      elements[categories[5]] = ["English", "Mandarin Chinese", "Hindi", "Spanish", "Arabic", "French", "Russian", "Portuguese", "Indonesian", "German", "Japanese", "Turkish", "Korean", "Vietnamese", "Iranian Persian", "Swahili", "Javanese", "Italian", "Thai", "Filipino", "Burmese", "Polish", "Croatian", "Danish", "Serbian", "Slovenian", "Czech", "Slovakian", "Greek", "Hungarian"];
-      elements[categories[6]] = ["2", "3", "4", "5", "6", "7", "8", "9","10","100","0","1"];
-      elements[categories[7]] = ["Host", "Cook", "Writer", "DeeJay", "Employee", "Doctor", "Traveler", "Tour Guide", "Ship Pilot", "DAO Member", "Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "PoS validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Engineer", "Blockchain Consultant", "Crypto VC", "Miner","Metaverse Realtor"];
-      elements[categories[8]] = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
-      elements[categories[9]] = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwear","Condoms"];
+     treasurer.old = address(0);
+     treasurer.current = INITIAL_TREASURER;
+     treasurer.blockNumber = blockNumber;
+     priceForPatrons = INITIAL_PRICE_FOR_PATRONS;
+     counterOwner = 0;
+     counterStandard = 0;
+     elements[categories[0]] = ["Beaches", "Mountains", "Urban", "Countrysides", "Lakes", "Rivers", "Farms", "Tropical areas", "Snowy places", "Forests", "Historical cities", "Islands", "Wilderness", "Deserts", "Natural parks", "Old towns", "Lakes", "Villages", "Forests", "Coral Reefs", "Wetlands", "Rainforests", "Grasslands", "Chaparral"];
+     elements[categories[1]] = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
+     elements[categories[2]] = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
+     elements[categories[3]] = ["Energetic", "Good-Natured", "Enthusiastic", "Challenging", "Charismatic", "Wise", "Modest", "Honest", "Protective", "Perceptive", "Providential", "Prudent", "Spontaneous", "Insightful", "Intelligent", "Intuitive", "Precise", "Sharing", "Simple", "Sociable", "Sophisticated", "Benevolent", "Admirable", "Brilliant", "Accessible", "Calm", "Capable", "Optimistic", "Respectful", "Responsible"];
+     elements[categories[4]] = ["Train", "Car", "Airplane", "Cruise", "4 wheel drive car", "Bus", "Convertible car", "Bicycle", "Motorbike", "Campervan", "Trailer", "Sailboat", "Electric car", "Sidecar", "Scooter", "Tram", "Cinquecento", "Hitch-hiking", "VW Beetle", "VW Bus", "Truck", "Off-road Vehicle", "Cab", "Lambo", "Ferrari", "Rocket", "DeLorean", "Kia Sedona", "Magic carpet", "Broomstick"];
+     elements[categories[5]] = ["English", "Mandarin Chinese", "Hindi", "Spanish", "Arabic", "French", "Russian", "Portuguese", "Indonesian", "German", "Japanese", "Turkish", "Korean", "Vietnamese", "Iranian Persian", "Swahili", "Javanese", "Italian", "Thai", "Filipino", "Burmese", "Polish", "Croatian", "Danish", "Serbian", "Slovenian", "Czech", "Slovakian", "Greek", "Hungarian"];
+     elements[categories[6]] = ["2", "3", "4", "5", "6", "7", "8", "9","10","100","0","1"];
+     elements[categories[7]] = ["Host", "Cook", "Writer", "DeeJay", "Employee", "Doctor", "Traveler", "Tour Guide", "Ship Pilot", "DAO Member", "Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "PoS validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Engineer", "Blockchain Consultant", "Crypto VC", "Miner","Metaverse Realtor"];
+     elements[categories[8]] = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
+     elements[categories[9]] = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwear","Condoms"];
 
+     detailsByAddress[PH_USERS] = Traveler({color:BLACK,familyType:"",familyName:"",counter:0,verified:true});
+     detailsByAddress[PH_PATRONS] = Traveler({color:"#F87151",familyType:PATRON,familyName:"",counter:0,verified:true});
+     detailsByAddress[PH_OG_LOOT] = Traveler({color:GOLD,familyType:PATRON,familyName:"Loot (for Adventurers)",counter:0,verified:true});
+     detailsByAddress[PH_CONQUERORS] = Traveler({color:WHITE,familyType:CONQUEROR,familyName:"",counter:0,verified:true});
+     detailsByAddress[PH_OWNER] = Traveler({color:BLACK,familyType:" ",familyName:"",counter:0,verified:true});
 
-    // START DEFAULT WHITELISTED LOOT DERIVATIVE
-    // NOTE: new derivatives can be added by calling the function addNewGuildToWhiteList()
-        Initial[15] memory initials;
-        initials[0] = Initial({addr:0xFF9C1b15B16263C61d017ee9F65C50e4AE0113D7,symbol:"LOOT"});
-        initials[1] = Initial({addr:0xcC56775606730C96eA245D9cF3890247f1c57FB1,symbol:"AL"});
-        initials[2] = Initial({addr:0x7403AC30DE7309a0bF019cdA8EeC034a5507cbB3,symbol:"CHAR"});
-        initials[3] = Initial({addr:0x13a48f723f4AD29b6da6e7215Fe53172C027d98f,symbol:"CYBERLOOT"});
-        initials[4] = Initial({addr:0x76E3dea18e33e61DE15a7d17D9Ea23dC6118e10f,symbol:"DOGGO"});
-        initials[5] = Initial({addr:0xf4B6040A4b1B30f1d1691699a8F3BF957b03e463,symbol:"GMANA"});
-        initials[6] = Initial({addr:0x83f1d1396B19Fed8FBb31Ed189579D07362d661d,symbol:"LootHymns"});
-        initials[7] = Initial({addr:0x7AFe30cB3E53dba6801aa0EA647A0EcEA7cBe18d,symbol:"LootRealm"});
-        initials[8] = Initial({addr:0xB89A71F1abe992Dc71349FC782b393dA2b6FB4C2,symbol:"LOOTC"});
-        initials[9] = Initial({addr:0xeC43a2546625c4C82D905503bc83e66262f0EF84,symbol:"LootRock (for adventurers)"});
-        initials[10] = Initial({addr:0x1dfe7Ca09e99d10835Bf73044a23B73Fc20623DF,symbol:"MLOOT"});
-        initials[11] = Initial({addr:0xb9310aF43F4763003F42661f6FC098428469aDAB,symbol:"NAME"});
-        initials[12] = Initial({addr:0x4de9d18Fd8390c12465bA3C6cc8032992fD7655d,symbol:"QUESTS"});
-        initials[13] = Initial({addr:0x42A87e04f87A038774fb39c0A61681e7e859937b,symbol:"SCORE"});
-        initials[14] = Initial({addr:0xf3DFbE887D81C442557f7a59e3a0aEcf5e39F6aa,symbol:"TREASURE"});
-
-    // END DEFAULT WHITELISTED DERIVATIVES
-
-      detailsByAddress[PH_USERS] = Traveler({color:BLACK,familyType:"",familyName:"",counter:0,verified:true});
-      detailsByAddress[PH_PATRONS] = Traveler({color:"#F87151",familyType:PATRON,familyName:"",counter:0,verified:true});
-      detailsByAddress[PH_OG_LOOT] = Traveler({color:GOLD,familyType:PATRON,familyName:"Loot (for Adventurers)",counter:0,verified:true});
-      detailsByAddress[PH_CONQUERORS] = Traveler({color:WHITE,familyType:CONQUEROR,familyName:"",counter:0,verified:true});
-      detailsByAddress[PH_OWNER] = Traveler({color:BLACK,familyType:" ",familyName:"",counter:0,verified:true});
-
-     for (uint16 i = 0; i < initials.length; i++){
-        Initial memory initial = initials[i];
-        whiteListedGuilds.push(initial.addr);
-        detailsByAddress[initial.addr] = Traveler({color:BLACK,familyType:GUILD,familyName:initial.symbol,counter:0,verified:true});
-     }
-      detailsByAddress[whiteListedGuilds[0]].color = PLATINUM;
-
+     whiteListedGuilds.push(ADDRESS_OG_LOOT);
+     detailsByAddress[ADDRESS_OG_LOOT] = Traveler({color:BLACK,familyType:PLATINUM,familyName:"LOOT",counter:0,verified:true});
     }
 
     modifier checkStart() {
@@ -1420,22 +1399,22 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       _;
     }
 
-    // START EXTERNAL FUNCTIONS
-
-    // Everyone can claim an available tokenId for free (+ gas)
+    /// @notice                     Everyone can claim an available tokenId for free (+ gas)
     function claim() external nonReentrant checkStart {
-        require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED); //owner cant steal users' slots
+        require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED);
         uint16 adjusted = ++counterStandard + MAX_FOR_GUILDS + MAX_FOR_OWNER;
         require(adjusted <= MAX_ID, ERROR_TOKEN_ID_INVALID);
-        //after this mint, the price for patrons will be decreased by 1%
-        rebalancePrice(adjusted,PH_USERS,1,false);
+        processing(adjusted,PH_USERS,1,false);
         _safeMint(_msgSender(), adjusted);
     }
 
-    // Guilds can use this function to mint a forged Traveler Loot.
-    // Forged TLs are recognizable by a colored line on the NFT.
-    // When all the forgeable TLs are minted, the guild who forged the most becomes
-    // Conqueror. All their members gain access to claimByConquerors() function
+    /// @notice                     Guilds can use this function to mint a forged Traveler Loot.
+    ///                             Forged TLs are recognizable by a colored line on the NFT.
+    ///                             When all the forgeable TLs are minted, the guild who forged
+    ///                             the most becomes Conqueror. Its members gain access to
+    ///                             claimByConquerors() function
+    /// @param                      tokenId         derivative's tokenId owned by the user
+    /// @param                      contractAddress derivative's address pretending to be guild
     function claimByGuilds(uint256 tokenId, address contractAddress) external nonReentrant checkStart{
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         Traveler storage details = detailsByAddress[contractAddress];
@@ -1445,8 +1424,6 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         if (details.counter == 0 && contractAddress != whiteListedGuilds[0]){
             details.color = pickAColor();
         }
-
-        // tokenIds are discretized, so first-come-first-served rule is applied!
         uint16 discretId = uint16(tokenId % MAX_FOR_GUILDS);
 
         if (++counterGuild == MAX_FOR_GUILDS){
@@ -1457,11 +1434,11 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         }
         // after this mint, the price for patrons will be increased by 1%
         uint16 finalId = discretId == 0 ? MAX_FOR_GUILDS : discretId;
-        rebalancePrice(finalId, contractAddress, 1, true);
+        processing(finalId, contractAddress, 1, true);
         _safeMint(_msgSender(), finalId);
     }
 
-    // Becoming a Patron. Requires payment
+    /// @notice                     Becoming a Patron. Requires payment
     function claimByPatrons() external payable nonReentrant checkStart{
         require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
 
@@ -1472,9 +1449,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         reservedMinting(PH_PATRONS, 5, true);
     }
 
-    // - Loot (for Adventurers) holders can become Patrons for free if:
-    //   . the Conqueror Guild is not yet elected,
-    //   . or Dominik Hoffman (@dhof) is still younger than 40 y/o.
+    /// @notice                     - Loot (for Adventurers) holders can become Patrons for free if:
+    ///                             . the Conqueror Guild is not yet elected,
+    ///                             . or Dominik Hoffman (@ dhof on twitter) is still younger than 40 y/o.
     function claimByOGLooters() external nonReentrant checkStart{
         require(IERC721(whiteListedGuilds[0]).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
@@ -1484,8 +1461,8 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         reservedMinting(PH_OG_LOOT, 5, false);
     }
 
-    // Conquerors can become Patron.
-    // Each member of Conqueror Guild will have access to this function for free.
+    /// @notice                     Conquerors can mint a CONQUEROR Traveler Loot for free + gas
+    ///                             only valid if they have not already minted a PATRON type before
     function claimByConquerors() external nonReentrant checkStart{
         require(conqueror.elected, ERROR_COMPETITION_ONGOING);
         require(IERC721(conqueror.addr).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
@@ -1493,33 +1470,39 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         reservedMinting(PH_CONQUERORS, 2, true);
     }
 
-    // Owners can claim their reserved tokenIds.
+    /// @notice                     Owner can claim its reserved tokenIds.
     function claimByOwner() external nonReentrant onlyOwner checkStart{
         uint16 adjusted = ++counterOwner + MAX_FOR_GUILDS;
         require(adjusted <= MAX_FOR_GUILDS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
         //after this mint, the price for patrons will remain the same
-        rebalancePrice(adjusted,PH_OWNER,0,true);
+        processing(adjusted,PH_OWNER,0,true);
         _safeMint(_msgSender(), adjusted);
     }
 
+    /// @notice                     Owner can call this function to activate the mintings.
+    ///                             Note that the activation is delayed of LOCK_TIME blocks
     function activateClaims() external onlyOwner{
       require (blockActivation == 0, ERROR_ALREADY_ACTIVATED);
-      // Mint activating
       blockActivation = block.number + LOCK_TIME;
     }
 
+    /// @notice                     Owner can order the withdraw all the funds coming from Patron mints
+    ///                             to the Treasurer address previously set.
     function withdraw() external onlyOwner {
       require(block.number >= treasurer.blockNumber, ERROR_COME_BACK_LATER);
       canChangeTreasurer = true; //release treasurer
       payable(treasurer.current).transfer(address(this).balance);
     }
 
-    // Owner calls this function with lockTreasurer = true if the intent is to do
-    // a donation to a public-good project. Lock guarantees that nobody (not even the
-    // owner) can change treasurer till the donation is made.
-    // Owner calls this function with lockTreasurer = false if the intent is to
-    // keep open the chance to change the treasurer even if no any withdrawal has
-    // been performed in the meanwhile.
+
+    /// @notice                     . Owner calls this function with lockTreasurer = true if the intent is
+    ///                             to do a donation to a public-good project. Lock guarantees that nobody
+    ///                             (not even the owner) can change treasurer till the donation is made.
+    ///                             . Owner calls this function with lockTreasurer = false if the intent is
+    ///                             to keep open the chance to change the treasurer even if no any
+    ///                             withdrawal has been performed in the meanwhile.
+    /// @param      newAddress      the new treasurer address
+    /// @param      lockTreasurer   true if the the treasurer has to be locked till one withdraw is performed
     function setTreasurer(address newAddress, bool lockTreasurer) external onlyOwner{
       require(canChangeTreasurer, ERROR_WITHDRAW_NEEDED); //this is a safety measure for when donating to public goods
       if (lockTreasurer){
@@ -1531,11 +1514,14 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       treasurer.blockNumber = blockNumber;
     }
 
-    // You can register new Guilds to the whitelist, if:
-    // - You own at least 50 Traveler Loots in your address
-    // - Or if you have mint a Patron version by using claimByPatrons() or claimByOGLooters() functions (no matter if you dont own them anymore)
-    // - Or if you are the owner of this Contract
-    // NOTE: no Guilds can be registered once the competition has ended
+    /// @notice                     You can register new Guilds to the whitelist, if:
+    ///                             - You own at least 50 Traveler Loots in your address
+    ///                             - Or if you have mint a Patron version by using claimByPatrons() or
+    ///                             claimByOGLooters() functions (no matter if you dont own them anymore)
+    ///                             - Or if you are the owner of this Contract
+    ///                             NOTE: no Guilds can be registered once the competition has ended
+    /// @param      addresses       List of contract addresses to be whitelisted for the game.
+    ///                             They'll be allowed to mint GUILD type Traveler Loot
     function addNewGuildToWhiteList(address[] calldata addresses) nonReentrant external {
         require(!conqueror.elected, ERROR_COMPETITION_ENDED);
         for (uint8 j = 0; j< addresses.length; j++){
@@ -1553,27 +1539,39 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         }
     }
 
-    function addressURI(address addr) external view returns (string memory){
-        return tokenURI(uint160(addr));
-    }
-
-    // Given a guild loot-derivative address, returns the count for that addr
+    /// @notice                     Given a Guild address, returns the count for that addr
+    /// @param      addr            Address of the Guild to be checked (the contract address)
+    /// @return                     Number of the NFT minted from the members of the given Guild address
     function getCounterForAddress(address addr) external view returns (uint256){
         Traveler memory details = detailsByAddress[addr];
         require(details.verified, ERROR_ADDRESS_NOT_VERIFIED);
         return details.counter;
     }
 
+    /// @notice                     Call this function if you want to know the list of the current Guilds
+    /// return                      Array containing the addresses of all the whitelisted guilds
     function getWhiteListedGuilds() external view returns (address[] memory){
         return whiteListedGuilds;
     }
-    // END EXTERNAL FUNCTIONS
 
-    // START PUBLIC FUNCTIONS
+    /// @notice                     Call this function to see the element for a given tokenId and categoryId
+    /// @param      tokenId         The id of the Traveler Loot you want to check
+    /// @param      categoryId      The category of the Traveler Loot you want to check
+    /// @return                     The element of the given Token Id for the given categoryId
     function getElement(uint256 tokenId, uint8 categoryId) public view returns (string memory){
       return pluck(tokenId, categories[categoryId], elements[categories[categoryId]]);
     }
 
+    /// @notice                     Provides metadata and image of the PATRONS and CONQUEROR
+    /// @param      addr            Address of the user who minted the PATRON or CONQUEROR you are checking
+    /// @return                     The json containing the NFT info
+    function addressURI(address addr) external view returns (string memory){
+        return tokenURI(uint160(addr));
+    }
+
+    /// @notice                     Provides metadata and image of the Traveler Loot
+    /// @param      tokenId         Token if of the Traveler Loot to process
+    /// @return                     The json containing the NFT info
     function tokenURI(uint256 tokenId) override public view returns (string memory) {
         Traveler memory details = detailsByAddress[addressList[tokenId]];
         string[4] memory parts;
@@ -1588,8 +1586,10 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return string(abi.encodePacked('data:application/json;base64,', json));
     }
 
-    // It only compares OG loot & loot-derivatives scores between them.
-    // It excludes contract owner, patron and standard, because not qualified for the competition
+    /// @notice                     Call this method to check the Guild which is owning the most Forged Traveler Loot
+    ///
+    /// @return                     The address of the guild who has the most Forged Traveler Loot so far
+    /// @return                     The amount of Forged Traveler Loot minted by the Winning Guild so far
     function whoIsWinning() public view returns (address, uint16){
       if (conqueror.elected){
         return (conqueror.addr,conqueror.count);
@@ -1603,9 +1603,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
       }
       return (winningLoot, winningCount);
     }
-    // END PUBLIC FUNCTIONS
 
-    // INTERNAL FUNCTIONS
+    /// @notice                     Call this function to get a random color using block difficulty, timestamp as seed
+    /// @return                     A string containing the HEX number of a random color
     function pickAColor() internal view returns (string memory){
         string[16] memory list = ["0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"];
         string memory color = "#";
@@ -1616,6 +1616,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return color;
     }
 
+    /// @notice                     This function calls an external NFT contract and gets the symbol to be used into the metadata
+    /// @param      addr            The address of the contract address to whitelist
+    /// @return                     The symbol of the given external contract address
     function familyName(address addr) internal view returns (string memory){
       return IERC721Metadata(addr).symbol();
     }
@@ -1624,46 +1627,56 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         return uint256(keccak256(abi.encodePacked(input)));
     }
 
-    // Rebalancing the price that patrons will have to pay
-    function rebalancePrice(uint256 id, address addr, uint8 percentage, bool positive) internal{
+    /// @notice                     Update the PATRON price and the address counter
+    /// @param      id              TokenId minted
+    /// @param      addr            address Guild of the token to mint
+    /// @param      percentage      percentage number of the PATRON'price variability
+    /// @param      isPositive      true if the variability is positive, false if it's negative
+    function processing(uint256 id, address addr, uint8 percentage, bool isPositive) internal{
       if (percentage != 0){
         uint160 x = priceForPatrons / (100 / percentage);
-        priceForPatrons = positive ? priceForPatrons + x : priceForPatrons - x;
+        priceForPatrons = isPositive ? priceForPatrons + x : priceForPatrons - x;
       }
       detailsByAddress[addr].counter++;
       addressList[id] = addr;
     }
 
-    function extractOutput(string[] memory sourceArray, uint8 toHoundred, string memory keyPrefix) internal view returns (string memory){
+    /// @notice                     It mints the Traveler Loot using the address as tokenId.
+    ///                             Only particular cases can access to this:
+    ///                             - Users who decide to become Patrons by paying the patronPrice
+    ///                             - Conqueror Guild members, as the prize for have won the competition
+    ///                             - OG Loot owners, as privilegiate users till @ dhof 40 bday or till Conqueror Guild election
+    /// @param      addr            address Guild of the token to mint
+    /// @param      percentage      percentage number of the PATRON'price variability
+    /// @param      isPositive      true if the variability is positive, false if it's negative
+    function reservedMinting(address addr,uint8 percentage, bool isPositive) internal{
+      uint160 castedAddress = uint160(_msgSender());
+      require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
+      processing(castedAddress, addr, percentage, isPositive);
+      _safeMint(_msgSender(), castedAddress);
+    }
+
+    /// @notice                     Call this function to get pick the element for a given Traveler Loot id and category
+    /// @param      tokenId         TokenId
+    /// @param      keyPrefix       Seed/nounce of the randomity
+    /// @param      sourceArray     The list of all the elements
+    /// @return                     The element extracted
+    function pluck(uint256 tokenId, string memory keyPrefix, string[] memory sourceArray) internal view returns (string memory) {
+        uint256 rand = random(string(abi.encodePacked(keyPrefix, toString(tokenId))));
+        uint8 toHoundred = uint8(rand % 100);
         uint8 delta = toHoundred > 95 ? 1 : toHoundred > 80 ? 2 : 3;
         uint8 len = uint8(sourceArray.length);
         uint8 x = len / 3;
         uint8 min = len - (delta * x);
         uint8 max = (len - 1) - ((delta - 1) * x);
-        uint8 rand = uint8((random(string(abi.encodePacked(msg.sender, toHoundred, keyPrefix ))) % (max - min + 1)) + min);
-        return sourceArray[rand];
+        uint8 rand2 = uint8((random(string(abi.encodePacked(msg.sender, toHoundred, keyPrefix ))) % (max - min + 1)) + min);
+        return sourceArray[rand2];
     }
 
-    // It mints the Traveler Loot using the address as tokenId.
-    // Only particular cases can access to this:
-    // - Users who decide to become Patrons by paying the patronPrice
-    // - Conqueror Guild members, as the prize for have won the competition
-    // - OG Loot owners, as privilegiate users till @dhof 40 bday or till Conqueror Guild election
-    function reservedMinting(address addr,uint8 percentage, bool positive) internal{
-      uint160 castedAddress = uint160(_msgSender());
-      require(castedAddress > MAX_ID, ERROR_ADDRESS_NOT_VERIFIED);
-      rebalancePrice(castedAddress, addr, percentage, positive);
-      _safeMint(_msgSender(), castedAddress);
-    }
-
-     function pluck(uint256 tokenId, string memory keyPrefix, string[] memory sourceArray) internal view returns (string memory) {
-        uint256 rand = random(string(abi.encodePacked(keyPrefix, toString(tokenId))));
-        uint8 toHoundred = uint8(rand % 100);
-        string memory output = extractOutput(sourceArray,toHoundred, keyPrefix);
-
-        return output;
-    }
-
+    /// @dev                     This function processes and build the metadata for the given tokenId
+    /// @param      tokenId         TokenId
+    /// @param      details         The details to be used for filling the metadata
+    /// @return                     The json with the metadata to be appended to the full json
     function metadata(uint256 tokenId, Traveler memory details) internal view returns (string memory){
      string memory toRet = "";
      for (uint8 i = 0; i < 10; i++){
@@ -1681,6 +1694,13 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
      return toRet;
    }
 
+    /// @dev                     This function compares two Guilds and check which has more Froged Guild already minted
+    /// @param      winningAddress  The legacy winning address (so far)
+    /// @param      winningCount    The amount for the legacy winning address (so far)
+    /// @param      newAddress      The new address to compare with legacy
+    /// @param      newCount        The new amount to compare with legacy
+    /// @return                     The new winning address after comparison
+    /// @return                     The new minted amount of winning address after comparison
     function checkWinning(address winningAddress, uint16 winningCount, address newAddress, uint16 newCount) internal pure returns(address,uint16){
         return newCount > winningCount ? (newAddress, newCount) : (winningAddress, winningCount);
     }
@@ -1706,7 +1726,6 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         }
         return string(buffer);
     }
-    //END INTERNAL FUNCTIONS
 }
 
 
