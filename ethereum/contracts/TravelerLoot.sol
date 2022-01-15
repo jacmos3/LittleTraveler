@@ -1284,7 +1284,7 @@ abstract contract ERC721Enumerable is ERC721, IERC721Enumerable {
 }
 
 /// @title A Loot-Derivative Project for the Travel Industry
-/// @author jacopo.crypto - TripsCommunity
+/// @author jacmos3 - TripsCommunity
 /// @notice Text-based NFTs thought for the Travel Industry appannage. Hotels, restaurants, hospitality etc can use them both in the real or metaverse worlds
 contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
@@ -1356,6 +1356,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     uint8 public counterOwner = 0;
     uint16 public counterStandard = 0;
     uint16 private counterGuild = 0;
+    uint16 private counterPatrons = 0;
     uint160 public priceForPatrons;
     uint256 public blockActivation = 0;
     string[] private categories = ["ENVIRONMENT","TALENT","PLACE","CHARACTER","TRANSPORT","LANGUAGE","EXPERIENCE","OCCUPATION","ACCOMMODATION","BAG"];
@@ -1371,8 +1372,6 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
      treasurer.current = INITIAL_TREASURER;
      treasurer.blockNumber = blockNumber;
      priceForPatrons = INITIAL_PRICE_FOR_PATRONS;
-     counterOwner = 0;
-     counterStandard = 0;
      elements[categories[0]] = ["Beaches", "Mountains", "Urban", "Countrysides", "Lakes", "Rivers", "Farms", "Tropical areas", "Snowy places", "Forests", "Historical cities", "Islands", "Wilderness", "Deserts", "Natural parks", "Old towns", "Lakes", "Villages", "Forests", "Coral Reefs", "Wetlands", "Rainforests", "Grasslands", "Chaparral"];
      elements[categories[1]] = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
      elements[categories[2]] = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
@@ -1402,10 +1401,11 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     /// @notice                     Everyone can claim an available tokenId for free (+ gas)
     function claim() external nonReentrant checkStart {
         require(owner() != _msgSender(),ERROR_OWNER_NOT_ALLOWED);
-        uint16 adjusted = ++counterStandard + MAX_FOR_GUILDS + MAX_FOR_OWNER;
+        uint16 adjusted = 1 + counterStandard + MAX_FOR_GUILDS + MAX_FOR_OWNER;
         require(adjusted <= MAX_ID, ERROR_TOKEN_ID_INVALID);
         processing(adjusted,PH_USERS,1,false);
         _safeMint(_msgSender(), adjusted);
+        counterStandard++;
     }
 
     /// @notice                     Guilds can use this function to mint a forged Traveler Loot.
@@ -1426,7 +1426,7 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         }
         uint16 discretId = uint16(tokenId % MAX_FOR_GUILDS);
 
-        if (++counterGuild == MAX_FOR_GUILDS){
+        if (counterGuild == MAX_FOR_GUILDS - 1 ){
             (conqueror.addr, conqueror.count) = whoIsWinning();
             conqueror.elected = true;
             detailsByAddress[PH_CONQUERORS].color = details.color;
@@ -1436,29 +1436,31 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         uint16 finalId = discretId == 0 ? MAX_FOR_GUILDS : discretId;
         processing(finalId, contractAddress, 1, true);
         _safeMint(_msgSender(), finalId);
+        counterGuild++;
     }
 
     /// @notice                     Becoming a Patron. Requires payment
     function claimByPatrons() external payable nonReentrant checkStart{
-        require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
-
-        if (priceForPatrons < INITIAL_PRICE_FOR_PATRONS){
-          priceForPatrons == INITIAL_PRICE_FOR_PATRONS;
-        }
-        // After this mint, the price for next patrons will be increased by 5%
-        reservedMinting(PH_PATRONS, 5, true);
+      require(msg.value >= priceForPatrons, ERROR_LOW_VALUE);
+      if (priceForPatrons < INITIAL_PRICE_FOR_PATRONS){
+        priceForPatrons == INITIAL_PRICE_FOR_PATRONS;
+      }
+      // After this mint, the price for next patrons will be increased by 5%
+      reservedMinting(PH_PATRONS, 5, true);
+      counterPatrons++;
     }
 
     /// @notice                     - Loot (for Adventurers) holders can become Patrons for free if:
     ///                             . the Conqueror Guild is not yet elected,
     ///                             . or Dominik Hoffman (@ dhof on twitter) is still younger than 40 y/o.
     function claimByOGLooters() external nonReentrant checkStart{
-        require(IERC721(whiteListedGuilds[0]).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
-        require(!conqueror.elected, ERROR_COMPETITION_ENDED);
-        require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
+      require(IERC721(whiteListedGuilds[0]).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
+      require(!conqueror.elected, ERROR_COMPETITION_ENDED);
+      require(block.timestamp <= DISCOUNT_EXPIRATION, ERROR_DOM_40TH_BIRTHDAY);
 
-        // After this mint, the price for patrons will be decreased by 5%
-        reservedMinting(PH_OG_LOOT, 5, false);
+      // After this mint, the price for patrons will be decreased by 5%
+      reservedMinting(PH_OG_LOOT, 5, false);
+      counterPatrons++;
     }
 
     /// @notice                     Conquerors can mint a CONQUEROR Traveler Loot for free + gas
@@ -1468,15 +1470,17 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
         require(IERC721(conqueror.addr).balanceOf(_msgSender()) > 0, ERROR_NOT_THE_OWNER);
         // After this mint, the price for patrons is increased by 2%
         reservedMinting(PH_CONQUERORS, 2, true);
+        counterPatrons++;
     }
 
     /// @notice                     Owner can claim its reserved tokenIds.
     function claimByOwner() external nonReentrant onlyOwner checkStart{
-        uint16 adjusted = ++counterOwner + MAX_FOR_GUILDS;
+        uint16 adjusted = 1 + counterOwner + MAX_FOR_GUILDS;
         require(adjusted <= MAX_FOR_GUILDS + MAX_FOR_OWNER, ERROR_TOKEN_ID_INVALID);
         //after this mint, the price for patrons will remain the same
         processing(adjusted,PH_OWNER,0,true);
         _safeMint(_msgSender(), adjusted);
+        counterOwner++;
     }
 
     /// @notice                     Owner can call this function to activate the mintings.
