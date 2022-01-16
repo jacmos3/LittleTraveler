@@ -1,12 +1,106 @@
 import React, {Component} from 'react';
-import {Container,Button,Form,Popup,Icon,Input,Message,Card} from 'semantic-ui-react';
+import {Container,Button,Form,Popup,Icon,Input,Message,Card,Image,Segment,Dimmer,Loader} from 'semantic-ui-react';
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
+import TravelerLoot from '../../ethereum/build/TravelerLoot.sol.json';
 class Claim extends Component{
+  state = {
+    loading:0,
+    name:'',
+    description:'',
+    image:'',
+    tokenId:'',
+    minted:false,
+    errorMessage:"",
+    all:[]
+  }
   constructor(){
     super();
-  }
-render(){
 
+  }
+
+/*  onShow = async() => {
+    console.log(this.state);
+    const instance = new this.state.web3.eth.Contract(TravelerLoot.TravelerLoot.abi, this.state.web3Settings.contractAddress );
+
+      let uri = await instance.methods.tokenURI(this.state.tokenId).call()
+      .then((result)=> {
+          return JSON.parse(window.atob(result.split(',')[1]));
+      })
+      .catch((error)=>{
+        console.log(error);
+      });
+      this.setState({name:uri.name, description:uri.description, image:uri.image, minted:true});
+      console.log(uri.image);
+
+    }
+
+*/
+  onSubmit = async (event) => {
+    event.preventDefault();
+    this.setState({loading:this.state.loading+1, errorMessage:''})
+    try{
+      const accounts= await this.props.state.web3.eth.getAccounts();
+      const instance = new this.props.state.web3.eth.Contract(TravelerLoot.TravelerLoot.abi, this.props.state.web3Settings.contractAddress );
+      //await instance.methods.activateClaims().send({from:accounts[0]});
+      await instance.methods.claim().send({from:accounts[0]});
+      this.setState({minted:true});
+      this.fetchNFTList();
+      //console.log(this.state.all.description);
+
+    }catch(err){
+      this.setState({errorMessage: err.message});
+    }
+    this.setState({loading:this.state.loading-1});
+  }
+
+
+  fetchNFTList = async () => {
+    console.log("hey");
+    this.setState({loading:this.state.loading+1, errorMessage:''})
+    try{
+      const accounts= await this.props.state.web3.eth.getAccounts();
+      const instance = new this.props.state.web3.eth.Contract(TravelerLoot.TravelerLoot.abi, this.props.state.web3Settings.contractAddress );
+      let lastUserIndex = await instance.methods.balanceOf(accounts[0]).call()
+      .then((result) =>{
+          return JSON.parse(result);
+      })
+      .catch((error) =>{
+        console.log(error);
+      })
+      let all = [];
+      for (let index = 0; index < lastUserIndex; index++){
+        let tokenId = await instance.methods.tokenOfOwnerByIndex(accounts[0],index).call()
+        .then((result) =>{
+          return result;
+        })
+        .catch((error)=>{
+          console.log(error);
+        });
+
+        let uri = await instance.methods.tokenURI(tokenId).call()
+        .then((result)=> {
+          return JSON.parse(window.atob(result.split(',')[1]));
+
+        })
+        .catch((error)=>{
+          console.log(error);
+        });
+
+        let element = {"header": uri.name,/*"description":uri.description,*/"image":uri.image};
+        all.push(element);
+        console.log(uri);
+        this.setState({all:all});
+      }
+      this.setState({minted:true});
+      //console.log(this.state.all.description);
+
+    }catch(err){
+      this.setState({errorMessage: err.message});
+    }
+    this.setState({loading:this.state.loading-1});
+  }
+
+render(){
   return (
     <div className="container mx-auto mt-8">
       <div className="flex justify-around">
@@ -37,22 +131,20 @@ render(){
               </p>
             )
           }
-          <Container>
             {
               this.props.state.web3Settings.isWeb3Connected
               ? this.props.state.web3Settings.networkId == this.props.state.web3Settings.deployingNetworkId
                 ?
                 (
                     <div className={styles.home__feature}>
-                      <div className=" justify-center grid grid-cols-5 gap-4">
-                      <div className="col-start-2 col-span-3">
-                      <Form onSubmit = {this.props.onSubmit} error={!!this.props.state.errorMessage}>
+                      <div className="">
+                      {/*<Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
                         <Form.Field>
                           <p>
                             Insert an available tokenId between 1001 and 10000
                             <Popup content='#1 - #1000 are reserved. Minting is possible on etherscan by eligible guilds'
                               size='tiny'
-                              trigger={<Icon name='info' color='question circle' size='medium' circular />}
+                              trigger={<Icon name='question circle' color='grey'size='small' circular />}
                             />
                           </p>
                           <br />
@@ -60,32 +152,28 @@ render(){
                           type='number'
                           max = {10000}
                           min = {1001}
-                          value = {this.props.state.tokenId}
-                           onChange = {event => this.props.updateParent({tokenId: event.target.value})}/>
+                          value = {this.state.tokenId}
+                           onChange = {event => this.setState({tokenId: event.target.value})}/>
                         </Form.Field>
                         <br />
 
-                        <Message error header="Oops!" content = {this.props.state.errorMessage} />
-                        {/*<Button disabled={this.props.state.tokenId.length == 0} type="button" basic color='grey' onClick={this.props.onShow} > Preview</Button>*/}
-                        <Button disabled={this.props.state.tokenId.length == 0} loading = {this.props.state.loading} secondary>Claim</Button>
+                        <Message error header="Oops!" content = {this.state.errorMessage} />
+
+                        <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} secondary>Claim</Button>
                         <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.props.state.web3Settings.contractAddress}#code`} type="button" basic color='black' >H4x0r</Button>
                       </Form>
-                      {!this.props.state.minted ? null : (
-                        <Card centered>
-                          <Image src={`${this.props.state.image}`} wrapped ui={false} />
-                          <Card.Content>
-                            <Card.Header>{this.props.state.name}</Card.Header>
-                            <Card.Meta>
-                              <span className='date'>Minted on </span>
-                            </Card.Meta>
-                            <Card.Description>
-                              {this.props.state.description}
-                            </Card.Description>
-                          </Card.Content>
-                        </Card>
-                        )
-                      }
+                      */}
+                    
+                      <Button  loading = {this.state.loading > 0} secondary onClick = {this.onSubmit}>Claim</Button>
+                      <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.props.state.web3Settings.contractAddress}#code`} type="button" basic color='black' >H4x0r</Button>
+                      <div style={{padding:"15px"}}>
+                        <Card.Group itemsPerRow={3} centered items={this.state.all} />
                       </div>
+                      {
+                        //!this.state.minted ? null : (
+                          //<Card.Group itemsPerRow={2} centered items={this.state.all} />
+                        //)
+                      }
                       </div>
                     </div>
 
@@ -129,7 +217,7 @@ render(){
                     </div>
                   )
             }
-          </Container>
+
         </div>
       </div>
 

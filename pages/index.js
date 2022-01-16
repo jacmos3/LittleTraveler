@@ -7,7 +7,7 @@ import Types from '../components/IndexSections/Types.js';
 import Guilds from '../components/IndexSections/Guilds.js';
 import Elements from '../components/IndexSections/Elements.js';
 
-import {Form, Button, Input, Message, Icon, Image, Container, Dimmer, Loader, Segment, Table, Header, Popup} from 'semantic-ui-react';
+import {Form, Button, Input, Message, Icon, Image, Container, Table, Header, Popup} from 'semantic-ui-react';
 //import web3 from '../ethereum/web3';
 import {Router} from '../routes';
 import TravelerLoot from '../ethereum/build/TravelerLoot.sol.json';
@@ -17,13 +17,6 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 
 class MyDapp extends Component{
   state = {
-    errorMessage:'',
-    loading:false,
-    tokenId:'',
-    minted:false,
-    name:'',
-    description:'',
-    image:'',
     web3Settings:{
       isWeb3Connected:false,
       deployingNetworkId : 4, //1 ethereum, 4 rinkeby
@@ -36,9 +29,6 @@ class MyDapp extends Component{
     super();
 
   }
-  update = async (nextState)=>{
-    this.setState(nextState);
-  }
 
   async componentDidMount(){
     var web3Settings = this.state.web3Settings;
@@ -47,62 +37,27 @@ class MyDapp extends Component{
     //console.log(this.state);
     //console.log(derivatives);
   }
-
-  onSubmit = async (event) => {
-    event.preventDefault();
-    this.setState({loading:true, errorMessage:''});
-    try{
-      const accounts= await this.state.web3.eth.getAccounts();
-      const instance = new this.state.web3.eth.Contract(TravelerLoot.TravelerLoot.abi, this.state.web3Settings.contractAddress );
-
-      await instance.methods.claim(this.state.tokenId).send({from:accounts[0]});
-      let uri = await instance.methods.tokenURI(this.state.tokenId).call()
-      .then((result)=> {
-          return JSON.parse(window.atob(result.split(',')[1]));
-      })
-      .catch((error)=>{
-        console.log(error);
-      });
-      this.setState({name:uri.name, description:uri.description, image:uri.image, minted:true});
-      console.log(uri);
-    }catch(err){
-      this.setState({errorMessage: err.message});
-    }
-    this.setState({loading:false});
+  update = async (nextState)=>{
+    console.log("nextState: "+JSON.stringify(nextState));
+    this.setState(nextState);
   }
 
-  onShow = async() => {
-    console.log(this.state);
-    const instance = new this.state.web3.eth.Contract(TravelerLoot.TravelerLoot.abi, this.state.web3Settings.contractAddress );
-
-      let uri = await instance.methods.tokenURI(this.state.tokenId).call()
-      .then((result)=> {
-          return JSON.parse(window.atob(result.split(',')[1]));
-      })
-      .catch((error)=>{
-        console.log(error);
-      });
-      this.setState({name:uri.name, description:uri.description, image:uri.image, minted:true});
-      console.log(uri.image);
-
-    }
 
 
+  quicklinks = [
+      {name: "OpenSea", url: "#"},
+      {name: "Twitter",url: "https://twitter.com/tripscommunity"},
+      {name: "Contract",url: "#"},
+  ];
 
-    quicklinks = [
-        {name: "OpenSea", url: "#"},
-        {name: "Twitter",url: "https://twitter.com/tripscommunity"},
-        {name: "Contract",url: "#"},
-    ];
+  disconnect = (event) =>{
+      console.log("disconnect");
+      var web3Settings = this.state.web3Settings;
+      web3Settings.isWeb3Connected = false;
+      this.setState({web3Settings:web3Settings});
+  }
 
-    disconnect = (event) =>{
-        console.log("disconnect");
-        var web3Settings = this.state.web3Settings;
-        web3Settings.isWeb3Connected = false;
-        this.setState({web3Settings:web3Settings});
-    }
-
-    connect = async (event) => {
+  connect = async (event) => {
       var providerOptions={
        injected:{
          display:{
@@ -128,6 +83,7 @@ class MyDapp extends Component{
         cacheProvider: false, // optional
         providerOptions // required
       });
+
       var provider;
       web3Modal.clearCachedProvider();
       try {
@@ -156,6 +112,7 @@ class MyDapp extends Component{
         provider=null;
       }
      );
+
       this.setState({web3:web3});
 
       console.log(this.state.web3);
@@ -208,7 +165,7 @@ class MyDapp extends Component{
         </div>
 
         <div id="Start" className="bg-gray-PLATINUM  sm:py-20 py-10 pb-40 text-black">
-          <Claim disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} updateParent = {this.update} onSubmit = {this.onSubmit}/>
+          <Claim disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
 
         <div id="Plot" className="bg-black py-20">
