@@ -1355,9 +1355,9 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
     mapping(uint256 => address) public addressList;
     uint8 public counterOwner = 0;
     uint16 public counterStandard = 0;
-    uint16 private counterGuild = 0;
-    uint16 private counterPatrons = 0;
-    uint160 public priceForPatrons;
+    uint16 public counterGuild = 0;
+    uint16 public counterPatrons = 0;
+    uint160 public priceForPatrons = INITIAL_PRICE_FOR_PATRONS;
     uint256 public blockActivation = 0;
     string[] private categories = ["ENVIRONMENT","TALENT","PLACE","CHARACTER","TRANSPORT","LANGUAGE","EXPERIENCE","OCCUPATION","ACCOMMODATION","BAG"];
 
@@ -1368,29 +1368,28 @@ contract TravelerLoot is ERC721Enumerable, ReentrancyGuard, Ownable {
 
     constructor() ERC721("TravelerLoot", "TRVLR") Ownable(){
       uint256 blockNumber = block.number;
-     treasurer.old = address(0);
-     treasurer.current = INITIAL_TREASURER;
-     treasurer.blockNumber = blockNumber;
-     priceForPatrons = INITIAL_PRICE_FOR_PATRONS;
-     elements[categories[0]] = ["Beaches", "Mountains", "Urban", "Countrysides", "Lakes", "Rivers", "Farms", "Tropical areas", "Snowy places", "Forests", "Historical cities", "Islands", "Wilderness", "Deserts", "Natural parks", "Old towns", "Lakes", "Villages", "Forests", "Coral Reefs", "Wetlands", "Rainforests", "Grasslands", "Chaparral"];
-     elements[categories[1]] = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
-     elements[categories[2]] = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
-     elements[categories[3]] = ["Energetic", "Good-Natured", "Enthusiastic", "Challenging", "Charismatic", "Wise", "Modest", "Honest", "Protective", "Perceptive", "Providential", "Prudent", "Spontaneous", "Insightful", "Intelligent", "Intuitive", "Precise", "Sharing", "Simple", "Sociable", "Sophisticated", "Benevolent", "Admirable", "Brilliant", "Accessible", "Calm", "Capable", "Optimistic", "Respectful", "Responsible"];
-     elements[categories[4]] = ["Train", "Car", "Airplane", "Cruise", "4 wheel drive car", "Bus", "Convertible car", "Bicycle", "Motorbike", "Campervan", "Trailer", "Sailboat", "Electric car", "Sidecar", "Scooter", "Tram", "Cinquecento", "Hitch-hiking", "VW Beetle", "VW Bus", "Truck", "Off-road Vehicle", "Cab", "Lambo", "Ferrari", "Rocket", "DeLorean", "Kia Sedona", "Magic carpet", "Broomstick"];
-     elements[categories[5]] = ["English", "Mandarin Chinese", "Hindi", "Spanish", "Arabic", "French", "Russian", "Portuguese", "Indonesian", "German", "Japanese", "Turkish", "Korean", "Vietnamese", "Iranian Persian", "Swahili", "Javanese", "Italian", "Thai", "Filipino", "Burmese", "Polish", "Croatian", "Danish", "Serbian", "Slovenian", "Czech", "Slovakian", "Greek", "Hungarian"];
-     elements[categories[6]] = ["2", "3", "4", "5", "6", "7", "8", "9","10","100","0","1"];
-     elements[categories[7]] = ["Host", "Cook", "Writer", "DeeJay", "Employee", "Doctor", "Traveler", "Tour Guide", "Ship Pilot", "DAO Member", "Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "PoS validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Engineer", "Blockchain Consultant", "Crypto VC", "Miner","Metaverse Realtor"];
-     elements[categories[8]] = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
-     elements[categories[9]] = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwear","Condoms"];
+      treasurer.old = address(0);
+      treasurer.current = INITIAL_TREASURER;
+      treasurer.blockNumber = blockNumber;
+      elements[categories[0]] = ["Beaches", "Mountains", "Urban", "Countrysides", "Lakes", "Rivers", "Farms", "Tropical areas", "Snowy places", "Forests", "Historical cities", "Islands", "Wilderness", "Deserts", "Natural parks", "Old towns", "Lakes", "Villages", "Forests", "Coral Reefs", "Wetlands", "Rainforests", "Grasslands", "Chaparral"];
+      elements[categories[1]] = ["Cooking", "Painting", "Basketball", "Tennis", "Football", "Soccer", "Climbing", "Surfing", "Photographer", "Fishing", "Painting", "Writing", "Dancing", "Architecture", "Singing", "Dancing", "Baking", "Running", "Sword-fighting", "Boxing", "Jumping", "Climbing", "Hiking", "Kitesurfing", "Sailing", "Comforting others", "Flipping NFTs", "Katana sword fighter", "Programming Solidity", "Creating Memes"];
+      elements[categories[2]] = ["Eiffel Tower", "Colosseum", "Taj Mahal", "Forbidden City", "Las Vegas", "Sagrada Familia", "Statue of Liberty", "Pompeii", "Tulum", "St. Peter's Basilica", "Bangkok", "Tower of London", "Alhambra", "San Marco Square", "Ciudad de las Artes y las Ciencias", "Moscow Kremlin", "Copacabana", "Great Wall of China", "Havana", "Arc de Triomphe", "Neuschwanstein Castle", "Machu Picchu", "Gili Islands", "Maya Bay", "Etherscan", "0x0000000000000000000000000000000000000000", "::1", "42.452483,-6.051345","Parcel 0, CityDAO", "Wyoming"];
+      elements[categories[3]] = ["Energetic", "Good-Natured", "Enthusiastic", "Challenging", "Charismatic", "Wise", "Modest", "Honest", "Protective", "Perceptive", "Providential", "Prudent", "Spontaneous", "Insightful", "Intelligent", "Intuitive", "Precise", "Sharing", "Simple", "Sociable", "Sophisticated", "Benevolent", "Admirable", "Brilliant", "Accessible", "Calm", "Capable", "Optimistic", "Respectful", "Responsible"];
+      elements[categories[4]] = ["Train", "Car", "Airplane", "Cruise", "4 wheel drive car", "Bus", "Convertible car", "Bicycle", "Motorbike", "Campervan", "Trailer", "Sailboat", "Electric car", "Sidecar", "Scooter", "Tram", "Cinquecento", "Hitch-hiking", "VW Beetle", "VW Bus", "Truck", "Off-road Vehicle", "Cab", "Lambo", "Ferrari", "Rocket", "DeLorean", "Kia Sedona", "Magic carpet", "Broomstick"];
+      elements[categories[5]] = ["English", "Mandarin Chinese", "Hindi", "Spanish", "Arabic", "French", "Russian", "Portuguese", "Indonesian", "German", "Japanese", "Turkish", "Korean", "Vietnamese", "Iranian Persian", "Swahili", "Javanese", "Italian", "Thai", "Filipino", "Burmese", "Polish", "Croatian", "Danish", "Serbian", "Slovenian", "Czech", "Slovakian", "Greek", "Hungarian"];
+      elements[categories[6]] = ["2", "3", "4", "5", "6", "7", "8", "9","10","100","0","1"];
+      elements[categories[7]] = ["Host", "Cook", "Writer", "DeeJay", "Employee", "Doctor", "Traveler", "Tour Guide", "Ship Pilot", "DAO Member", "Driver", "NFT flipper", "Meme creator", "Sales Manager", "Play 2 Earner", "NFT collector", "Hotel receptionist", "Hotel Manager", "Digital Nomad", "Crypto Trader", "Head of Growth", "PoS validator", "Lightning Network Developer", "Anonymous DeFi Protocol Lead", "Yacht owner (in bull markets)", "Web3 Engineer", "Blockchain Consultant", "Crypto VC", "Miner","Metaverse Realtor"];
+      elements[categories[8]] = ["Hotel", "Apartment", "Hostel", "Tent", "BnB", "Guest House", "Chalet", "Cottage", "Boat", "Caravan", "Motorhome", "5 stars Hotel", "Suite in 5 Stars Hotel", "Tipi", "Tree House", "Bungalow", "Ranch", "Co-living", "Gablefront cottage", "Longhouse", "Villa", "Yurt", "Housebarn", "Adobe House", "Castle", "Rammed earth", "Underground living", "Venetian palace", "Igloo", "Trullo"];
+      elements[categories[9]] = ["Pen", "eBook reader", "Water", "Cigarettes", "Swiss knife", "Mobile phone", "Notebook", "Laptop", "Digital Camera", "Lighter", "Earphones", "Beauty case", "Toothbrush", "Toothpaste", "Slippers", "Shirts", "Pants", "T-shirts", "Socks", "Underwear","Condoms"];
 
-     detailsByAddress[PH_USERS] = Traveler({color:BLACK,familyType:"",familyName:"",counter:0,verified:true});
-     detailsByAddress[PH_PATRONS] = Traveler({color:"#F87151",familyType:PATRON,familyName:"",counter:0,verified:true});
-     detailsByAddress[PH_OG_LOOT] = Traveler({color:GOLD,familyType:PATRON,familyName:"Loot (for Adventurers)",counter:0,verified:true});
-     detailsByAddress[PH_CONQUERORS] = Traveler({color:WHITE,familyType:CONQUEROR,familyName:"",counter:0,verified:true});
-     detailsByAddress[PH_OWNER] = Traveler({color:BLACK,familyType:" ",familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_USERS] = Traveler({color:BLACK,familyType:"",familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_PATRONS] = Traveler({color:"#F87151",familyType:PATRON,familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_OG_LOOT] = Traveler({color:GOLD,familyType:PATRON,familyName:"Loot (for Adventurers)",counter:0,verified:true});
+      detailsByAddress[PH_CONQUERORS] = Traveler({color:WHITE,familyType:CONQUEROR,familyName:"",counter:0,verified:true});
+      detailsByAddress[PH_OWNER] = Traveler({color:BLACK,familyType:" ",familyName:"",counter:0,verified:true});
 
-     whiteListedGuilds.push(ADDRESS_OG_LOOT);
-     detailsByAddress[ADDRESS_OG_LOOT] = Traveler({color:BLACK,familyType:PLATINUM,familyName:"LOOT",counter:0,verified:true});
+      whiteListedGuilds.push(ADDRESS_OG_LOOT);
+      detailsByAddress[ADDRESS_OG_LOOT] = Traveler({color:BLACK,familyType:PLATINUM,familyName:"LOOT",counter:0,verified:true});
     }
 
     modifier checkStart() {
