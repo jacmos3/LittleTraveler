@@ -14,8 +14,8 @@ render(){
         <div className="px-20 py-8 rounded text-center">
           <span className="uppercase sm:text-xl tracking-widest">Under The Hood</span>
           <br />
-          <h1 className="text-center mt-4">132 trillion combinations</h1>
-          10 categories with 267 elements, and variable rarities.
+          <h1 className="text-center mt-4">132+ trillion combinations</h1>
+          10 categories, 267 elements, variable rarity. Stored on chain.
         </div>
       </div>
       <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">

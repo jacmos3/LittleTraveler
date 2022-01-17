@@ -11,9 +11,9 @@ function Footer() {
   return (
     <div className="bg-black">
       <div className={styles.footer}>
-      Inspired by <a target= "_blank" href="https://www.lootproject.com/"> Project Loot</a>
+      Forked from <a target= "_blank" href="https://www.lootproject.com/"> Project Loot</a>
       {" "}
-      and forked by <a target="_blank" href="https://www.tripscommunity.com">Trips Community</a>
+      and built by <a target="_blank" href="https://www.tripscommunity.com">Trips Community</a>
       <br />
       <br />
         Website code and Smart Contract code are{" "}

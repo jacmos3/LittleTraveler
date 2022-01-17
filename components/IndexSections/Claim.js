@@ -163,7 +163,7 @@ render(){
                         <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.props.state.web3Settings.contractAddress}#code`} type="button" basic color='black' >H4x0r</Button>
                       </Form>
                       */}
-                    
+                        <Button  secondary onClick = {this.fetchNFTList}>test</Button>
                       <Button  loading = {this.state.loading > 0} secondary onClick = {this.onSubmit}>Claim</Button>
                       <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.props.state.web3Settings.contractAddress}#code`} type="button" basic color='black' >H4x0r</Button>
                       <div style={{padding:"15px"}}>

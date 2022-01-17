@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
-import {Image} from 'semantic-ui-react';
+import {Image,Button} from 'semantic-ui-react';
 
 class Presentation extends Component{
   constructor(){
@@ -47,7 +47,11 @@ render(){
 
           </div>
           <div><a href="href=https://rinkeby.etherscan.io/">VIEW CONTRACT</a></div>
-
+          <div className="text-center">
+            <a href="#Start">
+              <Button className=" hover:text-white  mx-2" secondary >Claim a Traveler Loot</Button>
+            </a>
+          </div>
 
         </div>
       </div>
