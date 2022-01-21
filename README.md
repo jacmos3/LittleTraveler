@@ -48,10 +48,10 @@ The owners of whitelisted Loot projects have the **elegibility** to mint a Trave
 The qualification for the Loot projects is based on a whitelisting process.
 Projects can enter the whitelist in three different ways:
 By yourself:
-- Owning more than 50 Traveler Loot
+- Owning more than 50 Traveler Loot;
 - (or) Minting a Patron Traveler Loot before
-By Trips Community
-- Getting in touch with Trips Community and proposing your idea and your reason why.
+By Trips Community;
+- (or) Getting in touch with Trips Community and proposing your idea and your reason why.
 
 Projects can be whitelisted only if the Conqueror Guild is still not yet elected.
 
@@ -121,7 +121,7 @@ The total possible combinations are much over 100 Trillion.
 ===
 
 NOTE
-All which is explained here is coded in the Smart Contracts and you are free to read it on etherscan https://etherscan.io/address/0x38cd9992e44064cb8bd68cdf17d164b82b25277c 
+All which is explained here is coded in the Smart Contracts and you are free to read it on etherscan https://etherscan.io/address/0x38cd9992e44064cb8bd68cdf17d164b82b25277c
 
 ------------
 
