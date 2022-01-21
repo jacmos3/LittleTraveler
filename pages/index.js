@@ -23,6 +23,7 @@ class MyDapp extends Component{
     twitter:"https://twitter.com/tripscommunity",
     website:"https://www.travelerloot.com",
     discord:"https://discord.gg/tripscommunity",
+    tripsCommunity:"https://www.tripscommunity.com",
     web3Settings:{
       infura:"8886e44c58d547f5bbbd81e0460296a2",
       isWeb3Connected:false,
@@ -139,7 +140,7 @@ class MyDapp extends Component{
   render(){
     return (
 
-      <Layout disconnect = {this.disconnect} connect = {this.connect}  state = {this.state.web3Settings}>
+      <Layout disconnect = {this.disconnect} connect = {this.connect}  state = {this.state}>
 
         <Presentation  state={this.state}/>
 

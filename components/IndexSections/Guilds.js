@@ -85,7 +85,9 @@ render(){
           <br />
           <div id="derivatives">
             <Card.Group itemsPerRow={2} centered items={derivatives} />
-              <Card.Group itemsPerRow={1} centered items={addGuildsCard} />
+            <div id="guildsclaim">
+            <Card.Group itemsPerRow={1} centered items={addGuildsCard} />
+            </div>
           </div>
 
         </div>
@@ -105,15 +107,17 @@ render(){
         <br />- (or) You are the owner of this contract.
         <br />
         <br />
-        <div><Button target="_blank" href={`${this.props.state.etherscan}#writeContract`} secondary >Etherscan</Button></div>
+        <div ><Button target="_blank" href={`${this.props.state.etherscan}#writeContract`} secondary >Etherscan</Button></div>
       </p>
     </Container>
   ) : (<br />)
 }
 
-    <br />
-    <br />
-    <div>
+    <div >
+
+        <br />
+        <br />
+        <br />
         {
           this.props.state.web3Settings.isWeb3Connected
           ? this.props.state.web3Settings.networkId == this.props.state.web3Settings.deployingNetworkId
@@ -124,7 +128,7 @@ render(){
                   </span>
                 <Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
                   <Form.Field>
-<h2>Claim now a Traveler Loot for Guilds</h2>
+                    <h2>Claim now a Traveler Loot for Guilds</h2>
                     <p>
 
                       <br />Select the address of your Guild...
@@ -177,7 +181,6 @@ render(){
                   </Dimmer>
                 </Segment>
               )
-
               :(
                 <div>
                   <Container style={{color:"white"}}>
@@ -191,13 +194,11 @@ render(){
                       )
 
                       :(
-
                           <div
                             className="text-center"
                           >
                             <Button className=" hover:text-white  mx-2" secondary onClick={this.props.connect}>Connect Wallet</Button>
                           </div>
-
                       )
                     }
                     </div>

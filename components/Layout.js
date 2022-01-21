@@ -23,9 +23,9 @@ render(){
   return (
     <div>
       <Head />
-      <Header links = {links} disconnect = {this.props.disconnect} connect = {this.props.connect} state = {this.props.state}/>
+      <Header links = {links} disconnect = {this.props.disconnect} connect = {this.props.connect} state = {this.props.state.web3Settings}/>
       {this.props.children}
-      <Footer />
+      <Footer state = {this.props.state}/>
     </div>
   )
 };

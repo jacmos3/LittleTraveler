@@ -154,12 +154,8 @@ render(){
                           )
 
                           :(
-                            <div className="grid grid-cols-10 gap-4">
-                              <div
-                                className="col-start-5 col-span-2"
-                              >
-                                <Button className=" hover:text-white  mx-2" secondary onClick={this.props.connect}>Connect Wallet</Button>
-                              </div>
+                            <div className="text-center">
+                              <Button className=" hover:text-white  mx-2" secondary onClick={this.props.connect}>Connect Wallet</Button>
                             </div>
                           )
                         }

@@ -27,7 +27,7 @@ render(){
                 <Card.Header>Traveler Loot for Guilds</Card.Header>
                 <Card.Meta>Supply: 900 (#1 to #900)</Card.Meta>
                 <Card.Description>
-                  <a href="#Guilds">Guilds</a> members can claim these slots by calling claimByGuilds(tokenId,contractAddress) function on etherscan.
+                  Guilds members can claim these slots <a href="#guildsclaim">🔗here</a>, or by calling claimByGuilds(tokenId,contractAddress) function on etherscan.
                 </Card.Description>
               </Card.Content>
               <Card.Content extra>
