@@ -13,7 +13,7 @@ render(){
           <span className="uppercase sm:text-xl tracking-widest">Plot</span>
           <h1 className="text-center mt-4">Context and Details</h1>
           <embed
-            src="../plot.pdf#navpanes=0&scrollbar=0"
+            src="../Traveler Loot - The Story.pdf#navpanes=0&scrollbar=0"
             width="100%" height="700px"
           />
         </div>

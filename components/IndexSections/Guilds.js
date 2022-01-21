@@ -49,19 +49,6 @@ class Guilds extends Component{
 
 
 render(){
-  var der = [{
-    header:"Add new Guilds to the Whitelist...",
-      content: 'Add new Guilds to the Whitelist...',
-      onClick:this.hideShowAddingGuilds,
-      className:"middle"
-    }];
-
-  function derivativeList(item){
-    var toRet = Array.from(derivatives);
-    toRet.push(item);
-    return toRet;
-  }
-
   function dropdownList(){
     var toRet= [];
     var item;
@@ -102,7 +89,7 @@ render(){
       (
     <Container>
       <p className="text-center">
-        You can add a new Guild into the game if you meet these conditions:
+        You can add a new Guilds into the game if you meet these conditions:
         <br />- You hold more than 50 Standard Traveler Loots;
         <br />- (or) You have minted a Traveler Loot for Patrons;
         <Popup content='Patrons are claimable by calling claimByPatrons() function on etherscan and paying the "priceForPatrons" price. Check the contract for details.'

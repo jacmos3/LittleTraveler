@@ -1,6 +1,6 @@
 build
 package-lock.json
-./img_deprecated/
+img_deprecated
 .firebase*
 .github*
 *.DS_Store
