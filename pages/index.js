@@ -7,7 +7,7 @@ import Types from '../components/IndexSections/Types.js';
 import Guilds from '../components/IndexSections/Guilds.js';
 import Elements from '../components/IndexSections/Elements.js';
 
-import {Form, Button, Input, Message, Icon, Image, Container, Table, Header, Popup} from 'semantic-ui-react';
+import {Header} from 'semantic-ui-react';
 //import web3 from '../ethereum/web3';
 import {Router} from '../routes';
 import TravelerLoot from '../ethereum/build/TravelerLoot.sol.json';
@@ -17,13 +17,19 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 
 class MyDapp extends Component{
   state = {
+    OGLOOTWebsite:"https://www.lootproject.com/",
+    opensea:"https://www.opensea.io/",
+    etherscan:"https://etherscan.io/address/0x38cd9992e44064cb8bd68cdf17d164b82b25277c",
+    twitter:"https://twitter.com/tripscommunity",
+    website:"https://www.travelerloot.com",
+    discord:"https://discord.gg/tripscommunity",
     web3Settings:{
+      infura:"8886e44c58d547f5bbbd81e0460296a2",
       isWeb3Connected:false,
-      deployingNetworkId : 4, //1 ethereum, 4 rinkeby
-      deployingNetworkName : "Rinkeby"
+      deployingNetworkId : 1, //1 ethereum, 4 rinkeby
+      deployingNetworkName : "Ethereum Mainnet"
     }
   };
-
 
   constructor(){
     super();
@@ -41,14 +47,6 @@ class MyDapp extends Component{
     console.log("nextState: "+JSON.stringify(nextState));
     this.setState(nextState);
   }
-
-
-
-  quicklinks = [
-      {name: "OpenSea", url: "#"},
-      {name: "Twitter",url: "https://twitter.com/tripscommunity"},
-      {name: "Contract",url: "#"},
-  ];
 
   disconnect = (event) =>{
       console.log("disconnect");
@@ -73,7 +71,7 @@ class MyDapp extends Component{
           },
           package: WalletConnectProvider,
           options: {
-            infuraId: "8886e44c58d547f5bbbd81e0460296a2" // required
+            infuraId: this.state.web3Settings.infura // required
           }
        }
       }
@@ -114,14 +112,13 @@ class MyDapp extends Component{
      );
 
       this.setState({web3:web3});
-
-      console.log(this.state.web3);
+      //console.log(this.state.web3);
        const networkId =  await this.state.web3.eth.net.getId();
        const accounts = await this.state.web3.eth.getAccounts();
-       console.log("account:"+ accounts[0]);
+       //console.log("account:"+ accounts[0]);
 
        const ethBalance = await this.state.web3.eth.getBalance(accounts[0]) / 10 ** 18;
-       console.log(this.state.web3Settings.isWeb3Connected);
+      // console.log(this.state.web3Settings.isWeb3Connected);
        var web3Settings = this.state.web3Settings;
        web3Settings.account = accounts[0];
        web3Settings.networkId = networkId;
@@ -144,7 +141,7 @@ class MyDapp extends Component{
 
       <Layout disconnect = {this.disconnect} connect = {this.connect}  state = {this.state.web3Settings}>
 
-        <Presentation />
+        <Presentation  state={this.state}/>
 
         <div className="bg-black flex flex-wrap mx-auto sticky top-0 w-full justify-center space-x-6 sm:space-x-10 py-4 z-10 sm:text-2xl font-display">
           <div>
@@ -173,11 +170,11 @@ class MyDapp extends Component{
         </div>
 
         <div id="Types" className="bg-gray-PLATINUM sm:py-20 py-10 pb-40 text-black ">
-          <Types />
+          <Types state = {this.state}/>
         </div>
 
         <div id="Guilds" className="bg-black  py-20 text-white ">
-          <Guilds />
+          <Guilds disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
 
         <div id="Elements" className="bg-black  py-20 text-white ">

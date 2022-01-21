@@ -18,23 +18,6 @@ class Claim extends Component{
 
   }
 
-/*  onShow = async() => {
-    console.log(this.state);
-    const instance = new this.state.web3.eth.Contract(TravelerLoot.TravelerLoot.abi, this.state.web3Settings.contractAddress );
-
-      let uri = await instance.methods.tokenURI(this.state.tokenId).call()
-      .then((result)=> {
-          return JSON.parse(window.atob(result.split(',')[1]));
-      })
-      .catch((error)=>{
-        console.log(error);
-      });
-      this.setState({name:uri.name, description:uri.description, image:uri.image, minted:true});
-      console.log(uri.image);
-
-    }
-
-*/
   onSubmit = async (event) => {
     event.preventDefault();
     this.setState({loading:this.state.loading+1, errorMessage:''})
@@ -110,11 +93,7 @@ render(){
           </span>
           <h1 className="text-center mt-4 capitalize">Start Here: Get A Traveler Loot</h1>
           <br />
-          {
-            this.props.state.web3Settings.isWeb3Connected
-            ? (<div></div>)
-            :(
-              <p className="text-xl sm:text-2xl ">
+            <p className="text-xl sm:text-2xl ">
                 10,000 loots, discovered by travelers.
                 <br />
                 What treasures do they hold?
@@ -129,8 +108,6 @@ render(){
                 <br />
                 <br />
               </p>
-            )
-          }
             {
               this.props.state.web3Settings.isWeb3Connected
               ? this.props.state.web3Settings.networkId == this.props.state.web3Settings.deployingNetworkId
@@ -138,34 +115,8 @@ render(){
                 (
                     <div className={styles.home__feature}>
                       <div className="">
-                      {/*<Form onSubmit = {this.onSubmit} error={!!this.state.errorMessage}>
-                        <Form.Field>
-                          <p>
-                            Insert an available tokenId between 1001 and 10000
-                            <Popup content='#1 - #1000 are reserved. Minting is possible on etherscan by eligible guilds'
-                              size='tiny'
-                              trigger={<Icon name='question circle' color='grey'size='small' circular />}
-                            />
-                          </p>
-                          <br />
-                          <Input
-                          type='number'
-                          max = {10000}
-                          min = {1001}
-                          value = {this.state.tokenId}
-                           onChange = {event => this.setState({tokenId: event.target.value})}/>
-                        </Form.Field>
-                        <br />
-
-                        <Message error header="Oops!" content = {this.state.errorMessage} />
-
-                        <Button disabled={this.state.tokenId.length == 0} loading = {this.state.loading} secondary>Claim</Button>
-                        <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.props.state.web3Settings.contractAddress}#code`} type="button" basic color='black' >H4x0r</Button>
-                      </Form>
-                      */}
-                        
                       <Button  loading = {this.state.loading > 0} secondary onClick = {this.onSubmit}>Claim</Button>
-                      <Button target="_blank" href={`https://rinkeby.etherscan.io/address/${this.props.state.web3Settings.contractAddress}#code`} type="button" basic color='black' >H4x0r</Button>
+                      <Button  secondary onClick = {this.fetchNFTList}  type="button" basic color='black' >Refresh</Button>
                       <div style={{padding:"15px"}}>
                         <Card.Group itemsPerRow={3} centered items={this.state.all} />
                       </div>

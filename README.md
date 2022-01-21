@@ -32,74 +32,73 @@ The Traveler loot has been presented on the 2nd of December 2021 at the [Hicon, 
 
 ## How it works
 Everybody can mint a Traveler Loot NFT on Ethereum, by using Etherscan here:
-__ADD_LINK__ or by using our native frontend here: __ADD_LINK__
+https://etherscan.io/address/0x38cd9992e44064cb8bd68cdf17d164b82b25277c or by using our native frontend here: https://travelerloot.com
 
 
 There are 4 kinds of Traveler Loot NFTs:
-1) #1 to #900: Traveler Loots reserved for owners of Loot NFT from selected Loot projects. Free + gas.
-2) #901 to #1000: Black and white Traveler Loots reserved to contract deployer (Trips Community).
-3) #1001 to #10000: Black and white Traveler Loots (standard). Free + gas.
-4) #address: will be Patron Traveler Loots (price starts from 1 ETH and then varies depending on the formula described in *price variability* section).
+1) #1 to #900: Traveler Loot, reserved for holders of Loot NFTs from whitelisted Loot projects. Free + gas.
+2) #901 to #1000: Traveler Loots reserved to contract deployer (Trips Community).
+3) #1001 to #10000: Traveler Loots (standard) claimable by anyone. Free + gas.
+4) #address: will be Patron Traveler Loots. Price starts from 1 ETH and then varies depending on the formula described in *price variability* section). OG Looters and Conqueror Guild, can claim them for free + gas.
 
 
 ## PRIORITY FOR ELIGIBLE LOOT PROJECT OWNERS
 
-The owners of 15 Loot projects (Original Loot Project and 14 it's derivatives) have the **elegibility** to mint a Traveler Loot in special edition **Guild NFT**, opening the doors for other possible future airdrops or advantages.
-The qualification for the Loot projects was based on the trading volume on OpenSea.
-The qualified Loot projects are the first 15 in the list, sorted by trading volume on **DECEMBER 2021**.
+The owners of whitelisted Loot projects have the **elegibility** to mint a Traveler Loot in special edition **Guild NFT**, opening the doors for other possible future airdrops or advantages.
+The qualification for the Loot projects is based on a whitelisting process.
+Projects can enter the whitelist in three different ways:
+By yourself:
+- Owning more than 50 Traveler Loot
+- (or) Minting a Patron Traveler Loot before
+By Trips Community
+- Getting in touch with Trips Community and proposing your idea and your reason why.
 
-By using the _**claimForGuilds(tokenId, contractAddress)**_ function, Loot project owners can mint a
-Special Edition **Guild NFT** on a first-come-first-served basis.
-There are **15 qualified Loot and Loot derivatives projects** that have
-been selected to be qualified for this purpose.
+Projects can be whitelisted only if the Conqueror Guild is still not yet elected.
+
+By using the _**claimByGuilds(tokenId, contractAddress)**_ function, Loot project owners can mint a
+Special Edition **Guild NFT** on a first-come-first-served basis after modulo formula discretization:
+In other words: X = Y mod 900 where X = the target Traveler Loot tokenId and Y = the tokenId of the Guild (derivative loot)
 
 E.g.: if you own the Loot #1 from an eligible Loot project, you would be able to mint the Traveler Loot #1 using
-the _**claimForGuilds(tokenId, contractAddress)**_, just providing the tokenId you own
+the _**claimByGuilds(tokenId, contractAddress)**_, just providing the tokenId you own
 and the Loot address.
 This will be minted in special edition (it comes out with a coloured flag, and a special property as metadata).
 
-If you own a higher _tokenId_ from a previous eligible Loot project, you can claim your special edition too (for the mathematically inclined: because the tokenId is wrapped by 900. The formula is: (tokenId mod 900)+1.
+If you own a higher _tokenId_ from a previous eligible Loot project, you can claim your special edition too (for the mathematically inclined: because the tokenId is wrapped by 900 as better described above.
 
-So everybody can mint their special edition, if they are fast enough to claim it before they go out of supply.
+So every Guilds member can mint its special edition, if he/she is fast enough to claim it before somebody else from some other Guild mints it.
+When a Guild member mints his/her number, he/she invalidates the right for that id to be claimed by other guilds members.
 
-Note that when you mint your number, you take it away from all the others
-Loot or Loot-derivatives owners, because there will be one and only one #1, one and only one #2 and so on till #900.
-So If you've minted it, the other owners have lost the opportunity to do the same.
-
-Only first one who mints its own number will receive the special edition minting.
-
-There will be only 900 Guild Traveler Loot, at maximum: from #1 to #900.
+There will be only 900 Traveler Loot for Guilds, and they'll be from #1 to #900.
 
 ## DERIVATIVE LOOT "GUILDS"
-If you have an NFT from an eligible Loot project, you are part of a Guild.
-There are 15 Colors. Each color represents the flag of the Guild.
-When all 900 Special Edition Traveler Loots have been minted, the Guild with most NFTs will WIN and becomes the Conqueror.
-Conqueror Guild wins the possibility to mint for free + gas a Patron NFT, which otherwise costs about 1 ETH. Price for patrons is dynamic and tend to become as expensive as the hype of the project increases. It is designed to give more value to Conqueror prize since Conqueror members will be able to mint it for free + gas instead.
+If you have an NFT from a whitelisted project, you are part of a Guild.
+There will be a color for each Guild. Each color represents the flag of the Guild itself.
+When all 900 Special Edition Traveler Loots have been minted, the Guild with most NFTs will WIN and becomes the Conqueror of the game.
+Conqueror Guild wins the possibility to mint for free + gas a Patron NFT, which otherwise has a cost. Price for patrons is dynamic and tends to become as unaffordable as the hype of the project increases. It is a feature by design to give more value to Conqueror prize since Conqueror members will be able to mint it for free + gas instead.
 
 
 ## PATRON NFT
 
 - Starting cost: **1 ETH**
-- Peculiarity: You can mint it whenever you want and nobody can steal it since **your ETH address is the TokenID**. Each address can mint one and only one. Price starts from 1 ETH but it is designed to become unaffordable as soon as the project increases in popularity.
+- Peculiarity: You can mint yours at any time, and nobody can grab your spot since **your ETH address is the TokenID**. Each address can mint one and only one Patron, Patron includes claimByPatrons() but also claimByConquerors() and claimByOGLooters(). Price starts from 1 ETH but it is designed to become unaffordable as soon as the project increases in popularity.
+- OGLooters have the right to claim a Patron for free. This right expires on Dom Hoffman's 40th Birthday or when a Conqueror will be elected.
 
-**Price variability**
+**Patron Price variability**
 The minting price varies according to the number of Standard Travel Loot NFTs minted.
 
-- Every time a Standard NFT (#1001 to #10000) is minted the Patron NFT minting price decreases by 1%
+- Every time a Standard NFT (#1001 to #10000) is minted, the Patron NFT minting price decreases by 1%
 - Every time one of the owner-reserved NFTS (#901 to #1000) is minted, the the Patron NFT minting price has no variation: Project owner does not have any influence on prices.
-- Every time one an eligible Loot derivate owner mints one Guild Traveler Loot (#1 to #900), the Patron NFT minting price increases by 1%
-- Every time a Patron mints one Patron NFT, if the price went back under 1 ether due of previous mintings (see what happens when people mint #1001 to #10000), then it will be reset to 1 ether and increased by 5%. This means that if in a certain moment you find a price of 0.5 ether because of many Standard NFT have been claimed in a raw, then it is possible to mint a Patron NFT for just 0.5 ether, and by doing that the price for the next patrons will be reset to 1 ether (+ 5% caused by your mint).
-- Every time an owner of an original Loot (created by @Dof https://opensea.io/collection/lootproject) mints a Patron using *claimForLooters()* function, the Patron NFT minting price goes down by 5%.
-Loot owners have the privilege to mint a Patron Traveler Loot for free ()+ fees) for a limited period of time: it expires on the 40th birthday of Dhof [https://twitter.com/dhof] on 27/09/2026 23:59:59 (UTC) OR when all Guild Traveler Loot NFTs (#1 to #900) are minted and we have a Conqueror Guild.
+- Every time a Guild member mints one Guild Traveler Loot (#1 to #900), the Patron NFT minting price increases by 1%
+- Every time a Patron mints one Patron NFT, the Patron NFT price increases by 5%.
+- Every time an owner of an OGLoot (created by @Dof https://opensea.io/collection/lootproject) mints a Patron using *claimByLooters()* function, the Patron NFT minting price goes down by 5%.
 - Every time a Conqueror (member of the winner Guild) mints with its own address using *claimForConquerors()* function, the Patron NFT minting price increases by 2%
 
 
 ## STANDARD "TRAVELER LOOT" NFTs
 If you do not own any eligible Loot/Loot Derivative, then you'll be able to claim
 a Standard Traveler Loot in black/white edition, just claiming from the function
-_**claim(tokenId)**_.
-You just need to choose and find a still available number between #1001 and #10000
-
+_**claim()**_.
 
 ## ELEMENTS AND RARITY
 There are 10 categories:
@@ -122,7 +121,7 @@ The total possible combinations are much over 100 Trillion.
 ===
 
 NOTE
-All which is explained here is coded in the Smart Contracts and you are free to read it on etherscan [LINK]
+All which is explained here is coded in the Smart Contracts and you are free to read it on etherscan https://etherscan.io/address/0x38cd9992e44064cb8bd68cdf17d164b82b25277c 
 
 ------------
 

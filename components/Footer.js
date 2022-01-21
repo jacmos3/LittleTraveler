@@ -16,7 +16,7 @@ function Footer() {
       and built by <a target="_blank" href="https://www.tripscommunity.com">Trips Community</a>
       <br />
       <br />
-        Website code and Smart Contract code are{" "}
+        Website and Smart Contract's code are{" "}
         <a
           href="https://github.com/jacmos3/TravelerLoot"
           target="_blank"
@@ -26,7 +26,7 @@ function Footer() {
         </a>{" "}
         and licensed under MIT license.
         <br />
-        Traveler Loot modifications and NFTs are
+        Traveler Loot modifications and NFTs are Public Domain.
         <div className="flex py-8 w-full justify-center space-x-6">
           <Image className="text-white mx-2" src="https://i.creativecommons.org/p/zero/1.0/88x31.png" />
         </div>

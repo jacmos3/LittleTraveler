@@ -24,21 +24,21 @@ render(){
           </div>
           <div className="flex py-8 w-full justify-center space-x-6">
             <a
-              href="https://opensea.io/collection/#"
+              href={this.props.state.opensea}
               className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
               target="_blank"
             >
-              <Image className=" hover:text-white  w-6 h-6 mx-2" src="../img/opensea.svg"  />
+              <Image className="hover:text-white  w-6 h-6 mx-2" src="../img/opensea.svg"  />
             </a>
             <a
-              href="https://twitter.com/tripscommunity"
+              href={this.props.state.twitter}
               className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
               target="_blank"
             >
               <Image className="fill-current w-6 h-6 mx-2" src="../img/twitter.svg"/>
             </a>
             <a
-              href="https://discord.gg/tripscommunity"
+              href={this.props.state.discord}
               className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
               target="_blank"
             >
@@ -46,7 +46,8 @@ render(){
             </a>
 
           </div>
-          <div><a href="href=https://rinkeby.etherscan.io/">VIEW CONTRACT</a></div>
+          <div><a href={this.props.state.etherscan} target="_blank">VIEW CONTRACT</a></div>
+          <br />
           <div className="text-center">
             <a href="#Start">
               <Button className=" hover:text-white  mx-2" secondary >Claim a Traveler Loot</Button>

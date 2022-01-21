@@ -58,7 +58,7 @@ render(){
               <Card.Description>
                 Everybody can claim one (and only one) Traveler Loot for Patron, but it's not for free.
                 <br />It has a dynamic price, starting from 1 ether.
-                <br />It's price is designed to increase as much as the project gains popularity and utility. The supply is leaded by the dynamic price unaffordability.
+                <br />It's price is designed to increase as much as the project gains popularity and utility. The supply is leaded by the price unaffordability by design.
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
@@ -68,13 +68,12 @@ render(){
         </Card.Group>
       </Container>
     <br />
+    <Container>
     <p>
-    Traveler Loot Project is a layer built on top of <a href= "https://www.lootproject.com/">🔗Loot Project</a> and other whitelisted contracts (we call them <a href="#Guilds">🔗Guilds</a>).
-    By holding NFTs of the whitelisted contracts, you have access to the <span className="italic">Traveler Loot for Guilds</span> claims. Project's whitelisting is open, but it's under conditions:
-    <br />New projects can be whitelisted and can become Guilds: this ability is permitted to those who own at least 50 Travelers Loot or 1 Traveler Loot for Patrons (this is a functionality thought for Smart Contract Deployers with the willingness to engage their project to be part of Traveler Lootverse). If you meet one of those conditions, you can whitelist new Guilds and let it know to your community, otherwise you cannot.
-    Holders of whitelisted projects have a chance to claim a <span className="italic"> Traveler Loot for Guilds</span> for free.
-
+    Traveler Loot Project is a layer built on top of <a href= {this.props.state.OGLOOTWeb}>🔗Loot Project</a> and other whitelisted contracts (we call them <a href="#Guilds">🔗Guilds</a>).
+    By holding NFTs of the whitelisted contracts, you have access to the <span className="italic">Traveler Loot for Guilds</span> claims. Project's whitelisting is open <a target="_blank" href={`${this.props.state.etherscan}#writeContract`}>🔗here</a>.
     </p>
+    </Container>
     </div>
 
   )
