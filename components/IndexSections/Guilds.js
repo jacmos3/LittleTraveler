@@ -49,6 +49,12 @@ class Guilds extends Component{
 
 
 render(){
+  var addGuildsCard = [{
+    header:"Add new Guilds to the Whitelist...",
+      content: 'Add new Guilds to the Whitelist...',
+      onClick:this.hideShowAddingGuilds,
+      className:"middle"
+    }];
   function dropdownList(){
     var toRet= [];
     var item;
@@ -79,7 +85,7 @@ render(){
           <br />
           <div id="derivatives">
             <Card.Group itemsPerRow={2} centered items={derivatives} />
-              <Card.Group itemsPerRow={1} centered items={der} />
+              <Card.Group itemsPerRow={1} centered items={addGuildsCard} />
           </div>
 
         </div>
