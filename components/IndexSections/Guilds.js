@@ -79,6 +79,10 @@ render(){
       </div>
 
       <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4">
+      <Message
+          header='Please Note:'
+          content="Since claims have been not yet activated, these guilds have not been whitelisted yet. Whitelisting will happen before activation by contract's owner."
+        />
         <div>
            If you own one NFT of these Projects, then you are in a Guild:
           <br />
@@ -104,7 +108,7 @@ render(){
           size='tiny'
           trigger={<Icon name='question circle' color='grey'size='small' circular />}
         />
-        <br />- (or) You are the owner of this contract.
+        <br />- (or) You are the owner of Traveler Loot's Smart Contract.
         <br />
         <br />
         <div ><Button target="_blank" href={`${this.props.state.etherscan}#writeContract`} secondary >Etherscan</Button></div>

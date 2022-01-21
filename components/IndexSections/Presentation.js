@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
-import {Image,Button} from 'semantic-ui-react';
+import {Image,Button,Message} from 'semantic-ui-react';
 
 class Presentation extends Component{
   constructor(){
@@ -13,6 +13,10 @@ render(){
 
     <div className="mx-auto px-2 sm:px-4 text-center py-10 sm:py-20 justify-around flex flex-wrap hero-img bg-opacity-10">
       <div className="w-full sm:w-1/2">
+      <Message
+          header='Please Note:'
+          content="Contract has been deployed but mintings are not yet activated! Please do not try to interact with the contract, or your transaction will fail!"
+        />
         <div className="sm:px-4">
           <div className={styles.home__cta}>
             <h1>Traveler Loot</h1>
