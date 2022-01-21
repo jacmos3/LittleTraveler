@@ -16,6 +16,7 @@ render(){
             src="../Traveler Loot - The Story.pdf#navpanes=0&scrollbar=0"
             width="100%" height="700px"
           />
+          <a href="../Traveler Loot - The Story.pdf">Download the .pdf here if your browser doesn't support the embedded version</a>
         </div>
       </div>
     </div>
