@@ -18,23 +18,23 @@ function Head() {
 
       {/* OG + Faceook */}
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://travelerloot.web.app" />
+      <meta property="og:url" content="https://www.travelerloot.com" />
       <meta property="og:title" content="Traveler Loot" />
       <meta
         property="og:description"
         content="Traveler Loot is randomized character generated and stored on chain."
       />
-      <meta property="og:image" content="https://travelerloot.web.app/meta.png" />
+      <meta property="og:image" content="https://www.travelerloot.com/meta.png" />
 
       {/* Twitter */}
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content="https://travelerloot.web.app" />
+      <meta property="twitter:url" content="https://www.travelerloot.com" />
       <meta property="twitter:title" content="Traveler Loot" />
       <meta
         property="twitter:description"
         content="Traveler Loot is randomized character generated and stored on chain."
       />
-      <meta property="twitter:image" content="https://travelerloot.web.app/meta.png" />
+      <meta property="twitter:image" content="https://www.travelerloot.com/meta.png" />
 
       {/* Font */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
