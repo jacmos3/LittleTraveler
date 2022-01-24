@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button,Card,Form,Popup,Icon,Input,Message,Container, Segment,Dimmer,Loader,Grid,Dropdown} from 'semantic-ui-react';
 import {derivatives} from "../../derivatives.js"
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
-import TravelerLoot from '../../ethereum/build/TravelerLoot.sol.json';
+import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
 class Guilds extends Component{
   constructor(){
     super();
@@ -29,7 +29,7 @@ class Guilds extends Component{
     this.setState({loading:this.state.loading+1, errorMessage:''})
     try{
       const accounts= await this.props.state.web3.eth.getAccounts();
-      const instance = new this.props.state.web3.eth.Contract(TravelerLoot.TravelerLoot.abi, this.props.state.web3Settings.contractAddress );
+      const instance = new this.props.state.web3.eth.Contract(LittleTraveler.LittleTraveler.abi, this.props.state.web3Settings.contractAddress );
       //await instance.methods.activateClaims().send({from:accounts[0]});
       await instance.methods.claimByGuilds(this.state.tokenId,this.state.guildAddress).send({from:accounts[0]});
       this.setState({minted:true});

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Container,Button,Form,Popup,Icon,Input,Message,Card,Image,Segment,Dimmer,Loader} from 'semantic-ui-react';
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
-import TravelerLoot from '../../ethereum/build/TravelerLoot.sol.json';
+import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
 class Claim extends Component{
   state = {
     loading:0,
@@ -23,7 +23,7 @@ class Claim extends Component{
     this.setState({loading:this.state.loading+1, errorMessage:''})
     try{
       const accounts= await this.props.state.web3.eth.getAccounts();
-      const instance = new this.props.state.web3.eth.Contract(TravelerLoot.TravelerLoot.abi, this.props.state.web3Settings.contractAddress );
+      const instance = new this.props.state.web3.eth.Contract(LittleTraveler.LittleTraveler.abi, this.props.state.web3Settings.contractAddress );
       //await instance.methods.activateClaims().send({from:accounts[0]});
       await instance.methods.claim().send({from:accounts[0]});
       this.setState({minted:true});
@@ -42,7 +42,7 @@ class Claim extends Component{
     this.setState({loading:this.state.loading+1, errorMessage:''})
     try{
       const accounts= await this.props.state.web3.eth.getAccounts();
-      const instance = new this.props.state.web3.eth.Contract(TravelerLoot.TravelerLoot.abi, this.props.state.web3Settings.contractAddress );
+      const instance = new this.props.state.web3.eth.Contract(LittleTraveler.LittleTraveler.abi, this.props.state.web3Settings.contractAddress );
       let lastUserIndex = await instance.methods.balanceOf(accounts[0]).call()
       .then((result) =>{
           return JSON.parse(result);

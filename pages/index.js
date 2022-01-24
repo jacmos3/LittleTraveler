@@ -10,7 +10,6 @@ import Elements from '../components/IndexSections/Elements.js';
 import {Header} from 'semantic-ui-react';
 //import web3 from '../ethereum/web3';
 import {Router} from '../routes';
-import TravelerLoot from '../ethereum/build/TravelerLoot.sol.json';
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
