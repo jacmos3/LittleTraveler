@@ -1291,15 +1291,14 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   uint8 public chainNumber;
   uint256 public cost;
   uint256 public maxSupplyAllChains = 10000;
-  uint256 public maxChain = 1000;
-  uint256 public maxMintAmount = 2;
+  uint256 public maxThisChain = 1000;
+  uint256 public maxMintAmount = 10;
   uint256 public floorIndex;
   uint256 public roofIndex;
   address public tripsAddress;
   address public travelerLootAddress;
   address public treasurerAddress;
-  string public constant ERROR_PAUSED = "Mints in pause.";
-  string public constant ERROR_TOO_FEW = "Cannot mint so few.";
+  string public constant ERROR_PAUSED = "Mintings paused.";
   string public constant ERROR_TOO_MUCH = "Cannot mint so many.";
   string public constant ERROR_MINT_FINISHED = "Minting is finished.";
   string public constant ERROR_DONT_OWN_TRAVELER_LOOT = "You do not own any Traveler Loot.";
@@ -1317,8 +1316,8 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     travelerLootAddress = _travelerLootAddress;
     treasurerAddress = _treasurerAddress;
     chainNumber = _chainNumber;
-    floorIndex = chainNumber * maxChain;
-    roofIndex = floorIndex + maxChain;
+    floorIndex = chainNumber * maxThisChain;
+    roofIndex = floorIndex + maxThisChain;
   }
 
   function _baseURI() internal view virtual override returns (string memory) {
@@ -1326,7 +1325,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   }
 
   function _processingMints(uint256 _mintAmount) internal {
-      uint256 baseSupply = totalSupply();
+    uint256 baseSupply = totalSupply();
     for (uint256 i = 1; i <= _mintAmount; i++) {
       _safeMint(msg.sender, floorIndex + baseSupply + i);
     }
@@ -1335,20 +1334,22 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   function mint(uint256 _mintAmount) external payable nonReentrant{
     require(!paused, ERROR_PAUSED);
     require(travelerLootAddress == address(0) || tripsAddress == address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
-    require(_mintAmount > 0, ERROR_TOO_FEW);
     require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
+    _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
+
     require((floorIndex + totalSupply()) + _mintAmount <= roofIndex, ERROR_MINT_FINISHED);
 
     if (msg.sender != owner()) {
       require(msg.value >= cost * _mintAmount);
     }
-
     _processingMints(_mintAmount);
   }
 
   function mintByTravelerLoot(uint256 _mintAmount) external nonReentrant{
     require(!paused, ERROR_PAUSED);
     require(travelerLootAddress != address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
+    require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
+    _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
     if (msg.sender != owner()) {
       require(IERC721(travelerLootAddress).balanceOf(_msgSender()) > 0, ERROR_DONT_OWN_TRAVELER_LOOT);
     }
@@ -1358,6 +1359,8 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   function mintWithTrips(uint8 _mintAmount) external nonReentrant{
     require(!paused, ERROR_PAUSED);
     require(tripsAddress != address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
+    require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
+    _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
     if (msg.sender != owner()) {
       IERC20(tripsAddress).transferFrom(msg.sender, address(0), cost * _mintAmount);
     }
