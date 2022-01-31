@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
-import {Image,Button,Message} from 'semantic-ui-react';
+import {Image,Button,Message,Reveal,Grid} from 'semantic-ui-react';
 
 class Presentation extends Component{
   constructor(){
@@ -13,14 +13,139 @@ render(){
 
     <div className="mx-auto px-2 sm:px-4 text-center py-10 sm:py-20 justify-around flex flex-wrap hero-img bg-opacity-10">
       <div className="w-full sm:w-1/2">
-      <Message
-          header='Please Note:'
-          content="Contract has been deployed but mintings are not yet activated! Please do not try to interact with the contract, or your transaction will fail!"
-        />
         <div className="sm:px-4">
           <div className={styles.home__cta}>
-            <h1>Traveler Loot</h1>
+            <h1>Little Traveler</h1>
+
+
+            <Grid columns={8} divided>
+               <Grid.Row>
+                 <Grid.Column>
+                 <Reveal animated='move' instant>
+                   <Reveal.Content visible>
+                     <Image src='/loots/standard_loot.svg' size='small' />
+                   </Reveal.Content>
+                   <Reveal.Content hidden>
+                     <Image src='/loots/standard_loot.svg' size='small' />
+                   </Reveal.Content>
+                 </Reveal>
+                 </Grid.Column>
+                 <Grid.Column>
+                 <Reveal animated='move' instant>
+                   <Reveal.Content visible>
+                     <Image src='/loots/guild2_loot.svg' size='small' />
+                   </Reveal.Content>
+                   <Reveal.Content hidden>
+                     <Image src='/loots/guild_loot.svg' size='small' />
+                   </Reveal.Content>
+                 </Reveal>
+                 </Grid.Column>
+                 <Grid.Column>
+                 <Reveal animated='move' instant>
+                   <Reveal.Content visible>
+                     <Image src='/loots/guild2_loot.svg' size='small' />
+                   </Reveal.Content>
+                   <Reveal.Content hidden>
+                     <Image src='/loots/guild_loot.svg' size='small' />
+                   </Reveal.Content>
+                 </Reveal>
+                 </Grid.Column>
+                 <Grid.Column>
+                 <Reveal animated='move' instant>
+                   <Reveal.Content visible>
+                     <Image src='/loots/guild2_loot.svg' size='small' />
+                   </Reveal.Content>
+                   <Reveal.Content hidden>
+                     <Image src='/loots/guild_loot.svg' size='small' />
+                   </Reveal.Content>
+                 </Reveal>
+                 </Grid.Column>
+                 <Grid.Column>
+                 <Reveal animated='move' instant>
+                   <Reveal.Content visible>
+                     <Image src='/loots/guild2_loot.svg' size='small' />
+                   </Reveal.Content>
+                   <Reveal.Content hidden>
+                     <Image src='/loots/guild_loot.svg' size='small' />
+                   </Reveal.Content>
+                 </Reveal>
+                 </Grid.Column>
+                 <Grid.Column>
+                 <Reveal animated='move' instant>
+                   <Reveal.Content visible>
+                     <Image src='/loots/guild2_loot.svg' size='small' />
+                   </Reveal.Content>
+                   <Reveal.Content hidden>
+                     <Image src='/loots/guild_loot.svg' size='small' />
+                   </Reveal.Content>
+                 </Reveal>
+                 </Grid.Column>
+                 <Grid.Column>
+                 <Reveal animated='move' instant>
+                   <Reveal.Content visible>
+                     <Image src='/loots/guild2_loot.svg' size='small' />
+                   </Reveal.Content>
+                   <Reveal.Content hidden>
+                     <Image src='/loots/guild_loot.svg' size='small' />
+                   </Reveal.Content>
+                 </Reveal>
+                 </Grid.Column>
+                 <Grid.Column>
+                 <Reveal animated='move' instant>
+                   <Reveal.Content visible>
+                     <Image src='/loots/guild2_loot.svg' size='small' />
+                   </Reveal.Content>
+                   <Reveal.Content hidden>
+                     <Image src='/loots/guild_loot.svg' size='small' />
+                   </Reveal.Content>
+                 </Reveal>
+                 </Grid.Column>
+               </Grid.Row>
+
+               <Grid.Row>
+                 <Grid.Column>
+                 <Reveal animated='move' instant>
+                   <Reveal.Content visible>
+                     <Image src='/loots/guild2_loot.svg' size='small' />
+                   </Reveal.Content>
+                   <Reveal.Content hidden>
+                     <Image src='/loots/guild_loot.svg' size='small' />
+                   </Reveal.Content>
+                 </Reveal>
+                 </Grid.Column>
+                 <Grid.Column>
+                 <Reveal animated='move' instant>
+                   <Reveal.Content visible>
+                     <Image src='/loots/guild2_loot.svg' size='small' />
+                   </Reveal.Content>
+                   <Reveal.Content hidden>
+                     <Image src='/loots/guild_loot.svg' size='small' />
+                   </Reveal.Content>
+                 </Reveal>
+                 </Grid.Column>
+                 <Grid.Column>
+                 <Reveal animated='move' instant>
+                   <Reveal.Content visible>
+                     <Image src='/loots/guild2_loot.svg' size='small' />
+                   </Reveal.Content>
+                   <Reveal.Content hidden>
+                     <Image src='/loots/guild_loot.svg' size='small' />
+                   </Reveal.Content>
+                 </Reveal>
+                 </Grid.Column>
+               </Grid.Row>
+             </Grid>
+
+
+
+
+
+
+
+
             <p className="text-xl sm:text-2xl text-white">
+
+
               <br />
               Traveler Loot is a <a target= "_blank" href="https://www.lootproject.com/">Loot</a> derivative for the travel industry, generated and stored on chain.
               Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use Traveler Loot in any way you want.

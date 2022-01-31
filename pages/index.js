@@ -26,8 +26,8 @@ class MyDapp extends Component{
     web3Settings:{
       infura:"8886e44c58d547f5bbbd81e0460296a2",
       isWeb3Connected:false,
-      deployingNetworkId : 1, //1 ethereum, 4 rinkeby
-      deployingNetworkName : "Ethereum Mainnet"
+      deployingNetworkIdArray : [1,137,4],
+      deployingNetworkNameArray : ["Ethereum","Polygon","Rinkeby"]
     }
   };
 

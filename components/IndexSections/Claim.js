@@ -89,28 +89,28 @@ render(){
       <div className="flex justify-around">
         <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 ">
           <span className="uppercase sm:text-xl tracking-widest ">
-            A Real World Loot
+            Start Here:
           </span>
-          <h1 className="text-center mt-4 capitalize">Start Here: Get A Traveler Loot</h1>
+          <h1 className="text-center mt-4 capitalize">Get A Little Traveler!</h1>
           <br />
             <p className="text-xl sm:text-2xl ">
-                10,000 loots, discovered by travelers.
+                Text text text text text text text text text
                 <br />
-                What treasures do they hold?
+                Text text text text text text text text text
                 <br />
-                Which gifts will they attracts?
+                Text text text text text text text text text
                 <br />
-                Free nights in hotels?
+                Text text text text text text text text text
                 <br />
-                Big discounts on flights?
+                Text text text text text text text text text
                 <br />
-                Special offers in restaurants?
+                Text text text text text text text text text
                 <br />
                 <br />
               </p>
             {
               this.props.state.web3Settings.isWeb3Connected
-              ? this.props.state.web3Settings.networkId == this.props.state.web3Settings.deployingNetworkId
+              ? this.props.state.web3Settings.deployingNetworkIdArray.includes(this.props.state.web3Settings.networkId)
                 ?
                 (
                     <div className={styles.home__feature}>
@@ -135,7 +135,7 @@ render(){
                         <Loader size='massive'>
                         <h1>Wrong Network!</h1>
                         <h2>You are connected to netword {this.props.state.web3Settings.networkId} - {this.props.state.web3Settings.networkName}</h2>
-                        <h3>Please connect to network {this.props.state.web3Settings.deployingNetworkId} - {this.props.state.web3Settings.deployingNetworkName}</h3>
+                        <h3>Please connect to networks {this.props.state.web3Settings.deployingNetworkIdArray.join(', ')} - {this.props.state.web3Settings.deployingNetworkNameArray.join(', ')}</h3>
                         </Loader>
                       </Dimmer>
                     </Segment>
