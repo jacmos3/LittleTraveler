@@ -13,11 +13,11 @@ class Header extends Component{
 
   render(){
     return (
-      <div className="w-full flex justify-between py-2 bg-black px-4 ">
+      <div className="w-full flex justify-between py-2 px-4 ">
       {/* Main logo */}
       <div className={styles.header__logo}>
         <Link href="/">
-          <h2>Traveler Loot</h2>
+          <h2>Little Traveler</h2>
         </Link>
       </div>
 

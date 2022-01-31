@@ -30,8 +30,7 @@ html {
     scroll-behavior: smooth;
 }
 .hero-img {
-    background-image: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('/community.png');
-
+    background-image: linear-gradient(rgba(255,255,255,0.6), rgba(70, 116, 148,0.6)), url('/littletravelers/back.png');
 }
 
 .ui.card,
@@ -43,10 +42,6 @@ html {
   transition: top ease 0.2s;
 }
 
-#derivatives .ui.card, #derivatives ui.card>.card{
-  padding-top:20px;
-  padding-bottom:20px;
-}
 
 .ui.card,
 .ui.cards>.card:hover{
@@ -71,7 +66,12 @@ html {
   color:black;
   font-weight: bold;
 }
-/*
-.ui.cards > .card > .content{
-  font-weight: bold;
-}*/
+
+#myVideo {
+ position: fixed;
+   z-index: -100;
+ right: 0;
+ bottom: 0;
+ min-width: 100%;
+ min-height: 100%;
+}

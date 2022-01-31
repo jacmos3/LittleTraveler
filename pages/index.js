@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import Layout from '../components/Layout.js';
 import Presentation from '../components/IndexSections/Presentation.js';
 import Claim from '../components/IndexSections/Claim.js';
-import Plot from '../components/IndexSections/Plot.js';
+import Space from '../components/IndexSections/Space.js';
 import Types from '../components/IndexSections/Types.js';
 import Guilds from '../components/IndexSections/Guilds.js';
 import Elements from '../components/IndexSections/Elements.js';
+import Menu from '../components/IndexSections/Menu.js';
 
 import {Header} from 'semantic-ui-react';
 //import web3 from '../ethereum/web3';
@@ -141,43 +142,32 @@ class MyDapp extends Component{
 
       <Layout disconnect = {this.disconnect} connect = {this.connect}  state = {this.state}>
 
-        <Presentation  state={this.state}/>
+        <Presentation className="bg-rainbow-2 sm:py-20 py-10 pb-40 text-blac" state={this.state}/>
 
-        <div className="bg-black flex flex-wrap mx-auto sticky top-0 w-full justify-center space-x-6 sm:space-x-10 py-4 z-10 sm:text-2xl font-display">
-          <div>
-            <a className="hover:text-gray-600" href="#Start">Claim</a>
-          </div>
-          <div>
-            <a className="hover:text-gray-600" href="#Plot">Plot</a>
-          </div>
-          <div>
-            <a className="hover:text-gray-600" href="#Guilds">Guilds</a>
-          </div>
-          <div>
-            <a className="hover:text-gray-600" href="#Types">Types</a>
-          </div>
-          <div>
-            <a className="hover:text-gray-600" href="#Elements">Elements</a>
-          </div>
+        <div className="bg-trips-2 sticky top-0 z-10">
+          <Menu />
         </div>
-
-        <div id="Start" className="bg-gray-PLATINUM  sm:py-20 py-10 pb-40 text-black">
+        <div id="Start" className="bg-rainbow-3 sm:py-20 py-10 pb-40 text-black">
           <Claim disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
 
-        <div id="Plot" className="bg-black py-20">
-          <Plot />
+        <div className="py-20">
+          <Space />
         </div>
 
-        <div id="Types" className="bg-gray-PLATINUM sm:py-20 py-10 pb-40 text-black ">
+        <div id="Types" className="bg-rainbow-4 sm:py-20 py-10 pb-40 text-black ">
           <Types state = {this.state}/>
         </div>
-
-        <div id="Guilds" className="bg-black  py-20 text-white ">
+        <div className="py-20">
+          <Space />
+        </div>
+        <div id="Guilds" className="bg-rainbow-5  py-20 text-white ">
           <Guilds disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
-
-        <div id="Elements" className="bg-black  py-20 text-white ">
+        <div className="py-20">
+          <Space />
+        </div>
+        <div id="Elements" className="bg-rainbow-6  py-20 text-white ">
           <Elements />
         </div>
       </Layout>

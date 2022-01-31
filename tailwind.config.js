@@ -8,6 +8,22 @@ module.exports = {
       body: ['Inconsolata', 'monospace'],
     },
     colors: {
+      trips:{
+        1:'#002348',
+        2:'#467494'
+      },
+      rainbow:{
+        1:'red',
+        2:'orange',
+        3:'yellow',
+        4:'olive',
+        5:'green',
+        6:'teal',
+        7:'blue',
+        8:'violet',
+        9:'purple',
+        10:'pink',
+      },
       gray: {
         100: '#edece9',
         200: '#eeeeee',

@@ -8,147 +8,54 @@ class Presentation extends Component{
 
   }
 render(){
-
+  var params = [
+    {color:'red', visible:'/littletravelers/1.png', hidden:'/littletravelers/1_1.png'},
+    {color:'orange', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_1.png'},
+    {color:'yellow', visible:'/littletravelers/3.png', hidden:'/littletravelers/3_1.png'},
+    {color:'olive', visible:'/littletravelers/4.png', hidden:'/littletravelers/4_1.png'},
+    {color:'green', visible:'/littletravelers/5.png', hidden:'/littletravelers/5_1.png'},
+    {color:'teal', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_2.png'},
+    {color:'blue', visible:'/littletravelers/4.png', hidden:'/littletravelers/4_2.png'},
+    {color:'violet', visible:'/littletravelers/5.png', hidden:'/littletravelers/5_2.png'},
+    {color:'purple', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_3.png'},
+    {color:'pink', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_4.png'},
+  ]
   return (
 
-    <div className="mx-auto px-2 sm:px-4 text-center py-10 sm:py-20 justify-around flex flex-wrap hero-img bg-opacity-10">
+
+    <div className="text-black mx-auto px-2 sm:px-4 text-center py-10 sm:py-20 justify-around flex flex-wrap hero-img ">
       <div className="w-full sm:w-1/2">
         <div className="sm:px-4">
+
+        <video autoPlay={true} loop={true} controls = '' muted = {true} id="myVideo">
+          <source src="/littletravelers/video.mp4" type="video/mp4" /> -->
+        </video>
           <div className={styles.home__cta}>
             <h1>Little Traveler</h1>
 
+            <Grid columns={5} padded>
+               {params.map((param) => (
+                 <Grid.Column key={param.color}>
 
-            <Grid columns={8} divided>
-               <Grid.Row>
-                 <Grid.Column>
-                 <Reveal animated='move' instant>
-                   <Reveal.Content visible>
-                     <Image src='/loots/standard_loot.svg' size='small' />
-                   </Reveal.Content>
-                   <Reveal.Content hidden>
-                     <Image src='/loots/standard_loot.svg' size='small' />
-                   </Reveal.Content>
-                 </Reveal>
-                 </Grid.Column>
-                 <Grid.Column>
-                 <Reveal animated='move' instant>
-                   <Reveal.Content visible>
-                     <Image src='/loots/guild2_loot.svg' size='small' />
-                   </Reveal.Content>
-                   <Reveal.Content hidden>
-                     <Image src='/loots/guild_loot.svg' size='small' />
-                   </Reveal.Content>
-                 </Reveal>
-                 </Grid.Column>
-                 <Grid.Column>
-                 <Reveal animated='move' instant>
-                   <Reveal.Content visible>
-                     <Image src='/loots/guild2_loot.svg' size='small' />
-                   </Reveal.Content>
-                   <Reveal.Content hidden>
-                     <Image src='/loots/guild_loot.svg' size='small' />
-                   </Reveal.Content>
-                 </Reveal>
-                 </Grid.Column>
-                 <Grid.Column>
-                 <Reveal animated='move' instant>
-                   <Reveal.Content visible>
-                     <Image src='/loots/guild2_loot.svg' size='small' />
-                   </Reveal.Content>
-                   <Reveal.Content hidden>
-                     <Image src='/loots/guild_loot.svg' size='small' />
-                   </Reveal.Content>
-                 </Reveal>
-                 </Grid.Column>
-                 <Grid.Column>
-                 <Reveal animated='move' instant>
-                   <Reveal.Content visible>
-                     <Image src='/loots/guild2_loot.svg' size='small' />
-                   </Reveal.Content>
-                   <Reveal.Content hidden>
-                     <Image src='/loots/guild_loot.svg' size='small' />
-                   </Reveal.Content>
-                 </Reveal>
-                 </Grid.Column>
-                 <Grid.Column>
-                 <Reveal animated='move' instant>
-                   <Reveal.Content visible>
-                     <Image src='/loots/guild2_loot.svg' size='small' />
-                   </Reveal.Content>
-                   <Reveal.Content hidden>
-                     <Image src='/loots/guild_loot.svg' size='small' />
-                   </Reveal.Content>
-                 </Reveal>
-                 </Grid.Column>
-                 <Grid.Column>
-                 <Reveal animated='move' instant>
-                   <Reveal.Content visible>
-                     <Image src='/loots/guild2_loot.svg' size='small' />
-                   </Reveal.Content>
-                   <Reveal.Content hidden>
-                     <Image src='/loots/guild_loot.svg' size='small' />
-                   </Reveal.Content>
-                 </Reveal>
-                 </Grid.Column>
-                 <Grid.Column>
-                 <Reveal animated='move' instant>
-                   <Reveal.Content visible>
-                     <Image src='/loots/guild2_loot.svg' size='small' />
-                   </Reveal.Content>
-                   <Reveal.Content hidden>
-                     <Image src='/loots/guild_loot.svg' size='small' />
-                   </Reveal.Content>
-                 </Reveal>
-                 </Grid.Column>
-               </Grid.Row>
+                 <Reveal animated='small fade'>
+                     <Reveal.Content hidden>
+                       <Image src={param.visible} size='small' style={{display: "block", marginLeft: "auto", marginRight: "auto", width: "100%"}}/>
+                     </Reveal.Content>
 
-               <Grid.Row>
-                 <Grid.Column>
-                 <Reveal animated='move' instant>
-                   <Reveal.Content visible>
-                     <Image src='/loots/guild2_loot.svg' size='small' />
-                   </Reveal.Content>
-                   <Reveal.Content hidden>
-                     <Image src='/loots/guild_loot.svg' size='small' />
-                   </Reveal.Content>
-                 </Reveal>
+                     <Image src={param.hidden} size='small' style={{display: "block", marginLeft: "auto", marginRight: "auto", width: "100%"}}/>
+                   </Reveal>
+
+
                  </Grid.Column>
-                 <Grid.Column>
-                 <Reveal animated='move' instant>
-                   <Reveal.Content visible>
-                     <Image src='/loots/guild2_loot.svg' size='small' />
-                   </Reveal.Content>
-                   <Reveal.Content hidden>
-                     <Image src='/loots/guild_loot.svg' size='small' />
-                   </Reveal.Content>
-                 </Reveal>
-                 </Grid.Column>
-                 <Grid.Column>
-                 <Reveal animated='move' instant>
-                   <Reveal.Content visible>
-                     <Image src='/loots/guild2_loot.svg' size='small' />
-                   </Reveal.Content>
-                   <Reveal.Content hidden>
-                     <Image src='/loots/guild_loot.svg' size='small' />
-                   </Reveal.Content>
-                 </Reveal>
-                 </Grid.Column>
-               </Grid.Row>
+               ))}
              </Grid>
-
-
-
-
-
-
 
 
             <p className="text-xl sm:text-2xl text-white">
 
 
               <br />
-              Traveler Loot is a <a target= "_blank" href="https://www.lootproject.com/">Loot</a> derivative for the travel industry, generated and stored on chain.
-              Stats, images, and other functionality are intentionally omitted for others to interpret. Feel free to use Traveler Loot in any way you want.
+              The Little Traveler, a 10,000 multi-chain PFP project for the travelers.
             </p>
           </div>
           <div className="flex py-8 w-full justify-center space-x-6">
@@ -179,7 +86,7 @@ render(){
           <br />
           <div className="text-center">
             <a href="#Start">
-              <Button className=" hover:text-white  mx-2" secondary >Claim a Traveler Loot</Button>
+              <Button className=" hover:text-white  mx-2" secondary >Claim a Little Traveler</Button>
             </a>
           </div>
 
