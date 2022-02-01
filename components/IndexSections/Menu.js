@@ -21,7 +21,6 @@ render(){
         <a className="hover:text-trips-1" href="#Elements">Menu 4</a>
       </div>
     </div>
-
   )
 };
 };

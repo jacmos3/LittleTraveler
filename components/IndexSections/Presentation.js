@@ -17,8 +17,8 @@ render(){
     {color:'teal', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_2.png'},
     {color:'blue', visible:'/littletravelers/4.png', hidden:'/littletravelers/4_2.png'},
     {color:'violet', visible:'/littletravelers/5.png', hidden:'/littletravelers/5_2.png'},
-    {color:'purple', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_3.png'},
-    {color:'pink', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_4.png'},
+    //{color:'purple', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_3.png'},
+    //{color:'pink', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_4.png'},
   ]
   return (
 
@@ -26,19 +26,15 @@ render(){
     <div className="text-black mx-auto px-2 sm:px-4 text-center py-10 sm:py-20 justify-around flex flex-wrap hero-img ">
       <div className="w-full sm:w-1/2">
         <div className="sm:px-4">
-
-        <video autoPlay={true} loop={true} controls = '' muted = {true} id="myVideo">
-          <source src="/littletravelers/video.mp4" type="video/mp4" /> -->
-        </video>
           <div className={styles.home__cta}>
             <h1>Little Traveler</h1>
 
-            <Grid columns={5} padded>
+            <Grid columns={4} padded>
                {params.map((param) => (
-                 <Grid.Column key={param.color}>
+                 <Grid.Column  className="bg-opacity-10">
 
-                 <Reveal animated='small fade'>
-                     <Reveal.Content hidden>
+                 <Reveal animated='small fade' instant>
+                     <Reveal.Content visible >
                        <Image src={param.visible} size='small' style={{display: "block", marginLeft: "auto", marginRight: "auto", width: "100%"}}/>
                      </Reveal.Content>
 
@@ -55,7 +51,7 @@ render(){
 
 
               <br />
-              The Little Traveler, a 10,000 multi-chain PFP project for the travelers.
+              A 10,000 multi-chain PFP project for the travelers.
             </p>
           </div>
           <div className="flex py-8 w-full justify-center space-x-6">
