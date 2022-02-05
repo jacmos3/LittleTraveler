@@ -19,9 +19,8 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 
 class MyDapp extends Component{
   state = {
-    OGLOOTWebsite:"https://www.lootproject.com/",
     opensea:"https://www.opensea.io/",
-    etherscan:"https://etherscan.io/address/0x38cd9992e44064cb8bd68cdf17d164b82b25277c",
+    etherscan:"https://etherscan.io/",
     twitter:"https://twitter.com/tripscommunity",
     website:"https://www.travelerloot.com",
     discord:"https://discord.gg/tripscommunity",
@@ -30,7 +29,13 @@ class MyDapp extends Component{
       infura:"8886e44c58d547f5bbbd81e0460296a2",
       isWeb3Connected:false,
       deployingNetworkIdArray : [1,137,4],
-      deployingNetworkNameArray : ["Ethereum","Polygon","Rinkeby"]
+      deployingNetworkNameArray : ["Ethereum","Polygon","Rinkeby"],
+      tripsAddress : "0x1350Fbe8Ce27762ec19134bf8FC405a427fe9Bf1", //remove
+      chains: [
+        {name:"Ethereum", id:1, options:{trips:{address:"0x1350Fbe8Ce27762ec19134bf8FC405a427fe9Bf1",amount:"5000000000000000000000"},loot:"y",coin:""}},
+        {name:"Polygon", id:137, options:{trips:"y",loot:"",coin:"MATIC"}},
+        {name:"Rinkeby", id:4, options:{trips:"",loot:"",coin:"ETH"}},
+      ]
     }
   };
 
@@ -154,8 +159,8 @@ class MyDapp extends Component{
       <Layout  state = {this.state}>
 
         <div id="myVideo">
-          <iframe className="bg-black" frameBorder={"0"} width="100%" height="1000px" allowFullScreen={true} srcDoc={"<html><head><style>body{margin: 0;padding: 0;}.bg-video-wrap {position: relative;overflow: hidden;width: 100%;height: 100vh;display: flex;}video {object-fit: cover;min-width: 100%;min-height: 100vh;z-index: 1;}</style></head><body><div class='bg-video-wrap'><video loop muted autoplay><source src='/littletravelers/video.mp4' type='video/mp4'></video></div></body></html>"}>
-
+          <iframe className="bg-black" frameBorder={"0"} width="100%" height="1000px" allowFullScreen={true}
+          srcDoc={"<html><head><style>body{margin: 0;padding: 0;}.bg-video-wrap {position: relative;overflow: hidden;width: 100%;height: 100vh;display: flex;}video {object-fit: cover;min-width: 100%;min-height: 100vh;z-index: 1;}</style></head><body><div class='bg-video-wrap'><video loop muted autoplay><source src='/littletravelers/video.mp4' type='video/mp4'></video></div></body></html>"}>
           </iframe>
         </div>
 
@@ -183,6 +188,7 @@ class MyDapp extends Component{
         <div className="bg-trips-2 sticky top-0 z-10">
           <Menu />
         </div>
+
         <div id="Start" className="bg-rainbow-3 sm:py-20 py-10 pb-40 text-black bg-opacity-70">
           <Claim disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>

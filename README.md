@@ -70,6 +70,13 @@ NOTE: Tests are not intended to be completed. Feel free to write your own tests.
 `npm run build && npm run export`
 
 ## 8. Deploy to Firebase (example)
+Create a Project on Firebase
+
+`npm install -g firebase-tools`
+
+`firebase init`
+  - then go ahead and select your preferences
+
 `firebase login`
 
 `firebase deploy`

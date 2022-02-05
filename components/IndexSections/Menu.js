@@ -7,7 +7,7 @@ class Menu extends Component{
 render(){
 
   return (
-    <div className="flex flex-wrap mx-auto w-full justify-center space-x-6 sm:text-2xl font-display sm:space-x-10  py-4 ">
+    <div className="flex flex-wrap mx-auto w-full justify-center space-x-6 sm:text-2xl font-display sm:space-x-10  py-8 ">
       <div>
         <a className="hover:text-trips-1" href="#Start">Menu 1</a>
       </div>

@@ -1289,10 +1289,12 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   string baseURI;
   string public baseExtension = ".json";
   uint8 public chainNumber;
+  uint8 public counterOwner = 0; //uint8 because we pretend the owner cant reserve more than 255
+  uint8 public constant maxMintAmount = 10;
+  uint8 public constant maxPerOwner = 100;
+  uint16 public constant maxThisChain = 1000;
+  uint16 public constant maxSupplyAllChains = 10000;
   uint256 public cost;
-  uint256 public maxSupplyAllChains = 10000;
-  uint256 public maxThisChain = 1000;
-  uint256 public maxMintAmount = 10;
   uint256 public floorIndex;
   uint256 public roofIndex;
   address public tripsAddress;
@@ -1308,7 +1310,22 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   bool public revealed = false;
   string public notRevealedUri;
 
+  event PermanentURI(string _value, uint256 indexed _id);
+
   constructor(string memory _name, string memory _symbol, string memory _initBaseURI, string memory _initNotRevealedUri, uint256 _cost, uint8 _chainNumber, address _tripsAddress, address _travelerLootAddress, address _treasurerAddress) ERC721(_name, _symbol) {
+
+/*//////TEST//////
+    revealed = true;
+    _initBaseURI = "QmYDNr9GHMbE67n6EXPdPZky7c5p6WHNZvFrogXRVczmbF/";
+    _initNotRevealedUri = "QmYDNr9GHMbE67n6EXPdPZky7c5p6WHNZvFrogXRVczmbF";
+    _cost = 1000000000000000000;
+    _chainNumber = 0;
+    _tripsAddress = 0xA75F153cbB61BE8895710f461CaD890a0C4bC348;
+    _travelerLootAddress = 0xa95459D4030839628934bAe54AC65779b2C55Ba2;
+    _treasurerAddress = 0x640F11B2587CD29254A6f02b8aBD20249ED8dD1E;
+
+*/ //////FINE TEST//////
+
     baseURI = _initBaseURI;
     notRevealedUri = _initNotRevealedUri;
     cost = _cost;
@@ -1316,8 +1333,8 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     travelerLootAddress = _travelerLootAddress;
     treasurerAddress = _treasurerAddress;
     chainNumber = _chainNumber;
-    floorIndex = chainNumber * maxThisChain;
-    roofIndex = floorIndex + maxThisChain;
+    floorIndex = chainNumber * maxThisChain + maxPerOwner;
+    roofIndex = floorIndex + maxThisChain - maxPerOwner;
   }
 
   function _baseURI() internal view virtual override returns (string memory) {
@@ -1338,10 +1355,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
 
     require((floorIndex + totalSupply()) + _mintAmount <= roofIndex, ERROR_MINT_FINISHED);
-
-    if (msg.sender != owner()) {
-      require(msg.value >= cost * _mintAmount);
-    }
+    require(msg.value >= cost * _mintAmount);
     _processingMints(_mintAmount);
   }
 
@@ -1350,9 +1364,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     require(travelerLootAddress != address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
     require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
     _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
-    if (msg.sender != owner()) {
-      require(IERC721(travelerLootAddress).balanceOf(_msgSender()) > 0, ERROR_DONT_OWN_TRAVELER_LOOT);
-    }
+    require(IERC721(travelerLootAddress).balanceOf(_msgSender()) > 0, ERROR_DONT_OWN_TRAVELER_LOOT);
     _processingMints(_mintAmount);
   }
 
@@ -1362,15 +1374,23 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
     _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
     if (msg.sender != owner()) {
-      IERC20(tripsAddress).transferFrom(msg.sender, address(0), cost * _mintAmount);
+      IERC20(tripsAddress).transferFrom(msg.sender, treasurerAddress, cost * _mintAmount);
     }
     _processingMints(_mintAmount);
+  }
+
+  function mintByOwner() external onlyOwner nonReentrant{
+    require(!paused, ERROR_PAUSED);
+    uint256 adjustedTokenId = floorIndex - maxPerOwner + counterOwner + 1;
+    require(adjustedTokenId > floorIndex - maxPerOwner && adjustedTokenId <= floorIndex, ERROR_TOO_MUCH);
+     _safeMint(msg.sender, adjustedTokenId);
+     counterOwner++;
   }
 
   function walletOfOwner(address _owner) external view returns (uint256[] memory){
     uint256 ownerTokenCount = balanceOf(_owner);
     uint256[] memory tokenIds = new uint256[](ownerTokenCount);
-    for (uint256 i; i < ownerTokenCount; i++) {
+    for (uint16 i; i < ownerTokenCount; i++) {
       tokenIds[i] = tokenOfOwnerByIndex(_owner, i);
     }
     return tokenIds;
@@ -1387,6 +1407,11 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     return bytes(currentBaseURI).length > 0 ? string(abi.encodePacked(currentBaseURI, tokenId.toString(), baseExtension)): "";
   }
 
+  function freezeMetadata() external onlyOwner {
+    for (uint256 tokenId = floorIndex - maxPerOwner; tokenId <= roofIndex; tokenId++){
+      emit PermanentURI(tokenURI(tokenId), tokenId);
+    }
+  }
 
   function reveal() external onlyOwner {
       revealed = true;
@@ -1394,10 +1419,6 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
 
   function setCost(uint256 _newCost) external onlyOwner {
     cost = _newCost;
-  }
-
-  function setmaxMintAmount(uint256 _newmaxMintAmount) external onlyOwner {
-    maxMintAmount = _newmaxMintAmount;
   }
 
   function setNotRevealedURI(string memory _notRevealedURI) external onlyOwner {

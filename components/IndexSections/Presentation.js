@@ -5,7 +5,6 @@ import {Image,Button,Message,Reveal,Grid} from 'semantic-ui-react';
 class Presentation extends Component{
   constructor(){
     super();
-
   }
 render(){
   var params = [
@@ -17,39 +16,26 @@ render(){
     {color:'teal', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_2.png'},
     {color:'blue', visible:'/littletravelers/4.png', hidden:'/littletravelers/4_2.png'},
     {color:'violet', visible:'/littletravelers/5.png', hidden:'/littletravelers/5_2.png'},
-    //{color:'purple', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_3.png'},
-    //{color:'pink', visible:'/littletravelers/2.png', hidden:'/littletravelers/2_4.png'},
   ]
   return (
-
-
     <div className="text-black mx-auto px-2 sm:px-4 text-center py-10 sm:py-20 justify-around flex flex-wrap hero-img ">
       <div className="w-full sm:w-1/2">
         <div className="sm:px-4">
           <div className={styles.home__cta}>
             <h1>Little Traveler</h1>
-
             <Grid columns={4} padded>
                {params.map((param) => (
-                 <Grid.Column  className="bg-opacity-10">
-
+                 <Grid.Column  className="bg-opacity-10" key={param.color}>
                  <Reveal animated='small fade' instant>
                      <Reveal.Content visible >
                        <Image src={param.visible} size='small' style={{display: "block", marginLeft: "auto", marginRight: "auto", width: "100%"}}/>
                      </Reveal.Content>
-
                      <Image src={param.hidden} size='small' style={{display: "block", marginLeft: "auto", marginRight: "auto", width: "100%"}}/>
                    </Reveal>
-
-
                  </Grid.Column>
                ))}
              </Grid>
-
-
             <p className="text-xl sm:text-2xl text-white">
-
-
               <br />
               A 10,000 multi-chain PFP project for the travelers.
             </p>
@@ -76,7 +62,6 @@ render(){
             >
               <Image className="fill-current  text-white w-6 h-6 mx-2" src="../img/discord.svg"/>
             </a>
-
           </div>
           <div><a href={this.props.state.etherscan} target="_blank">VIEW CONTRACT</a></div>
           <br />

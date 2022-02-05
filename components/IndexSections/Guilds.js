@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {derivatives} from "../../derivatives.js"
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
 import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
 class Guilds extends Component{
@@ -11,14 +10,12 @@ class Guilds extends Component{
 
   }
 
-
-
 render(){
 
   return (
 
     <div className="container mx-auto mt-8">
-      <div className="flex justify-around ">
+      <div className="flex justify-around">
         <div className="px-20 py-8 rounded text-center">
           <span className="uppercase sm:text-xl tracking-widest">TEXT</span>
 

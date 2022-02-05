@@ -17,11 +17,12 @@ const deploy = async() => {
   console.log("Attempting to deploy from account", accounts[0]);
 
   littleTraveler = await new web3.eth.Contract(interface)
-  .deploy({data:'0x'+bytecode})
+  .deploy({data:'0x'+bytecode, arguments: ["testname","testsymbol","testinitbaseuri","testnotrevealeduri","1000000000000000000","0","0x5685a60183DB6FF97dF2E289Cad2ed71EE0D6BfB","0x5685a60183DB6FF97dF2E289Cad2ed71EE0D6BfB","0x5685a60183DB6FF97dF2E289Cad2ed71EE0D6BfB"],})
   .send ({from: accounts[0]});
 
   console.log("Contract deployed to", littleTraveler.options.address);
-  fs.writeFileSync('../.env.local', '#THIS IS AN AUTO-GENERATED FILE. DO NOT ADD ELEMENT HERE OR THEY WILL BE CANCELED AT YOUR NEXT DEPLOY\r\nNEXT_PUBLIC_CONTRACT_ADDRESS = "'+travelerLoot.options.address+'"');
+  fs.writeFileSync('../.env.local', '#THIS IS AN AUTO-GENERATED FILE. DO NOT ADD ELEMENT HERE OR THEY WILL BE CANCELED AT YOUR NEXT DEPLOY\r\nNEXT_PUBLIC_CONTRACT_ADDRESS = "'
+  + littleTraveler.options.address+'"');
 }
 
 deploy();
