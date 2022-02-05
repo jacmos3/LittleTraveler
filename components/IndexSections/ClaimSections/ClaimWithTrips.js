@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button,Form,Input,Message,Tab,Popup,Icon} from 'semantic-ui-react';
 import styles from "../../../styles/pages/INDEX.module.scss"; // Styles
-import TripsEth from '../../../ethereum/build/TripsEth.json';
+import TripsEth from '../../../ethereum/Imported/TripsEth.json';
 
 class ClaimWithTrips extends Component{
   state = {

@@ -1313,19 +1313,6 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   event PermanentURI(string _value, uint256 indexed _id);
 
   constructor(string memory _name, string memory _symbol, string memory _initBaseURI, string memory _initNotRevealedUri, uint256 _cost, uint8 _chainNumber, address _tripsAddress, address _travelerLootAddress, address _treasurerAddress) ERC721(_name, _symbol) {
-
-/*//////TEST//////
-    revealed = true;
-    _initBaseURI = "QmYDNr9GHMbE67n6EXPdPZky7c5p6WHNZvFrogXRVczmbF/";
-    _initNotRevealedUri = "QmYDNr9GHMbE67n6EXPdPZky7c5p6WHNZvFrogXRVczmbF";
-    _cost = 1000000000000000000;
-    _chainNumber = 0;
-    _tripsAddress = 0xA75F153cbB61BE8895710f461CaD890a0C4bC348;
-    _travelerLootAddress = 0xa95459D4030839628934bAe54AC65779b2C55Ba2;
-    _treasurerAddress = 0x640F11B2587CD29254A6f02b8aBD20249ED8dD1E;
-
-*/ //////FINE TEST//////
-
     baseURI = _initBaseURI;
     notRevealedUri = _initNotRevealedUri;
     cost = _cost;
