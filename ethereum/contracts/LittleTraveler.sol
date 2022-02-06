@@ -1300,12 +1300,12 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   address public tripsAddress;
   address public travelerLootAddress;
   address public treasurerAddress;
-  string public constant ERROR_PAUSED = "Mintings paused.";
-  string public constant ERROR_TOO_MUCH = "Cannot mint so many.";
-  string public constant ERROR_MINT_FINISHED = "Minting is finished.";
-  string public constant ERROR_DONT_OWN_TRAVELER_LOOT = "You do not own any Traveler Loot.";
-  string public constant ERROR_NOT_POSSIBLE_ON_THIS_CHAIN = "This minting method is not available for this chain. Use Another method!";
-  string public constant ERROR_TOKEN_ID_DOES_NOT_EXISTS = "This tokenId doesnt exist";
+  string private constant ERROR_PAUSED = "Mintings paused.";
+  string private constant ERROR_TOO_MUCH = "Cannot mint so many.";
+  string private constant ERROR_MINT_FINISHED = "Minting is finished.";
+  string private constant ERROR_DONT_OWN_TRAVELER_LOOT = "You do not own any Traveler Loot.";
+  string private constant ERROR_NOT_POSSIBLE_ON_THIS_CHAIN = "This minting method is not available for this chain. Use Another method!";
+  string private constant ERROR_TOKEN_ID_DOES_NOT_EXISTS = "This tokenId doesnt exist";
   bool public paused = false;
   bool public revealed = false;
   string public notRevealedUri;
@@ -1360,9 +1360,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     require(tripsAddress != address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
     require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
     _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
-    if (msg.sender != owner()) {
-      IERC20(tripsAddress).transferFrom(msg.sender, treasurerAddress, cost * _mintAmount);
-    }
+    IERC20(tripsAddress).transferFrom(msg.sender, treasurerAddress, cost * _mintAmount);
     _processingMints(_mintAmount);
   }
 
