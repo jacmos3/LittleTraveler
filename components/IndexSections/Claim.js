@@ -37,7 +37,7 @@ render(){
 
     option && option.coin ?
     {
-      menuItem: 'Mint With Coin',
+      menuItem: 'Mint With '+option.coin.name,
       render: () => <ClaimWithEther state={this.props.state}/>,
     }:{}
   ]
@@ -60,7 +60,7 @@ render(){
                 <br />
                 The Little Traveler NFTs already give access to discounts, offers and gratuities at first, but we won't stop there as there's a lot we can do: special campaigns by travel companies, derivatives (one is already planned) and so on.
                 <br />
-                
+
                 <br />
                Owning a Little Traveler will open the doors for you to the travel metaverse, its offers, discounts, gratuities and airdrops.
                 <br />
