@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container,Button,Form,Input,Message,Card,Dimmer,Segment,Tab, Loader} from 'semantic-ui-react';
+import {Container,Button,Form,Input,Card,Dimmer,Segment,Tab, Loader} from 'semantic-ui-react';
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
 import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
 import ClaimWithTrips from "./ClaimSections/ClaimWithTrips"
@@ -11,34 +11,35 @@ class Claim extends Component{
     name:'',
     description:'',
     image:'',
-    tokenId:'',
-    minted:false,
-    errorMessage:"",
     all:[]
   }
   constructor(){
     super();
-
   }
 
-
 render(){
-  const yes = true;
+  var yes = true;
+  var option = this.props.state.web3Settings.chains
+    .filter(chain => chain.id === this.props.state.web3Settings.networkId)
+    .map(chain => chain.options)[0];
+
   const panes = [
-    yes ? {
-      menuItem: 'Tab 1',
+    option && option.trips? {
+      menuItem: 'Mint with TRIPS',
       render: () => <ClaimWithTrips state={this.props.state}/>,
     }
     :{},
 
-    {
-      menuItem: 'Tab 2',
+    option && option.loot ? {
+      menuItem: 'Mint with Traveler Loot',
       render: () => <ClaimWithTravelerLoot />,
-    },
+    }:{},
+
+    option && option.coin ?
     {
-      menuItem: 'Tab 3',
+      menuItem: 'Mint With Coin',
       render: () => <ClaimWithEther />,
-    },
+    }:{}
   ]
   return (
     <div className="container mx-auto mt-8">
@@ -49,7 +50,6 @@ render(){
           </span>
           <h1 className="text-center mt-4 capitalize">Get A Little Traveler!</h1>
           <br />
-          <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
 
             <p className="text-xl sm:text-2xl ">
                 Text text text text text text text text text
@@ -66,29 +66,16 @@ render(){
                 <br />
                 <br />
               </p>
-              <Form  error={!!this.state.errorMessage}>
                 {
                   this.props.state.web3Settings.isWeb3Connected
-                  ? this.props.state.web3Settings.networkId == this.props.state.web3Settings.deployingNetworkId
+                  ? this.props.state.web3Settings.chains
+                    .filter(chain => chain.id === this.props.state.web3Settings.networkId)
+                    .map(chain => chain.options.id).length == 1
                     ?
                     (
-                        <div className={styles.home__feature}>
-                          <div className="">
-                          <Message error header="Oops!" content = {this.state.errorMessage} />
-                          <Button  loading = {this.state.loading > 0} secondary onClick = {this.onSubmit}>Claim</Button>
-                          <Button  secondary onClick = {this.fetchNFTList}  type="button" basic color='black' >Refresh</Button>
-                          <a href="#guildsclaim"><Button  secondary  type="button" basic color='white' >Are you in a guild?</Button></a>
-                          <div style={{padding:"15px"}}>
-                            <Card.Group itemsPerRow={3} centered items={this.state.all} />
-                          </div>
-                          {
-                            //!this.state.minted ? null : (
-                              //<Card.Group itemsPerRow={2} centered items={this.state.all} />
-                            //)
-                          }
-                          </div>
-                        </div>
-
+                      <div>
+                          <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+                       </div>
                     )
                     :(
                         <Segment className="h-80">
@@ -96,7 +83,7 @@ render(){
                             <Loader size='massive'>
                             <h1>Wrong Network!</h1>
                             <h2>You are connected to netword {this.props.state.web3Settings.networkId} - {this.props.state.web3Settings.networkName}</h2>
-                            <h3>Please connect to network {this.props.state.web3Settings.deployingNetworkId} - {this.props.state.web3Settings.deployingNetworkName}</h3>
+                            <h3>Please connect to networks:<br /> {this.props.state.web3Settings.chains.map(chain => chain.id + " - " + chain.name + "; ")}</h3>
                             </Loader>
                           </Dimmer>
                         </Segment>
@@ -125,7 +112,6 @@ render(){
                         </div>
                       )
                 }
-              </Form>
 
         </div>
       </div>
