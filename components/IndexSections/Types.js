@@ -27,8 +27,8 @@ render(){
       <Container>
         <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
           <Card>
-          <Image src='loots/guild_loot.svg' wrapped ui={false} />
-              <Card.Content>
+          <Image src='littletravelers/types/Little-Traveler-1.png' wrapped ui={false} />
+              {/* <Card.Content>
                 <Card.Header>Traveler Loot for Guilds</Card.Header>
                 <Card.Meta>Supply: 900 (#1 to #900)</Card.Meta>
                 <Card.Description>
@@ -37,12 +37,12 @@ render(){
               </Card.Content>
               <Card.Content extra>
                 Cost: Free + Gas
-              </Card.Content>
+              </Card.Content> */}
           </Card>
 
           <Card>
-            <Image src='loots/standard_loot.svg' wrapped ui={false} />
-            <Card.Content>
+            <Image src='littletravelers/types/Little-Traveler-2.png' wrapped ui={false} />
+            {/* <Card.Content>
               <Card.Header>Traveler Loot Standard</Card.Header>
               <Card.Meta >Supply: 9100 (#901 to #10000)</Card.Meta>
               <Card.Description>
@@ -53,12 +53,12 @@ render(){
             </Card.Content>
             <Card.Content extra>
               Cost: Free + Gas
-            </Card.Content>
+            </Card.Content> */}
           </Card>
           <Card>
-            <Image src='loots/patron_loot.svg' wrapped ui={false} />
+            <Image src='littletravelers/types/Little-Traveler-3.png' wrapped ui={false} />
             <Card.Content>
-              <Card.Header>Traveler Loot for Patrons</Card.Header>
+              {/* <Card.Header>Traveler Loot for Patrons</Card.Header>
               <Card.Meta >Supply: undefined but limited</Card.Meta>
               <Card.Description>
                 Everybody can claim one (and only one) Traveler Loot for Patron, but it's not for free.
@@ -67,12 +67,33 @@ render(){
               </Card.Description>
             </Card.Content>
             <Card.Content extra>
-              Cost: Dynamic Price + Gas
+              Cost: Dynamic Price + Gas */}
             </Card.Content>
           </Card>
         </Card.Group>
       </Container>
     <br />
+  
+
+
+    <Container>
+        <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
+          <Card>
+          <Image src='littletravelers/types/Little-Traveler-4.png' wrapped ui={false} />
+          </Card>
+
+          <Card>
+            <Image src='littletravelers/types/Little-Traveler-5.png' wrapped ui={false} />
+          </Card>
+          <Card>
+            <Image src='littletravelers/types/Little-Traveler-6.png' wrapped ui={false} />
+            <Card.Content>
+            </Card.Content>
+          </Card>
+        </Card.Group>
+      </Container>
+    <br />
+
     <Container>
     <p>
     Traveler Loot Project is a layer built on top of <a href= {this.props.state.OGLOOTWeb}>🔗Loot Project</a> and other whitelisted contracts (we call them <a href="#Guilds">🔗Guilds</a>).
