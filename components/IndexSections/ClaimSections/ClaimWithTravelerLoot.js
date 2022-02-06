@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Tab,Form,Button,Message} from 'semantic-ui-react';
+import LittleTraveler from '../../../ethereum/build/LittleTraveler.sol.json';
 
 class ClaimWithTravelerLoot extends Component{
   state = {
@@ -14,18 +15,6 @@ class ClaimWithTravelerLoot extends Component{
   }
 
   componentDidMount(){
-    var trips = this.props.state.web3Settings.chains
-      .filter(chain => chain.id === this.props.state.web3Settings.networkId)
-      .map(chain => chain.options.trips)[0];
-    console.log("filter done");
-    console.log(trips);
-
-    var howManyLT = 1;
-    var howMuchTrips = trips.amount
-
-    this.setState({trips:trips, howManyLT:howManyLT, howMuchTrips:Math.round(this.toFixed(howMuchTrips/1000000000000000000))});
-
-
   }
 
 
@@ -54,8 +43,8 @@ render(){
 
   return (
     <Tab.Pane attached={false}>
-      <Form onSubmit = {this.onApproveAndBuy} error={!!this.state.errorMessage}>
-        <h2>If you hold a Traveler Loot, you can mint a Little Traveler paying only gas </h2>
+      <Form onSubmit = {this.onMint} error={!!this.state.errorMessage}>
+        <h2>If you hold a Traveler Loot, you can mint a Little Traveler by only paying gas </h2>
         <Form.Group>
           <Form.Field>
             <Message error header="Oops!" content = {this.state.errorMessage} />
