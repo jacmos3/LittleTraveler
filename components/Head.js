@@ -8,7 +8,7 @@ function Head() {
   return (
     <HTMLHead>
       {/* Primary Meta Tags */}
-      <title>Traveler Loot</title>
+      <title>Little Traveler PFP</title>
       <meta name="title" content="Traveler Loot" />
       <meta name="robots" content="noindex" />
       <meta
@@ -16,25 +16,25 @@ function Head() {
         content="Traveler Loot is randomized character generated and stored on chain."
       />
 
-      {/* OG + Faceook */}
+      {/* OG + Facebook */}
       <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://www.travelerloot.com" />
-      <meta property="og:title" content="Traveler Loot" />
+      <meta property="og:url" content="https://www.littletraveler.org" />
+      <meta property="og:title" content="Little Traveler" />
       <meta
         property="og:description"
         content="Traveler Loot is randomized character generated and stored on chain."
       />
-      <meta property="og:image" content="https://www.travelerloot.com/meta.png" />
+      <meta property="og:image" content="https://www.littletraveler.org/meta.png" />
 
       {/* Twitter */}
       <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content="https://www.travelerloot.com" />
-      <meta property="twitter:title" content="Traveler Loot" />
+      <meta property="twitter:url" content="https://www.littletraveler.org" />
+      <meta property="twitter:title" content="Little Traveler" />
       <meta
         property="twitter:description"
         content="Traveler Loot is randomized character generated and stored on chain."
       />
-      <meta property="twitter:image" content="https://www.travelerloot.com/meta.png" />
+      <meta property="twitter:image" content="https://www.littletraveler.org/meta.png" />
 
       {/* Font */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />

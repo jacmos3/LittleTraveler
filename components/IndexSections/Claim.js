@@ -46,23 +46,23 @@ render(){
       <div className="flex justify-around">
         <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 ">
           <span className="uppercase sm:text-xl tracking-widest ">
-            Start Here:
+          *______*
           </span>
-          <h1 className="text-center mt-4 capitalize">Get A Little Traveler!</h1>
+          <h1 className="text-center mt-4 capitalize">An NFT bridge With The Travel Industry</h1>
           <br />
 
             <p className="text-xl sm:text-2xl ">
-                Text text text text text text text text text
+                With The Little Traveler we want to support the traditional travel industry it its journey towards Web3.
                 <br />
-                Text text text text text text text text text
+                In 2022 there is a definitive awarness that Web3 is the future but still a total lack of knowledge about it.
                 <br />
-                Text text text text text text text text text
+                These 10,000 PFP NFTs will help understand the potential of a shared immutable asset class, specific for the travellers.
                 <br />
-                Text text text text text text text text text
+                The Little Traveler NFTs already give access to discounts, offers and gratuities at first, but we won't stop there as there's a lot we can do: special campaigns by travel companies, derivatives (one is already planned) and so on.
                 <br />
-                Text text text text text text text text text
+                
                 <br />
-                Text text text text text text text text text
+               Owning a Little Traveler will open the doors for you to the travel metaverse, its offers, discounts, gratuities and airdrops.
                 <br />
                 <br />
               </p>

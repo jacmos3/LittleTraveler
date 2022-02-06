@@ -14,9 +14,15 @@ render(){
     <div className="container mx-auto mt-8 " >
       <div className="flex justify-around">
         <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-          <span className="uppercase sm:text-xl tracking-widest ">Types</span>
-          <h1 className="text-center mt-4 capitalize">Travelers' Types</h1>
-          <p className="sm:text-2xl">Find yours</p>
+          <span className="uppercase sm:text-xl tracking-widest ">Examples</span>
+          <h1 className="text-center mt-4 capitalize">An Incredible Variety of Travelers</h1>
+          <p className="sm:text-2xl">Find yours!</p>
+
+          <p className="text-xl sm:text-2xl ">
+               Admire the incredible variety of the Little Traveler.
+               
+              </p>
+
         </div>
       </div>
       <Container>
