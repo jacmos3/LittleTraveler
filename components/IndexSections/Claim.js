@@ -32,13 +32,13 @@ render(){
 
     option && option.loot ? {
       menuItem: 'Mint with Traveler Loot',
-      render: () => <ClaimWithTravelerLoot />,
+      render: () => <ClaimWithTravelerLoot state={this.props.state}/>,
     }:{},
 
     option && option.coin ?
     {
       menuItem: 'Mint With Coin',
-      render: () => <ClaimWithEther />,
+      render: () => <ClaimWithEther state={this.props.state}/>,
     }:{}
   ]
   return (

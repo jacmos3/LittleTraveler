@@ -1289,7 +1289,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   string baseURI;
   string public baseExtension = ".json";
   uint8 public chainNumber;
-  uint8 public counterOwner = 0; //uint8 because we pretend the owner cant reserve more than 255
+  uint8 public counterOwner = 0;
   uint8 public constant maxMintAmount = 10;
   uint8 public constant maxPerOwner = 100;
   uint16 public constant maxThisChain = 1000;
