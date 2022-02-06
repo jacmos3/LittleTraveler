@@ -23,6 +23,7 @@ render(){
         <div className="sm:px-4">
           <div className={styles.home__cta}>
             <h1>Little Traveler</h1>
+            
             <Grid columns={4} padded>
                {params.map((param) => (
                  <Grid.Column  className="bg-opacity-10" key={param.color}>
