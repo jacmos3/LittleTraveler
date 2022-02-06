@@ -1282,7 +1282,10 @@ interface IERC20 {
 }
 
 pragma solidity ^0.8.11;
-
+/// @title A 10,000 multi-chain PFP project for the travelers.
+/// @author Project by TripsCommunity, coding by jacmos3
+/// @notice The first multichain project for the Travel Industry. First derivative of Traveler Loot in Ethereum.
+/// @custom:website www.littletraveler.org | www.travelerloot.com
 contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   using Strings for uint256;
 
@@ -1336,18 +1339,21 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
       _safeMint(msg.sender, floorIndex + baseSupply + i);
     }
   }
-
+  /// @notice Mints Little Traveler by paying native coin.
+  /// @param _mintAmount the number of Little Traveler you want to mint
+  /// @dev check requirements: different chains have different configurations and not in every chains it is possible to mint using this function
   function mint(uint256 _mintAmount) external payable nonReentrant{
     require(!paused, ERROR_PAUSED);
     require(travelerLootAddress == address(0) || tripsAddress == address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
     require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
     _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
-
     require((floorIndex + totalSupply()) + _mintAmount <= roofIndex, ERROR_MINT_FINISHED);
     require(msg.value >= cost * _mintAmount);
     _processingMints(_mintAmount);
   }
 
+  /// @notice Mints Little Traveler by holding a Little Traveler.
+  /// @dev This is only thought for ethereum network and it is leaded by a configuration param
   function mintByTravelerLoot() external nonReentrant{
     require(!paused, ERROR_PAUSED);
     require(travelerLootAddress != address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
@@ -1355,6 +1361,9 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     _processingMints(1);
   }
 
+  /// @notice Mints Little Traveler by paying Trips coin.
+  /// @dev check requirements: different chains have different configurations and not in every chains it is possible to mint using this function
+  /// @param _mintAmount the amount of Little Traveler you want to mint
   function mintWithTrips(uint8 _mintAmount) external nonReentrant{
     require(!paused, ERROR_PAUSED);
     require(tripsAddress != address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
@@ -1364,6 +1373,8 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     _processingMints(_mintAmount);
   }
 
+  /// @notice Mints Little Traveler by proving to be the owner of the contract
+  /// @dev contract owner has 100 reserved Little Traveler to be used as airdrops or self-funding
   function mintByOwner() external onlyOwner nonReentrant{
     require(!paused, ERROR_PAUSED);
     uint256 adjustedTokenId = floorIndex - maxPerOwner + counterOwner + 1;
@@ -1371,7 +1382,9 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
      _safeMint(msg.sender, adjustedTokenId);
      counterOwner++;
   }
-
+  /// @notice If you want to check which tokenId owns a particular address.
+  /// @param _owner address of the owner to check
+  /// @return an array of tokenId owned by the input address
   function walletOfOwner(address _owner) external view returns (uint256[] memory){
     uint256 ownerTokenCount = balanceOf(_owner);
     uint256[] memory tokenIds = new uint256[](ownerTokenCount);
@@ -1380,7 +1393,9 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     }
     return tokenIds;
   }
-
+  /// @notice Provides URI of the metadata and image.
+  /// @param tokenId the tokenId of the Little Traveler to check
+  /// @return the metadata & image URI json
   function tokenURI(uint256 tokenId) public view virtual override returns (string memory){
     require( _exists(tokenId), ERROR_TOKEN_ID_DOES_NOT_EXISTS);
 
@@ -1392,52 +1407,86 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     return bytes(currentBaseURI).length > 0 ? string(abi.encodePacked(currentBaseURI, tokenId.toString(), baseExtension)): "";
   }
 
+  /// @notice Freeze metadata on opensea
+  /// @dev to call after all the nft are minted
   function freezeMetadata() external onlyOwner {
     for (uint256 tokenId = floorIndex - maxPerOwner; tokenId <= roofIndex; tokenId++){
       emit PermanentURI(tokenURI(tokenId), tokenId);
     }
   }
 
+
+  /// @notice Reveal images
+  /// @dev only owner can call it
   function reveal() external onlyOwner {
       revealed = true;
   }
 
+  /// @notice setter cost variable
+  /// @dev onlyowner can call it
+  /// @param _newCost insert the new native coin cost
   function setCost(uint256 _newCost) external onlyOwner {
     cost = _newCost;
   }
 
+  /// @notice setter costTrips variable
+  /// @dev onlyowner can call it
+  /// @param _newCostTrips insert the new Trips coin cost
   function setCostTrips(uint256 _newCostTrips) external onlyOwner {
     costTrips = _newCostTrips;
   }
 
+  /// @notice setter NotRevealedURI variable
+  /// @dev onlyowner can call it
+  /// @param _notRevealedURI insert the new url of the not revealed Little Traveler
   function setNotRevealedURI(string memory _notRevealedURI) external onlyOwner {
     notRevealedUri = _notRevealedURI;
   }
 
+  /// @notice setter baseURI variable
+  /// @dev onlyowner can call it
+  /// @param _newBaseURI insert the new url of the baseUri
   function setBaseURI(string memory _newBaseURI) external onlyOwner {
     baseURI = _newBaseURI;
   }
 
+  /// @notice setter baseExtension variable
+  /// @dev onlyowner can call it
+  /// @param _newBaseExtension insert the new baseExtension
   function setBaseExtension(string memory _newBaseExtension) external onlyOwner {
     baseExtension = _newBaseExtension;
   }
 
+  /// @notice setter tripsAddress variable
+  /// @dev onlyowner can call it
+  /// @param _tripsAddress insert the tripsAddress
   function setTripsAddress(address _tripsAddress) external onlyOwner{
     tripsAddress = _tripsAddress;
   }
 
+  /// @notice setter travelerLootAddress variable
+  /// @dev onlyowner can call it
+  /// @param _travelerLootAddress insert the new travelerLootAddress
   function setTravelerLootAddress(address _travelerLootAddress) external onlyOwner{
     travelerLootAddress = _travelerLootAddress;
   }
 
+  /// @notice setter treasurerAddress variable
+  /// @dev onlyowner can call it
+  /// @param _treasurerAddress insert the new treasurerAddress
   function setTreasurerAddress(address _treasurerAddress) external onlyOwner{
     treasurerAddress = _treasurerAddress;
   }
 
+  /// @notice pause/unpause the mintings
+  /// @dev onlyowner can call it
+  /// @param _state if true it pauses the mintings, if false it allows new mintings
   function pause(bool _state) external onlyOwner {
     paused = _state;
   }
 
+  /// @notice withdraw native coin funds from the contract
+  /// @dev onlyowner can call it. NOTE: TRIPS coin are directly going to the treasurerAddress. Never transit from here.
   function withdraw() external onlyOwner {
     payable(treasurerAddress).transfer(address(this).balance);
   }
