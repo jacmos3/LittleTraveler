@@ -18,10 +18,9 @@ render(){
           <h1 className="text-center mt-4 capitalize">An Incredible Variety of Travelers</h1>
           <p className="sm:text-2xl">Find yours!</p>
 
-          <p className="text-xl sm:text-2xl ">
+          <p className="text-xl sm:text-2xl">
                Admire the incredible variety of the Little Traveler.
-               
-              </p>
+          </p>
 
         </div>
       </div>

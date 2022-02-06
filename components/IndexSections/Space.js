@@ -4,13 +4,13 @@ class Space extends Component{
     super();
 
   }
-render(){
+  render(){
 
-  return (
-    <div className="container mx-auto mt-8 text-white">
-    </div>
+    return (
+      <div className="container mx-auto mt-8 text-white">
+      </div>
 
-  )
-};
+    )
+  };
 };
 export default Space;
