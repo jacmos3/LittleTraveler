@@ -152,8 +152,14 @@ class MyDapp extends Component{
        console.log(this.state.web3Settings.isWeb3Connected);
     }
 
+  truncateAddress(address){
+    const begin = address.substring(0, 6).concat("...");
+    const end = address.substring(address.length-6);
+    return begin+end;
+  }
 
   render(){
+
     return (
 
       <Layout  state = {this.state}>
@@ -166,10 +172,10 @@ class MyDapp extends Component{
 
         <div id="connectWallet">
         {
-          this.state.isWeb3Connected
+          this.state.web3Settings.isWeb3Connected
           ? (
               <Button onClick={this.disconnect}>
-                {this.state.account}
+                {this.truncateAddress(this.state.web3Settings.account)}
               </Button>
           )
 
