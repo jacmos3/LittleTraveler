@@ -26,27 +26,9 @@ class ClaimWithTrips extends Component{
     var howManyLT = 1;
     var howMuchTrips = trips.amount
 
-    this.setState({trips:trips, howManyLT:howManyLT, howMuchTrips:Math.round(this.toFixed(howMuchTrips/1000000000000000000))});
+    this.setState({trips:trips, howManyLT:howManyLT, howMuchTrips:this.props.state.web3.utils.fromWei(howMuchTrips,'ether')});
 
 
-  }
-
-  toFixed(x) {
-    if (Math.abs(x) < 1.0) {
-      var e = parseInt(x.toString().split('e-')[1]);
-      if (e) {
-          x *= Math.pow(10,e-1);
-          x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
-      }
-    } else {
-      var e = parseInt(x.toString().split('+')[1]);
-      if (e > 20) {
-          e -= 20;
-          x /= Math.pow(10,e);
-          x += (new Array(e+1)).join('0');
-      }
-    }
-    return x;
   }
 
   async approve(){
@@ -54,8 +36,6 @@ class ClaimWithTrips extends Component{
 
     this.setState({loading:this.state.loading+1, errorMessage:''});
     try{
-      console.log("try");
-      //console.log(this.props.state);
       const accounts= await this.props.state.web3.eth.getAccounts();
       console.log(this.props.state.web3Settings);
       const instance = new this.props.state.web3.eth.Contract(TripsEth, this.state.trips.address );
@@ -64,12 +44,10 @@ class ClaimWithTrips extends Component{
       console.log(this.state.trips.amount);
       console.log(this.state.howMuchTrips);
 
-      await instance.methods.approve(this.props.state.web3Settings.contractAddress,this.toFixed(this.state.trips.amount * this.state.howManyLT).toString()).send({from:accounts[0]});
-      console.log("called");
-
-      //console.log(this.state.all.description);
-
-    }catch(err){
+      await instance.methods.approve(this.props.state.web3Settings.contractAddress,(this.state.trips.amount * this.state.howManyLT).toString()).send({from:accounts[0]});
+      console.log("approve called");
+    }
+    catch(err){
       this.setState({errorMessage: err.message});
       this.setState({loading:this.state.loading-1});
       return false;
@@ -110,8 +88,8 @@ class ClaimWithTrips extends Component{
 
   onChange(event){
     event.preventDefault();
-    console.log(this.toFixed(event.target.value * this.state.trips.amount));
-    this.setState({howManyLT: event.target.value, howMuchTrips:this.toFixed((event.target.value * this.state.trips.amount)/1000000000000000000)});
+    console.log(this.props.state.web3.utils.fromWei((event.target.value * this.state.trips.amount).toString(), 'ether'));
+    this.setState({howManyLT: event.target.value, howMuchTrips:this.props.state.web3.utils.fromWei((event.target.value * this.state.trips.amount).toString(),"ether")});
   }
 
 render(){
