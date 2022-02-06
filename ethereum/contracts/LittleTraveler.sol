@@ -1307,7 +1307,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   string private constant ERROR_DONT_OWN_TRAVELER_LOOT = "You do not own any Traveler Loot.";
   string private constant ERROR_NOT_POSSIBLE_ON_THIS_CHAIN = "This minting method is not available for this chain. Use Another method!";
   string private constant ERROR_TOKEN_ID_DOES_NOT_EXISTS = "This tokenId doesnt exist";
-  bool public paused = false;
+  bool public paused = true;
   bool public revealed = false;
   string public notRevealedUri;
 
