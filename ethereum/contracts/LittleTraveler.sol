@@ -1295,6 +1295,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   uint16 public constant maxThisChain = 1000;
   uint16 public constant maxSupplyAllChains = 10000;
   uint256 public cost;
+  uint256 public costTrips;
   uint256 public floorIndex;
   uint256 public roofIndex;
   address public tripsAddress;
@@ -1312,10 +1313,11 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
 
   event PermanentURI(string _value, uint256 indexed _id);
 
-  constructor(string memory _name, string memory _symbol, string memory _initBaseURI, string memory _initNotRevealedUri, uint256 _cost, uint8 _chainNumber, address _tripsAddress, address _travelerLootAddress, address _treasurerAddress) ERC721(_name, _symbol) {
+  constructor(string memory _name, string memory _symbol, string memory _initBaseURI, string memory _initNotRevealedUri, uint256 _cost, uint256 _costTrips, uint8 _chainNumber, address _tripsAddress, address _travelerLootAddress, address _treasurerAddress) ERC721(_name, _symbol) {
     baseURI = _initBaseURI;
     notRevealedUri = _initNotRevealedUri;
     cost = _cost;
+    costTrips = _costTrips;
     tripsAddress = _tripsAddress;
     travelerLootAddress = _travelerLootAddress;
     treasurerAddress = _treasurerAddress;
@@ -1358,7 +1360,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     require(tripsAddress != address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
     require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
     _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
-    IERC20(tripsAddress).transferFrom(msg.sender, treasurerAddress, cost * _mintAmount);
+    IERC20(tripsAddress).transferFrom(msg.sender, treasurerAddress, costTrips * _mintAmount);
     _processingMints(_mintAmount);
   }
 
@@ -1402,6 +1404,10 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
 
   function setCost(uint256 _newCost) external onlyOwner {
     cost = _newCost;
+  }
+
+  function setCostTrips(uint256 _newCostTrips) external onlyOwner {
+    costTrips = _newCostTrips;
   }
 
   function setNotRevealedURI(string memory _notRevealedURI) external onlyOwner {
