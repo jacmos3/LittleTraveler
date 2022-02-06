@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button} from 'semantic-ui-react';
-class Elements extends Component{
+class Elements2 extends Component{
   constructor(){
     super();
 
@@ -14,14 +14,13 @@ render(){
         <div className="px-20 py-8 rounded text-center">
           <span className="uppercase sm:text-xl tracking-widest">Under The Hood</span>
           <br />
-          <h1 className="text-center mt-4">Trillions of combinations</h1>
-          Variable rarity, stored on IPFS.
+          <h1 className="text-center mt-4">XXXXXX</h1>
+          xxxxxxxx
         </div>
       </div>
       <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">
-          40+ Little Traveler types
-          <br />2000+ backgrounds
-          <br />3,000+ elements
+        xxxx
+         
          
       </div>
       <br />
@@ -38,4 +37,4 @@ render(){
   )
 };
 };
-export default Elements;
+export default Elements2;

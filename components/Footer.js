@@ -19,7 +19,7 @@ class Footer extends Component{
         <br />
           Website and Smart Contract's code are{" "}
           <a
-            href="https://github.com/jacmos3/TravelerLoot"
+            href="https://github.com/jacmos3/LittleTraveler"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -27,7 +27,7 @@ class Footer extends Component{
           </a>{" "}
           and licensed under MIT license.
           <br />
-          Traveler Loot modifications and NFTs are Public Domain.
+          The Little Traveler NFTs are Public Domain.
           <div className="flex py-8 w-full justify-center space-x-6">
             <Image className="text-white mx-2" src="https://i.creativecommons.org/p/zero/1.0/88x31.png" />
           </div>

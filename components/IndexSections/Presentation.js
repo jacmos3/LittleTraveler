@@ -22,7 +22,7 @@ render(){
       <div className="w-full sm:w-1/2">
         <div className="sm:px-4">
           <div className={styles.home__cta}>
-            <h1>Little Traveler</h1>
+            <h1>The Little Traveler</h1>
             
             <Grid columns={4} padded>
                {params.map((param) => (

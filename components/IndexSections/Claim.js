@@ -57,6 +57,10 @@ render(){
                 In 2022 there is a definitive awarness that Web3 is the future but still a total lack of knowledge about it.
                 <br />
                 These 10,000 PFP NFTs will help understand the potential of a shared immutable asset class, specific for the travellers.
+
+                <br />
+               See it as a cooperation between the crypto world and the travel world.
+               
                 <br />
                 The Little Traveler NFTs already give access to discounts, offers and gratuities at first, but we won't stop there as there's a lot we can do: special campaigns by travel companies, derivatives (one is already planned) and so on.
                 <br />

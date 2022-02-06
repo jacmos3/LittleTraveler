@@ -19,7 +19,9 @@ render(){
           <p className="sm:text-2xl">Find yours!</p>
 
           <p className="text-xl sm:text-2xl">
-               Admire the incredible variety of the Little Traveler.
+               Hand drawn by an Italian artist, the Little Traveler is the result of seven months of cooperations amongts several people in the Traveler DAO.
+               <br />
+               The backgorunds are public domain pictures we filtered with the AI to make four versions of Anime filters.
           </p>
 
         </div>
@@ -87,6 +89,42 @@ render(){
           </Card>
           <Card>
             <Image src='littletravelers/types/Little-Traveler-6.png' wrapped ui={false} />
+            <Card.Content>
+            </Card.Content>
+          </Card>
+        </Card.Group>
+      </Container>
+    <br />
+
+    <Container>
+        <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
+          <Card>
+          <Image src='littletravelers/types/Little-Traveler-7.png' wrapped ui={false} />
+          </Card>
+
+          <Card>
+            <Image src='littletravelers/types/Little-Traveler-8.png' wrapped ui={false} />
+          </Card>
+          <Card>
+            <Image src='littletravelers/types/Little-Traveler-9.png' wrapped ui={false} />
+            <Card.Content>
+            </Card.Content>
+          </Card>
+        </Card.Group>
+      </Container>
+    <br />
+
+    <Container>
+        <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
+          <Card>
+          <Image src='littletravelers/types/Little-Traveler-10.png' wrapped ui={false} />
+          </Card>
+
+          <Card>
+            <Image src='littletravelers/types/Little-Traveler-11.png' wrapped ui={false} />
+          </Card>
+          <Card>
+            <Image src='littletravelers/types/Little-Traveler-12.png' wrapped ui={false} />
             <Card.Content>
             </Card.Content>
           </Card>

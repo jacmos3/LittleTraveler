@@ -6,6 +6,9 @@ import Space from '../components/IndexSections/Space.js';
 import Types from '../components/IndexSections/Types.js';
 import Guilds from '../components/IndexSections/Guilds.js';
 import Elements from '../components/IndexSections/Elements.js';
+import Elements2 from '../components/IndexSections/Elements2.js';
+import Elements3 from '../components/IndexSections/Elements3.js';
+
 import Menu from '../components/IndexSections/Menu.js';
 
 import {Header,Button} from 'semantic-ui-react';
@@ -218,6 +221,24 @@ class MyDapp extends Component{
         <div id="Elements" className="bg-rainbow-6  py-20 text-white ">
           <Elements />
         </div>
+
+        <div className="py-40">
+          <Space />
+        </div>
+        <div id="Elements2" className="bg-rainbow-6  py-20 text-white ">
+          <Elements2 />
+        </div>
+
+
+        <div className="py-40">
+          <Space />
+        </div>
+        <div id="Elements3" className="bg-rainbow-6  py-20 text-white ">
+          <Elements3 />
+        </div>
+
+
+
       </Layout>
     )
   }
