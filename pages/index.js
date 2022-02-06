@@ -35,7 +35,7 @@ class MyDapp extends Component{
       deployingNetworkNameArray : ["Ethereum","Polygon","Rinkeby"],
       tripsAddress : "0x1350Fbe8Ce27762ec19134bf8FC405a427fe9Bf1", //remove
       chains: [
-        {name:"Ethereum", id:1, options:{trips:{address:"0x1350Fbe8Ce27762ec19134bf8FC405a427fe9Bf1",amount:"1000000000000000000"},loot:"y",coin:{name:"",amount:""}}},
+        {name:"Ethereum", id:1, options:{trips:{address:"0x1350Fbe8Ce27762ec19134bf8FC405a427fe9Bf1",amount:"1000000000000000000"},loot:"",coin:{name:"",amount:""}}},
         {name:"Polygon", id:137, options:{trips:{address:"0x1350Fbe8Ce27762ec19134bf8FC405a427fe9Bf1",amount:"1000000000000000000"},loot:"",coin:{name:"MATIC",amount:""}}},
         {name:"Rinkeby", id:4, options:{trips:{address:"0x8978fa89c4d20305f7d885d71a776174b13a28b5",amount:"1000000000000000000"},loot:"0xaeA3ad95Dc000F603622Ef2FFD915bC3D26573a7",coin:{name:"ETH",amount:"0.01"}}},
       ]
@@ -155,11 +155,11 @@ class MyDapp extends Component{
        console.log(this.state.web3Settings.isWeb3Connected);
     }
 
-  truncateAddress(address){
-    const begin = address.substring(0, 6).concat("...");
-    const end = address.substring(address.length-6);
-    return begin+end;
-  }
+    truncateAddress(address){
+      const begin = address.substring(0, 6).concat("...");
+      const end = address.substring(address.length-6);
+      return begin+end;
+    }
 
   render(){
 

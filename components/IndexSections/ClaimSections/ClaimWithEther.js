@@ -36,9 +36,9 @@ class ClaimWithEther extends Component{
   }
 
 
-  onBuy = async (event) => {
+  onMint = async (event) => {
     event.preventDefault();
-    console.log("buy");
+    console.log("mint");
 
     this.setState({loading:this.state.loading+1, errorMessage:''})
     try{
@@ -64,7 +64,7 @@ render(){
     <Tab.Pane attached={false}>
     <h2 >Select how many Little Traveler you want:</h2>
     <br />
-      <Form onSubmit = {this.onBuy} error={!!this.state.errorMessage}>
+      <Form onSubmit = {this.onMint} error={!!this.state.errorMessage}>
        <Form.Group >
           <Form.Field >
             <Input

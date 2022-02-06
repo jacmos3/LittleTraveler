@@ -1346,13 +1346,11 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     _processingMints(_mintAmount);
   }
 
-  function mintByTravelerLoot(uint256 _mintAmount) external nonReentrant{
+  function mintByTravelerLoot() external nonReentrant{
     require(!paused, ERROR_PAUSED);
     require(travelerLootAddress != address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
-    require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
-    _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
     require(IERC721(travelerLootAddress).balanceOf(_msgSender()) > 0, ERROR_DONT_OWN_TRAVELER_LOOT);
-    _processingMints(_mintAmount);
+    _processingMints(1);
   }
 
   function mintWithTrips(uint8 _mintAmount) external nonReentrant{
