@@ -152,11 +152,11 @@ class MyDapp extends Component{
        console.log(this.state.web3Settings.isWeb3Connected);
     }
 
-  truncateAddress(address){
-    const begin = address.substring(0, 6).concat("...");
-    const end = address.substring(address.length-6);
-    return begin+end;
-  }
+    truncateAddress(address){
+      const begin = address.substring(0, 6).concat("...");
+      const end = address.substring(address.length-6);
+      return begin+end;
+    }
 
   render(){
 

@@ -78,8 +78,8 @@ class ClaimWithTrips extends Component{
     return true;
   }
 
-  async buy(){
-    console.log("buy");
+  async mint(){
+    console.log("mint");
 
     this.setState({loading:this.state.loading+1, errorMessage:''})
     try{
@@ -98,12 +98,12 @@ class ClaimWithTrips extends Component{
     this.setState({loading:this.state.loading-1});
   }
 
-  onApproveAndBuy = async (event) => {
+  onApproveAndMint = async (event) => {
     this.setState({loading:this.state.loading+1});
     event.preventDefault();
     var approved = await this.approve();
     if (approved){
-      await this.buy();
+      await this.mint();
     }
     this.setState({loading:this.state.loading-1});
   }
@@ -120,7 +120,7 @@ render(){
     <Tab.Pane attached={false}>
     <h2 >Select how many Little Traveler you want:</h2>
     <br />
-      <Form onSubmit = {this.onApproveAndBuy} error={!!this.state.errorMessage}>
+      <Form onSubmit = {this.onApproveAndMint} error={!!this.state.errorMessage}>
        <Form.Group >
           <Form.Field >
             <Input
