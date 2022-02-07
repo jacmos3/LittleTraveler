@@ -9,16 +9,19 @@ render(){
   return (
     <div className="flex flex-wrap mx-auto w-full justify-center space-x-6 sm:text-2xl font-display sm:space-x-10  py-8 ">
       <div>
-        <a className="hover:text-trips-1" href="#Start">Menu 1</a>
+        <a className="hover:text-trips-1" href="#Start">The Bridge</a>
       </div>
       <div>
-        <a className="hover:text-trips-1" href="#Guilds">Menu 2</a>
+        <a className="hover:text-trips-1" href="#Guilds">Multi-chain</a>
       </div>
       <div>
-        <a className="hover:text-trips-1" href="#Types">Menu 3</a>
+        <a className="hover:text-trips-1" href="#Types">Gallery</a>
       </div>
       <div>
-        <a className="hover:text-trips-1" href="#Elements">Menu 4</a>
+        <a className="hover:text-trips-1" href="#Elements2">The DAO</a>
+      </div>
+      <div>
+        <a className="hover:text-trips-1" href="#Elements3">Derivatives</a>
       </div>
     </div>
   )

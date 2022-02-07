@@ -12,9 +12,7 @@ class Footer extends Component{
     return (
       <div className="bg-black">
         <div className={styles.footer}>
-        Forked from <a target= "_blank" href={this.props.state.OGLOOTWebsite}>🔗Project Loot</a>
-        {" "}
-        and built by <a target="_blank" href={this.props.state.tripsCommunity}>🔗Trips Community</a>
+        Built by <a target="_blank" href="https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/93380629908989276154329187712159695682604484101294988604591734366325570535524">The Traveler DAO</a>, a <a target="_blank" href={this.props.state.tripsCommunity}>🔗TripsCommunity DAO</a>
         <br />
         <br />
           Website and Smart Contract's code are{" "}

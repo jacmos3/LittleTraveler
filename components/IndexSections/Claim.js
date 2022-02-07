@@ -51,7 +51,15 @@ render(){
           <h1 className="text-center mt-4 capitalize">An NFT bridge With The Travel Industry</h1>
           <br />
 
+          <p className="text-xl sm:text-2xl " align="center"><iframe width="729" height="410" src="https://www.youtube.com/embed/7wlySD-fk_Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </p>
             <p className="text-xl sm:text-2xl ">
+            <br />
+
+           
+
+            <br />
+
                 With The Little Traveler we want to support the traditional travel industry it its journey towards Web3.
                 <br />
                 In 2022 there is a definitive awarness that Web3 is the future but still a total lack of knowledge about it.
@@ -62,11 +70,11 @@ render(){
                See it as a cooperation between the crypto world and the travel world.
                
                 <br />
-                The Little Traveler NFTs already give access to discounts, offers and gratuities at first, but we won't stop there as there's a lot we can do: special campaigns by travel companies, derivatives (one is already planned) and so on.
+                The Little Traveler NFTs already <a href="https://medium.com/trips-community/the-traveler-loot-the-offers-7fd8a4eb2410" target="_blank">give access to discounts, offers and gratuities 🔗</a> at first, but we won't stop there as there's a lot we can do: special campaigns by travel companies, derivatives (one is already planned) and so on.
                 <br />
 
                 <br />
-               Owning a Little Traveler will open the doors for you to the travel metaverse, its offers, discounts, gratuities and airdrops.
+               Owning a Little Traveler will open the doors to the travel metaverse, its offers, discounts, gratuities and airdrops.
                 <br />
                 <br />
               </p>

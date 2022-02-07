@@ -38,7 +38,7 @@ render(){
              </Grid>
             <p className="text-xl sm:text-2xl text-white">
               <br />
-              A 10,000 multi-chain PFP project for the travelers.
+              A 10,000 native multi-chain PFP project for the travelers and the travel industry.
             </p>
           </div>
           <div className="flex py-8 w-full justify-center space-x-6">
