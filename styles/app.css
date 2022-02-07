@@ -30,7 +30,7 @@ html {
     scroll-behavior: smooth;
 }
 .hero-img {
-    background-image: linear-gradient(rgba(255,255,255,0.4), rgba(70, 116, 148,0.4)), url('/back.png');
+    background-image: linear-gradient(rgba(70, 116, 148,0.4),rgba(255,255,255,1)), url('/back.png');
 }
 
 .ui.card,

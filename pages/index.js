@@ -188,15 +188,16 @@ class MyDapp extends Component{
         }
         </div>
         <div >
-          <Presentation className="bg-rainbow-2 sm:py-20 py-10 pb-40" state={this.state}/>
+          <Presentation className="bg-rainbow-2 pb-40 " state={this.state}/>
         </div>
-        <div className="bg-black py-5 sticky top-0 z-10 text-trips-3" >
-          <Menu />
-        </div>
-        <div id="Gallery" className="bg-rainbow-4 sm:py-20 py-10 pb-40 text-black bg-opacity-70">
+
+        <div id="Gallery" className="bg-white  pb-40 text-black bg-opacity-100">
           <Gallery state = {this.state}/>
         </div>
-        <div id="Multichain" className="bg-black  py-20 text-trips-3" >
+        <div className="bg-white py-5 sticky top-0 z-10 text-trips-1" >
+          <Menu />
+        </div>
+        <div id="Multichain" className="bg-black text-trips-3" >
           <Multichain disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
         <div className="py-5">

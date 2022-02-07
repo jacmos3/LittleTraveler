@@ -10,8 +10,9 @@ render(){
 
   return (
 
-
-    <div className="container mx-auto mt-8 " >
+    <div className="flex justify-around">
+      <div className="px-4 sm:px-20  rounded-2xl text-center md:w-2/3">
+        <h2 className="text-center mt-4 capitalize">An Incredible Variety of Travelers</h2>
 
       <Container>
         <Card.Group itemsPerRow={6} doubling={true}>
@@ -66,20 +67,6 @@ render(){
         </Card.Group>
       </Container>
 
-      <div className="flex justify-around">
-        <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-          <span className="uppercase sm:text-xl tracking-widest ">GALLERY</span>
-          <h1 className="text-center mt-4 capitalize">An Incredible Variety of Travelers</h1>
-          <p className="sm:text-2xl">Find yours!</p>
-
-          <p className="text-xl sm:text-2xl">
-               Hand drawn by an Italian artist, the Little Traveler is the result of seven months of cooperations amongst several people in the Traveler DAO.
-               <br />
-               The backgrounds are public domain pictures we filtered with the AI to make four versions of Anime filters.
-          </p>
-        <br />
-
-        </div>
       </div>
 
     </div>

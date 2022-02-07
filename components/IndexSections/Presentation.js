@@ -18,48 +18,23 @@ render(){
     {color:'violet', visible:'/littletravelers/future-3716486-bg.png', hidden:'/littletravelers/future-3716486-lt.png'},
   ]
   return (
-    <div className="text-black mx-auto px-2 sm:px-4 text-center py-10 justify-around flex flex-wrap hero-img ">
+    <div className="text-black mx-auto px-2 sm:px-4 text-center py-80 justify-around flex flex-wrap hero-img ">
       <div className="w-full sm:w-1/2">
         <div className="sm:px-4">
           <div className={styles.home__cta}>
           <h1>The Little Traveler</h1>
-
-        
           <p className="text-xl sm:text-2xl text-white">
             <br />
-            A 10,000 multi-chain PFP project for the travelers.
+            A 10,000 native multi-chain PFP project <br />for the travelers and the travel industry.
           </p>
           </div>
-          <div className="flex py-8 w-full justify-center space-x-6">
-          <a
-            href={this.props.state.opensea}
-            className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
-            target="_blank"
-          >
-            <Image className="hover:text-white  w-6 h-6 mx-2" src="../img/opensea.svg"  />
-          </a>
-          <a
-            href={this.props.state.twitter}
-            className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
-            target="_blank"
-          >
-            <Image className="fill-current w-6 h-6 mx-2" src="../img/twitter.svg"/>
-          </a>
-          <a
-            href={this.props.state.discord}
-            className="self-center p-3 border border-gray-800 rounded-xl  bg-black hover:bg-blue-1"
-            target="_blank"
-          >
-            <Image className="fill-current  text-white w-6 h-6 mx-2" src="../img/discord.svg"/>
-          </a>
-          </div>
-          <div><a href={this.props.state.etherscan} target="_blank">VIEW CONTRACT</a></div>
-          <br />
+          <br /><br /><br />
           <div className="text-center">
           <a href="#Start">
-            <Button className=" hover:text-white  mx-2" secondary >Claim a Little Traveler</Button>
+            <Button className=" hover:text-white  mx-2" secondary >Mint yours</Button>
           </a>
           </div>
+
 
         </div>
       </div>
