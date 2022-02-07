@@ -8,6 +8,7 @@ import Guilds from '../components/IndexSections/Guilds.js';
 import Elements from '../components/IndexSections/Elements.js';
 import Elements2 from '../components/IndexSections/Elements2.js';
 import Elements3 from '../components/IndexSections/Elements3.js';
+import Team from '../components/IndexSections/Team.js';
 
 import Menu from '../components/IndexSections/Menu.js';
 
@@ -220,6 +221,14 @@ class MyDapp extends Component{
         </div>
         <div id="Elements2" className="bg-rainbow-6  py-20 text-white ">
           <Elements2 />
+        </div>
+
+
+        <div className="py-40">
+          <Space />
+        </div>
+        <div id="Team" className="bg-rainbow-6  py-20 text-white ">
+          <Team />
         </div>
 
 
