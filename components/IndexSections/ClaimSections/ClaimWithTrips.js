@@ -43,8 +43,8 @@ class ClaimWithTrips extends Component{
       console.log(this.props.state.web3Settings.contractAddress);
       console.log(this.state.trips.amount);
       console.log(this.state.howMuchTrips);
-
-      await instance.methods.approve(this.props.state.web3Settings.contractAddress,(this.state.trips.amount * this.state.howManyLT).toString()).send({from:accounts[0]});
+      console.log(this.state.howManyLT);
+      await instance.methods.approve(this.props.state.web3Settings.contractAddress,this.toFixed(this.state.trips.amount * this.state.howManyLT).toString()).send({from:accounts[0]});
       console.log("approve called");
     }
     catch(err){
@@ -88,10 +88,27 @@ class ClaimWithTrips extends Component{
 
   onChange(event){
     event.preventDefault();
-    console.log(this.props.state.web3.utils.fromWei((event.target.value * this.state.trips.amount).toString(), 'ether'));
-    this.setState({howManyLT: event.target.value, howMuchTrips:this.props.state.web3.utils.fromWei((event.target.value * this.state.trips.amount).toString(),"ether")});
+    console.log(this.props.state.web3.utils.fromWei(this.toFixed(event.target.value * this.state.trips.amount).toString(),"ether"));
+    this.setState({howManyLT: event.target.value, howMuchTrips:this.props.state.web3.utils.fromWei(this.toFixed(event.target.value * this.state.trips.amount).toString(),"ether")});
   }
 
+  toFixed(x) {
+    if (Math.abs(x) < 1.0) {
+      var e = parseInt(x.toString().split('e-')[1]);
+      if (e) {
+          x *= Math.pow(10,e-1);
+          x = '0.' + (new Array(e)).join('0') + x.toString().substring(2);
+      }
+    } else {
+      var e = parseInt(x.toString().split('+')[1]);
+      if (e > 20) {
+          e -= 20;
+          x /= Math.pow(10,e);
+          x += (new Array(e+1)).join('0');
+      }
+    }
+    return x;
+  }
 render(){
 
   return (

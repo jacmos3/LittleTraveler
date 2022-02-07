@@ -16,12 +16,10 @@ render(){
             <Card.Group centered>
               <Card>
                  <Card.Content >
-                 <h1 class="font-medium shadowBackground">Little Traveler</h1>
-                 <h4 class="font-bold">A 10,000 native multi-chain PFP project for the travelers and the travel industry!</h4>
+                 <h1 className="font-medium shadowBackground">Little Traveler</h1>
+                 <h4 className="font-bold">A 10,000 native multi-chain PFP project for the travelers and the travel industry!</h4>
 
-                 <div className="text-center">
 
-                 </div>
                  </Card.Content>
                  <Card.Content extra>
                    <a href="#Start">

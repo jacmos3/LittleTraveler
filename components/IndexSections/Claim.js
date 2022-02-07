@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container,Button,Form,Input,Card,Dimmer,Segment,Tab, Loader} from 'semantic-ui-react';
+import {Container,Button,Form,Input,Card,Dimmer,Segment,Tab, Loader,Embed} from 'semantic-ui-react';
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
 import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
 import ClaimWithTrips from "./ClaimSections/ClaimWithTrips"
@@ -45,18 +45,18 @@ render(){
     <div className="container mx-auto mt-8">
       <div className="flex justify-around">
         <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 ">
-          <span className="uppercase sm:text-xl tracking-widest ">
-          *______*
-          </span>
           <h1 className="text-center mt-4 capitalize">An NFT bridge With The Travel World</h1>
           <br />
 
-          <p className="text-xl sm:text-2xl " align="center"><iframe width="729" height="410" src="https://www.youtube.com/embed/7wlySD-fk_Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </p>
+          <Embed
+            id='7wlySD-fk_Q'
+            placeholder='/meta.png'
+            source='youtube'
+          />
             <p className="text-xl sm:text-2xl ">
             <br />
 
-           
+
 
             <br />
 
@@ -68,7 +68,7 @@ render(){
 
                 <br />
                See it as a cooperation between the crypto travel world and the travel industry.
-               
+
                 <br />
                 The Little Traveler NFTs already <a href="https://medium.com/trips-community/the-traveler-loot-the-offers-7fd8a4eb2410" target="_blank">give access to discounts, offers and gratuities 🔗</a> at first, but we won't stop there as there's a lot we can do: special campaigns by travel companies, derivatives (one is already planned) and so on.
                 <br />

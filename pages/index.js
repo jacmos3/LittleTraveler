@@ -48,8 +48,6 @@ class MyDapp extends Component{
     var web3Settings = this.state.web3Settings;
     web3Settings.contractAddress = process.env.NEXT_PUBLIC_CONTRACT_ADDRESS;
     this.setState({web3Settings:web3Settings});
-    //console.log(this.state);
-    //console.log(derivatives);
   }
   update = async (nextState)=>{
     console.log("nextState: "+JSON.stringify(nextState));
@@ -190,19 +188,18 @@ class MyDapp extends Component{
         </div>
 
         <Presentation className="bg-rainbow-2 sm:py-20 py-10 pb-40" state={this.state}/>
-
         <div className="bg-trips-2 sticky top-0 z-10">
           <Menu />
         </div>
-
-        <div id="Start" className="bg-rainbow-3 sm:py-20 py-10 pb-40 text-black bg-opacity-70">
+        <div className="py-10">
+          <Space />
+        </div>
+        <div id="Start" className="bg-rainbow-3 sm:py-20 py-10 pb-40 text-black">
           <Claim disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
-
         <div className="py-40">
           <Space />
         </div>
-
         <div id="Types" className="bg-rainbow-4 sm:py-20 py-10 pb-40 text-black bg-opacity-70">
           <Types state = {this.state}/>
         </div>
@@ -218,7 +215,6 @@ class MyDapp extends Component{
         <div id="Elements" className="bg-rainbow-6  py-20 text-white ">
           <Elements />
         </div>
-
         <div className="py-40">
           <Space />
         </div>
