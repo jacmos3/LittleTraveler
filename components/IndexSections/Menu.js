@@ -15,6 +15,9 @@ render(){
         <a className="hover:text-trips-1" href="#Guilds">Multi-chain</a>
       </div>
       <div>
+        <a className="hover:text-trips-1" href="#Elements">Loot</a>
+      </div>
+      <div>
         <a className="hover:text-trips-1" href="#Types">Gallery</a>
       </div>
       <div>

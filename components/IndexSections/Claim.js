@@ -48,7 +48,7 @@ render(){
           <span className="uppercase sm:text-xl tracking-widest ">
           *______*
           </span>
-          <h1 className="text-center mt-4 capitalize">An NFT bridge With The Travel Industry</h1>
+          <h1 className="text-center mt-4 capitalize">An NFT bridge With The Travel World</h1>
           <br />
 
           <p className="text-xl sm:text-2xl " align="center"><iframe width="729" height="410" src="https://www.youtube.com/embed/7wlySD-fk_Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -67,7 +67,7 @@ render(){
                 These 10,000 PFP NFTs will help understand the potential of a shared immutable asset class, specific for the travellers.
 
                 <br />
-               See it as a cooperation between the crypto world and the travel world.
+               See it as a cooperation between the crypto travel world and the travel industry.
                
                 <br />
                 The Little Traveler NFTs already <a href="https://medium.com/trips-community/the-traveler-loot-the-offers-7fd8a4eb2410" target="_blank">give access to discounts, offers and gratuities 🔗</a> at first, but we won't stop there as there's a lot we can do: special campaigns by travel companies, derivatives (one is already planned) and so on.
