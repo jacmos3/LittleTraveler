@@ -79,7 +79,7 @@ html {
 }
 #myVideo {
  position: fixed;
- z-index: -100;
+ z-index: -1;
  right: 0;
  bottom: 0;
  min-width: 100%;

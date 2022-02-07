@@ -25,19 +25,19 @@ render(){
         </div>
       </div>
       <Container>
-        <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
+        <Card.Group itemsPerRow={5} stackable={true} doubling={true}>
           <Card>
           <Image src='littletravelers/team/Little-Traveler-Team-1.png' wrapped ui={false} />
           <Card.Content>
           <p className="text-xl sm:text-2xl text-center" >Marco</p>
           <p className="text-xl sm:text-1xl text-center ">The Designer<br /></p>
           </Card.Content>
-         
+
           </Card>
 
           <Card>
             <Image src='littletravelers/team/Little-Traveler-Team-4.png' wrapped ui={false} />
-            
+
             <Card.Content>
           <p className="text-xl sm:text-2xl text-center" >Jacopo</p>
           <p className="text-xl sm:text-1xl text-center ">The Dev<br /></p>
@@ -46,31 +46,24 @@ render(){
 
           <Card>
             <Image src='littletravelers/team/Little-Traveler-Team-5.png' wrapped ui={false} />
-           
+
             <Card.Content>
             <p className="text-xl sm:text-2xl text-center" >Luca</p>
-          <p className="text-xl sm:text-1xl text-center ">The Mind behind it all<br /></p>
+            <p className="text-xl sm:text-1xl text-center ">The Mind behind it all<br /></p>
             </Card.Content>
           </Card>
-        </Card.Group>
-      </Container>
-    <br />
-  
-
-    <Container>
-        <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
           <Card>
           <Image src='littletravelers/team/Little-Traveler-Team-6.png' wrapped ui={false} />
           <Card.Content>
           <p className="text-xl sm:text-2xl text-center" >Carla</p>
           <p className="text-xl sm:text-1xl text-center ">The Organizer<br /></p>
           </Card.Content>
-         
+
           </Card>
 
           <Card>
             <Image src='littletravelers/team/Little-Traveler-Team-9.png' wrapped ui={false} />
-            
+
             <Card.Content>
           <p className="text-xl sm:text-2xl text-center" >Valerio</p>
           <p className="text-xl sm:text-1xl text-center ">The Engineer<br /></p>
@@ -79,29 +72,25 @@ render(){
 
           <Card>
             <Image src='littletravelers/team/Little-Traveler-Team-10.png' wrapped ui={false} />
-           
+
             <Card.Content>
             <p className="text-xl sm:text-2xl text-center" >Guido</p>
           <p className="text-xl sm:text-1xl text-center ">The Background and NFT expert<br /></p>
             </Card.Content>
           </Card>
-        </Card.Group>
-      </Container>
 
-      <Container>
-        <Card.Group itemsPerRow={3} stackable={true} doubling={true}>
           <Card>
           <Image src='littletravelers/team/Little-Traveler-Team-6.png' wrapped ui={false} />
           <Card.Content>
           <p className="text-xl sm:text-2xl text-center" >Francesco</p>
           <p className="text-xl sm:text-1xl text-center ">The Great Referrer<br /></p>
           </Card.Content>
-         
+
           </Card>
 
           <Card>
             <Image src='littletravelers/team/Little-Traveler-Team-9.png' wrapped ui={false} />
-            
+
             <Card.Content>
           <p className="text-xl sm:text-2xl text-center" >Alessandro</p>
           <p className="text-xl sm:text-1xl text-center ">The Statistician<br /></p>
@@ -110,7 +99,7 @@ render(){
 
           <Card>
             <Image src='littletravelers/team/Little-Traveler-Team-10.png' wrapped ui={false} />
-           
+
             <Card.Content>
             <p className="text-xl sm:text-2xl text-center" >Giulia</p>
           <p className="text-xl sm:text-1xl text-center ">xxx<br /></p>
@@ -118,17 +107,19 @@ render(){
           </Card>
         </Card.Group>
       </Container>
+    <br />
+
 
     <br />
 
-   
 
-   
 
-   
+
+
+
     <br />
 
-   
+
     </div>
 
   )

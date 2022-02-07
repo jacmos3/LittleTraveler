@@ -7,7 +7,7 @@ class Space extends Component{
   render(){
 
     return (
-      <div className="container mx-auto mt-8 text-white">
+      <div >
       </div>
 
     )

@@ -44,7 +44,8 @@ render(){
   return (
     <div className="container mx-auto mt-8">
       <div className="flex justify-around">
-        <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3 ">
+        <div className="px-20 py-8 rounded text-center">
+          <span className="uppercase sm:text-xl tracking-widest"></span>
           <h1 className="text-center mt-4 capitalize">An NFT bridge With The Travel World</h1>
           <br />
 

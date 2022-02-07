@@ -26,7 +26,7 @@ render(){
           You can use it for access, discounts, fidelization and more.
           <br /> <br />
           Contact us for a quote.
-         
+
       </div>
       <br />
       <div className="text-center">
@@ -36,8 +36,8 @@ render(){
       </div>
     </div>
 
-    
-    
+
+
 
   )
 };

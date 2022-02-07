@@ -10,7 +10,8 @@ module.exports = {
     colors: {
       trips:{
         1:'#002348',
-        2:'#467494'
+        2:'#467494',
+        3:'F87151',
       },
       rainbow:{
         1:'red',

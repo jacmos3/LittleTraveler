@@ -3,8 +3,8 @@ import Layout from '../components/Layout.js';
 import Presentation from '../components/IndexSections/Presentation.js';
 import Claim from '../components/IndexSections/Claim.js';
 import Space from '../components/IndexSections/Space.js';
-import Types from '../components/IndexSections/Types.js';
-import Guilds from '../components/IndexSections/Guilds.js';
+import Gallery from '../components/IndexSections/Gallery.js';
+import Multichain from '../components/IndexSections/Multichain.js';
 import Elements from '../components/IndexSections/Elements.js';
 import Elements2 from '../components/IndexSections/Elements2.js';
 import Elements3 from '../components/IndexSections/Elements3.js';
@@ -187,29 +187,31 @@ class MyDapp extends Component{
           )
         }
         </div>
-
-        <Presentation className="bg-rainbow-2 sm:py-20 py-10 pb-40" state={this.state}/>
-        <div className="bg-trips-2 sticky top-0 z-10">
+        <div >
+          <Presentation className="bg-rainbow-2 sm:py-20 py-10 pb-40" state={this.state}/>
+        </div>
+        <div className="bg-black py-5 sticky top-0 z-10 text-trips-3" >
           <Menu />
         </div>
-        <div className="py-10">
+        <div id="Gallery" className="bg-rainbow-4 sm:py-20 py-10 pb-40 text-black bg-opacity-70">
+          <Gallery state = {this.state}/>
+        </div>
+        <div id="Multichain" className="bg-black  py-20 text-trips-3" >
+          <Multichain disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
+        </div>
+        <div className="py-5">
           <Space />
         </div>
-        <div id="Start" className="bg-rainbow-3 sm:py-20 py-10 pb-40 text-black">
+        <div id="Start" className="bg-rainbow-3  sm:py-20 py-10 pb-40 text-black">
           <Claim disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
         <div className="py-40">
           <Space />
         </div>
-        <div id="Types" className="bg-rainbow-4 sm:py-20 py-10 pb-40 text-black bg-opacity-70">
-          <Types state = {this.state}/>
-        </div>
         <div className="py-40">
           <Space />
         </div>
-        <div id="Guilds" className="bg-rainbow-5  py-20 text-white ">
-          <Guilds disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
-        </div>
+
         <div className="py-40">
           <Space />
         </div>
@@ -223,15 +225,12 @@ class MyDapp extends Component{
           <Elements2 />
         </div>
 
-
         <div className="py-40">
           <Space />
         </div>
         <div id="Team" className="bg-rainbow-6  py-20 text-white ">
           <Team />
         </div>
-
-
         <div className="py-40">
           <Space />
         </div>
