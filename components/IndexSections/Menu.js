@@ -21,6 +21,9 @@ render(){
         <a className="hover:text-trips-1" href="#Types">Gallery</a>
       </div>
       <div>
+        <a className="hover:text-trips-1" href="#Team">The Team</a>
+      </div>
+      <div>
         <a className="hover:text-trips-1" href="#Elements2">The DAO</a>
       </div>
       <div>
