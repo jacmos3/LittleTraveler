@@ -30,7 +30,7 @@ html {
     scroll-behavior: smooth;
 }
 .hero-img {
-    background-image: linear-gradient(rgba(255,255,255,0.4), rgba(70, 116, 148,0.4)), url('/littletravelers/back.png');
+    background-image: linear-gradient(rgba(255,255,255,0.4), rgba(70, 116, 148,0.4)), url('/back.png');
 }
 
 .ui.card,
@@ -40,6 +40,8 @@ html {
   position: relative;
   top: 0;
   transition: top ease 0.2s;
+  background: transparent !important;
+  box-shadow: none !important;
 }
 
 
@@ -67,6 +69,14 @@ html {
   font-weight: bold;
 }
 
+.claimButton{
+  background-color: white !important;
+  color:black !important;
+
+}
+.claimButton:hover{
+  text-decoration: underline;
+}
 #myVideo {
  position: fixed;
  z-index: -100;
