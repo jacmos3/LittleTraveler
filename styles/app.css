@@ -93,3 +93,7 @@ html {
 
   z-index: 99;
 }
+
+.shadowBackground{
+    text-shadow: 1px -1px white;
+}

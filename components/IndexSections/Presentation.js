@@ -16,8 +16,8 @@ render(){
             <Card.Group centered>
               <Card>
                  <Card.Content >
-                 <h1>Little Traveler</h1>
-                 <h4>A 10,000 multi-chain PFP project, for the travelers.</h4>
+                 <h1 class="font-medium shadowBackground">Little Traveler</h1>
+                 <h4 class="font-bold">A 10,000 native multi-chain PFP project for the travelers and the travel industry!</h4>
 
                  <div className="text-center">
 
