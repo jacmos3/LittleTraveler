@@ -18,20 +18,21 @@ render(){
     {color:'violet', visible:'/littletravelers/future-3716486-bg.png', hidden:'/littletravelers/future-3716486-lt.png'},
   ]
   return (
-    <div className="text-black mx-auto px-2 sm:px-4 text-center py-80 justify-around flex flex-wrap hero-img ">
+    <div className="text-black mx-auto px-2 sm:px-4 text-center py-20 justify-around flex flex-wrap hero-img ">
       <div className="w-full sm:w-1/2">
         <div className="sm:px-4">
           <div className={styles.home__cta}>
-          <h1>The Little Traveler</h1>
-          <p className="text-xl sm:text-2xl text-white">
+          <br /><br /><br /><br /><br /><br />
+          <h1 className="text-trips-1">The Little Traveler</h1>
+          <div className="text-xl sm:text-2xl text-trips-2">
             <br />
             A 10,000 native multi-chain PFP project <br />for the travelers and the travel industry.
-          </p>
+          </div>
           </div>
           <br /><br /><br />
           <div className="text-center">
           <a href="#Start">
-            <Button className=" hover:text-white  mx-2" secondary >Mint yours</Button>
+            <Button className=" hover:text-white  mx-2" color="orange" basic >Mint yours</Button>
           </a>
           </div>
 

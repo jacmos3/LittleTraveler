@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
 import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
+import {Container,Card,Image} from 'semantic-ui-react';
 class Guilds extends Component{
   constructor(){
     super();
@@ -17,17 +18,88 @@ render(){
     <div className="container mx-auto mt-8">
       <div className="flex justify-around">
         <div className="px-20 py-8 rounded text-center">
-          <span className="uppercase sm:text-xl tracking-widest">Multi-Chain</span>
 
-         <br />
-          <h1 className="text-center mt-4 text-white">10 chains, 1,000 NFTs each, 10,000 NFTs in total</h1>
+          <h2 className="text-center mt-4 text-trips-1">Native Multichain</h2>
         </div>
       </div>
 
-      <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4">
-          The first launch is 1,000 Little Travelers on the Ethereum network and Polygon (date to be defined), and then in the coming months we will launch and 8 more chains, for a total of 10 chains and 10,000 Little Travelers.
+                  <p className="text-center sm:text-xl my-4 ">
+                      10,000 Little Travelers
+                      <br />
+                      1,000 each chain
+                      <br />
+                      10 blockchains
+                      <br />
+                      1 address
+                      <br />
+                      <br />
+                    </p>
+      <Container>
+        <Card.Group className="text-center" itemsPerRow={5  } >
+          <Card>
+          <Image src='img/networks/ethereum.png'/>
+          <Card.Content>
+            Released on Feb 8, 2022
+          </Card.Content>
+          </Card>
+          <Card>
+            <Image src='img/networks/polygon.png'/>
+            <Card.Content>
+              Released on Feb 8, 2022
+            </Card.Content>
+          </Card>
+          <Card>
+            <Image src='img/networks/new.png' />
+            <Card.Content>
+              To be revealed yet
+            </Card.Content>
+          </Card>
+          <Card>
+            <Image src='img/networks/new.png' />
+            <Card.Content>
+              To be revealed yet
+            </Card.Content>
+          </Card>
+          <Card>
+            <Image src='img/networks/new.png'  />
+            <Card.Content>
+              To be revealed yet
+            </Card.Content>
+          </Card>
+          <Card>
+            <Image src='img/networks/new.png'/>
+            <Card.Content>
+              To be revealed yet
+            </Card.Content>
+          </Card>
+          <Card>
+            <Image src='img/networks/new.png' />
+            <Card.Content>
+              To be revealed yet
+            </Card.Content>
+          </Card>
+          <Card>
+            <Image src='img/networks/new.png'  />
+            <Card.Content>
+              To be revealed yet
+            </Card.Content>
+          </Card>
+          <Card>
+            <Image src='img/networks/new.png'/>
+            <Card.Content>
+              To be revealed yet
+            </Card.Content>
+          </Card>
+          <Card>
+            <Image src='img/networks/new.png'/>
+            <Card.Content >
+              To be revealed yet
+            </Card.Content>
+          </Card>
 
-        </div>
+          </Card.Group>
+
+        </Container>
 
     </div>
 

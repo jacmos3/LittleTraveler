@@ -5,10 +5,10 @@ import Claim from '../components/IndexSections/Claim.js';
 import Space from '../components/IndexSections/Space.js';
 import Gallery from '../components/IndexSections/Gallery.js';
 import Multichain from '../components/IndexSections/Multichain.js';
-import Elements from '../components/IndexSections/Elements.js';
 import Elements2 from '../components/IndexSections/Elements2.js';
 import Elements3 from '../components/IndexSections/Elements3.js';
 import Team from '../components/IndexSections/Team.js';
+import Video from '../components/IndexSections/Video.js';
 
 import Menu from '../components/IndexSections/Menu.js';
 
@@ -187,37 +187,27 @@ class MyDapp extends Component{
           )
         }
         </div>
-        <div >
-          <Presentation className="bg-rainbow-2 pb-40 " state={this.state}/>
-        </div>
-
-        <div id="Gallery" className="bg-white  pb-40 text-black bg-opacity-100">
+          <Presentation state={this.state}/>
+        <div id="Gallery" className="bg-white  text-black bg-opacity-100">
           <Gallery state = {this.state}/>
         </div>
-        <div className="bg-white py-5 sticky top-0 z-10 text-trips-1" >
+
+        <div className="bg-white py-5 sticky top-0 z-10 text-trips-3" >
           <Menu />
         </div>
-        <div id="Multichain" className="bg-black text-trips-3" >
+        <div className="py-20">
+          <Space />
+        </div>
+        <div id="Multichain" className="bg-white text-trips-2 py-10" >
           <Multichain disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
-        <div className="py-5">
-          <Space />
-        </div>
-        <div id="Start" className="bg-rainbow-3  sm:py-20 py-10 pb-40 text-black">
-          <Claim disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
-        </div>
-        <div className="py-40">
-          <Space />
-        </div>
-        <div className="py-40">
-          <Space />
+
+        <div id="Video" className="bg-white text-trips-2 py-10" >
+          <Video disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
 
-        <div className="py-40">
-          <Space />
-        </div>
-        <div id="Elements" className="bg-rainbow-6  py-20 text-white ">
-          <Elements />
+        <div id="Start" className="bg-rainbow-3  sm:py-20 py-10 pb-40 text-black">
+          <Claim disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
         <div className="py-40">
           <Space />

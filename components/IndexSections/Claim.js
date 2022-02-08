@@ -49,36 +49,7 @@ render(){
           <h1 className="text-center mt-4 capitalize">An NFT bridge With The Travel World</h1>
           <br />
 
-          <Embed
-            id='7wlySD-fk_Q'
-            placeholder='/meta.png'
-            source='youtube'
-          />
-            <p className="text-xl sm:text-2xl ">
-            <br />
 
-
-
-            <br />
-
-                With The Little Traveler we want to support the traditional travel industry it its journey towards Web3.
-                <br />
-                In 2022 there is a definitive awarness that Web3 is the future but still a total lack of knowledge about it.
-                <br />
-                These 10,000 PFP NFTs will help understand the potential of a shared immutable asset class, specific for the travellers.
-
-                <br />
-               See it as a cooperation between the crypto travel world and the travel industry.
-
-                <br />
-                The Little Traveler NFTs already <a href="https://medium.com/trips-community/the-traveler-loot-the-offers-7fd8a4eb2410" target="_blank">give access to discounts, offers and gratuities 🔗</a> at first, but we won't stop there as there's a lot we can do: special campaigns by travel companies, derivatives (one is already planned) and so on.
-                <br />
-
-                <br />
-               Owning a Little Traveler will open the doors to the travel metaverse, its offers, discounts, gratuities and airdrops.
-                <br />
-                <br />
-              </p>
                 {
                   this.props.state.web3Settings.isWeb3Connected
                   ? this.props.state.web3Settings.chains
