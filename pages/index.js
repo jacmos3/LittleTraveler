@@ -26,7 +26,8 @@ class MyDapp extends Component{
     opensea:"https://www.opensea.io/",
     etherscan:"https://etherscan.io/",
     twitter:"https://twitter.com/tripscommunity",
-    website:"https://www.travelerloot.com",
+    website:"https://www.littletraveler.com",
+    travelerLoot:"https://www.littletraveler.com",
     discord:"https://discord.gg/tripscommunity",
     tripsCommunity:"https://www.tripscommunity.com",
     web3Settings:{
