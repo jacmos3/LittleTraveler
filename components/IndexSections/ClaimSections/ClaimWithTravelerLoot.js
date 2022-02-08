@@ -10,8 +10,8 @@ class ClaimWithTravelerLoot extends Component{
     errorMessage:"",
     loot:""
   }
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
   }
 
   componentDidMount(){
@@ -27,9 +27,7 @@ class ClaimWithTravelerLoot extends Component{
       const instance = new this.props.state.web3.eth.Contract(LittleTraveler.LittleTraveler.abi, this.props.state.web3Settings.contractAddress );
 
       await instance.methods.mintByTravelerLoot().send({from:accounts[0]});
-      this.setState({minted:true});
-      //this.fetchNFTList();
-      //console.log(this.state.all.description);
+      this.props.goToFetch();
 
     }catch(err){
       this.setState({errorMessage: err.message});

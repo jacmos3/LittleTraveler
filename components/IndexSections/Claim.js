@@ -15,8 +15,9 @@ class Claim extends Component{
     all:[],
     activeIndex:0
   }
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
+      this.goToFetch = this.goToFetch.bind(this);
   }
 
 handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex });

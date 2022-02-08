@@ -10,8 +10,8 @@ class ClaimWithEther extends Component{
     errorMessage:"",
     coin:""
   }
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
   }
 
   componentDidMount(){
@@ -20,13 +20,9 @@ class ClaimWithEther extends Component{
       .map(chain => chain.options.coin)[0];
     console.log("filter done");
     console.log(coin);
-
     var howManyLT = 1;
     var howMuchCoin = coin.amount
-
     this.setState({coin:coin, howManyLT:howManyLT, howMuchCoin:howMuchCoin});
-
-
   }
 
   onChange(event){
@@ -47,12 +43,9 @@ class ClaimWithEther extends Component{
       console.log(this.state.howManyLT);
       console.log(this.props.state.web3.utils.toWei(this.state.howMuchCoin.toString()));
       await instance.methods.mint(this.state.howManyLT.toString()).send({from:accounts[0], value:(this.props.state.web3.utils.toWei(this.state.howMuchCoin.toString()))});
-      //await instance.methods.transfer().send({from:accounts[0]});
-      //this.setState({minted:true});
-      //this.fetchNFTList();
-      //console.log(this.state.all.description);
-
-    }catch(err){
+      this.props.goToFetch();
+    }
+    catch(err){
       this.setState({errorMessage: err.message});
     }
     this.setState({loading:this.state.loading-1});

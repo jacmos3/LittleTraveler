@@ -12,8 +12,8 @@ class ClaimWithTrips extends Component{
     errorMessage:"",
     trips:{amount:0}
   }
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
   }
 
   componentDidMount(){
@@ -64,11 +64,7 @@ class ClaimWithTrips extends Component{
       const instance = new this.props.state.web3.eth.Contract(LittleTraveler.LittleTraveler.abi, this.props.state.web3Settings.contractAddress );
       console.log(this.state.howManyLT);
       await instance.methods.mintWithTrips(this.state.howManyLT.toString()).send({from:accounts[0]});
-      //await instance.methods.transfer().send({from:accounts[0]});
-      this.setState({minted:true});
-      this.props.goToFetch;
-      //console.log(this.state.all.description);
-
+      this.props.goToFetch();
     }catch(err){
       this.setState({errorMessage: err.message});
     }
