@@ -28,7 +28,6 @@ class ClaimWithTrips extends Component{
 
     this.setState({trips:trips, howManyLT:howManyLT, howMuchTrips:this.props.state.web3.utils.fromWei(howMuchTrips,'ether')});
 
-
   }
 
   async approve(){
@@ -112,16 +111,15 @@ class ClaimWithTrips extends Component{
 render(){
 
   return (
-    <Tab.Pane attached={false}>
-    <h2 >Select how many Little Traveler you want:</h2>
+    <Tab.Pane attached={false} >
+    <h2 >How many Little Traveler you want?</h2>
     <br />
       <Form onSubmit = {this.onApproveAndMint} error={!!this.state.errorMessage}>
-       <Form.Group >
           <Form.Field >
-            <Input
+            <Input className="px-80"
               label={{ basic: true, content: 'Little Traveler' }}
               labelPosition='right'
-              placeholder = "How many Little Traveler?"
+              placeholder = "How many Little Travelers?"
               type = 'number'
               min = {1}
               max = {10}
@@ -129,29 +127,27 @@ render(){
               onChange = {event => this.onChange(event)}
             />
             </Form.Field>
-          </Form.Group>
-          <h2>it will cost you:</h2>
-          <Form.Group>
+            <h2>it will cost you:</h2>
             <Form.Field>
-            <Input
-              label={{ basic: true, content: 'TRIPS' }}
-              labelPosition='right'
-              placeholder='Trips amount'
-              type = 'number'
-              readOnly
-              disabled
-              value = {Math.round(this.state.howMuchTrips)}
-            />
-
+              <Input className="px-80"
+                label={{ basic: true, content: 'TRIPS' }}
+                labelPosition='right'
+                placeholder='Trips amount'
+                readOnly
+                value = {Math.round(this.state.howMuchTrips)}
+              />
           </Form.Field>
-          </Form.Group>
-          <Form.Group>
             <Form.Field>
               <Message error header="Oops!" content = {this.state.errorMessage} />
-              <Button  loading = {this.state.loading > 0} secondary >Mint!</Button>
-              <Button  secondary type="button" basic color='black' >Refresh</Button>
+              <Popup
+                trigger={
+                  <Button  loading = {this.state.loading > 0} secondary >Mint!</Button>
+                }
+                content="There will be two different transactions! The first one is the approvation, the second one is the minting! You will need to authorize both. Do not set low gas to the first one, or it will may invalidate the process."
+                basic
+              />
+
             </Form.Field>
-          </Form.Group>
           </Form>
     </Tab.Pane>
   )

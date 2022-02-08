@@ -15,9 +15,6 @@ render(){
         <a className="hover:text-trips-2" href="#Multichain">Multi-chain</a>
       </div>
       <div>
-        <a className="hover:text-trips-2" href="#Types">Gallery</a>
-      </div>
-      <div>
         <a className="hover:text-trips-2" href="#Team">The Team</a>
       </div>
       <div>

@@ -188,7 +188,7 @@ class MyDapp extends Component{
         }
         </div>
           <Presentation state={this.state}/>
-        <div id="Gallery" className="bg-white  text-black bg-opacity-100">
+        <div className="bg-white  text-black bg-opacity-100">
           <Gallery state = {this.state}/>
         </div>
 

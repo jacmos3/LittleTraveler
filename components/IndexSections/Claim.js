@@ -46,10 +46,8 @@ render(){
       <div className="flex justify-around">
         <div className="px-20 py-8 rounded text-center">
           <span className="uppercase sm:text-xl tracking-widest"></span>
-          <h1 className="text-center mt-4 capitalize">An NFT bridge With The Travel World</h1>
+          <h1 className="text-center mt-4 capitalize">Mint your Little Traveler</h1>
           <br />
-
-
                 {
                   this.props.state.web3Settings.isWeb3Connected
                   ? this.props.state.web3Settings.chains

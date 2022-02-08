@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Tab,Form,Button,Message} from 'semantic-ui-react';
+import {Tab,Form,Button,Message,Input} from 'semantic-ui-react';
 import LittleTraveler from '../../../ethereum/build/LittleTraveler.sol.json';
 
 class ClaimWithTravelerLoot extends Component{
@@ -43,15 +43,27 @@ render(){
 
   return (
     <Tab.Pane attached={false}>
+      <h2>Do you hold a Traveler Loot?<br /> Mint a Little Traveler for free + gas</h2>
       <Form onSubmit = {this.onMint} error={!!this.state.errorMessage}>
-        <h2>If you hold a Traveler Loot, you can mint a Little Traveler by only paying gas </h2>
-        <Form.Group>
+        <Form.Field >
+          <Input className="px-80"
+            label={{ basic: true, content: 'Little Traveler' }}
+            labelPosition='right'
+            placeholder = "How many Little Traveler?"
+          
+            min = {1}
+            max = {10}
+            value = {1}
+            readOnly
+
+          />
+          </Form.Field>
+
           <Form.Field>
             <Message error header="Oops!" content = {this.state.errorMessage} />
             <Button  loading = {this.state.loading > 0} secondary >Mint!</Button>
-            <Button  secondary type="button" basic color='black' >Refresh</Button>
           </Form.Field>
-        </Form.Group>
+
       </Form>
     </Tab.Pane>
   )

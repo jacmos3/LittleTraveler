@@ -62,12 +62,11 @@ render(){
 
   return (
     <Tab.Pane attached={false}>
-    <h2 >Select how many Little Traveler you want:</h2>
+    <h2 >How many Little Travelers you want?</h2>
     <br />
       <Form onSubmit = {this.onMint} error={!!this.state.errorMessage}>
-       <Form.Group >
           <Form.Field >
-            <Input
+            <Input className="px-80"
               label={{ basic: true, content: 'Little Traveler' }}
               labelPosition='right'
               placeholder = "How many Little Traveler?"
@@ -79,29 +78,23 @@ render(){
 
             />
             </Form.Field>
-          </Form.Group>
           <h2>it will cost you:</h2>
-          <Form.Group>
             <Form.Field>
-            <Input
+            <Input className="px-80"
               label={{ basic: true, content: this.state.coin.name }}
               labelPosition='right'
               placeholder='Ether amount'
-              type = 'number'
+              
               readOnly
-              disabled
+
               value = {this.state.howMuchCoin}
             />
 
           </Form.Field>
-          </Form.Group>
-          <Form.Group>
             <Form.Field>
               <Message error header="Oops!" content = {this.state.errorMessage} />
               <Button  loading = {this.state.loading > 0} secondary >Mint!</Button>
-              <Button  secondary type="button" basic color='black' >Refresh</Button>
             </Form.Field>
-          </Form.Group>
           </Form>
     </Tab.Pane>
   )
