@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Tab,Form,Button,Message,Input} from 'semantic-ui-react';
+import {Tab,Form,Button,Message,Input,Container} from 'semantic-ui-react';
 import LittleTraveler from '../../../ethereum/build/LittleTraveler.sol.json';
 
 class ClaimWithTravelerLoot extends Component{
@@ -43,28 +43,28 @@ render(){
 
   return (
     <Tab.Pane attached={false}>
-      <h2>Do you hold a Traveler Loot?</h2>
-      <h3>Mint a Little Traveler for free + gas!</h3>
-      <Form onSubmit = {this.onMint} error={!!this.state.errorMessage}>
-        <Form.Field >
-          <Input
-            className="px-80"
-            label={{ basic: true, content: 'Little Traveler', id:"inputLabel"}}
-            labelPosition='right'
-            placeholder = "How many Little Traveler?"
-            min = {1}
-            max = {10}
-            value = {1}
-            readOnly
-          />
-          </Form.Field>
-
-          <Form.Field>
-            <Message error header="Oops!" content = {this.state.errorMessage} />
-            <Button  loading = {this.state.loading > 0} secondary >Mint!</Button>
-          </Form.Field>
-
-      </Form>
+      <Container>
+        <h2>Do you hold a Traveler Loot?</h2>
+        <h3>Mint a Little Traveler for free + gas!</h3>
+        <Form onSubmit = {this.onMint} error={!!this.state.errorMessage}>
+          <Form.Field >
+            <Input
+              className="px-80"
+              label={{ basic: true, content: 'Little Traveler', id:"inputLabel"}}
+              labelPosition='right'
+              placeholder = "How many Little Traveler?"
+              min = {1}
+              max = {10}
+              value = {1}
+              readOnly
+            />
+            </Form.Field>
+            <Form.Field>
+              <Message error header="Oops!" content = {this.state.errorMessage} />
+              <Button  loading = {this.state.loading > 0} secondary >Mint!</Button>
+            </Form.Field>
+        </Form>
+      </Container>
     </Tab.Pane>
   )
 };

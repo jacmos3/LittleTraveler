@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button,Form,Input,Message,Tab,Popup,Icon} from 'semantic-ui-react';
+import {Button,Form,Input,Message,Tab,Popup,Icon,Container} from 'semantic-ui-react';
 import styles from "../../../styles/pages/INDEX.module.scss"; // Styles
 import TripsEth from '../../../ethereum/imported/TripsEth.json';
 import LittleTraveler from '../../../ethereum/build/LittleTraveler.sol.json';
@@ -66,7 +66,7 @@ class ClaimWithTrips extends Component{
       await instance.methods.mintWithTrips(this.state.howManyLT.toString()).send({from:accounts[0]});
       //await instance.methods.transfer().send({from:accounts[0]});
       this.setState({minted:true});
-      //this.fetchNFTList();
+      this.props.goToFetch;
       //console.log(this.state.all.description);
 
     }catch(err){
@@ -112,6 +112,7 @@ render(){
 
   return (
     <Tab.Pane attached={false} >
+    <Container>
     <h2 >How many Little Traveler you want?</h2>
     <br />
       <Form onSubmit = {this.onApproveAndMint} error={!!this.state.errorMessage}>
@@ -151,6 +152,7 @@ render(){
 
             </Form.Field>
           </Form>
+        </Container>
     </Tab.Pane>
   )
 };

@@ -5,18 +5,24 @@ import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
 import ClaimWithTrips from "./ClaimSections/ClaimWithTrips"
 import ClaimWithTravelerLoot from "./ClaimSections/ClaimWithTravelerLoot"
 import ClaimWithEther from "./ClaimSections/ClaimWithEther"
+import FetchNFTList from "./ClaimSections/FetchNFTList"
 class Claim extends Component{
   state = {
     loading:0,
     name:'',
     description:'',
     image:'',
-    all:[]
+    all:[],
+    activeIndex:0
   }
   constructor(){
     super();
   }
 
+handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex });
+goToFetch(){
+  this.setState({activeIndex:0});
+}
 render(){
   var yes = true;
   var option = this.props.state.web3Settings.chains
@@ -24,21 +30,25 @@ render(){
     .map(chain => chain.options)[0];
 
   const panes = [
+    {
+      menuItem: "View your collection",
+      render:() => <FetchNFTList state={this.props.state} />
+    },
     option && option.trips? {
       menuItem: 'Mint with TRIPS',
-      render: () => <ClaimWithTrips state={this.props.state} />,
+      render: () => <ClaimWithTrips state={this.props.state} goToFetch = {this.goToFetch} />,
     }
     :{},
 
     option && option.loot ? {
       menuItem: 'Mint with Traveler Loot',
-      render: () => <ClaimWithTravelerLoot state={this.props.state}/>,
+      render: () => <ClaimWithTravelerLoot state={this.props.state} goToFetch = {this.goToFetch} />,
     }:{},
 
     option && option.coin ?
     {
       menuItem: 'Mint With '+option.coin.name,
-      render: () => <ClaimWithEther state={this.props.state}/>,
+      render: () => <ClaimWithEther state={this.props.state} goToFetch = {this.goToFetch} />,
     }:{}
   ]
   return (
@@ -56,10 +66,17 @@ render(){
                     ?
                     (
                       <div>
-                          <Tab menu={{ color:"orange", secondary: false, pointing: true}} panes={panes} className="text-trips-1" />
+                          <Tab
+                            menu={{ color:"orange", secondary: false, pointing: true}}
+                            panes={panes}
+                            className="text-trips-1"
+                            activeIndex={this.state.activeIndex}
+                            onTabChange={this.handleTabChange}
+                          />
                        </div>
                     )
                     :(
+                      <Container>
                         <Segment className="h-80">
                           <Dimmer active>
                             <Loader size='massive'>
@@ -69,6 +86,7 @@ render(){
                             </Loader>
                           </Dimmer>
                         </Segment>
+                        </Container>
                       )
 
                       :(

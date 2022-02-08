@@ -30,11 +30,13 @@ class MyDapp extends Component{
     discord:"https://discord.gg/tripscommunity",
     tripsCommunity:"https://www.tripscommunity.com",
     web3Settings:{
-      infura:"8886e44c58d547f5bbbd81e0460296a2",
+      infura:"aec28327c8c04ea7b712b34da8302791",//ldg
       isWeb3Connected:false,
       chains: [ //TODO: get these data from the relative smart contracts
         {name:"Ethereum", id:1, options:{trips:{address:"0x1350fbe8ce27762ec19134bf8fc405a427fe9bf1", amount:"2000000000000000000000"}, loot:"0x38Cd9992E44064Cb8bd68cDF17D164b82b25277c", coin:""}},
-        {name:"Polygon", id:137, options:{trips:{address:"0x77F0F7d657f362C4b703417B800B83B989a288a2", amount:"2000000000000000000000"}, loot:"", coin:{name:"MATIC", amount:"60"}}}
+        {name:"Polygon", id:137, options:{trips:{address:"0x77F0F7d657f362C4b703417B800B83B989a288a2", amount:"2000000000000000000000"}, loot:"", coin:{name:"MATIC", amount:"60"}}},
+        {name:"Rinkeby", id:4, options:{trips:{address:"0x4b9aedc8099d465528c8b78c9e0fdb77ea6572b8", amount:"2000000000000000000000"}, loot:"", coin:{name:"ETH", amount:"60"}}}
+
       ]
     }
   };
@@ -164,7 +166,7 @@ class MyDapp extends Component{
 
         <div id="myVideo">
           <iframe className="bg-black" frameBorder={"0"} width="100%" height="1000px" allowFullScreen={true}
-          srcDoc={"<html><head><style>body{margin: 0;padding: 0;}.bg-video-wrap {position: relative;overflow: hidden;width: 100%;height: 100vh;display: flex;}video {object-fit: cover;min-width: 100%;min-height: 100vh;z-index: 1;}</style></head><body><div class='bg-video-wrap'><video loop muted autoplay><source src='/littletravelers/video.mp4' type='video/mp4'></video></div></body></html>"}>
+          srcDoc={"<html><head><style>body{margin: 0;padding: 0;}.bg-video-wrap {position: relative;overflow: hidden;width: 100%;height: 100vh;display: flex;}video {object-fit: cover;min-width: 100%;min-height: 100vh;z-index: 1;}</style></head><body><div class='bg-video-wrap'><video loop muted autoplay><source src='/img/littletravelers/video.mp4' type='video/mp4'></video></div></body></html>"}>
           </iframe>
         </div>
 

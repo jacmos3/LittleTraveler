@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Tab,Form,Pane,Field,Input,Message,Button} from 'semantic-ui-react';
+import {Tab,Form,Pane,Field,Input,Message,Button,Container} from 'semantic-ui-react';
 import LittleTraveler from '../../../ethereum/build/LittleTraveler.sol.json';
 
 class ClaimWithEther extends Component{
@@ -64,35 +64,37 @@ render(){
     <Tab.Pane attached={false}>
     <h2 >How many Little Travelers you want?</h2>
     <br />
-      <Form onSubmit = {this.onMint} error={!!this.state.errorMessage}>
-          <Form.Field >
-            <Input className="px-80"
-              label={{ basic: true, content: 'Little Traveler', id:"inputLabel" }}
-              labelPosition='right'
-              placeholder = "How many Little Traveler?"
-              type = 'number'
-              min = {1}
-              max = {10}
-              value = {this.state.howManyLT}
-              onChange = {event => this.onChange(event)}
-            />
-            </Form.Field>
-          <h3>it will cost you:</h3>
-            <Form.Field>
-            <Input className="px-80"
-              label={{ basic: true, content: this.state.coin.name, id:"inputLabel" }}
-              labelPosition='right'
-              placeholder='Ether amount'
-              readOnly
-              value = {this.state.howMuchCoin}
-            />
+      <Container>
+        <Form onSubmit = {this.onMint} error={!!this.state.errorMessage}>
+            <Form.Field >
+              <Input className="px-80"
+                label={{ basic: true, content: 'Little Traveler', id:"inputLabel" }}
+                labelPosition='right'
+                placeholder = "How many Little Traveler?"
+                type = 'number'
+                min = {1}
+                max = {10}
+                value = {this.state.howManyLT}
+                onChange = {event => this.onChange(event)}
+              />
+              </Form.Field>
+            <h3>it will cost you:</h3>
+              <Form.Field>
+              <Input className="px-80"
+                label={{ basic: true, content: this.state.coin.name, id:"inputLabel" }}
+                labelPosition='right'
+                placeholder='Ether amount'
+                readOnly
+                value = {this.state.howMuchCoin}
+              />
 
-          </Form.Field>
-            <Form.Field>
-              <Message error header="Oops!" content = {this.state.errorMessage} />
-              <Button  loading = {this.state.loading > 0} secondary >Mint!</Button>
             </Form.Field>
-          </Form>
+              <Form.Field>
+                <Message error header="Oops!" content = {this.state.errorMessage} />
+                <Button  loading = {this.state.loading > 0} secondary >Mint!</Button>
+              </Form.Field>
+            </Form>
+          </Container>
     </Tab.Pane>
   )
 };
