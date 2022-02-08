@@ -30,8 +30,13 @@ ___ADD_TEXT___
 ## 1. Installing components:
 `npm install`
 
-## 2. Configuring the .env files:
+## 2. Configuring the .env files :
 `cd ethereum`
+
+## 3. Compiling and generating json interface
+`node compile.js`
+
+## 4. Deploying on the blockchain)
 
 `touch .env`
 
@@ -42,11 +47,6 @@ the blockchain
 PROVIDER_URL = "[INFURA_PROVIDER_URL]" #insert here your infura url (go to
 infura.io, create account and new project, then select testnet you want to use
 i.e. rinkeby and then copy the link here)`
-
-## 3. Compiling and generating json interface
-`node compile.js`
-
-## 4. Deploying on the blockchain
 `node deploy.js`
 
 Once the deploy is succeeded, it will be generated `/.env.local` file with a
