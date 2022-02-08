@@ -8,12 +8,11 @@ function Head() {
   return (
     <HTMLHead>
       {/* Primary Meta Tags */}
-      <title>Little Traveler PFP</title>
-      <meta name="title" content="Traveler Loot" />
-      <meta name="robots" content="noindex" />
+      <title>Little Traveler</title>
+      <meta name="title" content="Little Traveler" />
       <meta
         name="description"
-        content="Traveler Loot is randomized character generated and stored on chain."
+        content="A 10,000 native multi-chain PFP NFT project for the travelers and the travel industry."
       />
 
       {/* OG + Facebook */}
@@ -22,7 +21,7 @@ function Head() {
       <meta property="og:title" content="Little Traveler" />
       <meta
         property="og:description"
-        content="Traveler Loot is randomized character generated and stored on chain."
+        content="A 10,000 native multi-chain PFP NFT project for the travelers and the travel industry."
       />
       <meta property="og:image" content="https://www.littletraveler.org/meta.png" />
 
@@ -32,7 +31,7 @@ function Head() {
       <meta property="twitter:title" content="Little Traveler" />
       <meta
         property="twitter:description"
-        content="Traveler Loot is randomized character generated and stored on chain."
+        content="A 10,000 native multi-chain PFP NFT project for the travelers and the travel industry."
       />
       <meta property="twitter:image" content="https://www.littletraveler.org/meta.png" />
 

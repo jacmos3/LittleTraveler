@@ -179,7 +179,7 @@ class MyDapp extends Component{
           )
 
           : (
-            <a href="#Start">
+            <a href="#Claim">
               <Button onClick={this.connect}>
                 Connect wallet
               </Button>
@@ -204,7 +204,7 @@ class MyDapp extends Component{
           <Video disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
 
-        <div id="Start" className="bg-white sm:py-20 py-10 pb-40 text-trips-1 bg-opacity-50">
+        <div id="Claim" className="bg-white sm:py-20 py-10 pb-40 text-trips-1 bg-opacity-50">
           <Claim disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
 

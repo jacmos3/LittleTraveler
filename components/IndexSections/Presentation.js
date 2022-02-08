@@ -18,7 +18,7 @@ render(){
     {color:'violet', visible:'/littletravelers/future-3716486-bg.png', hidden:'/littletravelers/future-3716486-lt.png'},
   ]
   return (
-    <div className="text-black mx-auto px-2 sm:px-4 text-center py-20 justify-around flex flex-wrap hero-img ">
+    <div className="text-black mx-auto px-2 sm:px-4 text-center py-20 justify-around flex flex-wrap hero-img-1">
       <div className="w-full sm:w-1/2">
         <div className="sm:px-4">
           <div className={styles.home__cta}>
@@ -31,7 +31,7 @@ render(){
           </div>
           <br /><br /><br />
           <div className="text-center">
-          <a href="#Start">
+          <a href="#Claim">
             <Button className=" hover:text-white  mx-2" primary >Mint yours</Button>
           </a>
           </div>
