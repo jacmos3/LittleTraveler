@@ -53,6 +53,7 @@ class FetchNFTList extends Component{
         let element = {"header": uri.name,/*"description":uri.description,*/"image":uri.image};
         all.push(element);
         console.log(uri);
+        //TODO: after getting the ipfs json it has to be fetched and the image has to be extracted
         this.setState({all:all});
       }
       this.setState({minted:true});

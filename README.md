@@ -36,7 +36,7 @@ ___ADD_TEXT___
 ## 3. Compiling and generating json interface
 `node compile.js`
 
-## 4. Deploying on the blockchain)
+## 4. Deploying on the blockchain
 
 `touch .env`
 
