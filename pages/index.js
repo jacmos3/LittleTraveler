@@ -192,42 +192,26 @@ class MyDapp extends Component{
           <Gallery state = {this.state}/>
         </div>
 
-        <div className="bg-white py-5 sticky top-0 z-10 text-trips-3" >
+        <div className="bg-trips-4 py-5 sticky top-0 z-10 text-trips-3" >
           <Menu />
         </div>
-        <div className="py-20">
-          <Space />
-        </div>
-        <div id="Multichain" className="bg-white text-trips-2 py-10" >
+
+        <div id="Multichain" className="bg-trips-4 text-trips-2 py-10 " >
           <Multichain disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
 
-        <div id="Video" className="bg-white text-trips-2 py-10" >
+        <div id="Video" className="bg-trips-4 text-trips-1 py-10 " >
           <Video disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
 
-        <div id="Start" className="bg-trips-3  sm:py-20 py-10 pb-40 text-black">
+        <div id="Start" className="bg-white sm:py-20 py-10 pb-40 text-trips-1 bg-opacity-50">
           <Claim disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
-        <div className="py-40">
-          <Space />
-        </div>
-        <div id="DAO" className="bg-rainbow-6  py-20 text-white ">
+
+        <div id="DAO" className="bg-trips-4 py-20 text-trips-1">
           <DAO />
         </div>
 
-        <div className="py-40">
-          <Space />
-        </div>
-        <div id="Team" className="bg-rainbow-6  py-20 text-white ">
-          <Team />
-        </div>
-        <div className="py-40">
-          <Space />
-        </div>
-        <div id="Derivatives" className="bg-rainbow-6  py-20 text-white ">
-          <Derivatives />
-        </div>
 
 
 

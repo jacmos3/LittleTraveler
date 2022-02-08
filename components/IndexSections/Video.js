@@ -25,9 +25,10 @@ class Video extends Component{
                 <br />
                 See it as a cooperation between the crypto travel world and the travel industry.
                 <br />
-                <a href="https://medium.com/trips-community/the-traveler-loot-the-offers-7fd8a4eb2410" target="_blank">🔗See the offers</a>
+
                 <br />
-                </p>
+              </p>
+                <a href="https://medium.com/trips-community/the-traveler-loot-the-offers-7fd8a4eb2410" target="_blank">🔗See the offers</a>
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ render(){
   const panes = [
     option && option.trips? {
       menuItem: 'Mint with TRIPS',
-      render: () => <ClaimWithTrips state={this.props.state}/>,
+      render: () => <ClaimWithTrips state={this.props.state} />,
     }
     :{},
 
@@ -56,7 +56,7 @@ render(){
                     ?
                     (
                       <div>
-                          <Tab menu={{ secondary: true, pointing: true }} panes={panes} className="text-trips-1" />
+                          <Tab menu={{ color:"orange", secondary: false, pointing: true}} panes={panes} className="text-trips-1" />
                        </div>
                     )
                     :(
@@ -85,7 +85,7 @@ render(){
 
                               :(
                                 <div className="text-center">
-                                  <Button className=" hover:text-white  mx-2" secondary onClick={this.props.connect}>Connect Wallet</Button>
+                                  <Button className=" hover:text-white  mx-2" primary onClick={this.props.connect}>Connect Wallet</Button>
                                 </div>
                               )
                             }

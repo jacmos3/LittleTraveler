@@ -32,7 +32,7 @@ render(){
           <br /><br /><br />
           <div className="text-center">
           <a href="#Start">
-            <Button className=" hover:text-white  mx-2" color="orange" basic >Mint yours</Button>
+            <Button className=" hover:text-white  mx-2" primary >Mint yours</Button>
           </a>
           </div>
 
