@@ -35,7 +35,7 @@ render(){
     <div className="flex justify-around hero-img-2">
       <div className="px-4 sm:px-20  rounded-2xl text-center md:w-2/3">
         <h2 className="text-center mt-4 capitalize text-trips-1">An Incredible Variety of Travelers</h2>
-        <Card.Group itemsPerRow={6} items={params} />
+        <Card.Group itemsPerRow={6} doubling="true" items={params} />
       </div>
 
     </div>
