@@ -22,7 +22,7 @@ class Claim extends Component{
 
 handleTabChange = (e, { activeIndex }) => this.setState({ activeIndex });
 goToFetch(){
-  this.setState({activeIndex:0});
+  //this.setState({activeIndex:0});
 }
 render(){
   var yes = true;
@@ -31,10 +31,6 @@ render(){
     .map(chain => chain.options)[0];
 
   const panes = [
-    {
-      menuItem: "View your collection",
-      render:() => <FetchNFTList state={this.props.state} />
-    },
     option && option.trips? {
       menuItem: 'Mint with TRIPS',
       render: () => <ClaimWithTrips state={this.props.state} goToFetch = {this.goToFetch} />,
@@ -50,7 +46,11 @@ render(){
     {
       menuItem: 'Mint With '+option.coin.name,
       render: () => <ClaimWithEther state={this.props.state} goToFetch = {this.goToFetch} />,
-    }:{}
+    }:{},
+    {
+      menuItem: "View your collection",
+      render:() => <FetchNFTList state={this.props.state} />
+    }
   ]
   return (
     <div className="container mx-auto mt-8">
