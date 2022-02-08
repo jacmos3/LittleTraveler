@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
 import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
 import {Container,Card,Image} from 'semantic-ui-react';
-class Guilds extends Component{
+class Multichain extends Component{
   constructor(){
     super();
 
@@ -105,4 +105,4 @@ render(){
   )
 };
 };
-export default Guilds;
+export default Multichain;

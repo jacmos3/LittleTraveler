@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Card,Container,Image} from 'semantic-ui-react';
 
-class Types extends Component{
+class Team extends Component{
   constructor(){
     super();
 
@@ -108,21 +108,11 @@ render(){
         </Card.Group>
       </Container>
     <br />
-
-
     <br />
-
-
-
-
-
-
     <br />
-
-
     </div>
 
   )
 };
 };
-export default Types;
+export default Team;

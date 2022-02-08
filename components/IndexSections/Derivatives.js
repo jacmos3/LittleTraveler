@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Button} from 'semantic-ui-react';
-class Elements2 extends Component{
+class Derivatives extends Component{
   constructor(){
     super();
 
@@ -42,4 +42,4 @@ render(){
   )
 };
 };
-export default Elements2;
+export default Derivatives;

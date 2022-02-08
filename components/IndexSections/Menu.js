@@ -18,10 +18,10 @@ render(){
         <a className="hover:text-trips-2" href="#Team">The Team</a>
       </div>
       <div>
-        <a className="hover:text-trips-2" href="#Elements2">The DAO</a>
+        <a className="hover:text-trips-2" href="#DAO">The DAO</a>
       </div>
       <div>
-        <a className="hover:text-trips-2" href="#Elements3">Derivatives</a>
+        <a className="hover:text-trips-2" href="#Derivatives">Derivatives</a>
       </div>
     </div>
   )

@@ -5,8 +5,8 @@ import Claim from '../components/IndexSections/Claim.js';
 import Space from '../components/IndexSections/Space.js';
 import Gallery from '../components/IndexSections/Gallery.js';
 import Multichain from '../components/IndexSections/Multichain.js';
-import Elements2 from '../components/IndexSections/Elements2.js';
-import Elements3 from '../components/IndexSections/Elements3.js';
+import DAO from '../components/IndexSections/DAO.js';
+import Derivatives from '../components/IndexSections/Derivatives.js';
 import Team from '../components/IndexSections/Team.js';
 import Video from '../components/IndexSections/Video.js';
 
@@ -212,8 +212,8 @@ class MyDapp extends Component{
         <div className="py-40">
           <Space />
         </div>
-        <div id="Elements2" className="bg-rainbow-6  py-20 text-white ">
-          <Elements2 />
+        <div id="DAO" className="bg-rainbow-6  py-20 text-white ">
+          <DAO />
         </div>
 
         <div className="py-40">
@@ -225,8 +225,8 @@ class MyDapp extends Component{
         <div className="py-40">
           <Space />
         </div>
-        <div id="Elements3" className="bg-rainbow-6  py-20 text-white ">
-          <Elements3 />
+        <div id="Derivatives" className="bg-rainbow-6  py-20 text-white ">
+          <Derivatives />
         </div>
 
 

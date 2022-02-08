@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Embed} from 'semantic-ui-react';
-class Space extends Component{
+class Video extends Component{
   constructor(){
     super();
 
@@ -41,4 +41,4 @@ class Space extends Component{
     )
   };
 };
-export default Space;
+export default Video;

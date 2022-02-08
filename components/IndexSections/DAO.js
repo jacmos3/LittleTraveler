@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button} from 'semantic-ui-react';
 import {Card,Container,Image} from 'semantic-ui-react';
-class Elements2 extends Component{
+class DAO extends Component{
   constructor(){
     super();
 
@@ -16,7 +16,7 @@ render(){
           <span className="uppercase sm:text-xl tracking-widest">Under The Hood</span>
           <br />
           <h1 className="text-center mt-4">The DAO</h1>
-         
+
           <Image src="TravelerDAOfounder.png" wrapped ui={false} />
 
         </div>
@@ -28,8 +28,8 @@ render(){
           Some are just investors, others worked on a daily basis since August.
           <br />
           You can be part of the governance and share in the potential upside by acquiring a Traveler Dao Founder certificate NFT.
-         
-         
+
+
       </div>
       <br />
       <div className="text-center">
@@ -39,10 +39,10 @@ render(){
       </div>
     </div>
 
-    
-    
+
+
 
   )
 };
 };
-export default Elements2;
+export default DAO;

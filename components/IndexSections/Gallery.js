@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Card,Container,Image} from 'semantic-ui-react';
 
-class Types extends Component{
+class Gallery extends Component{
   constructor(){
     super();
 
@@ -74,4 +74,4 @@ render(){
   )
 };
 };
-export default Types;
+export default Gallery;
