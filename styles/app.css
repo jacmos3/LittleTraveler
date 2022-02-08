@@ -93,7 +93,9 @@ html {
 
   z-index: 99;
 }
-
+#inputLabel{
+  color:#467494;
+}
 .shadowBackground{
     text-shadow: 1px -1px white;
 }

@@ -43,19 +43,19 @@ render(){
 
   return (
     <Tab.Pane attached={false}>
-      <h2>Do you hold a Traveler Loot?<br /> Mint a Little Traveler for free + gas</h2>
+      <h2>Do you hold a Traveler Loot?</h2>
+      <h3>Mint a Little Traveler for free + gas!</h3>
       <Form onSubmit = {this.onMint} error={!!this.state.errorMessage}>
         <Form.Field >
-          <Input className="px-80"
-            label={{ basic: true, content: 'Little Traveler' }}
+          <Input
+            className="px-80"
+            label={{ basic: true, content: 'Little Traveler', id:"inputLabel"}}
             labelPosition='right'
             placeholder = "How many Little Traveler?"
-          
             min = {1}
             max = {10}
             value = {1}
             readOnly
-
           />
           </Form.Field>
 

@@ -116,8 +116,9 @@ render(){
     <br />
       <Form onSubmit = {this.onApproveAndMint} error={!!this.state.errorMessage}>
           <Form.Field >
-            <Input className="px-80"
-              label={{ basic: true, content: 'Little Traveler' }}
+            <Input
+              className="px-80"
+              label={{ basic: true, content: 'Little Traveler', id:"inputLabel" }}
               labelPosition='right'
               placeholder = "How many Little Travelers?"
               type = 'number'
@@ -125,12 +126,13 @@ render(){
               max = {10}
               value = {this.state.howManyLT}
               onChange = {event => this.onChange(event)}
+
             />
             </Form.Field>
-            <h2>it will cost you:</h2>
+            <h3>it will cost you:</h3>
             <Form.Field>
               <Input className="px-80"
-                label={{ basic: true, content: 'TRIPS' }}
+                label={{ basic: true, content: 'TRIPS', id:"inputLabel"}}
                 labelPosition='right'
                 placeholder='Trips amount'
                 readOnly

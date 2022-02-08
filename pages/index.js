@@ -206,7 +206,7 @@ class MyDapp extends Component{
           <Video disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
 
-        <div id="Start" className="bg-rainbow-3  sm:py-20 py-10 pb-40 text-black">
+        <div id="Start" className="bg-trips-3  sm:py-20 py-10 pb-40 text-black">
           <Claim disconnect = {this.disconnect} connect = {this.connect}  state = {this.state} />
         </div>
         <div className="py-40">

@@ -37,61 +37,61 @@ render(){
         <Card.Group className="text-center" itemsPerRow={5} doubling={true} >
           <Card>
           <Image src='img/networks/ethereum.png'/>
-          <Card.Content>
+          <Card.Content className="text-trips-2">
             Released on Feb 8, 2022
           </Card.Content>
           </Card>
           <Card>
             <Image src='img/networks/polygon.png'/>
-            <Card.Content>
+            <Card.Content className="text-trips-2">
               Released on Feb 8, 2022
             </Card.Content>
           </Card>
           <Card>
             <Image src='img/networks/new.png' />
-            <Card.Content>
+            <Card.Content className="text-trips-2">
               To be revealed yet
             </Card.Content>
           </Card>
           <Card>
             <Image src='img/networks/new.png' />
-            <Card.Content>
+            <Card.Content className="text-trips-2">
               To be revealed yet
             </Card.Content>
           </Card>
           <Card>
             <Image src='img/networks/new.png'  />
-            <Card.Content>
+            <Card.Content className="text-trips-2">
               To be revealed yet
             </Card.Content>
           </Card>
           <Card>
             <Image src='img/networks/new.png'/>
-            <Card.Content>
+            <Card.Content className="text-trips-2">
               To be revealed yet
             </Card.Content>
           </Card>
           <Card>
             <Image src='img/networks/new.png' />
-            <Card.Content>
+            <Card.Content className="text-trips-2">
               To be revealed yet
             </Card.Content>
           </Card>
           <Card>
             <Image src='img/networks/new.png'  />
-            <Card.Content>
+            <Card.Content className="text-trips-2">
               To be revealed yet
             </Card.Content>
           </Card>
           <Card>
             <Image src='img/networks/new.png'/>
-            <Card.Content>
+            <Card.Content className="text-trips-2">
               To be revealed yet
             </Card.Content>
           </Card>
           <Card>
             <Image src='img/networks/new.png'/>
-            <Card.Content >
+            <Card.Content className="text-trips-2">
               To be revealed yet
             </Card.Content>
           </Card>

@@ -56,7 +56,7 @@ render(){
                     ?
                     (
                       <div>
-                          <Tab menu={{ secondary: true, pointing: true }} panes={panes} />
+                          <Tab menu={{ secondary: true, pointing: true }} panes={panes} className="text-trips-1" />
                        </div>
                     )
                     :(
