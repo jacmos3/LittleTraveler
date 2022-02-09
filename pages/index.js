@@ -35,7 +35,7 @@ class MyDapp extends Component{
       isWeb3Connected:false,
       chains: [ //TODO: get these data from the relative smart contracts
         {name:"Ethereum", id:1, options:{trips:{address:"0x1350fbe8ce27762ec19134bf8fc405a427fe9bf1", amount:"2000000000000000000000"}, loot:"0x38Cd9992E44064Cb8bd68cDF17D164b82b25277c", coin:""}},
-        {name:"Polygon", id:137, options:{trips:{address:"0x77F0F7d657f362C4b703417B800B83B989a288a2", amount:"2000000000000000000000"}, loot:"", coin:{name:"MATIC", amount:"60"}}},
+        //{name:"Polygon", id:137, options:{trips:{address:"0x77F0F7d657f362C4b703417B800B83B989a288a2", amount:"2000000000000000000000"}, loot:"", coin:{name:"MATIC", amount:"60"}}},
       //  {name:"Rinkeby", id:4, options:{trips:{address:"0x4B9AedC8099D465528C8B78c9E0fdB77EA6572B8", amount:"2000000000000000000000"}, loot:"", coin:{name:"ETH", amount:"0.1"}}}
 
       ]

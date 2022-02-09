@@ -44,7 +44,7 @@ render(){
           <Card>
             <Image src='img/networks/polygon.png'/>
             <Card.Content className="text-trips-2">
-              Released on Feb 8, 2022
+              Releasing on Feb 9, 2022
             </Card.Content>
           </Card>
           <Card>
