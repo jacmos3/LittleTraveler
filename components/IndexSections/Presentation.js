@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
-import {Image,Button,Message,Reveal,Grid,Container,Card} from 'semantic-ui-react';
+import {Image,Button,Message,Reveal,Grid,Container,Card,Embed} from 'semantic-ui-react';
 
 class Presentation extends Component{
   constructor(){
@@ -22,17 +22,49 @@ render(){
       <div className="w-full sm:w-1/2">
         <div className="sm:px-4">
           <div className={styles.home__cta}>
-          <br /><br /><br /><br /><br /><br />
-          <h1 className="text-trips-1">The Little Traveler</h1>
+            <br />
+          <h1 className="text-trips-1">The Little Traveler</h1><br /><br />
+            <h2>Watch the live streaming </h2>
+          <Embed
+            id='F6TaDIixSHg'
+            placeholder='/meta.png'
+            source='youtube'
+          />
           <div className="text-xl sm:text-2xl text-trips-2">
             <br />
             A 10,000 native multi-chain PFP project <br />for the travelers and the travel industry.
           </div>
+          <div className="flex py-8 w-full justify-center space-x-6">
+              <a
+                href={this.props.state.opensea}
+                className="self-center p-3 border border-gray-800 rounded-xl bg-trips-2 hover:bg-blue-1"
+                target="_blank"
+              >
+                <Image className="hover:text-white  w-6 h-6 mx-2" src="../img/opensea.svg"  />
+              </a>
+              <a
+                href={this.props.state.twitter}
+                className="self-center p-3 border border-gray-800 rounded-xl  bg-trips-2 hover:bg-blue-1"
+                target="_blank"
+              >
+                <Image className="fill-current w-6 h-6 mx-2" src="../img/twitter.svg"/>
+              </a>
+              <a
+                href={this.props.state.discord}
+                className="self-center p-3 border border-gray-800 rounded-xl  bg-trips-2 hover:bg-blue-1"
+                target="_blank"
+              >
+                <Image className="fill-current  text-white w-6 h-6 mx-2" src="../img/discord.svg"/>
+              </a>
+
+            </div>
           </div>
-          <br /><br /><br />
           <div className="text-center">
-          <a href="#Claim">
-            <Button className=" hover:text-white  mx-2" primary >Mint yours</Button>
+          <a
+            href="#Claim"
+            className="self-center p-3 border border-gray-800 rounded-xl  bg-trips-1 hover:bg-blue-1"
+            >
+            <Image  className="fill-current  text-white h-6 mx-2">Mint yours</Image>
           </a>
           </div>
 

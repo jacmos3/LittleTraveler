@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container,Button,Form,Input,Card,Dimmer,Segment,Tab, Loader,Embed} from 'semantic-ui-react';
+import {Container,Button,Form,Input,Card,Dimmer,Segment,Tab, Loader,Embed,Image} from 'semantic-ui-react';
 import styles from "../../styles/pages/INDEX.module.scss"; // Styles
 import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
 import ClaimWithTrips from "./ClaimSections/ClaimWithTrips"
@@ -103,8 +103,13 @@ render(){
                               )
 
                               :(
-                                <div className="text-center">
-                                  <Button className=" hover:text-white  mx-2" primary onClick={this.props.connect}>Connect Wallet</Button>
+                                <div>
+                                <span
+                                  className="self-center p-3 border border-gray-800 rounded-xl  bg-trips-1 hover:bg-blue-1"
+                                  onClick={this.props.connect}
+                                  >
+                                  <Image  className="fill-current  text-white h-6 mx-2">Connect Wallet</Image>
+                                </span>
                                 </div>
                               )
                             }
