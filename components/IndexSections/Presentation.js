@@ -26,7 +26,7 @@ render(){
           <h1 className="text-trips-1">The Little Traveler</h1><br /><br />
             <h2>Watch the live streaming </h2>
           <Embed
-            id='F6TaDIixSHg'
+            id='2DUBtXBxUNY'
             placeholder='/meta.png'
             source='youtube'
           />

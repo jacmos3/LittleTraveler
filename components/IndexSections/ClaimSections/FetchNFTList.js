@@ -75,7 +75,7 @@ render(){
         {
           //<Button  loading = {this.state.loading > 0} primary onClick = {this.fetchNFTList}  >Refresh</Button>
         }
-        <a target ="_blank" href="https://www.opensea.io/account"><Button  loading = {this.state.loading > 0} primary >Check on Opensea</Button></a>
+        <a target ="_blank" href={this.props.state.opensea}><Button  loading = {this.state.loading > 0} primary >Check on Opensea</Button></a>
         <Container>
         <Card.Group className="py-5" itemsPerRow={6} centered items={this.state.all} />
         </Container>

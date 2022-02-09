@@ -48,7 +48,7 @@ render(){
       render: () => <ClaimWithEther state={this.props.state} goToFetch = {this.goToFetch} />,
     }:{},
     {
-      menuItem: "View your collection",
+      menuItem: "View The Collection",
       render:() => <FetchNFTList state={this.props.state} />
     }
   ]
