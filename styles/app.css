@@ -23,15 +23,18 @@ button {
 }
 
 body {
-    @apply font-body text-white;
+    /* @apply font-body text-white; */
+    font-family: 'Poppins', sans-serif;
+}
+
+a {
+    font-family: 'Poppins', sans-serif;
 }
 
 html {
     scroll-behavior: smooth;
 }
-.hero-img-1 {
-    background-image: linear-gradient(rgba(70, 116, 148,0.2),rgba(255,255,255,1)), url('/back.png');
-}
+
 .hero-img-2 {
     background-image: linear-gradient(rgba(255,255,255,1),rgba(242,243,244,1));
 }
@@ -91,14 +94,74 @@ html {
 
 #connectWallet{
   right: 0;
-  top: 8px;
+  top: 12px;
   position: fixed;
 
   z-index: 99;
 }
 #inputLabel{
-  color:#467494;
+  color: #467494;
 }
 .shadowBackground{
     text-shadow: 1px -1px white;
 }
+
+/**
+BUTTON PRIMARY
+ */
+.btn {
+    font-family: 'Poppins', sans-serif;
+    width: 150px;
+    font-size: 16px;
+    font-weight: 200;
+    cursor: pointer;
+    text-align:center;
+    border: none;
+    background-size: 100% 100%;
+
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+
+.btn__wallet {
+    height: 35px;
+    border-radius: 5px;
+    color: white;
+    background-color: black;
+}
+
+.btn__primary {
+    height: 40px;
+    margin: 20px;
+    color: #fff;
+    border-radius: 40px;
+    background-image: linear-gradient(to right, #467396, #a2b9ca);
+    box-shadow: 0 4px 15px 0 rgba(70, 116, 148, 0.5);
+}
+
+.btn__primary:hover {
+    background-position: 100% 0;
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    transform: scale(.95);
+    box-shadow: 0 4px 15px 0 rgba(70, 116, 148, 0.8);
+}
+
+.btn__wallet:hover {
+    moz-transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+    box-shadow: 0 4px 15px 0 rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.btn:focus {
+    outline: none;
+}
+
+

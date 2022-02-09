@@ -1,0 +1,96 @@
+
+
+.nav__section {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 60px;
+  background-color: #467396;
+}
+
+.a__text {
+  font-weight: 600;
+  color: darkred;
+}
+
+
+.navMenu {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
+}
+
+.navMenu a {
+  padding: 0 20px 0 20px;
+  color: rgba(242, 243, 244, 0.7);
+  text-decoration: none;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-block;
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  border-left: 1px solid rgba(0, 0, 0, 0.2);
+  min-width: 200px;
+  text-align: center;
+}
+
+.navMenu a:nth-child(4) {
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+
+.navMenu a:hover {
+  color: white;
+}
+
+.navMenu .dot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
+  top: 30px;
+  -webkit-transform: translateX(-300px);
+  transform: translateX(-300px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+
+.navMenu a:nth-child(1):hover ~ .dot {
+  -webkit-transform: translateX(-300px);
+  transform: translateX(-300px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 1;
+}
+
+.navMenu a:nth-child(2):hover ~ .dot {
+  -webkit-transform: translateX(-100px);
+  transform: translateX(-100px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 1;
+}
+
+.navMenu a:nth-child(3):hover ~ .dot {
+  -webkit-transform: translateX(100px);
+  transform: translateX(100px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 1;
+}
+
+.navMenu a:nth-child(4):hover ~ .dot {
+  -webkit-transform: translateX(300px);
+  transform: translateX(300px);
+  -webkit-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+  opacity: 1;
+}
