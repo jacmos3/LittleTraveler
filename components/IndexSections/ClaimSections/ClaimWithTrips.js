@@ -10,7 +10,8 @@ class ClaimWithTrips extends Component{
     howMuchTrips:0,
     howManyLT:0,
     errorMessage:"",
-    trips:{amount:0}
+    trips:{amount:0},
+    checkAllowance:false
   }
   constructor(props){
     super(props);
@@ -27,7 +28,45 @@ class ClaimWithTrips extends Component{
     var howMuchTrips = trips.amount
 
     this.setState({trips:trips, howManyLT:howManyLT, howMuchTrips:this.props.state.web3.utils.fromWei(howMuchTrips,'ether')});
+    this.checkAllowance();
+  }
+  async checkAllowance(){
+    console.log("check allowance");
 
+    this.setState({loading:this.state.loading+1, errorMessage:''});
+    try{
+      const accounts= await this.props.state.web3.eth.getAccounts();
+      const instance = new this.props.state.web3.eth.Contract(TripsEth, this.state.trips.address );
+      console.log("calling allowance");
+      let allowanceAmount = await instance.methods.allowance(accounts[0],this.props.state.web3Settings.contractAddress).call()
+      .then((result) =>{
+        console.log(result);
+        this.setState({loading:this.state.loading-1, errorMessage:''});
+
+        return result;
+      })
+      .catch((error) =>{
+        this.setState({errorMessage: error.message});
+        this.setState({loading:this.state.loading-1});
+        console.log(error);
+        return false;
+      })
+      console.log("allowance called, result: " + allowanceAmount);
+      this.setState({checkAllowance:parseInt(this.props.state.web3.utils.fromWei(allowanceAmount,'ether')) >= this.state.howMuchTrips});
+      console.log("allowanceAmount: " + parseInt(this.props.state.web3.utils.fromWei(allowanceAmount,'ether')) + ", trips: "+ this.state.howMuchTrips );
+
+      return this.state.checkAllowance;
+      this.setState({loading:this.state.loading-1});
+
+    }
+    catch(err){
+      this.setState({errorMessage: err.message});
+      this.setState({loading:this.state.loading-1});
+      return false;
+    }
+
+    this.setState({loading:this.state.loading-1});
+    return true;
   }
 
   async approve(){
@@ -36,13 +75,8 @@ class ClaimWithTrips extends Component{
     this.setState({loading:this.state.loading+1, errorMessage:''});
     try{
       const accounts= await this.props.state.web3.eth.getAccounts();
-      console.log(this.props.state.web3Settings);
       const instance = new this.props.state.web3.eth.Contract(TripsEth, this.state.trips.address );
-
-      console.log(this.props.state.web3Settings.contractAddress);
-      console.log(this.state.trips.amount);
-      console.log(this.state.howMuchTrips);
-      console.log(this.state.howManyLT);
+      console.log("Requesting approvation to " +this.state.trips.address + " trips address, for " + this.props.state.web3Settings.contractAddress + "to spend " + this.toFixed(this.state.trips.amount * this.state.howManyLT).toString() + " trips");
       await instance.methods.approve(this.props.state.web3Settings.contractAddress,this.toFixed(this.state.trips.amount * this.state.howManyLT).toString()).send({from:accounts[0]});
       console.log("approve called");
     }
@@ -52,6 +86,7 @@ class ClaimWithTrips extends Component{
       return false;
     }
     this.setState({loading:this.state.loading-1});
+    this.checkAllowance();
     return true;
   }
 
@@ -63,12 +98,14 @@ class ClaimWithTrips extends Component{
       const accounts= await this.props.state.web3.eth.getAccounts();
       const instance = new this.props.state.web3.eth.Contract(LittleTraveler.LittleTraveler.abi, this.props.state.web3Settings.contractAddress );
       console.log(this.state.howManyLT);
+      console.log("Requesting mint of " + this.state.howManyLT.toString() + " to " +this.props.state.web3Settings.contractAddress);
       await instance.methods.mintWithTrips(this.state.howManyLT.toString()).send({from:accounts[0]});
       this.props.goToFetch();
     }catch(err){
       this.setState({errorMessage: err.message});
     }
     this.setState({loading:this.state.loading-1});
+    this.checkAllowance();
   }
 
   onApproveAndMint = async (event) => {
@@ -81,10 +118,21 @@ class ClaimWithTrips extends Component{
     this.setState({loading:this.state.loading-1});
   }
 
+  onApprove = async (event) =>{
+    event.preventDefault();
+    this.approve();
+  }
+
+  onMint = async (event) =>{
+    event.preventDefault();
+    this.mint();
+  }
+
   onChange(event){
     event.preventDefault();
     console.log(this.props.state.web3.utils.fromWei(this.toFixed(event.target.value * this.state.trips.amount).toString(),"ether"));
     this.setState({howManyLT: event.target.value, howMuchTrips:this.props.state.web3.utils.fromWei(this.toFixed(event.target.value * this.state.trips.amount).toString(),"ether")});
+    this.checkAllowance();
   }
 
   toFixed(x) {
@@ -111,7 +159,7 @@ render(){
     <Container>
     <h2 >How many Little Traveler you want?</h2>
     <br />
-      <Form onSubmit = {this.onApproveAndMint} error={!!this.state.errorMessage}>
+      <Form  error={!!this.state.errorMessage}>
           <Form.Field >
             <Input
               className="px-80"
@@ -138,13 +186,9 @@ render(){
           </Form.Field>
             <Form.Field>
               <Message error header="Oops!" content = {this.state.errorMessage} />
-              <Popup
-                trigger={
-                  <Button  loading = {this.state.loading > 0} secondary >Mint!</Button>
-                }
-                content="There will be two different transactions! The first one is the approvation, the second one is the minting! You will need to authorize both. Do not set low gas to the first one, or it will may invalidate the process."
-                basic
-              />
+
+              <Button disabled = {this.state.checkAllowance} loading = {this.state.loading > 0} secondary onClick = {this.onApprove} >Approve!</Button>
+              <Button disabled = {!this.state.checkAllowance} loading = {this.state.loading > 0} secondary onClick = {this.onMint} >Mint!</Button>
 
             </Form.Field>
           </Form>

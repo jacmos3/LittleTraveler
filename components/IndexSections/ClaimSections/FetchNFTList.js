@@ -27,8 +27,11 @@ class FetchNFTList extends Component{
           return JSON.parse(result);
       })
       .catch((error) =>{
+        this.setState({errorMessage: error.message});
         console.log(error);
       })
+
+      //TODO check su errorMessage e saltare tutto se c'è un errore
       let all = [];
       for (let index = 1; index < lastUserIndex; index++){
         let tokenId = await instance.methods.tokenOfOwnerByIndex(accounts[0],index).call()
@@ -37,6 +40,7 @@ class FetchNFTList extends Component{
           return result;
         })
         .catch((error)=>{
+          this.setState({errorMessage: error.message});
           console.log(error);
         });
 
@@ -47,6 +51,7 @@ class FetchNFTList extends Component{
 
         })
         .catch((error)=>{
+          this.setState({errorMessage: error.message});
           console.log(error);
         });
 
