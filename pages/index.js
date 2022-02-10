@@ -217,15 +217,15 @@ class MyDapp extends Component {
                     <Multichain disconnect={this.disconnect} connect={this.connect} state={this.state}/>
                 </div>
 
-                <div id="Video" className="bg-trips-4 text-trips-1 py-10 ">
+                <div id="Video">
                     <Video disconnect={this.disconnect} connect={this.connect} state={this.state}/>
                 </div>
 
-                <div id="Claim" className="bg-white sm:py-20 py-10 pb-40 text-trips-1 bg-opacity-50">
+                <div id="Claim">
                     <Claim disconnect={this.disconnect} connect={this.connect} state={this.state}/>
                 </div>
 
-                <div id="DAO" className="bg-trips-4 py-20 text-trips-1">
+                <div id="DAO">
                     <DAO/>
                 </div>
 

@@ -39,3 +39,17 @@
     clip-path: var(--clip-end);
   }
 }
+
+@media (max-width: 900px) {
+  .image__container {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .image__container {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+}

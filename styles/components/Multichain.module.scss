@@ -1,6 +1,7 @@
 
 .multichain__section {
   padding: 100px 0 300px 0;
+  background-color: rgba(70, 116, 148, 1);
 }
 
 .card__component {
@@ -8,6 +9,10 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
+}
+
+.title {
+  color: hsl(0, 0%, 98%);
 }
 
 .box {
@@ -54,6 +59,12 @@
   }
 
 }
+
+.texts__component {
+  color: white;
+}
+
+
 
 
 

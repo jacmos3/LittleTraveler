@@ -47,3 +47,13 @@
         line-height: 1;
     }
 }
+
+@media (max-width: 600px) {
+    .gallery__component {
+        padding-top: 0;
+    }
+    .text__content {
+        padding-top: 10rem;
+    }
+}
+

@@ -16,22 +16,21 @@ class Multichain extends Component {
                 <div className="container mx-auto mt-8">
                     <div className="flex justify-around">
                         <div className="px-20 py-8 rounded text-center">
-                            <h2 className="text-center mt-4 text-trips-1">Native Multichain</h2>
+                            <h2 className={`${styles.title} text-center mt-4 text-trips-1`}>Native Multichain</h2>
                         </div>
                     </div>
-                    <p className="text-center sm:text-xl my-4">
-                        10,000 Little Travelers
-                        <br/>
-                        1,000 each chain
-                        <br/>
-                        10 blockchains
-                        <br/>
-                        1 address
-                        <br/>
-                        <br/>
+                    <p className={`${styles.texts__component} text-center sm:text-xl my-4`}>
+                        10,000 <a className={`a__underline__primary`}>Little Travelers</a>
+                        <br/><br/>
+                        1,000 <a className={`a__underline__primary`}>each chain</a>
+                        <br/><br/>
+                        10 <a className={`a__underline__primary`}>blockchains</a>
+                        <br/><br/>
+                        1 <a className={`a__underline__primary`}>address</a>
+                        <br/><br/>
                     </p>
                     <div className={`${styles.card__component}`}>
-                        <div className={`${styles.box} ${styles.box__down}`}>
+                        <div className={`${styles.box}`}>
                             <div className={`${styles.img__container}`}>
                                 <img src="img/networks/ethereum_logo.png" alt=""></img>
                             </div>
@@ -41,7 +40,7 @@ class Multichain extends Component {
                             </div>
                         </div>
 
-                        <div className={`${styles.box} ${styles.box__down}`}>
+                        <div className={`${styles.box}`}>
                             <img src="img/networks/polygon_logo.png" alt=""></img>
                             <div className={`${styles.text__container}`}>
                                 <div className={`${styles.title}`}>Polygon</div>
@@ -49,7 +48,7 @@ class Multichain extends Component {
                             </div>
                         </div>
 
-                        <div className={`${styles.box} ${styles.box__down}`}>
+                        <div className={`${styles.box}`}>
                             <img src="img/networks/coming_soon.png" alt=""></img>
                             <div className={`${styles.text__container}`}>
                                 <div className={`${styles.title}`}>+ 8</div>
