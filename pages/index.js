@@ -23,11 +23,11 @@ import WalletConnectProvider from "@walletconnect/web3-provider";
 
 class MyDapp extends Component {
     state = {
-        opensea: "https://www.opensea.io/",
+        opensea: "https://opensea.io/collection/little-traveler-pfp",
         etherscan: "https://etherscan.io/",
         twitter: "https://twitter.com/tripscommunity",
-        website: "https://www.littletraveler.com",
-        travelerLoot: "https://www.littletraveler.com",
+        website: "https://www.littletraveler.org",
+        travelerLoot: "https://www.travelerloot.com",
         discord: "https://discord.gg/tripscommunity",
         tripsCommunity: "https://www.tripscommunity.com",
         web3Settings: {

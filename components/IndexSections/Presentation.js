@@ -19,10 +19,34 @@ class Presentation extends Component {
                         </div>
                         <div className={`${styles.button__component}`}>
                             <a href="#Claim">
-                                {/*<Button className={`button__primary`} primary>Mint yours</Button>*/}
                                 <button className={`btn btn__primary`}>
                                     Mint Yours
                                 </button>
+
+                                <div className="flex py-8 w-full justify-center space-x-6">
+                                   <a
+                                     href={this.props.state.opensea}
+                                     className="self-center p-3 border rounded-xl bg-trips-2 hover:bg-trips-1"
+                                     target="_blank"
+                                   >
+                                     <img className="hover:text-white  w-6 h-6 mx-2" src="../img/opensea.svg"  />
+                                   </a>
+                                   <a
+                                     href={this.props.state.twitter}
+                                     className="self-center p-3 border rounded-xl  bg-trips-2 hover:bg-trips-1"
+                                     target="_blank"
+                                   >
+                                     <img className="fill-current w-6 h-6 mx-2" src="../img/twitter.svg"/>
+                                   </a>
+                                   <a
+                                     href={this.props.state.discord}
+                                     className="self-center p-3 border rounded-xl  bg-trips-2 hover:bg-trips-1"
+                                     target="_blank"
+                                   >
+                                     <img className="fill-current  text-white w-6 h-6 mx-2" src="../img/discord.svg"/>
+                                   </a>
+
+                                 </div>
                             </a>
                         </div>
                     </div>

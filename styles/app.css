@@ -134,7 +134,7 @@ BUTTON PRIMARY
 
 .btn__primary {
     height: 40px;
-    margin: 20px;
+    margin: 50px;
     color: #fff;
     border-radius: 40px;
     background-image: linear-gradient(to right, #467396, #a2b9ca);
@@ -220,6 +220,3 @@ A UNDERLINE
     width: 100%;
     height: 100%;
 }
-
-
-
