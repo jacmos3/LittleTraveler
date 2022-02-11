@@ -10,20 +10,8 @@ class Menu extends Component {
     render() {
         return (
             <div className={`${styles.nav__section} sticky top-0 z-10`}>
+                <div className={`${styles.title}`}>The Little Traveler</div>
                 <div className="flex flex-wrap mx-auto w-full justify-center">
-                    {/*<div>
-                    <a className={`${styles.a__text}`} href="#Multichain">Multi-chain</a>
-                </div>
-                <div>
-                    <a className={`${styles.a__text}`} href="#Video">Video</a>
-                </div>
-                <div>
-                    <a className={`${styles.a__text}`} href="#Claim">Mint</a>
-                </div>
-                <div>
-                    <a className={`${styles.a__text}`} href="#DAO">The DAO</a>
-                </div>*/}
-
                     <nav className={`${styles.navMenu}`}>
                         <a className={`${styles.a__text}`} href="#Multichain">Multi-chain</a>
                         <a className={`${styles.a__text}`} href="#Video">Video</a>

@@ -194,9 +194,11 @@ class MyDapp extends Component {
                     {
                         this.state.web3Settings.isWeb3Connected
                             ? (
-                                <Button onClick={this.disconnect}>
-                                    {this.truncateAddress(this.state.web3Settings.account)}
-                                </Button>
+                                <a className={`px-5`}>
+                                    <button className={`btn btn__wallet`} onClick={this.disconnect}>
+                                        {this.truncateAddress(this.state.web3Settings.account)}
+                                    </button>
+                                </a>
                             )
 
                             : (

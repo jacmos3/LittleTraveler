@@ -36,9 +36,6 @@ class Gallery extends Component {
             <div className="flex justify-around">
                 <div className="text-center">
                     <h2 className="text-center mt-4 capitalize text-trips-1">An Incredible Variety of Travelers</h2>
-                    {/*
-                    <Card.Group itemsPerRow={6} doubling={true} items={params}/>
-*/}
                     <div className={`${styles.image__container}`}>
                         {
                             images.map(el =>

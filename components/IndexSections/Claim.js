@@ -58,11 +58,11 @@ class Claim extends Component {
             }
         ]
         return (
-            <div className={`${styles.claim__container} container mx-auto mt-8 bg-white sm:py-20 py-10 pb-40 text-trips-1 bg-opacity-50`}>
+            <div className={`${styles.claim__container} mx-auto mt-8 sm:py-20 py-10 pb-40 text-trips-1`}>
                 <div className="flex justify-around">
                     <div className="rounded text-center">
                         <span className="uppercase sm:text-xl tracking-widest"></span>
-                        <h1 className="text-center mt-4 capitalize">Mint your Little Traveler</h1>
+                        <h1 className={`${styles.title} text-center mt-4 capitalize`}>Mint your Little Traveler</h1>
                         <br/>
                         {
                             this.props.state.web3Settings.isWeb3Connected
@@ -82,20 +82,35 @@ class Claim extends Component {
                                     </div>
                                 )
                                 : (
-                                    <Container>
-                                        <Segment className="h-80">
-                                            <Dimmer active>
-                                                <Loader size='massive'>
-                                                    <h1>Wrong Network!</h1>
-                                                    <h2>You are connected to
-                                                        netword {this.props.state.web3Settings.networkId} - {this.props.state.web3Settings.networkName}</h2>
-                                                    <h3>Please connect to
-                                                        networks:<br/> {this.props.state.web3Settings.chains.map(chain => chain.id + " - " + chain.name + "; ")}
-                                                    </h3>
-                                                </Loader>
-                                            </Dimmer>
-                                        </Segment>
-                                    </Container>
+                                    // <Container>
+                                    //     <Segment className="h-80">
+                                    //         <Dimmer active>
+                                    //             <Loader size='massive'>
+                                    //                 <h1>Wrong Network!</h1>
+                                    //                 <h2>You are connected to
+                                    //                     netword {this.props.state.web3Settings.networkId} - {this.props.state.web3Settings.networkName}</h2>
+                                    //                 <h3>Please connect to
+                                    //                     networks:<br/> {this.props.state.web3Settings.chains.map(chain => chain.id + " - " + chain.name + "; ")}
+                                    //                 </h3>
+                                    //             </Loader>
+                                    //         </Dimmer>
+                                    //     </Segment>
+                                    // </Container>
+                                    <div>
+                                        <Container style={{color: "white"}}>
+                                            <div style={{padding: "5px"}}>
+                                                <div className="text-center">
+                                                    <div className={`${styles.modal}`}>
+                                                        <p className={`${styles.modal_error_title}`}>Wrong network!</p>
+                                                        <p>You are connected to
+                                                        netword {this.props.state.web3Settings.networkId} - {this.props.state.web3Settings.networkName}</p>
+                                                        <p className={`${styles.modal_error_second_description}`}>Please connect to
+                                                        networks:<br/> {this.props.state.web3Settings.chains.map(chain => chain.id + " - " + chain.name + "; ")}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Container>
+                                    </div>
                                 )
                                 : (
                                     <div>

@@ -7,7 +7,7 @@
 }
 
 .hero__img {
-    background-image: linear-gradient(rgba(70, 116, 148,0.2),rgba(255,255,255,1)), url('../../public/back.png');
+    background-image: linear-gradient(rgba(70, 116, 148,0.5),rgba(255,255,255,1)), url('../../public/back.png');
     background-repeat: no-repeat;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .text__content {
-    padding-top: 20rem;
+    padding-top: 80px;
     text-shadow: 1px 1px ghostwhite;
 }
 
@@ -28,9 +28,9 @@
 }
 
 .gallery__component {
-    padding-top: 10rem;
     display: flex;
     justify-content: center;
+    padding-bottom: 40px;
 }
 
 .presentation__content {
@@ -48,12 +48,20 @@
     }
 }
 
+
+
 @media (max-width: 600px) {
     .gallery__component {
-        padding-top: 0;
+        // padding-top: 0;
     }
     .text__content {
-        padding-top: 10rem;
+        // padding-top: 10rem;
+    }
+    .hero__img {
+        // background-size: contain;
+    }
+    .title {
+        font-size: 3.5rem !important;
     }
 }
 
