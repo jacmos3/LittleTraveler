@@ -30,6 +30,7 @@ class ClaimWithTrips extends Component{
     this.setState({trips:trips, howManyLT:howManyLT, howMuchTrips:this.props.state.web3.utils.fromWei(howMuchTrips,'ether')});
     this.checkAllowance();
   }
+
   async checkAllowance(){
     console.log("check allowance");
 
@@ -40,38 +41,34 @@ class ClaimWithTrips extends Component{
       console.log("calling allowance");
       let allowanceAmount = await instance.methods.allowance(accounts[0],this.props.state.web3Settings.contractAddress).call()
       .then((result) =>{
-        console.log(result);
-        this.setState({loading:this.state.loading-1, errorMessage:''});
-
+        this.setState({errorMessage:''});
         return result;
       })
       .catch((error) =>{
         this.setState({errorMessage: error.message});
-        this.setState({loading:this.state.loading-1});
         console.log(error);
         return false;
       })
       console.log("allowance called, result: " + allowanceAmount);
-      this.setState({checkAllowance:parseInt(this.props.state.web3.utils.fromWei(allowanceAmount,'ether')) >= this.state.howMuchTrips});
-      console.log("allowanceAmount: " + parseInt(this.props.state.web3.utils.fromWei(allowanceAmount,'ether')) + ", trips: "+ this.state.howMuchTrips );
+      let checkAllowance = parseInt(this.props.state.web3.utils.fromWei(allowanceAmount,'ether')) >= this.state.howMuchTrips;
+      this.setState({checkAllowance});
+      console.log("allowanceAmount: " + checkAllowance + ", trips: "+ this.state.howMuchTrips );
 
-      return this.state.checkAllowance;
-      this.setState({loading:this.state.loading-1});
-
+      this.setState({loading:this.state.loading-1, errorMessage: ""});
+      return checkAllowance;
     }
     catch(err){
-      this.setState({errorMessage: err.message});
-      this.setState({loading:this.state.loading-1});
+      this.setState({loading:this.state.loading-1, errorMessage: err.message});
       return false;
     }
 
-    this.setState({loading:this.state.loading-1});
+    this.setState({loading:this.state.loading-1, errorMessage: ""});
     return true;
   }
 
   async approve(){
     console.log("start approving");
-
+    console.log("loading: " + this.state.loading);
     this.setState({loading:this.state.loading+1, errorMessage:''});
     try{
       const accounts= await this.props.state.web3.eth.getAccounts();
@@ -81,11 +78,10 @@ class ClaimWithTrips extends Component{
       console.log("approve called");
     }
     catch(err){
-      this.setState({errorMessage: err.message});
-      this.setState({loading:this.state.loading-1});
+      this.setState({loading:this.state.loading-1, errorMessage: err.message});
       return false;
     }
-    this.setState({loading:this.state.loading-1});
+    this.setState({loading:this.state.loading-1, errorMessage: ""});
     this.checkAllowance();
     return true;
   }
@@ -104,7 +100,7 @@ class ClaimWithTrips extends Component{
     }catch(err){
       this.setState({errorMessage: err.message});
     }
-    this.setState({loading:this.state.loading-1});
+    this.setState({loading:this.state.loading-1, errorMessage: ""});
     this.checkAllowance();
   }
 
@@ -115,7 +111,7 @@ class ClaimWithTrips extends Component{
     if (approved){
       await this.mint();
     }
-    this.setState({loading:this.state.loading-1});
+    this.setState({loading:this.state.loading-1, errorMessage:""});
   }
 
   onApprove = async (event) =>{
