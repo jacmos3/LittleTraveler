@@ -9,7 +9,6 @@ import DAO from '../components/IndexSections/DAO.js';
 import Derivatives from '../components/IndexSections/Derivatives.js';
 import Team from '../components/IndexSections/Team.js';
 import Video from '../components/IndexSections/Video.js';
-
 import Menu from '../components/IndexSections/Menu.js';
 
 import {Header, Button} from 'semantic-ui-react';
@@ -18,6 +17,8 @@ import {Router} from '../routes';
 import Web3 from "web3";
 import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
+import styles from "../styles/pages/INDEX.module.scss";
+
 //import * as UAuthWeb3Modal from "@uauth/web3modal";
 //import UAuthSPA from "@uauth/js";
 
@@ -37,24 +38,36 @@ class MyDapp extends Component {
                 {
                     name: "Ethereum",
                     id: 1,
+                    opensea:"https://opensea.io/collection/little-traveler-pfp",
+                    openseaCard:"https://opensea.io/assets/",
+                    baseUrl:"https://gateway.pinata.cloud/ipfs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/",
                     options: {
                         trips: {
                             address: "0x1350fbe8ce27762ec19134bf8fc405a427fe9bf1",
                             amount: "2000000000000000000000"
-                        }, loot: "0x38Cd9992E44064Cb8bd68cDF17D164b82b25277c", coin: ""
+                        },
+                        loot: "0x38Cd9992E44064Cb8bd68cDF17D164b82b25277c",
+                        coin: ""
                     }
                 },
                 {
                     name: "Polygon",
                     id: 137,
+                    opensea:"https://opensea.io/collection/little-traveler-pfp-polygon",
+                    openseaCard:"https://opensea.io/assets/matic/",
+                    baseUrl:"https://gateway.pinata.cloud/ipfs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/",
                     options: {
                         trips: {
                             address: "0x77F0F7d657f362C4b703417B800B83B989a288a2",
                             amount: "2000000000000000000000"
-                        }, loot: "", coin: {name: "MATIC", amount: "60"}
+                        },
+                        loot: "",
+                        coin: {
+                          name: "MATIC",
+                          amount: "60"}
                     }
                 },
-                //  {name:"Rinkeby", id:4, options:{trips:{address:"0xa75f153cbb61be8895710f461cad890a0c4bc348", amount:"2000000000000000000000"}, loot:"", coin:{name:"ETH", amount:"0.1"}}}
+                  {name:"Rinkeby", id:4, opensea:"https://testnets.opensea.io/collection/testtest-uvuid70oad", openseaCard:"https://testnets.opensea.io/assets/", baseUrl:"https://gateway.pinata.cloud/ipfs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/", options:{trips:{address:"0xa75f153cbb61be8895710f461cad890a0c4bc348", amount:"2000000000000000000000"}, loot:"", coin:{name:"ETH", amount:"0.1"}}}
 
             ]
         }
@@ -179,17 +192,8 @@ class MyDapp extends Component {
     }
 
     render() {
-
         return (
-
             <Layout state={this.state}>
-
-                <div id="myVideo">
-                    <iframe className="bg-black" frameBorder={"0"} width="100%" height="1000px" allowFullScreen={true}
-                            srcDoc={"<html><head><style>body{margin: 0;padding: 0;}.bg-video-wrap {position: relative;overflow: hidden;width: 100%;height: 100vh;display: flex;}video {object-fit: cover;min-width: 100%;min-height: 100vh;z-index: 1;}</style></head><body><div class='bg-video-wrap'><video loop muted autoplay><source src='/img/littletravelers/video.mp4' type='video/mp4'></video></div></body></html>"}>
-                    </iframe>
-                </div>
-
                 <div id="connectWallet">
                     {
                         this.state.web3Settings.isWeb3Connected

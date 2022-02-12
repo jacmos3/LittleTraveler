@@ -83,14 +83,6 @@ html {
 .claimButton:hover{
   text-decoration: underline;
 }
-#myVideo {
- position: fixed;
- z-index: -1;
- right: 0;
- bottom: 0;
- min-width: 100%;
- min-height: 100%;
-}
 
 #connectWallet{
   right: 0;
@@ -137,7 +129,7 @@ BUTTON PRIMARY
     margin: 50px;
     color: #fff;
     border-radius: 40px;
-    background-image: linear-gradient(to right, #467396, #a2b9ca);
+    background-image: linear-gradient(to right, #002348, #467396);
     box-shadow: 0 4px 15px 0 rgba(70, 116, 148, 0.5);
 }
 
@@ -149,6 +141,27 @@ BUTTON PRIMARY
     transition: all .4s ease-in-out;
     transform: scale(.95);
     box-shadow: 0 4px 15px 0 rgba(70, 116, 148, 0.8);
+}
+
+.btn__secondary {
+    height: 40px;
+    width: 40px;
+    margin: 5px;
+    padding: 5px;
+    color: #fff;
+    border-radius: 20px;
+    background-image: linear-gradient(to right, #467396, #a2b9ca);
+    box-shadow: 0 4px 15px 0 rgba(70, 116, 148, 0.5);
+}
+
+.btn__secondary:hover {
+  background-position: 100% 0;
+  moz-transition: all .4s ease-in-out;
+  -o-transition: all .4s ease-in-out;
+  -webkit-transition: all .4s ease-in-out;
+  transition: all .4s ease-in-out;
+  transform: scale(.95);
+  box-shadow: 0 4px 15px 0 rgba(70, 116, 148, 0.8);
 }
 
 .btn__wallet:hover {

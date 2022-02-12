@@ -1,20 +1,28 @@
 import React, {Component} from 'react';
 import {Tab,Card,Button,Message,Container} from 'semantic-ui-react';
 import LittleTraveler from '../../../ethereum/build/LittleTraveler.sol.json';
+import styles from "../../../styles/components/claimSections/FetchNFTList.module.scss";
 
 class FetchNFTList extends Component{
   constructor(props){
     super(props);
 
   }
-  componentDidMount(){
-    //this.fetchNFTList();
+  async componentDidMount(){
+    var chain = this.props.state.web3Settings.chains
+      .filter(chain => chain.id === this.props.state.web3Settings.networkId)[0];
+      this.setState({opensea:chain.opensea, baseUrl:chain.baseUrl, openseaCard:chain.openseaCard + this.props.state.web3Settings.contractAddress + "/"});
+    await this.fetchNFTList();
   }
   state ={
     all:[],
     loading:0,
     errorMessage:"",
+    index: 0,
   };
+
+
+
 
   fetchNFTList = async () => {
     console.log("fetch");
@@ -31,12 +39,17 @@ class FetchNFTList extends Component{
         console.log(error);
       })
 
+      if (!!this.state.errorMessage){
+        this.setState({loading:this.state.loading-1});
+        return;
+      }
       //TODO check su errorMessage e saltare tutto se c'è un errore
-      let all = [];
-      for (let index = 1; index < lastUserIndex; index++){
+      var all = [];
+  //    for (let index = lastUserIndex -1; index >= 0; index--){
+      for (var index = 0; index < lastUserIndex; index++){
         let tokenId = await instance.methods.tokenOfOwnerByIndex(accounts[0],index).call()
         .then((result) =>{
-          console.log(result);
+          //console.log(result);
           return result;
         })
         .catch((error)=>{
@@ -44,30 +57,23 @@ class FetchNFTList extends Component{
           console.log(error);
         });
 
-        let uri = await instance.methods.tokenURI(tokenId).call()
-        .then((result)=> {
-          console.log(result);
-          return JSON.parse(window.atob(result.split(',')[1]));
+        if (!!this.state.errorMessage){
+          this.setState({loading:this.state.loading-1});
+          return;
+        }
 
-        })
-        .catch((error)=>{
-          this.setState({errorMessage: error.message});
-          console.log(error);
-        });
+        var element = {"key":index, "header": tokenId, "image":this.state.baseUrl + tokenId + '.png'};
 
-        let element = {"header": uri.name,/*"description":uri.description,*/"image":uri.image};
         all.push(element);
-        console.log(uri);
-        //TODO: after getting the ipfs json it has to be fetched and the image has to be extracted
+
         this.setState({all:all});
       }
-      this.setState({minted:true});
-      //console.log(this.state.all.description);
-
     }catch(err){
       this.setState({errorMessage: err.message});
     }
     this.setState({loading:this.state.loading-1});
+
+    console.log(this.state.all);
   }
 
 render(){
@@ -80,10 +86,46 @@ render(){
         {
           //<Button  loading = {this.state.loading > 0} primary onClick = {this.fetchNFTList}  >Refresh</Button>
         }
-        <a target ="_blank" href={this.props.state.opensea}><Button  loading = {this.state.loading > 0} primary >Check on Opensea</Button></a>
+        <a target ="_blank" href={this.state.opensea}>
+          <Button  loading = {this.state.loading > 0} primary >Check on Opensea</Button>
+        </a>
+        { /*
         <Container>
-        <Card.Group className="py-5" itemsPerRow={6} centered items={this.state.all} />
+        <Card.Group className="py-5" doubling={true} itemsPerRow={6} centered items={this.state.all} />
         </Container>
+*/
+}
+        <div className={`${styles.image__container}`}>
+            {
+                this.state.all.map(el =>(
+                    <div className={`${styles.image}`} key={el.key}>
+                    {(el.key <= this.state.index)
+                      ?(
+                        <div>
+                          <a target = "_blank" href={this.state.openseaCard + el.header}>
+                            <img
+                              src = {el.image}
+                              loading = "lazy"
+                              onLoad ={() => {
+                                this.setState({index:el.key+1});
+                              }}
+                              onError={({ currentTarget }) => {
+                                currentTarget.onerror = null;
+                                currentTarget.src = "/meta.png";
+                                this.setState({index:el.key+1});
+                              }}
+                            />
+                          </a>
+                          <h2>#{el.header}</h2>
+                        </div>
+                      )
+                    : null
+                    }
+                    </div>
+                ))
+            }
+        </div>
+
       </div>
     </Tab.Pane>
   )

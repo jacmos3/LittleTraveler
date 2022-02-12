@@ -22,9 +22,10 @@
 }
 
 .button__component {
-    padding-top: 3rem;
+    padding-top: 4rem;
     display: flex;
     justify-content: center;
+
 }
 
 .gallery__component {
@@ -49,7 +50,6 @@
 }
 
 
-
 @media (max-width: 600px) {
     .gallery__component {
         // padding-top: 0;
@@ -64,4 +64,3 @@
         font-size: 3.5rem !important;
     }
 }
-

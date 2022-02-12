@@ -26,7 +26,7 @@ class Claim extends Component {
     handleTabChange = (e, {activeIndex}) => this.setState({activeIndex});
 
     goToFetch() {
-        //this.setState({activeIndex:0});
+        this.setState({activeIndex:0});
     }
 
     render() {
@@ -36,29 +36,31 @@ class Claim extends Component {
             .map(chain => chain.options)[0];
 
         const panes = [
+          {
+              menuItem: "View your collection",
+              render: () => <FetchNFTList state={this.props.state}/>
+          },
             option && option.trips ? {
                     menuItem: 'Mint with TRIPS',
                     render: () => <ClaimWithTrips state={this.props.state} goToFetch={this.goToFetch}/>,
                 }
-                : {},
+                : null,
 
             option && option.loot ? {
                 menuItem: 'Mint with Traveler Loot',
                 render: () => <ClaimWithTravelerLoot state={this.props.state} goToFetch={this.goToFetch}/>,
-            } : {},
+            } : null,
 
             option && option.coin ?
                 {
                     menuItem: 'Mint With ' + option.coin.name,
                     render: () => <ClaimWithEther state={this.props.state} goToFetch={this.goToFetch}/>,
-                } : {},
-            {
-                menuItem: "View your collection",
-                render: () => <FetchNFTList state={this.props.state}/>
-            }
+                } : null,
+
+
         ]
         return (
-            <div className={`${styles.claim__container} mx-auto mt-8 sm:py-20 py-10 pb-40 text-trips-1`}>
+            <div className={`${styles.claim__container} mx-auto sm:py-20 py-10 text-trips-1`}>
                 <div className="flex justify-around">
                     <div className="rounded text-center">
                         <span className="uppercase sm:text-xl tracking-widest"></span>
