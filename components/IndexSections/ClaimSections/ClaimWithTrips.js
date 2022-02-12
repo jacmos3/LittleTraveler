@@ -39,16 +39,19 @@ class ClaimWithTrips extends Component{
       const accounts= await this.props.state.web3.eth.getAccounts();
       const instance = new this.props.state.web3.eth.Contract(TripsEth, this.state.trips.address );
       console.log("calling allowance");
-      let allowanceAmount = await instance.methods.allowance(accounts[0],this.props.state.web3Settings.contractAddress).call()
-      .then((result) =>{
-        this.setState({errorMessage:''});
-        return result;
-      })
-      .catch((error) =>{
-        this.setState({errorMessage: error.message});
-        console.log(error);
-        return false;
-      })
+      let allowanceAmount = await instance.methods.allowance(
+        accounts[0],
+        this.props.state.web3Settings.contractAddress)
+        .call()
+        .then((result) =>{
+          this.setState({errorMessage:''});
+          return result;
+        })
+        .catch((error) =>{
+          this.setState({errorMessage: error.message});
+          console.log(error);
+          return false;
+        });
       console.log("allowance called, result: " + allowanceAmount);
       let checkAllowance = parseInt(this.props.state.web3.utils.fromWei(allowanceAmount,'ether')) >= this.state.howMuchTrips;
       this.setState({checkAllowance});
@@ -74,7 +77,10 @@ class ClaimWithTrips extends Component{
       const accounts= await this.props.state.web3.eth.getAccounts();
       const instance = new this.props.state.web3.eth.Contract(TripsEth, this.state.trips.address );
       console.log("Requesting approvation to " +this.state.trips.address + " trips address, for " + this.props.state.web3Settings.contractAddress + "to spend " + this.toFixed(this.state.trips.amount * this.state.howManyLT).toString() + " trips");
-      await instance.methods.approve(this.props.state.web3Settings.contractAddress,this.toFixed(this.state.trips.amount * this.state.howManyLT).toString()).send({from:accounts[0]});
+      await instance.methods.approve(
+        this.props.state.web3Settings.contractAddress,
+        this.toFixed(this.state.trips.amount * this.state.howManyLT).toString()
+      ).send({from:accounts[0]});
       console.log("approve called");
     }
     catch(err){
@@ -104,15 +110,15 @@ class ClaimWithTrips extends Component{
     this.checkAllowance();
   }
 
-  onApproveAndMint = async (event) => {
-    this.setState({loading:this.state.loading+1});
-    event.preventDefault();
-    var approved = await this.approve();
-    if (approved){
-      await this.mint();
-    }
-    this.setState({loading:this.state.loading-1, errorMessage:""});
-  }
+  // onApproveAndMint = async (event) => {
+  //   this.setState({loading:this.state.loading+1});
+  //   event.preventDefault();
+  //   var approved = await this.approve();
+  //   if (approved){
+  //     await this.mint();
+  //   }
+  //   this.setState({loading:this.state.loading-1, errorMessage:""});
+  // }
 
   onApprove = async (event) =>{
     event.preventDefault();

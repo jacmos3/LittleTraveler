@@ -12,7 +12,7 @@ function Head() {
       <meta name="title" content="Little Traveler" />
       <meta
         name="description"
-        content="A 10,000 native multi-chain PFP NFT project for the travelers and the travel industry."
+        content="A 10,000 native multichain PFP NFT project for the travelers and the travel industry."
       />
 
       {/* OG + Facebook */}

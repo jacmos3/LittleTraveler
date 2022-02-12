@@ -11,18 +11,16 @@ class FetchNFTList extends Component{
   async componentDidMount(){
     var chain = this.props.state.web3Settings.chains
       .filter(chain => chain.id === this.props.state.web3Settings.networkId)[0];
-      this.setState({opensea:chain.opensea, baseUrl:chain.baseUrl, openseaCard:chain.openseaCard + this.props.state.web3Settings.contractAddress + "/"});
+      this.setState({chainName: chain.name, opensea:chain.opensea, baseUrl:chain.baseUrl, openseaCard:chain.openseaCard + this.props.state.web3Settings.contractAddress + "/"});
     await this.fetchNFTList();
   }
+
   state ={
     all:[],
     loading:0,
     errorMessage:"",
     index: 0,
   };
-
-
-
 
   fetchNFTList = async () => {
     console.log("fetch");
@@ -81,27 +79,14 @@ render(){
   return (
     <Tab.Pane attached={false} >
       <div style={{padding:"15px"}}>
-
-        {!!this.state.errorMessage ? <Message header="Oops!" content = {this.state.errorMessage} /> : ""}
-        {
-          //<Button  loading = {this.state.loading > 0} primary onClick = {this.fetchNFTList}  >Refresh</Button>
-        }
-        <a target ="_blank" href={this.state.opensea}>
-          <Button  loading = {this.state.loading > 0} primary >Check on Opensea</Button>
-        </a>
-        { /*
-        <Container>
-        <Card.Group className="py-5" doubling={true} itemsPerRow={6} centered items={this.state.all} />
-        </Container>
-*/
-}
+          <h2>Your collection on {this.state.chainName}: </h2>
         <div className={`${styles.image__container}`}>
             {
                 this.state.all.map(el =>(
-                    <div className={`${styles.image}`} key={el.key}>
+                    <div key={el.key}>
                     {(el.key <= this.state.index)
                       ?(
-                        <div>
+                        <div className={`${styles.image}`}>
                           <a target = "_blank" href={this.state.openseaCard + el.header}>
                             <img
                               src = {el.image}
@@ -116,7 +101,7 @@ render(){
                               }}
                             />
                           </a>
-                          <h2>#{el.header}</h2>
+                          <h3>#{el.header}</h3>
                         </div>
                       )
                     : null
@@ -125,7 +110,11 @@ render(){
                 ))
             }
         </div>
-
+        <a target ="_blank" href={this.state.opensea}>
+          <Button primary >Open Full Collection on Opensea</Button>
+        </a>
+        <Button  loading = {this.state.loading > 0} primary onClick = {this.fetchNFTList}  >Refresh List</Button>
+        {!!this.state.errorMessage ? <Message header="Oops!" content = {this.state.errorMessage} /> : ""}
       </div>
     </Tab.Pane>
   )
