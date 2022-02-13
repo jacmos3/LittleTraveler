@@ -17,7 +17,12 @@ class ClaimWithTrips extends Component{
   constructor(props){
     super(props);
   }
-
+  componentWillUnmount() {
+      // fix Warning: Can't perform a React state update on an unmounted component
+      this.setState = (state,callback)=>{
+          return;
+      };
+  }
   componentDidMount(){
     var trips = this.props.state.web3Settings.chains
       .filter(chain => chain.id === this.props.state.web3Settings.networkId)
@@ -160,7 +165,7 @@ render(){
   return (
     <Tab.Pane attached={false} >
     <Container >
-    <h2 >How many Little Traveler you want?</h2>
+    <h2 >How many Little Travelers do you want?</h2>
     <br />
       <Form error={!!this.state.errorMessage} className= {`${styles.form}`}>
           <Form.Field >

@@ -17,7 +17,7 @@ class Footer extends Component {
                     <a href="https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/93380629908989276154329187712159695682604484101294988604591734366325570535524"
                        target="_blank" className={`${styles__footer.link} a__link__secondary`}>
                         <span>The Traveler DAO</span>
-                    </a> , a
+                    </a>, a
                     <a target="_blank" href={this.props.state.tripsCommunity} className={`${styles__footer.link} a__link__secondary`}>
                         <span>TripsCommunity DAO</span>
                     </a>

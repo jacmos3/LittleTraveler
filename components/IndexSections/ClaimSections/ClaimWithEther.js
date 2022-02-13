@@ -56,7 +56,7 @@ render(){
 
   return (
     <Tab.Pane attached={false}>
-    <h2 >How many Little Travelers you want?</h2>
+    <h2 >How many Little Travelers do you want?</h2>
     <br />
       <Container>
         <Form onSubmit = {this.onMint} error={!!this.state.errorMessage} className= {`${styles.form}`}>
@@ -64,7 +64,7 @@ render(){
               <Input
                 label={{ basic: true, content: 'Little Traveler', id:"inputLabel" }}
                 labelPosition='right'
-                placeholder = "How many Little Traveler?"
+                placeholder = "How many Little Travelers?"
                 type = 'number'
                 min = {1}
                 max = {10}

@@ -43,14 +43,14 @@ render(){
   return (
     <Tab.Pane attached={false}>
       <Container>
-        <h2>Do you hold a Traveler Loot?</h2>
+        <h2>Do you hold a <a href={this.props.state.travelerLoot}>Traveler Loot< /a>?</h2>
         <h3>Mint a Little Traveler for free + gas!</h3>
         <Form onSubmit = {this.onMint} error={!!this.state.errorMessage} className= {`${styles.form}`}>
           <Form.Field >
             <Input
               label={{ basic: true, content: 'Little Traveler', id:"inputLabel"}}
               labelPosition='right'
-              placeholder = "How many Little Traveler?"
+              placeholder = "How many Little Travelers?"
               min = {1}
               max = {10}
               value = {1}
