@@ -36,7 +36,10 @@ class Claim extends Component {
             .map(chain => chain.options)[0];
 
         const panes = [
-
+          {
+              menuItem: "View your collection",
+              render: () => <FetchNFTList state={this.props.state}/>
+          },
             option && option.trips ? {
                     menuItem: 'Mint with TRIPS',
                     render: () => <ClaimWithTrips state={this.props.state} goToFetch={this.goToFetch}/>,
@@ -53,10 +56,6 @@ class Claim extends Component {
                     menuItem: 'Mint With ' + option.coin.name,
                     render: () => <ClaimWithEther state={this.props.state} goToFetch={this.goToFetch}/>,
                 } : null,
-                {
-                    menuItem: "View your collection",
-                    render: () => <FetchNFTList state={this.props.state}/>
-                },
 
         ]
         return (

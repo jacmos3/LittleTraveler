@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Tab,Form,Pane,Field,Input,Message,Button,Container} from 'semantic-ui-react';
 import LittleTraveler from '../../../ethereum/build/LittleTraveler.sol.json';
+import styles from "../../../styles/components/claimSections/ClaimWithEther.module.scss";
 
 class ClaimWithEther extends Component{
   state = {
@@ -58,9 +59,9 @@ render(){
     <h2 >How many Little Travelers you want?</h2>
     <br />
       <Container>
-        <Form onSubmit = {this.onMint} error={!!this.state.errorMessage}>
+        <Form onSubmit = {this.onMint} error={!!this.state.errorMessage} className= {`${styles.form}`}>
             <Form.Field >
-              <Input className="px-80"
+              <Input
                 label={{ basic: true, content: 'Little Traveler', id:"inputLabel" }}
                 labelPosition='right'
                 placeholder = "How many Little Traveler?"
@@ -73,7 +74,7 @@ render(){
               </Form.Field>
             <h3>it will cost you:</h3>
               <Form.Field>
-              <Input className="px-80"
+              <Input
                 label={{ basic: true, content: this.state.coin.name, id:"inputLabel" }}
                 labelPosition='right'
                 placeholder='Ether amount'

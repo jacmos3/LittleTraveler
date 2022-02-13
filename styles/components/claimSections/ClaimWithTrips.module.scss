@@ -1,0 +1,13 @@
+.form{
+  margin: auto !important;
+  width: 50% !important;
+  padding: 10px !important;
+}
+
+@media (max-width: 767px) {
+  .form{
+    padding: 0px !important;
+    width: auto !important;
+    margin: 0px !important;
+  }
+}
