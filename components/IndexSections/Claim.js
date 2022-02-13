@@ -37,7 +37,7 @@ class Claim extends Component {
 
         const panes = [
           {
-              menuItem: "View your collection",
+              menuItem: "Yours",
               render: () => <FetchNFTList state={this.props.state}/>
           },
             option && option.trips ? {
