@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import {Button,Form,Input,Message,Tab,Popup,Icon,Container} from 'semantic-ui-react';
-import styles from "../../../styles/pages/INDEX.module.scss"; // Styles
+
 import TripsEth from '../../../ethereum/imported/TripsEth.json';
 import LittleTraveler from '../../../ethereum/build/LittleTraveler.sol.json';
+import styles from "../../../styles/components/claimSections/ClaimWithTrips.module.scss";
 
 class ClaimWithTrips extends Component{
   state = {
@@ -158,13 +159,12 @@ render(){
 
   return (
     <Tab.Pane attached={false} >
-    <Container>
+    <Container >
     <h2 >How many Little Traveler you want?</h2>
     <br />
-      <Form  error={!!this.state.errorMessage}>
+      <Form error={!!this.state.errorMessage} className= {`${styles.form}`}>
           <Form.Field >
             <Input
-              className="px-80"
               label={{ basic: true, content: 'Little Traveler', id:"inputLabel" }}
               labelPosition='right'
               placeholder = "How many Little Travelers?"
@@ -173,17 +173,18 @@ render(){
               max = {10}
               value = {this.state.howManyLT}
               onChange = {event => this.onChange(event)}
-
+              fluid
             />
             </Form.Field>
             <h3>it will cost you:</h3>
             <Form.Field>
-              <Input className="px-80"
+              <Input
                 label={{ basic: true, content: 'TRIPS', id:"inputLabel"}}
                 labelPosition='right'
                 placeholder='Trips amount'
                 readOnly
                 value = {Math.round(this.state.howMuchTrips)}
+                fluid
               />
           </Form.Field>
             <Form.Field>

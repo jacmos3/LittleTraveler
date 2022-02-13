@@ -78,6 +78,7 @@ render(){
 
   return (
     <Tab.Pane attached={false} >
+      <Container >
       <div style={{padding:"15px"}}>
           <h2>Your collection on {this.state.chainName}: </h2>
         <div className={`${styles.image__container}`}>
@@ -116,6 +117,7 @@ render(){
         <Button  loading = {this.state.loading > 0} primary onClick = {this.fetchNFTList}  >Refresh List</Button>
         {!!this.state.errorMessage ? <Message header="Oops!" content = {this.state.errorMessage} /> : ""}
       </div>
+      </Container>
     </Tab.Pane>
   )
 };
