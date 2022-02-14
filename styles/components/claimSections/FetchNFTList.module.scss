@@ -1,52 +1,44 @@
 .image__container {
-  display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  //grid-template-rows: repeat(4, 1fr);
+  display: flex;
+  flex-flow: row wrap;
   width: 100%;
-  grid-gap: 1rem;
   padding-top: 1rem;
+  justify-content: center;
 }
 
 .image {
   --clip-start: circle(0);
   --clip-end: circle(125%);
   position: relative;
-  padding-bottom: 100%;
   width: 120px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
 
   img {
     border-radius: 5px;
-  }
 
-}
-
-@media (max-width: 1200px) {
-  .image__container {
-    grid-template-columns: repeat(7, 120px);
+    &:hover{
+      opacity: 0.8;
+    }
   }
 }
 
-@media (max-width: 990px) {
-  .image__container {
-    grid-template-columns: repeat(5, 120px);
-  }
+.buttons {
+  align-self: end;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
 }
 
-@media (max-width: 767px) {
-  .image__container {
-    grid-template-columns: repeat(3, 120px);
-  }
-}
 
 @media (max-width: 600px) {
-  .image__container {
-    grid-template-columns: repeat(3, 120px);
-  }
-}
-
-@media (max-width: 400px) {
-  .image__container {
-    grid-template-columns: repeat(2, 120px);
-
+  .buttons {
+    align-self: center;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
   }
 }

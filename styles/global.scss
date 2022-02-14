@@ -10,8 +10,7 @@ body {
   color: black;
   background-color: white;
 
-  // Text
-  font-family: "EB Garamond", serif, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 a {
@@ -23,8 +22,9 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: normal;
-  font-family: "EB Garamond", serif, sans-serif;
+  font-weight: 600 !important;
+  font-family: 'Poppins', sans-serif;
+  font-style: italic !important;
 }
 
 
@@ -128,6 +128,14 @@ A LINK
   height: 2px;
   background-color: white;
   transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.a__link__secondary.color2 {
+  color: #467396;
+}
+
+.a__link__secondary.color2::before{
+  background-color: #467396;
 }
 
 @media (hover: hover) and (pointer: fine) {

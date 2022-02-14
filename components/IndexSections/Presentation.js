@@ -18,43 +18,33 @@ class Presentation extends Component {
                             <br/>
                             for the travelers and the travel industry.
                         </div>
-                         <div className={`${styles.button__component}`}>
-                             <a href="#Claim">
-                                 <button className={`btn btn__primary`}>
-                                     Mint Yours
-                                 </button>
-                             </a>
-                         </div>
-
-
-                         <div className={`${styles.button__component}`}>
-                            <a
-                              href={this.props.state.opensea}
-
-                              target="_blank"
-                            >
-                              <img className={`btn btn__secondary`} src="../img/opensea.svg" alt="Opensea"  />
+                        <div className={`${styles.button__component}`}>
+                            <a href="#Claim">
+                                <button className={`btn btn__primary`}>
+                                    Mint Yours
+                                </button>
                             </a>
-                            <a
-                              href={this.props.state.twitter}
-
-                              target="_blank"
-                            >
-                              <img className={`btn btn__secondary`} src="../img/twitter.svg" alt="Twitter" />
-                            </a>
-                            <a
-                              href={this.props.state.discord}
-
-                              target="_blank"
-                            >
-                              <img className={`btn btn__secondary`} src="../img/discord.svg" alt="Discord" />
-                            </a>
-
-                          </div>
-
+                        </div>
                     </div>
                     <div className={`${styles.gallery__component}`}>
-                        <Gallery state = {this.state}/>
+                        <div className={`${styles.social__component}`}>
+                            <a
+                                href={this.props.state.opensea}
+                                target="_blank">
+                                <img className={`btn btn__secondary`} src="../img/opensea.svg" alt="Opensea"/>
+                            </a>
+                            <a
+                                href={this.props.state.twitter}
+                                target="_blank">
+                                <img className={`btn btn__secondary`} src="../img/twitter.svg" alt="Twitter"/>
+                            </a>
+                            <a
+                                href={this.props.state.discord}
+                                target="_blank">
+                                <img className={`btn btn__secondary`} src="../img/discord.svg" alt="Discord"/>
+                            </a>
+                        </div>
+                        <Gallery state={this.state}/>
                     </div>
                 </div>
             </div>

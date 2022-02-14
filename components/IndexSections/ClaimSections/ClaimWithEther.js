@@ -83,10 +83,12 @@ render(){
               />
 
             </Form.Field>
-              <Form.Field>
+              <div className={`${styles.buttons__component}`}>
                 <Message error header="Oops!" content = {this.state.errorMessage} />
-                <Button  loading = {this.state.loading > 0} secondary >Mint!</Button>
-              </Form.Field>
+                <button className={`btn btn__primary`} disabled={this.state.loading > 0}>
+                  Mint!
+                </button>
+              </div>
             </Form>
           </Container>
     </Tab.Pane>

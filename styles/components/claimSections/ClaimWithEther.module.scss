@@ -3,6 +3,13 @@
   width: 50% !important;
   padding: 10px !important;
 }
+
+.buttons__component {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+}
+
 @media (max-width: 767px) {
   .form{
     padding: 0px !important;

@@ -73,9 +73,8 @@ class MyDapp extends Component {
         }
     };
 
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
     }
 
     async componentDidMount() {

@@ -41,6 +41,7 @@ class Gallery extends Component {
                             images.map(el =>
                                 <div className={`${styles.image}`} key={el.key}>
                                   <img loading="lazy" src={el.image} />
+                                  <img loading="lazy" src={el.image}/>
                                 </div>
                               )
                         }

@@ -39,42 +39,6 @@ html {
     background-image: linear-gradient(rgba(255,255,255,1),rgba(242,243,244,1));
 }
 
-.ui.card,
-.ui.cards>.card{
-  /*background-color: #161619;*/
-  color: black;
-  position: relative;
-  top: 0;
-  transition: top ease 0.2s;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-
-.ui.card,
-.ui.cards>.card:hover{
-  top: -10px;
-}
-
-.ui.card .meta, .ui.cards > .card .meta,
-.ui.card > .content,
-.ui.cards > .card > .content,
-.ui.card > .content > .header, .ui.cards > .card > .content > .header,
-.ui.card > .content > .description, .ui.cards > .card > .content > .description
-{
-  /*color:white;*/
-  font-family: EB Garamond,serif;
-  font-size: medium;
-}
-
-
-.ui.card .meta, .ui.cards > .card .meta,
-.ui.card .extra, .ui.cards > .card .extra,
-.ui.card .description, .ui.cards > .card .description{
-  color:black;
-  font-weight: bold;
-}
-
 .claimButton{
   background-color: white !important;
   color:black !important;
@@ -117,6 +81,16 @@ BUTTON PRIMARY
     transition: all .4s ease-in-out;
 }
 
+.btn:disabled {
+    background-image: linear-gradient(to right, grey, lightgrey);
+    cursor: not-allowed;
+}
+
+.btn__large {
+    width: 300px;
+    margin: 0!important;
+}
+
 .btn__wallet {
     height: 35px;
     border-radius: 5px;
@@ -126,7 +100,7 @@ BUTTON PRIMARY
 
 .btn__primary {
     height: 40px;
-    margin: 50px;
+    margin: 20px;
     color: #fff;
     border-radius: 40px;
     background-image: linear-gradient(to right, #002348, #467396);

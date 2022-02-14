@@ -27,3 +27,10 @@
 .modal_error_second_description {
   padding-top: 10px;
 }
+
+.container {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+}
