@@ -94,7 +94,20 @@ class FetchNFTList extends Component {
                         <h2>You own {this.state.totalOwned} Little Travelers on {this.state.chainName}</h2>
 
                         {!!this.state.errorMessage ? <Message header="Oops!" content={this.state.errorMessage}/> : ""}
-
+                        {!this.state.showImgs &&
+                          <div className={`${styles.image__container}`}>
+                          {
+                            this.state.all.map(el => (
+                            <div key={el.key}>
+                                <div className={`${styles.image}`}>
+                                  <img src = "/img/incognito.png" />
+                                  <h3>#{el.header}</h3>
+                                </div>
+                            </div>
+                          ))
+                          }
+                          </div>
+                        }
                         {this.state.showImgs && <div className={`${styles.image__container}`}>
                             {
                                 this.state.all.map(el => (
