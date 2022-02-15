@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, Button, Form, Input, Card, Dimmer, Segment, Tab, Loader, Embed} from 'semantic-ui-react';
+import {Container, Button, Tab} from 'semantic-ui-react';
 import styles from "../../styles/components/Claim.module.scss"; // Styles
 import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
 import ClaimWithTrips from "./ClaimSections/ClaimWithTrips"
@@ -11,9 +11,6 @@ import FetchNFTList from "./ClaimSections/FetchNFTList"
 class Claim extends Component {
     state = {
         loading: 0,
-        name: '',
-        description: '',
-        image: '',
         all: [],
         activeIndex: 0
     }
@@ -26,7 +23,7 @@ class Claim extends Component {
     handleTabChange = (e, {activeIndex}) => this.setState({activeIndex});
 
     goToFetch() {
-      //this.setState({activeIndex:0});
+      this.setState({activeIndex:0});
     }
 
     render() {
