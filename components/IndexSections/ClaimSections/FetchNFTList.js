@@ -26,12 +26,13 @@ class FetchNFTList extends Component {
         loading: 0,
         errorMessage: "",
         imgSrc: [],
+        showImgs: false,
     };
 
 
     fetchNFTList = async () => {
         console.log("fetch");
-        this.setState({loading: this.state.loading + 1, errorMessage: '', imgSrc : []})
+        this.setState({loading: this.state.loading + 1, errorMessage: '', imgSrc : [], showImgs: false})
         try {
             const accounts = await this.props.state.web3.eth.getAccounts();
             const instance = new this.props.state.web3.eth.Contract(LittleTraveler.LittleTraveler.abi, this.props.state.web3Settings.contractAddress);
@@ -80,7 +81,7 @@ class FetchNFTList extends Component {
         } catch (err) {
             this.setState({errorMessage: err.message});
         }
-        this.setState({loading: this.state.loading - 1});
+        this.setState({loading: this.state.loading - 1, showImgs: true});
         console.log(this.state.all);
     }
 
@@ -94,7 +95,7 @@ class FetchNFTList extends Component {
 
                         {!!this.state.errorMessage ? <Message header="Oops!" content={this.state.errorMessage}/> : ""}
 
-                        <div className={`${styles.image__container}`}>
+                        {this.state.showImgs && <div className={`${styles.image__container}`}>
                             {
                                 this.state.all.map(el => (
                                     <div key={el.key}>
@@ -102,12 +103,12 @@ class FetchNFTList extends Component {
                                             <a target="_blank" href={this.state.openseaCard + el.header}>
                                                 <img
                                                     src={this.state.imgSrc[el.key] ? el.image : "/img/incognito.png"}
-                                                    loading="lazy"
                                                     onLoad={() => {
                                                         setTimeout(() => {
-                                                            console.log('*', this.state.imgSrc);
                                                             if (this.state.imgSrc[el.key]) {
-                                                                this.state.imgSrc.push(this.state.all[el.key + 1]);
+                                                                var temp = this.state.imgSrc;
+                                                                temp.push(this.state.all[el.key + 1]);
+                                                                this.setState({imgSrc:temp});
                                                             }
                                                         }, 100);
 
@@ -124,7 +125,7 @@ class FetchNFTList extends Component {
                                     </div>
                                 ))
                             }
-                        </div>
+                        </div>}
                         <div className={`${styles.buttons}`}>
                             <button className={`btn btn__primary`} disabled={this.state.loading > 0}
                                     onClick={this.fetchNFTList}>
