@@ -26,6 +26,7 @@ class FetchNFTList extends Component {
         loading: 0,
         errorMessage: "",
         index: 0,
+        totalOwned:0,
     };
 
     fetchNFTList = async () => {
