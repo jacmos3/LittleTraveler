@@ -154,7 +154,7 @@ class MyDapp extends Component {
 
         provider.on("disconnect", function () {
                 console.log("disconnecting");
-                provider.close();
+                provider.disconnect();
                 web3Modal.clearCachedProvider();
                 provider = null;
             }

@@ -52,7 +52,7 @@ class FetchNFTList extends Component {
             this.setState({totalOwned: lastUserIndex});
             //TODO check su errorMessage e saltare tutto se c'è un errore
             var all = [];
-            var imgSrc = [];
+            var incognito = [];
             for (var index = lastUserIndex - 1, i = 0; index >= 0; index--, i++) {
                 //    for (var index = 0; index < lastUserIndex; index++){
                 let tokenId = await instance.methods.tokenOfOwnerByIndex(accounts[0], index).call()
@@ -73,11 +73,10 @@ class FetchNFTList extends Component {
                 var element = {"key": i, "header": tokenId, "image": this.state.baseUrl + tokenId + '.png'};
 
                 all.push(element);
-                if (i === 0) {
-                    imgSrc.push(all[i]);
-                }
-                this.setState({all: all, imgSrc: imgSrc});
+
+                incognito.push( i === 0 || i === 1 );
             }
+            this.setState({all: all, imgSrc: [all[0]], incognito: incognito});
         } catch (err) {
             this.setState({errorMessage: err.message});
         }
@@ -97,11 +96,12 @@ class FetchNFTList extends Component {
                         {!this.state.showImgs &&
                           <div className={`${styles.image__container}`}>
                           {
-                            this.state.all.map(el => (
-                            <div key={el.key}>
+                            [...Array(this.state.totalOwned)].map((elementInArray, index) => (
+
+                            <div key={index}>
                                 <div className={`${styles.image}`}>
                                   <img src = "/img/incognito.png" />
-                                  <h3>#{el.header}</h3>
+                                  <h3>#???</h3>
                                 </div>
                             </div>
                           ))
@@ -115,25 +115,42 @@ class FetchNFTList extends Component {
                                         <div className={`${styles.image}`}>
                                             <a target="_blank" href={this.state.openseaCard + el.header}>
                                                 <img
-                                                    src={this.state.imgSrc[el.key] ? el.image : "/img/incognito.png"}
+                                                    src={this.state.imgSrc[el.key]
+                                                      ? el.image
+                                                      : this.state.incognito[el.key]
+                                                        ? "/img/incognito.png"
+                                                        : "/img/incognito2.png"}
                                                     onLoad={() => {
+                                                      //currentTarget.src = "/img/incognito.png";
                                                         setTimeout(() => {
-                                                            if (this.state.imgSrc[el.key]) {
-                                                                var temp = this.state.imgSrc;
-                                                                temp.push(this.state.all[el.key + 1]);
-                                                                this.setState({imgSrc:temp});
+                                                            if (this.state.imgSrc[el.key] && el.key < this.state.all.length) {
+
+
+                                                                var incognito = this.state.incognito;
+                                                                incognito[el.key] = false;
+                                                                incognito[el.key+2] = true;
+                                                                this.setState({incognito:incognito});
+
+                                                              console.log(el.key);
+                                                              var temp = this.state.imgSrc;
+                                                              temp.push(this.state.all[el.key + 1]);
+                                                              this.setState({imgSrc:temp});
+                                                              //this.forceUpdate();
                                                             }
-                                                        }, 100);
+                                                        }, 200);
 
                                                     }}
-                                                    onError={({currentTarget}) => {
-                                                        currentTarget.onerror = null;
-                                                        currentTarget.src = "/img/incognito.png";
-                                                        this.setState({index: el.key + 1});
-                                                    }}
+
+
                                                 />
                                             </a>
-                                            <h3>#{el.header}</h3>
+
+                                            {this.state.imgSrc[el.key]
+                                                ? this.state.incognito[el.key]
+                                                  ? <h4>preparing</h4>
+                                                  : <h3>#{el.header}</h3>
+                                                : <h4>loading</h4>
+                                            }
                                         </div>
                                     </div>
                                 ))
