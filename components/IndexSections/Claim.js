@@ -91,15 +91,15 @@ class Claim extends Component {
                                                         <p>You are connected to
                                                         netword {this.props.state.web3Settings.networkId} - {this.props.state.web3Settings.networkName}</p>
                                                         <p className={`${styles.modal_error_second_description}`}>Please connect to
-                                                        networks:<br/>
+                                                        networks:<br/></p>
                                                             {
                                                                 this.props.state.web3Settings.chains.map(chain =>
                                                                     <div key={chain.id}>
-                                                                        <p>{`${chain.id} - ${chain.name}`}</p>
+                                                                        <div>{`${chain.id} - ${chain.name}`}</div>
                                                                     </div>
                                                                 )
                                                             }
-                                                        </p>
+
                                                     </div>
                                                 </div>
                                             </div>

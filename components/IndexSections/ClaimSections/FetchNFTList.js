@@ -25,12 +25,13 @@ class FetchNFTList extends Component {
         all: [],
         loading: 0,
         errorMessage: "",
-        index: 0,
+        imgSrc: [],
     };
+
 
     fetchNFTList = async () => {
         console.log("fetch");
-        this.setState({loading: this.state.loading + 1, errorMessage: ''})
+        this.setState({loading: this.state.loading + 1, errorMessage: '', imgSrc : []})
         try {
             const accounts = await this.props.state.web3.eth.getAccounts();
             const instance = new this.props.state.web3.eth.Contract(LittleTraveler.LittleTraveler.abi, this.props.state.web3Settings.contractAddress);
@@ -50,6 +51,7 @@ class FetchNFTList extends Component {
             this.setState({totalOwned: lastUserIndex});
             //TODO check su errorMessage e saltare tutto se c'è un errore
             var all = [];
+            var imgSrc = [];
             for (var index = lastUserIndex - 1, i = 0; index >= 0; index--, i++) {
                 //    for (var index = 0; index < lastUserIndex; index++){
                 let tokenId = await instance.methods.tokenOfOwnerByIndex(accounts[0], index).call()
@@ -70,7 +72,10 @@ class FetchNFTList extends Component {
                 var element = {"key": i, "header": tokenId, "image": this.state.baseUrl + tokenId + '.png'};
 
                 all.push(element);
-                this.setState({all: all});
+                if (i === 0) {
+                    imgSrc.push(all[i]);
+                }
+                this.setState({all: all, imgSrc: imgSrc});
             }
         } catch (err) {
             this.setState({errorMessage: err.message});
@@ -93,38 +98,36 @@ class FetchNFTList extends Component {
                             {
                                 this.state.all.map(el => (
                                     <div key={el.key}>
-                                        {(el.key <= this.state.index)
-                                            ? (
+                                        <div className={`${styles.image}`}>
+                                            <a target="_blank" href={this.state.openseaCard + el.header}>
+                                                <img
+                                                    src={this.state.imgSrc[el.key] ? el.image : "/img/incognito.png"}
+                                                    loading="lazy"
+                                                    onLoad={() => {
+                                                        setTimeout(() => {
+                                                            console.log('*', this.state.imgSrc);
+                                                            if (this.state.imgSrc[el.key]) {
+                                                                this.state.imgSrc.push(this.state.all[el.key + 1]);
+                                                            }
+                                                        }, 100);
 
-                                                <div className={`${styles.image}`}>
-                                                    <a target="_blank" href={this.state.openseaCard + el.header}>
-                                                        <img
-                                                            src={el.image}
-                                                            loading="lazy"
-                                                            onLoad={() => {
-                                                                setTimeout(() => {
-                                                                    this.setState({index: el.key + 1})
-                                                                }, 100);
-
-                                                            }}
-                                                            onError={({currentTarget}) => {
-                                                                currentTarget.onerror = null;
-                                                                currentTarget.src = "/img/incognito.png";
-                                                                this.setState({index: el.key + 1});
-                                                            }}
-                                                        />
-                                                    </a>
-                                                    <h3>#{el.header}</h3>
-                                                </div>
-                                            )
-                                            : null
-                                        }
+                                                    }}
+                                                    onError={({currentTarget}) => {
+                                                        currentTarget.onerror = null;
+                                                        currentTarget.src = "/img/incognito.png";
+                                                        this.setState({index: el.key + 1});
+                                                    }}
+                                                />
+                                            </a>
+                                            <h3>#{el.header}</h3>
+                                        </div>
                                     </div>
                                 ))
                             }
                         </div>
                         <div className={`${styles.buttons}`}>
-                            <button className={`btn btn__primary`} disabled={this.state.loading > 0}  onClick={this.fetchNFTList}>
+                            <button className={`btn btn__primary`} disabled={this.state.loading > 0}
+                                    onClick={this.fetchNFTList}>
                                 Refresh List
                             </button>
                             <a target="_blank" href={this.state.opensea}>
@@ -139,4 +142,5 @@ class FetchNFTList extends Component {
         )
     };
 }
+
 export default FetchNFTList;
