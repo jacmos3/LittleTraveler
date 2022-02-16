@@ -23,6 +23,35 @@ class Menu extends Component {
                         <div className={`${styles.dot}`}></div>
                     </nav>
                 </div>
+                <div className={`${styles.mobile__menu}`}>
+                    <input type="checkbox" id="toogle-menu"/>
+                    <label htmlFor="toogle-menu"><span></span></label>
+                    <nav>
+                        <div>
+                            <label htmlFor="toogle-menu">
+                                <span></span>
+                            </label>
+                        </div>
+                        <ul>
+                            <li><a href="#Multichain">Multi-Chain</a></li>
+                            <li><a href="#Video">Video</a></li>
+                            <li><a href="#Claim">Mint</a></li>
+                            <li><a href="#DAO">The Dao</a></li>
+                            <li><a href="#Team">Team</a></li>
+                            <li><a href="#Derivatives">Derivatives</a></li>
+                            <li><a href="#TravelerLoot">Traveler Loot</a></li>
+                        </ul>
+                        <div className={`${styles.social__buttons}`}>
+                            <a href={this.props.state.opensea}><img loading="lazy" src='img/opensea.png'
+                                              className={`${styles.social__icon}`}/></a>
+                            <a href={this.props.state.twitter}><img loading="lazy" src='img/twitter.png'
+                                              className={`${styles.social__icon}`}/></a>
+                            <a href={this.props.state.discord}><img loading="lazy" src='img/discord.png'
+                                              className={`${styles.social__icon}`}/></a>
+                        </div>
+                    </nav>
+
+                </div>
             </div>
         )
     };

@@ -11,8 +11,8 @@ class Footer extends Component {
     render() {
 
         return (
-            <div className="bg-trips-2 bg-opacity-80">
-                <div className={styles.footer}>
+            <div className={`${styles__footer.section__footer}`}>
+                <div className={`${styles.footer}`}>
                     Built by
                     <a href="https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/93380629908989276154329187712159695682604484101294988604591734366325570535524"
                        target="_blank" className={`${styles__footer.link} a__link__secondary`}>
@@ -34,8 +34,6 @@ class Footer extends Component {
                     <div className="flex py-8 w-full justify-center space-x-6">
                         <Image className="mx-2" src="https://i.creativecommons.org/p/zero/1.0/88x31.png"/>
                     </div>
-
-
                 </div>
             </div>
         );

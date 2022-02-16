@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,600;1,200&display=swap');
 
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 html,
 body {
@@ -11,6 +15,8 @@ body {
   background-color: white;
 
   font-family: 'Poppins', sans-serif;
+  scroll-behavior: smooth;
+
 }
 
 a {

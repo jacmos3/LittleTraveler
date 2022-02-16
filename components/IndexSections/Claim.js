@@ -59,7 +59,7 @@ class Claim extends Component {
             <div className={`${styles.claim__container} py-10 text-trips-1`}>
                 <div className="flex justify-around">
                     <div className={`${styles.container} rounded`}>
-                        <h1 className={`${styles.title} text-center mt-4 capitalize`}>Mint your Little Traveler</h1>
+                        <h2 className={`${styles.title} text-center mt-4 capitalize`}>Mint your Little Traveler</h2>
                         <br/>
                         {
                             this.props.state.web3Settings.isWeb3Connected

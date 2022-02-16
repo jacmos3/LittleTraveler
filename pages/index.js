@@ -217,7 +217,7 @@ class MyDapp extends Component {
 
                 <Presentation state={this.state}/>
 
-                <Menu/>
+                <Menu state={this.state}/>
 
                 <div id="Multichain">
                     <Multichain disconnect={this.disconnect} connect={this.connect} state={this.state}/>
