@@ -17,6 +17,9 @@ class Menu extends Component {
                         <a className={`${styles.a__text}`} href="#Video">Video</a>
                         <a className={`${styles.a__text}`} href="#Claim">Mint</a>
                         <a className={`${styles.a__text}`} href="#DAO">The DAO</a>
+                        <a className={`${styles.a__text}`} href="#Team">Team</a>
+                        <a className={`${styles.a__text}`} href="#Derivatives">Derivatives</a>
+                        <a className={`${styles.a__text}`} href="#TravelerLoot">Traveler Loot</a>
                         <div className={`${styles.dot}`}></div>
                     </nav>
                 </div>

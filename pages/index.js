@@ -10,6 +10,7 @@ import Derivatives from '../components/IndexSections/Derivatives.js';
 import Team from '../components/IndexSections/Team.js';
 import Video from '../components/IndexSections/Video.js';
 import Menu from '../components/IndexSections/Menu.js';
+import TravelerLoot from '../components/IndexSections/TravelerLoot.js';
 
 import {Header, Button} from 'semantic-ui-react';
 //import web3 from '../ethereum/web3';
@@ -233,7 +234,15 @@ class MyDapp extends Component {
                 <div id="DAO">
                     <DAO/>
                 </div>
-
+                <div id="Team">
+                    <Team/>
+                </div>
+                <div id="Derivatives">
+                    <Derivatives/>
+                </div>
+                <div id="TravelerLoot">
+                    <TravelerLoot/>
+                </div>
 
             </Layout>
         )

@@ -121,11 +121,8 @@ class FetchNFTList extends Component {
                                                         ? "/img/incognito.png"
                                                         : "/img/incognito2.png"}
                                                     onLoad={() => {
-                                                      //currentTarget.src = "/img/incognito.png";
                                                         setTimeout(() => {
                                                             if (this.state.imgSrc[el.key] && el.key < this.state.all.length) {
-
-
                                                                 var incognito = this.state.incognito;
                                                                 incognito[el.key] = false;
                                                                 incognito[el.key+2] = true;
@@ -135,13 +132,9 @@ class FetchNFTList extends Component {
                                                               var temp = this.state.imgSrc;
                                                               temp.push(this.state.all[el.key + 1]);
                                                               this.setState({imgSrc:temp});
-                                                              //this.forceUpdate();
                                                             }
                                                         }, 200);
-
                                                     }}
-
-
                                                 />
                                             </a>
 
