@@ -50,7 +50,7 @@ class ClaimWithTravelerLoot extends Component {
                         </a>
                         ?</h2>
                     <Form onSubmit={this.onMint} error={!!this.state.errorMessage} className={`${styles.form}`}>
-                        <h3>Mint a Little Traveler for free + gas!</h3>
+                        <h4>If yes, you are eligible for Little Traveler minting by only paying gas!</h4>
                         <Form.Field>
                             <Input
                                 label={{basic: true, content: 'Little Traveler', id: "inputLabel"}}

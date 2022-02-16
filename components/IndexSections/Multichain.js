@@ -44,14 +44,14 @@ class Multichain extends Component {
                             <img src="img/networks/polygon_logo.png" alt=""></img>
                             <div className={`${styles.text__container}`}>
                                 <div className={`${styles.title}`}>Polygon</div>
-                                <p className={`${styles.description}`}>Released on Feb 8, 2022</p>
+                                <p className={`${styles.description}`}>Released on Feb 9, 2022</p>
                             </div>
                         </div>
 
                         <div className={`${styles.box}`}>
                             <img src="img/networks/coming_soon.png" alt=""></img>
                             <div className={`${styles.text__container}`}>
-                                <div className={`${styles.title}`}>+ 8</div>
+                                <div className={`${styles.title}`}>+ 8 blockchain</div>
                             </div>
                         </div>
                     </div>

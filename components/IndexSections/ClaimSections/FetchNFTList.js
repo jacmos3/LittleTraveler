@@ -25,6 +25,7 @@ class FetchNFTList extends Component {
         all: [],
         loading: 0,
         errorMessage: "",
+        totalOwned:0,
         imgSrc: [],
         showImgs: false,
     };
@@ -166,5 +167,4 @@ class FetchNFTList extends Component {
         )
     };
 }
-
 export default FetchNFTList;

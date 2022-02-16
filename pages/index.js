@@ -68,7 +68,7 @@ class MyDapp extends Component {
                           amount: "60"}
                     }
                 },
-                {name:"Rinkeby", id:4, opensea:"https://testnets.opensea.io/collection/testtest-uvuid70oad", openseaCard:"https://testnets.opensea.io/assets/", baseUrl:"https://gateway.pinata.cloud/ipfs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/", options:{trips:{address:"0xa75f153cbb61be8895710f461cad890a0c4bc348", amount:"2000000000000000000000"}, loot:"", coin:{name:"ETH", amount:"0.1"}}}
+            //    {name:"Rinkeby", id:4, opensea:"https://testnets.opensea.io/collection/testtest-uvuid70oad", openseaCard:"https://testnets.opensea.io/assets/", baseUrl:"https://gateway.pinata.cloud/ipfs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/", options:{trips:{address:"0xa75f153cbb61be8895710f461cad890a0c4bc348", amount:"2000000000000000000000"}, loot:"", coin:{name:"ETH", amount:"0.1"}}}
 
             ]
         }
