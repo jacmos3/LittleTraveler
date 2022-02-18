@@ -234,15 +234,18 @@ class MyDapp extends Component {
                 <div id="DAO">
                     <DAO/>
                 </div>
-                <div id="Team">
-                    <Team/>
-                </div>
-                <div id="Derivatives">
-                    <Derivatives/>
-                </div>
                 <div id="TravelerLoot">
                     <TravelerLoot/>
                 </div>
+
+                <div id="Derivatives">
+                    <Derivatives/>
+                </div>
+
+                <div id="Team">
+                    <Team/>
+                </div>
+
 
             </Layout>
         )

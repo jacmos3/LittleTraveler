@@ -85,7 +85,7 @@ class Team extends Component {
             {
                 key: "8",
                 name: "Alessandro",
-                title: <p>Blockchain <br></br>enthusiastic</p>,
+                title: <p>Blockchain enthusiastic</p>,
                 description: <p>Since 2017
                     in the core group of tripscommunity where participating in a series of projects. Member of the trips
                     team winning the first 2020 prize as the best innovative idea in tourism recognized by Alpitour.
@@ -97,7 +97,7 @@ class Team extends Component {
             {
                 key: "9",
                 name: "Alibrando Ludo",
-                title: <div>Direct <br></br>Booking Maximizer</div>,
+                title: <div>Direct Booking Maximizer</div>,
                 description: <p>10 years
                     Growth Revenue Manager, 4 years Crypto-newbie & Direct Booking Maximizer for Hospitality Industry</p>,
                 image: 'img/littletravelers/types/Little-Traveler-1.png',
@@ -107,7 +107,7 @@ class Team extends Component {
             {
                 key: "10",
                 name: "MRV",
-                title: <p>Blockchain <br></br>pathfinder</p>,
+                title: <p>Blockchain pathfinder</p>,
                 description: <p>Lifelong DRD4-7R. Sailing the unchartered Web3 seas - always westbound & tech explorer.</p>,
                 image: 'img/littletravelers/types/Little-Traveler-1.png',
                 twitter: 'img/littletravelers/types/Little-Traveler-1.png',
@@ -122,40 +122,21 @@ class Team extends Component {
                     <div className={`${styles.team__container}`}>
                         {
                             images.map(el =>
-                                <div className={`${styles.card}`} key={el.key}>
-                                    <div className={`${styles.additional}`}>
-                                        <div className={`${styles.user__card}`}>
-                                            {/*<div className={`${styles.level} ${styles.center}`}>*/}
-                                            {/*    Level 13*/}
-                                            {/*</div>*/}
-                                            <div className={`${styles.points} ${styles.center}`}>
-                                                {el.title}
-                                            </div>
-                                            <img loading="lazy" src={el.image} className={`${styles.image__card} ${styles.center}`}/>
-                                        </div>
-                                        <div className={`${styles.more__info}`}>
-                                            <h3>{el.name}</h3>
-                                            <div className={`${styles.stats}`}>
-                                                {el.twitter && <div>
-                                                    <a href={el.twitter}><img loading="lazy" src='img/twitter.png' className={`${styles.social__card}`}/></a>
-                                                </div>}
+                                <div className={`${styles.member__component}`} key={el.key}>
+                                    <img loading="lazy" src={el.image} className={`${styles.member__image}`}/>
+                                    <div className={`${styles.member__content}`}>
+                                        <p className={`${styles.name}`}>{el.name}</p>
+                                        <div className={`${styles.member__content__bottom}`}>
+                                            <div className={`${styles.title}`}>{el.title}</div>
+                                            <div className={`${styles.member__content__social}`}>
                                                 {el.github && <div>
-                                                    <a href={el.github}><img loading="lazy" src='img/github.png' className={`${styles.social__card}`}/></a>
+                                                    <a href={el.github}><img loading="lazy" src='img/github_blue.png' className={`${styles.member__social}`}/></a>
                                                 </div>}
-                                                {/*<div>*/}
-                                                {/*    <div className={`${styles.title}`}>Coffee</div>*/}
-                                                {/*    <i className="fa fa-coffee"></i>*/}
-                                                {/*    <div className={`${styles.value} ${styles.infinity}`}>∞</div>*/}
-                                                {/*</div>*/}
+                                                {el.twitter && <div>
+                                                    <a href={el.twitter}><img loading="lazy" src='img/twitter_blue.png' className={`${styles.member__social}`}/></a>
+                                                </div>}
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className={`${styles.general}`}>
-                                        <h3>{el.name}</h3>
-                                        <div className={`${styles.text__description}`}>
-                                            {el.description}
-                                        </div>
-                                        {/*<span className={`${styles.more}`}>Mouse over the card for more info</span>*/}
                                     </div>
                                 </div>
                             )
