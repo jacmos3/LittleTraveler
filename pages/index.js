@@ -10,6 +10,7 @@ import Derivatives from '../components/IndexSections/Derivatives.js';
 import Team from '../components/IndexSections/Team.js';
 import Video from '../components/IndexSections/Video.js';
 import Menu from '../components/IndexSections/Menu.js';
+import TravelerLoot from '../components/IndexSections/TravelerLoot.js';
 
 import {Header, Button} from 'semantic-ui-react';
 //import web3 from '../ethereum/web3';
@@ -19,8 +20,8 @@ import Web3Modal from "web3modal";
 import WalletConnectProvider from "@walletconnect/web3-provider";
 import styles from "../styles/pages/INDEX.module.scss";
 
-//import * as UAuthWeb3Modal from "@uauth/web3modal";
-//import UAuthSPA from "@uauth/js";
+import * as UAuthWeb3Modal from "@uauth/web3modal";
+import UAuthSPA from "@uauth/js";
 
 class MyDapp extends Component {
     state = {
@@ -104,15 +105,22 @@ class MyDapp extends Component {
                 },
                 package: null
             },
-            /*'custom-uauth': {
+            'custom-uauth': {
               display: UAuthWeb3Modal.display,
               // The Connector
               connector: UAuthWeb3Modal.connector,
               // The SPA libary
               package: UAuthSPA,
               // The SPA libary options
-              options: uauthOptions,
-            },*/
+              options: {
+                clientID: process.env.NEXT_PUBLIC_CLIENT_ID,
+                clientSecret: process.env.NEXT_PUBLIC_CLIENT_SECRET,
+                redirectUri: process.env.NEXT_PUBLIC_REDIRECT_URI,
+
+                // Must include both the openid and wallet scopes.
+                scope: 'openid wallet',
+              },
+            },
             walletconnect: {
                 display: {
                     name: "Mobile",
@@ -135,6 +143,7 @@ class MyDapp extends Component {
         web3Modal.clearCachedProvider();
         try {
             provider = await web3Modal.connect();
+            console.log("provider",provider);
         } catch (e) {
             console.log("Could not get a wallet connection", e);
             return;
@@ -154,7 +163,7 @@ class MyDapp extends Component {
 
         provider.on("disconnect", function () {
                 console.log("disconnecting");
-                provider.close();
+                provider.disconnect();
                 web3Modal.clearCachedProvider();
                 provider = null;
             }
@@ -181,7 +190,7 @@ class MyDapp extends Component {
         web3Settings.isWeb3Connected = accounts.length > 0;
         this.setState({web3Settings: web3Settings});
 
-        console.log(this.state.web3Settings.isWeb3Connected);
+        console.log("web3connected:",this.state.web3Settings.isWeb3Connected);
     }
 
     truncateAddress(address) {
@@ -216,7 +225,7 @@ class MyDapp extends Component {
 
                 <Presentation state={this.state}/>
 
-                <Menu/>
+                <Menu state={this.state}/>
 
                 <div id="Multichain">
                     <Multichain disconnect={this.disconnect} connect={this.connect} state={this.state}/>
@@ -233,7 +242,6 @@ class MyDapp extends Component {
                 <div id="DAO">
                     <DAO/>
                 </div>
-
 
             </Layout>
         )

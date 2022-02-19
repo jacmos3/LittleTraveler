@@ -12,7 +12,7 @@ class Presentation extends Component {
             <div className={`${styles.hero__img} ${styles.presentation__section}`}>
                 <div className={styles.presentation__content}>
                     <div className={`${styles.text__content}`}>
-                        <h1 className={`${styles.title} text-trips-1 text-center`}>Little <br />Traveler</h1>
+                        <h1 className={`${styles.title} text-trips-1 text-center`}>Little Traveler</h1>
                         <div className={`${styles.text__description} text-trips-2`}>
                             A 10,000 native multi-chain PFP project
                             <br/>
