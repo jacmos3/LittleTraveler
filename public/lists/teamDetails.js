@@ -5,7 +5,7 @@ export const teamDetails = [
           title: <p>The Mind behind it all</p>,
           description: <p>I created an "Airbnb before Airbnb" in 2001 and
           travelled the world while working on it. Bitcoin OG since 2013,
-          accepting bitcoin for payments in my booking platform since 2014,
+          accepting btc for payments in my booking platform since 2014,
           full time in. We did the first NFT bookings in the world and now
           launched a couple of public domain NFT 10K projects.</p>,
           image: 'img/littletravelers/team/Little-Traveler-118.png',
@@ -19,9 +19,9 @@ export const teamDetails = [
           title: <p>Designer</p>,
           description: <p>I'm the Little Traveler characters designer.
           I have worked in the advertising graphics industry for 15 years.
-          My work as a creative also includes logo design, illustration for book
-          covers and 3d digital sculpting. Lately I'm working in the development
-          of collectible art toys as designer and sculptor.</p>,
+          My work as creative includes also logo design, illustration for book
+          covers and 3d digital sculpting. I'm lately working in the
+          collectible-art-toys development  as designer and sculptor.</p>,
           image: 'img/littletravelers/team/Little-Traveler-1.png',
           email: 'mailto:marianucci.marco@gmail.com',
           instagram: 'https://www.instagram.com/hemark_3design/'
@@ -30,7 +30,7 @@ export const teamDetails = [
           key: "3",
           name: "lacarlina",
           title: <p>The Organizer</p>,
-          description: <p>Part of Trips Community since 2018, when the web3
+          description: <p>Part of TripsCommunity since 2018, when the web3
           changed my mindset and I never went back. Years of ideas, hard works and
           meeting of great valuable people. 6 months in dev and marketing area
           and now proud of our Traveler Loot and Little Traveler projects.</p>,
@@ -72,7 +72,8 @@ export const teamDetails = [
           key: "7",
           name: "MRV",
           title: <p>Blockchain<br />pathfinder</p>,
-          description: <p>Lifelong DRD4-7R, blockchain pathfinder & tech explorer. Sailing the unchartered Web3 seas - always westbound</p>,
+          description: <p>Lifelong DRD4-7R, blockchain pathfinder & tech explorer.
+          Sailing the unchartered Web3 seas - always westbound</p>,
           image: 'img/littletravelers/team/Little-Traveler-1.png',
       },
       {
@@ -80,22 +81,21 @@ export const teamDetails = [
             name: "Alessandro",
             title: <p>Blockchain <br></br>enthusiastic</p>,
             image: 'img/littletravelers/team/Little-Traveler-1.png',
-            description: <p>Statistician and crypto blockchain enthusiastic,
-            since 2017 in the core of Trips Community where participating
-            in a series of projects. Member of the trips team winning the first
-            2020 prize as the best innovative idea in tourism by Alpitour.
-            Six months in the marketing area project, entering in the new web3
-            vacation rentals era.</p>,
-        },
+            description: <p>Statistician. Blockchain and crypto enthusiastic.
+            Joined TripsCommunity in 2017 being part of several projects.
+            Member of the winning team as the best innovative idea in tourism
+            powered by Alpitour. Six months in the Little Traveler marketing
+            area, entering in the new web3 vacation rentals era.</p>,
+      },
       {
           key: "9",
           name: "FrankMT",
           title: <p>The referrer</p>,
           description: <p>Innovator approached to the crypto blockchain world
           in 2014, joined several Trips Community projects in the last 5 years
-          driving  awarness across the community and linking to external
-          stakeholders. Part of Trips team winning the "Best Innovative Idea on
-          the Tourism" from Alpitour. My mantra : Future is already gone!</p>,
+          driving  awarness across the community, linking to external
+          stakeholders. Part of Trips team winning the best innovative idea from
+          Alpitour. My mantra: Future is already gone!</p>,
           image: 'img/littletravelers/team/Little-Traveler-1.png',
       },
       {
