@@ -16,8 +16,7 @@ class TravelerLoot extends Component {
                         <br/>
                         <h2 className="text-center mt-4">The Traveler Loot</h2>
 
-
-                        <Image src="loots/guild_loot.svg" wrapped ui={false}/>
+                        <Image src="img/loots/guild_loot.svg" wrapped ui={false}/>
                     </div>
                 </div>
                 <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">

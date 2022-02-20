@@ -5,6 +5,14 @@ import {menuDetails} from "../../public/lists/menuDetails.js"
 class Menu extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            isChecked: props.isChecked || false,
+        };
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange() {
+        this.setState({ isChecked: !this.state.isChecked })
     }
 
     render() {
@@ -23,7 +31,7 @@ class Menu extends Component {
                     </nav>
                 </div>
                 <div className={`${styles.mobile__menu}`}>
-                    <input type="checkbox" id="toogle-menu"/>
+                    <input type="checkbox" id="toogle-menu" checked={this.state.isChecked} onChange={this.handleChange}/>
                     <label htmlFor="toogle-menu"><span></span></label>
                     <nav>
                         <div>

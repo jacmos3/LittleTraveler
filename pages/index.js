@@ -237,12 +237,16 @@ class MyDapp extends Component {
                 <div id="TravelerLoot">
                     <TravelerLoot/>
                 </div>
+
                 <div id="Derivatives">
                     <Derivatives/>
                 </div>
+
                 <div id="Team">
                     <Team/>
                 </div>
+
+
             </Layout>
         )
     }
