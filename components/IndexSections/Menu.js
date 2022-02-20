@@ -24,7 +24,7 @@ class Menu extends Component {
                     <nav className={`${styles.navMenu}`}>
                     {
                       menuDetails.map(item =>
-                        <a className = {`${styles.a__text}`} href= {item.href}>{item.value}</a>
+                        <a key = {item.key} className = {`${styles.a__text}`} href= {item.href}>{item.value}</a>
                       )
                     }
                       <div className={`${styles.dot}`}></div>
@@ -41,7 +41,7 @@ class Menu extends Component {
                         </div>
                         <ul>{
                               menuDetails.map(item =>
-                                <li><a href = {item.href}>{item.value}</a></li>
+                                <li key = {item.key}><a href = {item.href}>{item.value}</a></li>
                               )
                             }
                         </ul>
