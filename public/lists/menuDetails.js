@@ -19,16 +19,16 @@ export const menuDetails = [
          href:"#DAO",
          value:"The Dao",
        },
-       {
-         key: "5",
-         href:"#TravelerLoot",
-         value:"Traveler Loot",
-       },
-       {
-         key: "6",
-         href:"#Derivatives",
-         value:"Derivatives",
-       },
+       // {
+       //   key: "5",
+       //   href:"#TravelerLoot",
+       //   value:"Traveler Loot",
+       // },
+       // {
+       //   key: "6",
+       //   href:"#Derivatives",
+       //   value:"Derivatives",
+       // },
        {
          key: "7",
          href:"#Team",
