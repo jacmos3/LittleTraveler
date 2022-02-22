@@ -7,7 +7,8 @@ export const teamDetails = [
           travelled the world while working on it. Bitcoin OG since 2013,
           accepting btc for payments in my booking platform since 2014,
           full time in. We did the first NFT bookings in the world and now
-          launched a couple of public domain NFT 10K projects.</p>,
+          launched Traveler Loot and Little Traveler NFTs, two public domain
+          projects.</p>,
           image: 'img/littletravelers/team/luca.png',
           twitter: 'https://twitter.com/tripluca',
           linkedin: 'https://www.linkedin.com/in/luca-de-giglio/',

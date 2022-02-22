@@ -33,22 +33,22 @@ class Team extends Component {
                                             <h3>{el.name}</h3>
                                             <div className={`${styles.stats}`}>
                                                 {el.linkedin && <div>
-                                                    <a href={el.linkedin}><img loading="lazy" src='img/linkedin.png' className={`${styles.social__card}`}/></a>
+                                                    <a href={el.linkedin}><img loading="lazy" src='img/social/linkedin.png' alt = "linkedin" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {el.twitter && <div>
-                                                    <a href={el.twitter}><img loading="lazy" src='img/twitter.png' className={`${styles.social__card}`}/></a>
+                                                    <a href={el.twitter}><img loading="lazy" src='img/social/twitter.png' alt="twitter" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {el.github && <div>
-                                                    <a href={el.github}><img loading="lazy" src='img/github.png' className={`${styles.social__card}`}/></a>
+                                                    <a href={el.github}><img loading="lazy" src='img/social/github.svg' alt="github" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {el.www && <div>
-                                                    <a href={el.www}><img loading="lazy" src='img/www.png' className={`${styles.social__card}`}/></a>
+                                                    <a href={el.www}><img loading="lazy" src='img/social/globe.svg' alt = "website" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {el.instagram && <div>
-                                                    <a href={el.instagram}><img loading="lazy" src='img/instagram.png' className={`${styles.social__card}`}/></a>
+                                                    <a href={el.instagram}><img loading="lazy" src='img/social/instagram.svg' alt = "instagram" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {el.email && <div>
-                                                    <a href={el.email}><img loading="lazy" src='img/email.png' className={`${styles.social__card}`}/></a>
+                                                    <a href={el.email}><img loading="lazy" src='img/social/email.png' alt = "email" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {/*<div>*/}
                                                 {/*    <div className={`${styles.title}`}>Coffee</div>*/}
