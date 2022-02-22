@@ -39,7 +39,7 @@ class Team extends Component {
                                                     <a href={el.twitter}><img loading="lazy" src='img/social/twitter.png' alt="twitter" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {el.github && <div>
-                                                    <a href={el.github}><img loading="lazy" src='img/social/github.svg' alt="github" className={`${styles.social__card}`}/></a>
+                                                    <a href={el.github}><img loading="lazy" src='img/social/github.png' alt="github" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {el.www && <div>
                                                     <a href={el.www}><img loading="lazy" src='img/social/globe.svg' alt = "website" className={`${styles.social__card}`}/></a>
