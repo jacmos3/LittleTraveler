@@ -22,20 +22,21 @@ class DAO extends Component {
                 </div>
                 <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">
                     This project is a DAO in a DAO.
-                    Born from Trips Community DAO, it is managed by a group of 20 people with different skillsets.
+                    Born from Trips Community DAO, it is managed by a group of 20 founders with different skillsets.
                     <br/>
-                    Some are just investors, others worked on a daily basis since August.
+                    Some are just investors, others worked on a daily basis since August 2021, when the idea started.
                     <br/>
-                    You can be part of the governance and share in the potential upside by acquiring a Traveler Dao
-                    Founder certificate NFT.
+                    We also created and distribuited a governance Certificate NFT to the initial founders.
+                    <br />
+                    It will give governance voting rights to the holders and everybody can join the DAO by getting one on OpenSea.
                     <br/>
                 </div>
                 <br/>
                 <div className="text-center">
-                    <a href="https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/93380629908989276154329187712159695682604484101294988604591734366325570535524"
+                    <a href={this.props.state.daoNft}
                        target="_blank">
                         <button className={`btn btn__primary`}>
-                            Buy
+                            Join the DAO
                         </button>
                     </a>
                 </div>

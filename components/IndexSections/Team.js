@@ -10,7 +10,6 @@ render(){
 
   return (
 
-
     <div className="container mx-auto mt-8 " >
       <div className="flex justify-around">
         <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">

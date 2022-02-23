@@ -25,6 +25,7 @@ import UAuthSPA from "@uauth/js";
 
 class MyDapp extends Component {
     state = {
+        daoNft: "https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/93380629908989276154329187712159695682604484101294988604591734366325570535524",
         opensea: "https://opensea.io/collection/little-traveler-pfp",
         etherscan: "https://etherscan.io/",
         twitter: "https://twitter.com/tripscommunity",
@@ -105,7 +106,7 @@ class MyDapp extends Component {
                 },
                 package: null
             },
-            'custom-uauth': {
+        /*    'custom-uauth': {
               display: UAuthWeb3Modal.display,
               // The Connector
               connector: UAuthWeb3Modal.connector,
@@ -120,7 +121,7 @@ class MyDapp extends Component {
                 // Must include both the openid and wallet scopes.
                 scope: 'openid wallet',
               },
-            },
+            },*/
             walletconnect: {
                 display: {
                     name: "Mobile",
@@ -240,7 +241,7 @@ class MyDapp extends Component {
                 </div>
 
                 <div id="DAO">
-                    <DAO/>
+                    <DAO state ={this.state}/>
                 </div>
 
             </Layout>

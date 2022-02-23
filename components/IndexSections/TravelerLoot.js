@@ -22,7 +22,7 @@ render(){
                   </div>
       </div>
       <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">
-        The Little Traveler is the first project based on <a href="https://www.travelerloot.com/" target="_blank">Traveler Loot 🔗</a> universe.
+        The Little Traveler is the first project based on <a href={this.props.state.travelerLoot} target="_blank">Traveler Loot 🔗</a> universe.
           <br />
           <br />You can mint one Little Traveler for free on Ethereum if you own a Traveler Loot.
 
@@ -30,7 +30,7 @@ render(){
       </div>
       <br />
       <div className="text-center">
-        <a href="https://www.travelerloot.com/">
+        <a href= {this.props.state.travelerLoot} >
           <Button className=" hover:text-white  mx-2" secondary >Mint a Traveler Loot</Button>
         </a>
       </div>
