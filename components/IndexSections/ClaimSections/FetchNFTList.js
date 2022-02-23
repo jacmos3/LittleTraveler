@@ -91,7 +91,7 @@ class FetchNFTList extends Component {
             <Tab.Pane attached={false}>
                 <Container>
                     <div style={{display: 'flex', flexFlow: 'column'}}>
-                        <h2>You own {this.state.totalOwned} Little Travelers on {this.state.chainName}</h2>
+                        <h2 className="text-center">You own {this.state.totalOwned} Little Travelers on {this.state.chainName}</h2>
 
                         {!!this.state.errorMessage ? <Message header="Oops!" content={this.state.errorMessage}/> : ""}
                         {!this.state.showImgs &&

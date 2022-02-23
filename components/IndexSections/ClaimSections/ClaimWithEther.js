@@ -56,7 +56,7 @@ render(){
 
   return (
     <Tab.Pane attached={false}>
-    <h2 >How many Little Travelers do you want?</h2>
+    <h2 className="text-center">How many Little Travelers do you want?</h2>
     <br />
       <Container>
         <Form onSubmit = {this.onMint} error={!!this.state.errorMessage} className= {`${styles.form}`}>

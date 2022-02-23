@@ -174,7 +174,7 @@ class ClaimWithTrips extends Component {
         return (
             <Tab.Pane attached={false}>
                 <Container>
-                    <h2>How many Little Travelers do you want?</h2>
+                    <h2 className="text-center">How many Little Travelers do you want?</h2>
                     <br/>
                     <Form error={!!this.state.errorMessage} className={`${styles.form}`}>
                         <Form.Field>

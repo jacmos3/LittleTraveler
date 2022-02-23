@@ -229,11 +229,11 @@ class MyDapp extends Component {
                 <Menu state={this.state}/>
 
                 <div id="Multichain">
-                    <Multichain disconnect={this.disconnect} connect={this.connect} state={this.state}/>
+                    <Multichain state={this.state}/>
                 </div>
 
                 <div id="Video">
-                    <Video disconnect={this.disconnect} connect={this.connect} state={this.state}/>
+                    <Video state={this.state}/>
                 </div>
 
                 <div id="Claim">

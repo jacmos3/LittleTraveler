@@ -43,7 +43,7 @@ class ClaimWithTravelerLoot extends Component {
         return (
             <Tab.Pane attached={false}>
                 <Container>
-                    <h2>Do you hold a
+                    <h2 className="text-center">Do you hold a
                         <a target="_blank" href={this.props.state.travelerLoot}
                            className={`${styles.link} a__link__secondary color2`}>
                             <span>TRAVELER LOOT</span>
