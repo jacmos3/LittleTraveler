@@ -59,7 +59,7 @@ class Claim extends Component {
             <div className={`${styles.claim__container} py-10 text-trips-1`}>
                 <div className="flex justify-around">
                     <div className={`${styles.container} rounded`}>
-                        <h1 className={`${styles.title} text-center mt-4 capitalize`}>Mint your Little Traveler</h1>
+                        <h2 className={`${styles.title} text-center mt-4 capitalize`}>Mint your Little Traveler</h2>
                         <br/>
                         {
                             this.props.state.web3Settings.isWeb3Connected
@@ -88,15 +88,15 @@ class Claim extends Component {
                                                         <p>You are connected to
                                                         netword {this.props.state.web3Settings.networkId} - {this.props.state.web3Settings.networkName}</p>
                                                         <p className={`${styles.modal_error_second_description}`}>Please connect to
-                                                        networks:<br/>
+                                                        networks:<br/></p>
                                                             {
                                                                 this.props.state.web3Settings.chains.map(chain =>
                                                                     <div key={chain.id}>
-                                                                        <p>{`${chain.id} - ${chain.name}`}</p>
+                                                                        <div>{`${chain.id} - ${chain.name}`}</div>
                                                                     </div>
                                                                 )
                                                             }
-                                                        </p>
+
                                                     </div>
                                                 </div>
                                             </div>

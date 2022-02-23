@@ -244,6 +244,11 @@ class MyDapp extends Component {
                     <DAO state ={this.state}/>
                 </div>
 
+                <div id="Team">
+                    <Team/>
+                </div>
+
+
             </Layout>
         )
     }

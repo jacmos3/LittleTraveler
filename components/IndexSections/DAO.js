@@ -16,7 +16,7 @@ class DAO extends Component {
                     <div className="px-20 py-8 rounded text-center">
                         <span className="uppercase sm:text-xl tracking-widest">Under The Hood</span>
                         <br/>
-                        <h1 className="text-center mt-4">The DAO</h1>
+                        <h2 className="text-center mt-4">The DAO</h2>
                         <Image src="TravelerDAOfounder.png" wrapped ui={false}/>
                     </div>
                 </div>

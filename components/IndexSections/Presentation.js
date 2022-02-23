@@ -31,17 +31,17 @@ class Presentation extends Component {
                             <a
                                 href={this.props.state.opensea}
                                 target="_blank">
-                                <img className={`btn btn__secondary`} src="../img/opensea.svg" alt="Opensea"/>
+                                <img className={`btn btn__secondary`} src="../img/social/opensea.svg" alt="Opensea"/>
                             </a>
                             <a
                                 href={this.props.state.twitter}
                                 target="_blank">
-                                <img className={`btn btn__secondary`} src="../img/twitter.svg" alt="Twitter"/>
+                                <img className={`btn btn__secondary`} src="../img/social/twitter.svg" alt="Twitter"/>
                             </a>
                             <a
                                 href={this.props.state.discord}
                                 target="_blank">
-                                <img className={`btn btn__secondary`} src="../img/discord.svg" alt="Discord"/>
+                                <img className={`btn btn__secondary`} src="../img/social/discord.svg" alt="Discord"/>
                             </a>
                         </div>
                         <Gallery state={this.state}/>

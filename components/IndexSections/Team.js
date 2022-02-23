@@ -1,117 +1,78 @@
 import React, {Component} from 'react';
-import {Card,Container,Image} from 'semantic-ui-react';
+import {Card, Container, Image} from 'semantic-ui-react';
+import styles from "../../styles/components/Team.module.scss";
+import {teamDetails} from "../../public/lists/teamDetails.js"
 
-class Team extends Component{
-  constructor(){
-    super();
+class Team extends Component {
+    constructor() {
+        super();
 
-  }
-render(){
+    }
 
-  return (
+    render() {
+        return (
 
-    <div className="container mx-auto mt-8 " >
-      <div className="flex justify-around">
-        <div className="px-4 sm:px-20 py-8 rounded-2xl text-center md:w-2/3">
-          <span className="uppercase sm:text-xl tracking-widest ">GALLERY</span>
-          <h1 className="text-center mt-4 capitalize">THE TEAM</h1>
-          <p className="sm:text-2xl">xxxx</p>
+            <div className={`${styles.team__section} flex justify-around`}>
+                <div className="text-center">
+                    <h2 className="text-center mt-4 capitalize text-trips-1">Team composition</h2>
+                    <div className={`${styles.team__container}`}>
+                        {
+                            teamDetails.map(el =>
+                                <div className={`${styles.card}`} key={el.key}>
+                                    <div className={`${styles.additional}`}>
+                                        <div className={`${styles.user__card}`}>
+                                            {/*<div className={`${styles.level} ${styles.center}`}>*/}
+                                            {/*    Level 13*/}
+                                            {/*</div>*/}
+                                            <div className={`${styles.points} ${styles.center}`}>
+                                                {el.title}
+                                            </div>
+                                            <img loading="lazy" src={el.image} className={`${styles.image__card} ${styles.center}`}/>
+                                        </div>
+                                        <div className={`${styles.more__info}`}>
+                                            <h3>{el.name}</h3>
+                                            <div className={`${styles.stats}`}>
+                                                {el.linkedin && <div>
+                                                    <a href={el.linkedin}><img loading="lazy" src='img/social/linkedin.png' alt = "linkedin" className={`${styles.social__card}`}/></a>
+                                                </div>}
+                                                {el.twitter && <div>
+                                                    <a href={el.twitter}><img loading="lazy" src='img/social/twitter.png' alt="twitter" className={`${styles.social__card}`}/></a>
+                                                </div>}
+                                                {el.github && <div>
+                                                    <a href={el.github}><img loading="lazy" src='img/social/github.png' alt="github" className={`${styles.social__card}`}/></a>
+                                                </div>}
+                                                {el.www && <div>
+                                                    <a href={el.www}><img loading="lazy" src='img/social/globe.svg' alt = "website" className={`${styles.social__card}`}/></a>
+                                                </div>}
+                                                {el.instagram && <div>
+                                                    <a href={el.instagram}><img loading="lazy" src='img/social/instagram.svg' alt = "instagram" className={`${styles.social__card}`}/></a>
+                                                </div>}
+                                                {el.email && <div>
+                                                    <a href={el.email}><img loading="lazy" src='img/social/email.png' alt = "email" className={`${styles.social__card}`}/></a>
+                                                </div>}
+                                                {/*<div>*/}
+                                                {/*    <div className={`${styles.title}`}>Coffee</div>*/}
+                                                {/*    <i className="fa fa-coffee"></i>*/}
+                                                {/*    <div className={`${styles.value} ${styles.infinity}`}>∞</div>*/}
+                                                {/*</div>*/}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className={`${styles.general}`}>
+                                        <h3>{el.name}</h3>
+                                        <div className={`${styles.text__description}`}>
+                                            {el.description}
+                                        </div>
+                                        {/*<span className={`${styles.more}`}>Mouse over the card for more info</span>*/}
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </div>
+                </div>
+            </div>
 
-          <p className="text-xl sm:text-2xl">
-          100% remote builders, who started in the summer and finished just in time for spring.
-          </p>
-
-        </div>
-      </div>
-      <Container>
-        <Card.Group itemsPerRow={5} stackable={true} doubling={true}>
-          <Card>
-          <Image src='littletravelers/team/Little-Traveler-Team-1.png' wrapped ui={false} />
-          <Card.Content>
-          <p className="text-xl sm:text-2xl text-center" >Marco</p>
-          <p className="text-xl sm:text-1xl text-center ">The Designer<br /></p>
-          </Card.Content>
-
-          </Card>
-
-          <Card>
-            <Image src='littletravelers/team/Little-Traveler-Team-4.png' wrapped ui={false} />
-
-            <Card.Content>
-          <p className="text-xl sm:text-2xl text-center" >Jacopo</p>
-          <p className="text-xl sm:text-1xl text-center ">The Dev<br /></p>
-          </Card.Content>
-          </Card>
-
-          <Card>
-            <Image src='littletravelers/team/Little-Traveler-Team-5.png' wrapped ui={false} />
-
-            <Card.Content>
-            <p className="text-xl sm:text-2xl text-center" >Luca</p>
-            <p className="text-xl sm:text-1xl text-center ">The Mind behind it all<br /></p>
-            </Card.Content>
-          </Card>
-          <Card>
-          <Image src='littletravelers/team/Little-Traveler-Team-6.png' wrapped ui={false} />
-          <Card.Content>
-          <p className="text-xl sm:text-2xl text-center" >Carla</p>
-          <p className="text-xl sm:text-1xl text-center ">The Organizer<br /></p>
-          </Card.Content>
-
-          </Card>
-
-          <Card>
-            <Image src='littletravelers/team/Little-Traveler-Team-9.png' wrapped ui={false} />
-
-            <Card.Content>
-          <p className="text-xl sm:text-2xl text-center" >Valerio</p>
-          <p className="text-xl sm:text-1xl text-center ">The Engineer<br /></p>
-          </Card.Content>
-          </Card>
-
-          <Card>
-            <Image src='littletravelers/team/Little-Traveler-Team-10.png' wrapped ui={false} />
-
-            <Card.Content>
-            <p className="text-xl sm:text-2xl text-center" >Guido</p>
-          <p className="text-xl sm:text-1xl text-center ">The Background and NFT expert<br /></p>
-            </Card.Content>
-          </Card>
-
-          <Card>
-          <Image src='littletravelers/team/Little-Traveler-Team-6.png' wrapped ui={false} />
-          <Card.Content>
-          <p className="text-xl sm:text-2xl text-center" >Francesco</p>
-          <p className="text-xl sm:text-1xl text-center ">The Great Referrer<br /></p>
-          </Card.Content>
-
-          </Card>
-
-          <Card>
-            <Image src='littletravelers/team/Little-Traveler-Team-9.png' wrapped ui={false} />
-
-            <Card.Content>
-          <p className="text-xl sm:text-2xl text-center" >Alessandro</p>
-          <p className="text-xl sm:text-1xl text-center ">The Statistician<br /></p>
-          </Card.Content>
-          </Card>
-
-          <Card>
-            <Image src='littletravelers/team/Little-Traveler-Team-10.png' wrapped ui={false} />
-
-            <Card.Content>
-            <p className="text-xl sm:text-2xl text-center" >Giulia</p>
-          <p className="text-xl sm:text-1xl text-center ">xxx<br /></p>
-            </Card.Content>
-          </Card>
-        </Card.Group>
-      </Container>
-    <br />
-    <br />
-    <br />
-    </div>
-
-  )
-};
+        )
+    };
 };
 export default Team;
