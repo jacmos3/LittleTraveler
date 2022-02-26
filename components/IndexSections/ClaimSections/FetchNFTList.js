@@ -15,7 +15,7 @@ class FetchNFTList extends Component {
         this.setState({
             chainName: chain.name,
             opensea: chain.opensea,
-            baseUrl: chain.baseUrl,
+            baseUrl: chain.thumbsFolder,
             openseaCard: chain.openseaCard + this.props.state.web3Settings.contractAddress + "/"
         });
         await this.fetchNFTList();
@@ -26,14 +26,12 @@ class FetchNFTList extends Component {
         loading: 0,
         errorMessage: "",
         totalOwned:0,
-        imgSrc: [],
-        showImgs: false,
     };
 
 
     fetchNFTList = async () => {
         console.log("fetch");
-        this.setState({loading: this.state.loading + 1, errorMessage: '', imgSrc : [], showImgs: false})
+        this.setState({loading: this.state.loading + 1, errorMessage: ''})
         try {
             const accounts = await this.props.state.web3.eth.getAccounts();
             const instance = new this.props.state.web3.eth.Contract(LittleTraveler.LittleTraveler.abi, this.props.state.web3Settings.contractAddress);
@@ -53,7 +51,6 @@ class FetchNFTList extends Component {
             this.setState({totalOwned: lastUserIndex});
             //TODO check su errorMessage e saltare tutto se c'è un errore
             var all = [];
-            var incognito = [];
             for (var index = lastUserIndex - 1, i = 0; index >= 0; index--, i++) {
                 //    for (var index = 0; index < lastUserIndex; index++){
                 let tokenId = await instance.methods.tokenOfOwnerByIndex(accounts[0], index).call()
@@ -70,19 +67,14 @@ class FetchNFTList extends Component {
                     this.setState({loading: this.state.loading - 1});
                     return;
                 }
-
                 var element = {"key": i, "header": tokenId, "image": this.state.baseUrl + tokenId + '.png'};
-
                 all.push(element);
-
-                incognito.push( i === 0 || i === 1 );
             }
-            this.setState({all: all, imgSrc: [all[0]], incognito: incognito});
+            this.setState({all: all});
         } catch (err) {
             this.setState({errorMessage: err.message});
         }
-        this.setState({loading: this.state.loading - 1, showImgs: true});
-        console.log(this.state.all);
+        this.setState({loading: this.state.loading - 1});
     }
 
     render() {
@@ -94,7 +86,7 @@ class FetchNFTList extends Component {
                         <h2 className="text-center">You own {this.state.totalOwned} Little Travelers on {this.state.chainName}</h2>
 
                         {!!this.state.errorMessage ? <Message header="Oops!" content={this.state.errorMessage}/> : ""}
-                        {!this.state.showImgs &&
+                        {this.state.loading > 0 &&
                           <div className={`${styles.image__container}`}>
                           {
                             [...Array(this.state.totalOwned)].map((elementInArray, index) => (
@@ -109,42 +101,16 @@ class FetchNFTList extends Component {
                           }
                           </div>
                         }
-                        {this.state.showImgs && <div className={`${styles.image__container}`}>
+                        {this.state.loading == 0 && <div className={`${styles.image__container}`}>
                             {
                                 this.state.all.map(el => (
                                     <div key={el.key}>
                                         <div className={`${styles.image}`}>
                                             <a target="_blank" href={this.state.openseaCard + el.header}>
-                                                <img
-                                                    src={this.state.imgSrc[el.key]
-                                                      ? el.image
-                                                      : this.state.incognito[el.key]
-                                                        ? "/img/incognito.png"
-                                                        : "/img/incognito2.png"}
-                                                    onLoad={() => {
-                                                        setTimeout(() => {
-                                                            if (this.state.imgSrc[el.key] && el.key < this.state.all.length) {
-                                                                var incognito = this.state.incognito;
-                                                                incognito[el.key] = false;
-                                                                incognito[el.key+2] = true;
-                                                                this.setState({incognito:incognito});
-
-                                                              console.log(el.key);
-                                                              var temp = this.state.imgSrc;
-                                                              temp.push(this.state.all[el.key + 1]);
-                                                              this.setState({imgSrc:temp});
-                                                            }
-                                                        }, 200);
-                                                    }}
-                                                />
+                                                <img src={el.image} />
                                             </a>
 
-                                            {this.state.imgSrc[el.key]
-                                                ? this.state.incognito[el.key]
-                                                  ? <h4>preparing</h4>
-                                                  : <h3>#{el.header}</h3>
-                                                : <h4>loading</h4>
-                                            }
+                                          <h3>#{el.header}</h3>
                                         </div>
                                     </div>
                                 ))

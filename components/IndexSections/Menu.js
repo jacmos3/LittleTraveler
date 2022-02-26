@@ -27,7 +27,9 @@ class Menu extends Component {
                         <a key = {item.key} className = {`${styles.a__text}`} href= {item.href}>{item.value}</a>
                       )
                     }
-                      <div className={`${styles.dot}`}></div>
+                    {
+                      //  <div className={`${styles.dot}`}></div>
+                    }
                     </nav>
                 </div>
                 <div className={`${styles.mobile__menu}`}>
@@ -46,12 +48,24 @@ class Menu extends Component {
                             }
                         </ul>
                         <div className={`${styles.social__buttons}`}>
-                            <a href={this.props.state.opensea}><img loading="lazy" src='img/opensea.png'
-                                              className={`${styles.social__icon}`}/></a>
-                            <a href={this.props.state.twitter}><img loading="lazy" src='img/twitter.png'
-                                              className={`${styles.social__icon}`}/></a>
-                            <a href={this.props.state.discord}><img loading="lazy" src='img/discord.png'
-                                              className={`${styles.social__icon}`}/></a>
+                            <a href={this.props.state.opensea}>
+                              <img
+                                loading="lazy"
+                                src='img/opensea.png'
+                                className={`${styles.social__icon}`}/>
+                            </a>
+                            <a href={this.props.state.twitter}>
+                              <img
+                                loading="lazy"
+                                src='img/twitter.png'
+                                className={`${styles.social__icon}`}/>
+                            </a>
+                            <a href={this.props.state.discord}>
+                              <img
+                                loading="lazy"
+                                src='img/discord.png'
+                                className={`${styles.social__icon}`}/>
+                            </a>
                         </div>
                     </nav>
 

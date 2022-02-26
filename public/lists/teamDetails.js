@@ -62,7 +62,7 @@ export const teamDetails = [
           twitter: 'https://twitter.com/jacmos3',
           github: 'https://www.github.com/jacmos3'
       },
-      {
+      /*{
           key: "6",
           name: "Tommaso",
           title: <p>Front-end engineer</p>,
@@ -70,7 +70,7 @@ export const teamDetails = [
           image: 'img/littletravelers/team/tommaso.png',
           twitter: 'img/littletravelers/types/Little-Traveler-1.png',
           github: 'img/littletravelers/types/Little-Traveler-1.png'
-      },
+      },*/
       {
           key: "7",
           name: "MRV",

@@ -42,7 +42,7 @@ class MyDapp extends Component {
                     id: 1,
                     opensea:"https://opensea.io/collection/little-traveler-pfp",
                     openseaCard:"https://opensea.io/assets/",
-                    baseUrl:"https://gateway.pinata.cloud/ipfs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/",
+                    thumbsFolder:"https://littletraveler.org/img/thumbs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/",
                     options: {
                         trips: {
                             address: "0x1350fbe8ce27762ec19134bf8fc405a427fe9bf1",
@@ -57,7 +57,7 @@ class MyDapp extends Component {
                     id: 137,
                     opensea:"https://opensea.io/collection/little-traveler-pfp-polygon",
                     openseaCard:"https://opensea.io/assets/matic/",
-                    baseUrl:"https://gateway.pinata.cloud/ipfs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/",
+                    thumbsFolder:"https://littletraveler.org/img/thumbs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/",
                     options: {
                         trips: {
                             address: "0x77F0F7d657f362C4b703417B800B83B989a288a2",

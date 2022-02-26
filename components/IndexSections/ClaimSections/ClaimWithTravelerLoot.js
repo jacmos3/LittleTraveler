@@ -62,6 +62,10 @@ class ClaimWithTravelerLoot extends Component {
                                 readOnly
                             />
                         </Form.Field>
+                        <p>You can mint as many Little Travelers as you want, by simply holding one single Traveler Loot,
+                        but we require a really basic <strong>proof of willingness</strong>.
+                        <br />This means that you can't mint more than 1 Little Traveler per transaction,
+                        but you can do more transactions if you want mint more Little Travelers! </p>
                         <div className={`${styles.buttons__component}`}>
                             <Message error header="Oops!" content={this.state.errorMessage}/>
                             <button className={`btn btn__primary`} disabled={this.state.loading > 0}>
