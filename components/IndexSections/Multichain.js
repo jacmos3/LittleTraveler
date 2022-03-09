@@ -12,7 +12,7 @@ class Multichain extends Component {
 
     render() {
         return (
-            <div className={`${styles.multichain__section} bg-trips-4 text-trips-2`}>
+            <div className={`${styles.multichain__section} text-trips-2`}>
                 <div className="container mx-auto mt-8">
                     <div className="flex justify-around">
                         <div className="px-20 py-8 rounded text-center">

@@ -11,7 +11,7 @@ class DAO extends Component {
     render() {
 
         return (
-            <div className={`${styles.dao__section} bg-trips-4 py-20 text-trips-1`}>
+            <div className={`${styles.dao__section} py-20 text-trips-1`}>
                 <div className="flex justify-around ">
                     <div className="px-20 py-8 rounded text-center">
                         <span className="uppercase sm:text-xl tracking-widest">Under The Hood</span>

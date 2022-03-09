@@ -10,7 +10,7 @@ class Video extends Component {
 
     render() {
         return (
-            <div className={`${styles.video__section} mx-auto bg-trips-4 text-trips-1`}>
+            <div className={`${styles.video__section} mx-auto text-trips-1`}>
                 <div className="flex justify-around">
                     <div className={`${styles.video__container} px-20 py-8 rounded text-center`}>
                         <span className="uppercase sm:text-xl tracking-widest"></span>

@@ -31,7 +31,13 @@ export const menuDetails = [
        // },
        {
          key: "7",
+         href:"#Derivatives",
+         value:"Derivatives",
+       },
+       {
+         key: "8",
          href:"#Team",
          value:"Team",
        },
+
   ];

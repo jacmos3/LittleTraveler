@@ -9,7 +9,7 @@ class Derivatives extends Component {
 
     render() {
         return (
-            <div className={`${styles.section__derivates} bg-trips-4`}>
+            <div className={`${styles.section__derivates}`}>
                 <div className="flex justify-around ">
                     <div className="px-20 py-8 rounded text-center">
                         <span className="uppercase sm:text-xl tracking-widest">Like what you see?</span>

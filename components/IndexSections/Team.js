@@ -14,7 +14,7 @@ class Team extends Component {
 
             <div className={`${styles.team__section} flex justify-around`}>
                 <div className="text-center">
-                    <h2 className="text-center mt-4 capitalize text-trips-1">Team composition</h2>
+                    <h2 className="text-center mt-4 capitalize text-trips-1">The Team</h2>
                     <div className={`${styles.team__container}`}>
                         {
                             teamDetails.map(el =>

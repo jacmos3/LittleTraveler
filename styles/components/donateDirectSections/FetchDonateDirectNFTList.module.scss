@@ -1,0 +1,44 @@
+.image__container {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+  padding-top: 1rem;
+  justify-content: center;
+}
+
+.image {
+  --clip-start: circle(0);
+  --clip-end: circle(125%);
+  position: relative;
+  width: 120px;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+
+  img {
+    border-radius: 5px;
+
+    &:hover{
+      opacity: 0.8;
+    }
+  }
+}
+
+.buttons {
+  align-self: end;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+
+@media (max-width: 600px) {
+  .buttons {
+    align-self: center;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+  }
+}

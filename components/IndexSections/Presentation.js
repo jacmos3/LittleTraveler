@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styles from "../../styles/components/Presentation.module.scss";
 import Gallery from "./Gallery";
+import {galleryDetails} from "../../public/lists/galleryDetails.js";
 
 class Presentation extends Component {
     constructor(props) {
@@ -44,7 +45,7 @@ class Presentation extends Component {
                                 <img className={`btn btn__secondary`} src="../img/social/discord.svg" alt="Discord"/>
                             </a>
                         </div>
-                        <Gallery state={this.state}/>
+                        <Gallery state={this.state} galleryDetails ={galleryDetails} title = "An Incredible Variety of Traveler"/>
                     </div>
                 </div>
             </div>

@@ -1,9 +1,10 @@
 .claim__container {
   padding: 120px 0;
+  background: linear-gradient(to bottom, #0057b7, #ffd700);
 }
 
 .title {
-  text-shadow: 1px 1px ghostwhite;
+  text-shadow: 1px 1px #ffd700, -1px 1px #ffd700, 1px -1px #ffd700, -1px -1px #ffd700;
 }
 
 .modal {

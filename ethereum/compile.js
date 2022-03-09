@@ -1,13 +1,20 @@
 const path = require('path');
 const solc = require('solc');
 const fs = require('fs-extra');
-const myPath = path.resolve(__dirname, 'contracts', 'LittleTraveler.sol');
+
+const contractFileName = 'LittleTraveler.sol';
+const contractName = 'LittleTraveler';
+
+//const contractFileName = 'DonateDirectDAO.sol';
+//const contractName = 'DonateDirectDAO';
+
+const myPath = path.resolve(__dirname, 'contracts', contractFileName);
 const buildPath = path.resolve(__dirname,'build');
 const source = fs.readFileSync(myPath, 'utf8');
 
-const littleTraveler = {
+const myContract = {
     language: 'Solidity',
-    sources: {'LittleTraveler.sol': {content: source}},
+    sources: {[contractFileName]: {content: source}},
     settings: {
       outputSelection: {'*': {'*': ['*']}},
     "optimizer": {
@@ -27,7 +34,7 @@ const littleTraveler = {
    }
 }
 console.log(myPath);
-const output = JSON.parse(solc.compile(JSON.stringify(littleTraveler))).contracts;
+const output = JSON.parse(solc.compile(JSON.stringify(myContract))).contracts;
 console.log(output);
 
 //set to true if you want to generate new json file while compiling. i.e.
@@ -50,5 +57,5 @@ if (generateFolder){
 }
 
 //we now export the main contract.
-const {abi: interface, evm: {bytecode:{object}}} = output['LittleTraveler.sol'].LittleTraveler;
+const {abi: interface, evm: {bytecode:{object}}} = output[contractFileName][contractName];
 module.exports = {interface, object};
