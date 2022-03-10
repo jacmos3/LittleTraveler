@@ -20,14 +20,13 @@ class DAO extends Component {
                         <Image src="TravelerDAOfounder.png" wrapped ui={false}/>
                     </div>
                 </div>
-                <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">
+                <div className={`${styles.content__text}`}>
                     This project is a DAO in a DAO.
                     Born from Trips Community DAO, it is managed by a group of 20 founders with different skillsets.
-                    <br/>
                     Some are just investors, others worked on a daily basis since August 2021, when the idea started.
                     <br/>
                     We also created and distribuited a governance Certificate NFT to the initial founders.
-                    <br />
+                    <br/><br/>
                     It will give governance voting rights to the holders and everybody can join the DAO by getting one on OpenSea.
                     <br/>
                 </div>

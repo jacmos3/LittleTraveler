@@ -11,7 +11,7 @@ class Menu extends Component {
         this.handleChange = this.handleChange.bind(this);
     }
 
-    handleChange() {
+    handleChange(e) {
         this.setState({ isChecked: !this.state.isChecked })
     }
 
@@ -43,7 +43,7 @@ class Menu extends Component {
                         </div>
                         <ul>{
                               menuDetails.map(item =>
-                                <li key = {item.key}><a href = {item.href}>{item.value}</a></li>
+                                <li key = {item.key}><a href={item.href} onClick={this.handleChange}>{item.value}</a></li>
                               )
                             }
                         </ul>
@@ -51,19 +51,19 @@ class Menu extends Component {
                             <a href={this.props.state.opensea}>
                               <img
                                 loading="lazy"
-                                src='img/opensea.png'
+                                src='img/social/opensea.png'
                                 className={`${styles.social__icon}`}/>
                             </a>
                             <a href={this.props.state.twitter}>
                               <img
                                 loading="lazy"
-                                src='img/twitter.png'
+                                src='img/social/twitter.png'
                                 className={`${styles.social__icon}`}/>
                             </a>
                             <a href={this.props.state.discord}>
                               <img
                                 loading="lazy"
-                                src='img/discord.png'
+                                src='img/social/discord.png'
                                 className={`${styles.social__icon}`}/>
                             </a>
                         </div>

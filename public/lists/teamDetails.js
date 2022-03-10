@@ -62,15 +62,15 @@ export const teamDetails = [
           twitter: 'https://twitter.com/jacmos3',
           github: 'https://www.github.com/jacmos3'
       },
-      /*{
+      {
           key: "6",
           name: "Tommaso",
-          title: <p>Front-end engineer</p>,
-          description: <p>The UI expert</p>,
+          title: <p>Software engineer</p>,
+          description: <p>Engineer that plays with "anything programmable". AI, embedded systems, crypto are my best friends!</p>,
           image: 'img/littletravelers/team/tommaso.png',
-          twitter: 'img/littletravelers/types/Little-Traveler-1.png',
-          github: 'img/littletravelers/types/Little-Traveler-1.png'
-      },*/
+          twitter: 'https://twitter.com/TommasoRuscica',
+          github: 'https://github.com/TommyR22'
+      },
       {
           key: "7",
           name: "MRV",

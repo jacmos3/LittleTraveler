@@ -17,7 +17,7 @@ class Derivatives extends Component {
                         <h2 className="text-center mt-4">Build a Derivative</h2>
                     </div>
                 </div>
-                <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">
+                <div className={`${styles.content__text}`}>
                     Are you in the travel industry? Build a Little Traveler derivative!
                     <br/>
                     Maybe something with your city/hotel/villa in the backgrounds, a different character or anything

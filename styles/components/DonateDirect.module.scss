@@ -1,5 +1,5 @@
 .claim__container {
-  padding: 120px 0;
+  padding: 120px 20px;
   background: linear-gradient(to bottom, #0057b7, #ffd700);
 }
 
@@ -33,4 +33,11 @@
   flex-flow: column;
   justify-content: center;
   align-items: center;
+}
+
+.content__text {
+  text-align: justify;
+  color: black;
+  font-size: large;
+  padding-bottom: 40px;
 }
