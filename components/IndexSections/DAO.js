@@ -11,22 +11,22 @@ class DAO extends Component {
     render() {
 
         return (
-            <div className={`${styles.dao__section} py-20 text-trips-1`}>
-                <div className="flex justify-around ">
-                    <div className="px-20 py-8 rounded text-center">
+            <div className={`${styles.dao__section} py-20 text-trips-1 text-center`}>
+                <div className="flex justify-around">
+                    <div className="px-20 py-8 rounded">
                         <span className="uppercase sm:text-xl tracking-widest">Under The Hood</span>
                         <br/>
-                        <h2 className="text-center mt-4">The DAO</h2>
+                        <h2 className="mt-4">The DAO</h2>
                         <Image src="TravelerDAOfounder.png" wrapped ui={false}/>
                     </div>
                 </div>
                 <div className={`${styles.content__text}`}>
-                    This project is a DAO in a DAO.
-                    Born from Trips Community DAO, it is managed by a group of 20 founders with different skillsets.
-                    Some are just investors, others worked on a daily basis since August 2021, when the idea started.
+                    <h2>This project is a DAO in a DAO.</h2>
+                    <p>Born from Trips Community DAO, it is managed by a group of 20 founders with different skillsets.
+                    <br />Some are just investors, others worked on a daily basis since August 2021, when the idea started.
                     <br/>
                     We also created and distribuited a governance Certificate NFT to the initial founders.
-                    <br/><br/>
+                    </p>
                     It will give governance voting rights to the holders and everybody can join the DAO by getting one on OpenSea.
                     <br/>
                 </div>
