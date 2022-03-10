@@ -15,7 +15,6 @@ class Derivatives extends Component {
                         <span className="uppercase sm:text-xl tracking-widest">Like what you see?</span>
                         <br/>
                         <h2 className="text-center mt-4">Build a Derivative</h2>
-                        xxxx
                     </div>
                 </div>
                 <div className="text-center sm:text-2xl my-4 sm:w-2/3 mx-auto px-4 italic">

@@ -82,7 +82,7 @@ export const teamDetails = [
       {
           key: "8",
           name: "Alessandro",
-          title: <p>Blockchain <br></br>enthusiastic</p>,
+          title: <p>Blockchain <br></br>enthusiast</p>,
           image: 'img/littletravelers/team/alessandro.png',
           description: <p>Statistician. Blockchain and crypto enthusiastic.
           Joined TripsCommunity in 2017 being part of several projects.
