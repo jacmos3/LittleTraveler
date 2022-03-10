@@ -4,9 +4,8 @@ import styles from "../../styles/components/Team.module.scss";
 import {teamDetails} from "../../public/lists/teamDetails.js"
 
 class Team extends Component {
-    constructor() {
-        super();
-
+    constructor(props) {
+        super(props);
     }
 
     render() {
@@ -33,7 +32,7 @@ class Team extends Component {
                                             <h3>{el.name}</h3>
                                             <div className={`${styles.stats}`}>
                                                 {el.linkedin && <div>
-                                                    <a href={el.linkedin}><img loading="lazy" src='img/social/linkedin.png' alt = "linkedin" className={`${styles.social__card}`}/></a>
+                                                    <a href={el.linkedin}><img loading="lazy" src='img/social/linkedin.png' alt="linkedin" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {el.twitter && <div>
                                                     <a href={el.twitter}><img loading="lazy" src='img/social/twitter.png' alt="twitter" className={`${styles.social__card}`}/></a>
@@ -42,13 +41,13 @@ class Team extends Component {
                                                     <a href={el.github}><img loading="lazy" src='img/social/github.png' alt="github" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {el.www && <div>
-                                                    <a href={el.www}><img loading="lazy" src='img/social/globe.svg' alt = "website" className={`${styles.social__card}`}/></a>
+                                                    <a href={el.www}><img loading="lazy" src='img/social/web.png' alt="website" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {el.instagram && <div>
-                                                    <a href={el.instagram}><img loading="lazy" src='img/social/instagram.svg' alt = "instagram" className={`${styles.social__card}`}/></a>
+                                                    <a href={el.instagram}><img loading="lazy" src='img/social/instagram.png' alt="instagram" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {el.email && <div>
-                                                    <a href={el.email}><img loading="lazy" src='img/social/email.png' alt = "email" className={`${styles.social__card}`}/></a>
+                                                    <a href={el.email}><img loading="lazy" src='img/social/email.png' alt="email" className={`${styles.social__card}`}/></a>
                                                 </div>}
                                                 {/*<div>*/}
                                                 {/*    <div className={`${styles.title}`}>Coffee</div>*/}
