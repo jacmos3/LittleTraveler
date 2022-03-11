@@ -12,9 +12,9 @@ class Team extends Component {
         return (
 
             <div className={`${styles.team__section} flex justify-around`}>
-                <div className="text-center">
+                <div className={`${styles.content} text-center`}>
                     <h2 className="text-center mt-4 capitalize text-trips-1">The Team</h2>
-                    <div className={`${styles.team__container}`}>
+                    <div className={`${styles.team__container__desktop}`}>
                         {
                             teamDetails.map(el =>
                                 <div className={`${styles.card}`} key={el.key}>
@@ -68,6 +68,56 @@ class Team extends Component {
                             )
                         }
                     </div>
+
+                    <div className={`${styles.team__container__mobile}`}>
+                        {
+                            teamDetails.map(el =>
+                                <div className={`${styles.card__mobile}`} key={el.key}>
+                                    <div className={`${styles.user__card}`}>
+                                        <img loading="lazy" src={el.image} className={`${styles.image__card}`}/>
+                                        <div className={`${styles.general__card}`}>
+                                            <div className={`${styles.name__card}`}>
+                                                {el.name}
+                                            </div>
+                                            <div className={`${styles.title__social__card}`}>
+                                                <div>
+                                                    {el.title}
+                                                </div>
+                                                <div className={`${styles.social__content__card}`}>
+                                                    {el.linkedin && <div>
+                                                        <a href={el.linkedin}><img loading="lazy" src='img/social/linkedin.png' alt="linkedin" className={`${styles.social__card}`}/></a>
+                                                    </div>}
+                                                    {el.twitter && <div>
+                                                        <a href={el.twitter}><img loading="lazy" src='img/social/twitter.png' alt="twitter" className={`${styles.social__card}`}/></a>
+                                                    </div>}
+                                                    {el.github && <div>
+                                                        <a href={el.github}><img loading="lazy" src='img/social/github.png' alt="github" className={`${styles.social__card}`}/></a>
+                                                    </div>}
+                                                    {el.www && <div>
+                                                        <a href={el.www}><img loading="lazy" src='img/social/web.png' alt="website" className={`${styles.social__card}`}/></a>
+                                                    </div>}
+                                                    {el.instagram && <div>
+                                                        <a href={el.instagram}><img loading="lazy" src='img/social/instagram.png' alt="instagram" className={`${styles.social__card}`}/></a>
+                                                    </div>}
+                                                    {el.email && <div>
+                                                        <a href={el.email}><img loading="lazy" src='img/social/email.png' alt="email" className={`${styles.social__card}`}/></a>
+                                                    </div>}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div className={`${styles.general}`}>
+                                        <div className={`${styles.text__description}`}>
+                                            {el.description}
+                                        </div>
+                                    </div>
+                                </div>
+                            )
+                        }
+                    </div>
+
+
                 </div>
             </div>
 

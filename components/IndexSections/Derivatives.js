@@ -14,7 +14,7 @@ class Derivatives extends Component {
                     <div className="px-20 py-8 rounded text-center">
                         <span className="uppercase sm:text-xl tracking-widest">Like what you see?</span>
                         <br/>
-                        <h2 className="text-center mt-4">Build a Derivative</h2>
+                        <h2 className={`${styles.shadow__text} text-center mt-4`}>Build a Derivative</h2>
                     </div>
                 </div>
                 <div className={`${styles.content__text}`}>
