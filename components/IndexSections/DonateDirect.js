@@ -45,10 +45,12 @@ class DonateDirect extends Component {
                     <div className={`${styles.container} rounded`}>
                         <h2 className={`${styles.title} text-center mt-4 capitalize`}>The "Donate Direct" DAO for Ukraine</h2>
 
-                        <div className={`${styles.content__text}`}>
-                        We are cooperating with The "Donate Direct" DAO and created a set of 500 NFT derivatives for a fundraising effort in favour of Ukrainian refugees.
+                        <div className={`${styles.content__text} text-center`}>
+                        We are cooperating with The "Donate Direct" DAO and created a set of 500 NFT derivatives
+                        <br />for a fundraising effort in favour of Ukrainian refugees.
                         <br />The ETH you pay for the NFTs go to a <a className={`a__underline__primary`} href={this.props.state.web3Settings.donationChain.gnosisSafeURL} target="_blank">Gnosis Safe</a> and will be donated to a specific family on your behalf.
                         <br /> You will know exactly who received the money and will be able to get in touch. <a href={this.props.state.web3Settings.donationChain.readMoreURL} target="_blank" className={`a__underline__primary`}>Read more here</a>
+                        <br />See the collection on <a href={this.props.state.web3Settings.donationChain.opensea} target="_blank" className={`a__underline__primary`}>OpenSea</a>
                         </div>
                         <Gallery state={this.state} galleryDetails = {galleryDetails} title = ""/>
                         <br/>

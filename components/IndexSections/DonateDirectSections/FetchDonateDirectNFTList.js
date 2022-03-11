@@ -104,7 +104,7 @@ class FetchDonationNFTList extends Component {
                         }
                         {this.state.loading == 0
                           && <div className = "text-center">
-                              {this.state.totalOwned > 0 ? <h3 >Thank you! The following NFT(s) are your donation receipt</h3> : null }
+                              {this.state.totalOwned > 0 ? <h3 >Thank you! NFTs are the receipt for your donation</h3> : null }
                               <div className={`${styles.image__container}`}>
                                 {
                                     this.state.all.map(el => (
