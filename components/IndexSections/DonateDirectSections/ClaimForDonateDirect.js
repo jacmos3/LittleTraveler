@@ -8,7 +8,7 @@ class ClaimForDonateDirect extends Component{
     loading:0,
     howMuchCoin:0,
     howManyNFT:0,
-    errorMessage:"",
+    errorMessage:"Minting temporarily suspended",
     coin:""
   }
   constructor(props){
@@ -74,7 +74,7 @@ render(){
 
               <div className={`${styles.buttons__component}`}>
                 <Message error header="Oops!" content = {this.state.errorMessage} />
-                <button className={`btn btn__primary`} disabled={this.state.loading > 0}>
+                <button className={`btn btn__primary`} disabled={true || this.state.loading > 0}>
                   Mint!
                 </button>
               </div>

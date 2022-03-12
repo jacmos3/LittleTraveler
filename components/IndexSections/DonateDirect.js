@@ -54,6 +54,7 @@ class DonateDirect extends Component {
                         </div>
                         <Gallery state={this.state} galleryDetails = {galleryDetails} title = ""/>
                         <br/>
+                        <img src = "img/donatedirect/suspended.png" />
                         {
                             this.props.state.web3Settings.isWeb3Connected
                                 ?
