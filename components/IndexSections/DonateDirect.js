@@ -45,7 +45,7 @@ class DonateDirect extends Component {
                     <div className={`${styles.container} rounded`}>
                         <h2 className={`${styles.title} text-center mt-4 capitalize`}>The "Donate Direct" DAO for Ukraine</h2>
 
-                        <div className={`${styles.content__text} text-center`}>
+                        <div className={`${styles.content__text} text-center text-white`}>
                         We are cooperating with The "Donate Direct" DAO and created a set of 500 NFT derivatives
                         <br />for a fundraising effort in favour of Ukrainian refugees.
                         <br />The ETH you pay for the NFTs go to a <a className={`a__underline__primary`} href={this.props.state.web3Settings.donationChain.gnosisSafeURL} target="_blank">Gnosis Safe</a> and will be donated to a specific family on your behalf.
@@ -53,8 +53,10 @@ class DonateDirect extends Component {
                         <br />See the collection on <a href={this.props.state.web3Settings.donationChain.opensea} target="_blank" className={`a__underline__primary`}>OpenSea</a>
                         </div>
                         <Gallery state={this.state} galleryDetails = {galleryDetails} title = ""/>
-                        <br/>
-                        <img src = "img/donatedirect/suspended.png" />
+                        <div className={`${styles.content__text} text-center text-black`}>
+                        For technical reasons the minting is suspended, but you can still donate to the safe with a direct transaction.
+                        <br /><a href={this.props.state.web3Settings.donationChain.gnosisSafeURL} target="_blank" className={`a__underline__primary`}>[Donate here]</a>
+                        </div>
                         {
                             this.props.state.web3Settings.isWeb3Connected
                                 ?
@@ -106,7 +108,7 @@ class DonateDirect extends Component {
 
                                                         : (
                                                             <div className="text-center">
-                                                                <button className={`btn btn__primary`} onClick={this.props.connect}>
+                                                                <button className={`btn btn__primary`} disabled="true" onClick={this.props.connect}>
                                                                     Connect Wallet
                                                                 </button>
                                                             </div>
