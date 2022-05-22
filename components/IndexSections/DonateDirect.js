@@ -108,7 +108,7 @@ class DonateDirect extends Component {
 
                                                         : (
                                                             <div className="text-center">
-                                                                <button className={`btn btn__primary`} disabled="true" onClick={this.props.connect}>
+                                                                <button className={`btn btn__primary`} disabled={true} onClick={this.props.connect}>
                                                                     Connect Wallet
                                                                 </button>
                                                             </div>
