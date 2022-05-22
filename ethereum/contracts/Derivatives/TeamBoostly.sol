@@ -1290,7 +1290,7 @@ pragma solidity ^0.8.11;
 contract TeamBoostly is ERC721Enumerable, Ownable, ReentrancyGuard {
   using Strings for uint256;
 
-  string public baseURI = "QmagabiZkC8vtRizbxDkdw9DPhFYoae7ktQz7hPoUxbeE4/";
+  string public baseURI = "ipfs://QmagabiZkC8vtRizbxDkdw9DPhFYoae7ktQz7hPoUxbeE4/";
   string public baseExtension = ".json";
   uint16 public constant maxSupply = 3000;
   string private name = "#TeamBoostly Token";
