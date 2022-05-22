@@ -1289,7 +1289,7 @@ pragma solidity ^0.8.11;
 contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   using Strings for uint256;
 
-  string baseURI;
+  string public baseURI;
   string public baseExtension = ".json";
   uint8 public chainNumber;
   uint8 public counterOwner = 0;
@@ -1336,7 +1336,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   function _processingMints(uint256 _mintAmount) internal {
     uint256 baseSupply = totalSupply();
     for (uint256 i = 1; i <= _mintAmount; i++) {
-      _safeMint(msg.sender, floorIndex + baseSupply + i);
+      _safeMint(msg.sender, floorIndex + baseSupply + i - counterOwner);
     }
   }
   /// @notice Mints Little Traveler by paying native coin.
