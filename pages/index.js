@@ -70,6 +70,23 @@ class MyDapp extends Component {
                           amount: "60"}
                     }
                 },
+                {
+                    name: "Kiln (TheMerge Testing Network)",
+                    id: 1337802,
+                    contractAddressOverrided:"0xdba541eDd94229c05fceF8f09f955C24073fa5e0",
+                    opensea:"",
+                    openseaCard:"",
+                    thumbsFolder:"https://littletraveler.org/img/thumbs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/",
+                    options: {
+                        trips: {
+                            address: "0xB6CAE7E634b931404374fC236f94E701801E3423",
+                            amount: "2000000000000000000000"
+                        },
+                        loot: "0x2E00209C3D86132A55Cd045C7b3468A4e062Ad9D",
+                        coin: ""
+                    }
+                },
+
             //    {name:"Rinkeby", id:4, opensea:"https://testnets.opensea.io/collection/testtest-uvuid70oad", openseaCard:"https://testnets.opensea.io/assets/", baseUrl:"https://gateway.pinata.cloud/ipfs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/", options:{trips:{address:"0xa75f153cbb61be8895710f461cad890a0c4bc348", amount:"2000000000000000000000"}, loot:"", coin:{name:"ETH", amount:"0.1"}}}
 
           ],
@@ -205,6 +222,17 @@ class MyDapp extends Component {
         web3Settings.ethBalance = ethBalance;
         web3Settings.isWeb3Connected = accounts.length > 0;
         this.setState({web3Settings: web3Settings});
+
+        //checking if the Little Traveler has a different address on the selected network
+        var contractAddress = web3Settings.chains
+            .filter(chain => chain.id === web3Settings.networkId)
+            .map(chain => chain.contractAddressOverrided)[0];
+        if ((contractAddress !== undefined) && (contractAddress !== null) && (contractAddress !== "")) {
+          console.log("contract address not null; overriding");
+          web3Settings.contractAddress = contractAddress;
+          console.log("contractAddress: "+contractAddress);
+        }
+
 
         console.log("web3connected:",this.state.web3Settings.isWeb3Connected);
     }
