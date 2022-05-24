@@ -45,7 +45,7 @@ class Presentation extends Component {
                                 <img className={`btn btn__secondary`} src="../img/social/discord.svg" alt="Discord"/>
                             </a>
                         </div>
-                        <Gallery state={this.state} galleryDetails ={galleryDetails} title = "An Incredible Variety of Traveler"/>
+                        <Gallery state={this.state} galleryDetails ={galleryDetails} title = "An Incredible Variety of Travelers"/>
                     </div>
                 </div>
             </div>
