@@ -1347,7 +1347,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     require(travelerLootAddress == address(0) || tripsAddress == address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
     require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
     _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
-    require((floorIndex + totalSupply()) + _mintAmount <= roofIndex, ERROR_MINT_FINISHED);
+    require(floorIndex + maxPerOwner + totalSupply() - counterOwner + _mintAmount <= roofIndex, ERROR_MINT_FINISHED);
     require(msg.value >= cost * _mintAmount);
     _processingMints(_mintAmount);
   }
@@ -1358,6 +1358,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     require(!paused, ERROR_PAUSED);
     require(travelerLootAddress != address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
     require(IERC721(travelerLootAddress).balanceOf(_msgSender()) > 0, ERROR_DONT_OWN_TRAVELER_LOOT);
+    require(floorIndex + maxPerOwner + totalSupply() - counterOwner + 1 <= roofIndex, ERROR_MINT_FINISHED);
     _processingMints(1);
   }
 
@@ -1369,6 +1370,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     require(tripsAddress != address(0), ERROR_NOT_POSSIBLE_ON_THIS_CHAIN);
     require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
     _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
+    require(floorIndex + maxPerOwner + totalSupply() - counterOwner + _mintAmount <= roofIndex, ERROR_MINT_FINISHED);
     IERC20(tripsAddress).transferFrom(msg.sender, treasurerAddress, costTrips * _mintAmount);
     _processingMints(_mintAmount);
   }
