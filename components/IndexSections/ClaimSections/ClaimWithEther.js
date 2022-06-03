@@ -67,7 +67,7 @@ render(){
                 placeholder = "How many Little Travelers?"
                 type = 'number'
                 min = {1}
-                max = {10}
+                max = {1}
                 value = {this.state.howManyLT}
                 onChange = {event => this.onChange(event)}
               />

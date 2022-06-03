@@ -143,7 +143,7 @@ class ClaimWithTrips extends Component {
 
     onChange(event) {
         event.preventDefault();
-        console.log(this.props.state.web3.utils.fromWei(this.toFixed(event.target.value * this.state.trips.amount).toString(), "ether"));
+        //console.log(this.props.state.web3.utils.fromWei(this.toFixed(event.target.value * this.state.trips.amount).toString(), "ether"));
         this.setState({
             howManyLT: event.target.value,
             howMuchTrips: this.props.state.web3.utils.fromWei(this.toFixed(event.target.value * this.state.trips.amount).toString(), "ether")
@@ -184,7 +184,7 @@ class ClaimWithTrips extends Component {
                                 placeholder="How many Little Travelers?"
                                 type='number'
                                 min={1}
-                                max={10}
+                                max={1}
                                 value={this.state.howManyLT}
                                 onChange={event => this.onChange(event)}
                                 fluid

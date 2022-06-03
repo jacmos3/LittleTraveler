@@ -16,7 +16,8 @@ class FetchNFTList extends Component {
             chainName: chain.name,
             opensea: chain.opensea,
             baseUrl: chain.thumbsFolder,
-            openseaCard: chain.openseaCard + this.props.state.web3Settings.contractAddress + "/"
+            openseaCard: chain.id == 1337802 ? chain.openseaCard : chain.openseaCard + this.props.state.web3Settings.contractAddress + "/",
+            extension: chain.id == 1337802 ?'.png' : ''
         });
         await this.fetchNFTList();
     }
@@ -106,7 +107,7 @@ class FetchNFTList extends Component {
                                 this.state.all.map(el => (
                                     <div key={el.key}>
                                         <div className={`${styles.image}`}>
-                                            <a target="_blank" href={this.state.openseaCard + el.header}>
+                                            <a target="_blank" href={this.state.openseaCard + el.header + this.state.extension}>
                                                 <img src={el.image} />
                                             </a>
 

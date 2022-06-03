@@ -73,17 +73,21 @@ class MyDapp extends Component {
                 {
                     name: "Kiln (TheMerge Testing Network)",
                     id: 1337802,
-                    contractAddressOverrided:"0xdba541eDd94229c05fceF8f09f955C24073fa5e0",
+                    //contractAddressOverrided:"0xdba541eDd94229c05fceF8f09f955C24073fa5e0", //old contract
+                    //contractAddressOverrided:"0x19B777C61865b5ECF65943F6dDD623819A809F55",
+                    //contractAddressOverrided:"0x4B9247c0b02B1fbd3a89dE458e5e22547662fF3E",
+                    //contractAddressOverrided:"0xd752a63946783168e944124592181b94f187289c",
+                    contractAddressOverrided:"0x16D35Da57946fB8219bcb34077189b458fe9DdE5",
                     opensea:"",
-                    openseaCard:"",
+                    openseaCard:"https://gateway.pinata.cloud/ipfs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/",
                     thumbsFolder:"https://littletraveler.org/img/thumbs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/",
                     options: {
-                        trips: {
-                            address: "0xB6CAE7E634b931404374fC236f94E701801E3423",
-                            amount: "2000000000000000000000"
-                        },
-                        loot: "0x2E00209C3D86132A55Cd045C7b3468A4e062Ad9D",
-                        coin: ""
+                        trips: "",
+                        loot: "",
+                        coin: {
+                          name: "ETH",
+                          amount: "1.5"
+                        }
                     }
                 },
 
