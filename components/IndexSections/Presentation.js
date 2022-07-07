@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styles from "../../styles/components/Presentation.module.scss";
-import Claim from './Claim.js';
+import Gallery from "./Gallery";
+import {galleryDetails} from "../../public/lists/galleryDetails.js";
 
 class Presentation extends Component {
     constructor(props) {
@@ -12,31 +13,21 @@ class Presentation extends Component {
             <div className={`${styles.hero__img} ${styles.presentation__section}`}>
                 <div className={styles.presentation__content}>
                     <div className={`${styles.text__content}`}>
-                        <h1 className={`${styles.title} text-trips-1 text-center`}>"WEB3 IN TRAVEL"<br />Summit</h1>
-                        <div className={`${styles.text__description} text-trips-1 text-center`}>
-                        The first travel summit dedicated to the transition to Web3.
-                        <br />
-                        Speeches, panels and workshops to help the industry upgrade to the new internet.
-                        <div className={`${styles.img}`} >
-                          <img width="350px" src={'/img/Ticket.svg'}/>
+                        <h1 className={`${styles.title} text-trips-1 text-center`}>Little<br />Traveler</h1>
+                        <div className={`${styles.text__description} text-trips-2`}>
+                            A 10,000 native multi-chain PFP project
+                            <br/>
+                            for the travelers and the travel industry
                         </div>
-
                         <div className={`${styles.button__component}`}>
                             <a href="#Claim">
                                 <button className={`btn btn__primary`}>
-                                    Mint ticket
+                                    Mint Yours
                                 </button>
                             </a>
-
-                            <a href="#Sponsor">
-                                <button className={`btn btn__primary`}>
-                                    Become Sponsor
-                                </button>
-                            </a>
-                        </div>
                         </div>
                     </div>
-
+                    <div className={`${styles.gallery__component}`}>
                         <div className={`${styles.social__component}`}>
                             <a
                                 href={this.props.state.opensea}
@@ -54,7 +45,8 @@ class Presentation extends Component {
                                 <img className={`btn btn__secondary`} src="../img/social/discord.svg" alt="Discord"/>
                             </a>
                         </div>
-
+                        <Gallery state={this.state} galleryDetails ={galleryDetails} title = "An Incredible Variety of Travelers"/>
+                    </div>
                 </div>
             </div>
         )

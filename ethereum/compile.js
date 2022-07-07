@@ -2,8 +2,8 @@ const path = require('path');
 const solc = require('solc');
 const fs = require('fs-extra');
 
-const contractFileName = 'Conference.sol';
-const contractName = 'Web3InTravelNFTTicket';
+const contractFileName = 'LittleTraveler.sol';
+const contractName = 'LittleTraveler';
 
 //const contractFileName = 'DonateDirectDAO.sol';
 //const contractName = 'DonateDirectDAO';

@@ -1,0 +1,281 @@
+.team__section {
+  padding: 120px 0;
+}
+
+.team__container__desktop {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.team__container__mobile {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+.content {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+}
+
+
+.card {
+  width: 550px;
+  height: 170px;
+  background: #fff linear-gradient(#f8f8f8, #fff);
+  box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  margin: 1.5rem;
+
+  .image__card {
+    width: 70px;
+    border-radius: 35px;
+  }
+
+  h3 {
+    text-align: center;
+  }
+
+  .additional {
+    position: absolute;
+    width: 150px;
+    height: 100%;
+    background: linear-gradient(to right, #002348, #467396);
+    transition: width 0.4s;
+    overflow: hidden;
+    z-index: 2;
+  }
+
+  &:hover .additional {
+    width: 100%;
+    border-radius: 0 5px 5px 0;
+  }
+
+  .additional .user__card {
+    width: 150px;
+    height: 100%;
+    position: relative;
+    float: left;
+  }
+
+  .additional .user__card::after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 10%;
+    right: -2px;
+    height: 80%;
+    border-left: 2px solid rgba(0,0,0,0.025);
+  }
+
+  .additional .user__card .level,
+  .additional .user__card .points {
+    top: 15%;
+    color: #fff;
+    text-transform: uppercase;
+    font-size: 0.75em;
+    font-weight: bold;
+    background: rgba(0,0,0,0.2);
+    padding: 0.125rem 0.75rem;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .additional .user__card .points {
+    top: 85%;
+  }
+
+  .additional .user__card img {
+    top: 40%;
+  }
+
+  .additional .more__info {
+    width: 400px;
+    float: left;
+    position: absolute;
+    left: 150px;
+    height: 100%;
+    padding: 10px;
+  }
+
+  .additional .more__info h3 {
+    color: #fff;
+    margin-bottom: 0;
+  }
+
+  .additional .coords {
+    margin: 0 1rem;
+    color: #fff;
+    font-size: 1rem;
+  }
+
+  .additional .coords span + span {
+    float: right;
+  }
+
+  .additional .stats {
+    font-size: 2rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    right: 1rem;
+    top: auto;
+    color: #fff;
+
+    .social__card {
+      width: 40px;
+      cursor: pointer;
+      opacity: 0.8;
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
+  .additional .stats > div {
+    // flex: 1;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .additional .stats i {
+    display: block;
+  }
+
+  .additional .stats div.title {
+    font-size: 0.75rem;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .additional .stats div.value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    line-height: 1.5rem;
+  }
+
+  .additional .stats div.value.infinity {
+    font-size: 2.5rem;
+  }
+
+  .general {
+    width: 400px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+
+  .general .more {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    font-size: 0.9em;
+  }
+
+  .text__description {
+    text-align: justify;
+  }
+}
+
+
+
+
+//** CARD MOBILE **//
+
+.card__mobile {
+  width: 90vw;
+  height: auto;
+  background: #fff linear-gradient(#f8f8f8, #fff);
+  box-shadow: 0 8px 16px -8px rgba(0,0,0,0.4);
+  border-radius: 6px;
+  display: flex;
+  flex-flow: column nowrap;
+  margin: 20px 0;
+
+  .image__card {
+    width: 70px;
+    border-radius: 35px;
+  }
+  .user__card {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background: linear-gradient(to right, #002348, #467396);
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    padding: 5px;
+  }
+  .name__card {
+    color: white;
+    font-weight: bolder;
+    text-align: left;
+  }
+  .title__social__card {
+    color: white;
+    font-style: italic;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    text-align: left;
+  }
+  .general__card {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    padding-left: 10px;
+    width: 100%;
+  }
+  .general {
+    padding: 10px;
+    text-align: justify;
+  }
+  .social__card {
+    width: 30px;
+    padding-left: 10px;
+  }
+  .social__content__card {
+    display: flex;
+    flex-flow: row nowrap;
+    align-self: end;
+  }
+}
+
+
+@media (max-width: 550px) {
+  .team__container__desktop {
+    display: none;
+  }
+  .team__container__mobile {
+    display: block;
+  }
+
+}
+
+@media (min-width: 551px) {
+  .team__container__desktop {
+    display: block;
+  }
+  .team__container__mobile {
+    display: none;
+  }
+
+}
