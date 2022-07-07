@@ -30,7 +30,6 @@ h5,
 h6 {
   font-weight: 600 !important;
   font-family: 'Poppins', sans-serif;
-  font-style: italic !important;
 }
 
 
@@ -153,8 +152,8 @@ A LINK
 }
 
 @font-face {
-    font-family: 'KOMIKAX_';
-    src: url(/fonts/KOMIKAX_.ttf) format('truetype');
+    font-family: 'poppins';
+    src: url(/fonts/Poppins-Regular.ttf) format('truetype');
     font-weight: normal;
     font-style: normal;
   }

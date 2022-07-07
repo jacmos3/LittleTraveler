@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import {Container, Button, Tab} from 'semantic-ui-react';
 import styles from "../../styles/components/Claim.module.scss"; // Styles
-import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
-import ClaimWithTrips from "./ClaimSections/ClaimWithTrips"
-import ClaimWithTravelerLoot from "./ClaimSections/ClaimWithTravelerLoot"
-import ClaimWithEther from "./ClaimSections/ClaimWithEther"
-import FetchNFTList from "./ClaimSections/FetchNFTList"
+//import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
+import ClaimWithEther from "./ClaimSections/ClaimingForm"
 
 
 class Claim extends Component {
@@ -36,17 +33,6 @@ class Claim extends Component {
               menuItem: "Yours",
               render: () => <FetchNFTList state={this.props.state}/>
           },
-            option && option.trips ? {
-                    menuItem: 'Mint with TRIPS',
-                    render: () => <ClaimWithTrips state={this.props.state} goToFetch={this.goToFetch}/>,
-                }
-                : null,
-
-            option && option.loot ? {
-                menuItem: 'Mint with Traveler Loot',
-                render: () => <ClaimWithTravelerLoot state={this.props.state} goToFetch={this.goToFetch}/>,
-            } : null,
-
             option && option.coin ?
                 {
                     menuItem: 'Mint With ' + option.coin.name,
@@ -58,7 +44,6 @@ class Claim extends Component {
             <div className={`${styles.claim__container} py-10 text-trips-1`}>
                 <div className="flex justify-around">
                     <div className={`${styles.container} rounded`}>
-                        <h2 className={`${styles.title} text-center mt-4 capitalize`}>Mint your Little Traveler</h2>
                         <br/>
                         {
                             this.props.state.web3Settings.isWeb3Connected
@@ -68,13 +53,7 @@ class Claim extends Component {
                                 ?
                                 (
                                     <div>
-                                        <Tab
-                                            menu={{color: "orange", secondary: false, pointing: true}}
-                                            panes={panes}
-                                            className={`text-trips-1`}
-                                            activeIndex={this.state.activeIndex}
-                                            onTabChange={this.handleTabChange}
-                                        />
+                                        <ClaimWithEther state={this.props.state} goToFetch={this.goToFetch}/>
                                     </div>
                                 )
                                 : (
