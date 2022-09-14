@@ -11,7 +11,7 @@ import Team from '../components/IndexSections/Team.js';
 import Video from '../components/IndexSections/Video.js';
 import Menu from '../components/IndexSections/Menu.js';
 import TravelerLoot from '../components/IndexSections/TravelerLoot.js';
-import DonateDirect from '../components/IndexSections/DonateDirect.js';
+//import DonateDirect from '../components/IndexSections/DonateDirect.js';
 
 import {Header, Button} from 'semantic-ui-react';
 //import web3 from '../ethereum/web3';
@@ -89,21 +89,22 @@ class MyDapp extends Component {
 
             //    {name:"Rinkeby", id:4, opensea:"https://testnets.opensea.io/collection/testtest-uvuid70oad", openseaCard:"https://testnets.opensea.io/assets/", baseUrl:"https://gateway.pinata.cloud/ipfs/QmT9Sgcn6E5VvRyPtyLRkFwXPQSTywc83Nbz19VSFAgBLx/", options:{trips:{address:"0xa75f153cbb61be8895710f461cad890a0c4bc348", amount:"2000000000000000000000"}, loot:"", coin:{name:"ETH", amount:"0.1"}}}
 
-          ],
-          donationChain: {
-            thumbsFolder:"https://littletraveler.org/img/thumbs/QmfPXvLie2deAJCds3XQKjZ3L5Gzux9RdULcYbih3U8CCD/",
-            contractAddress:"0x16394A80872104ec42084C083e36FD02021DAb7F",
-            readMoreURL:"https://medium.com/@tripluca/the-donate-direct-dao-7243a2637ccb",
-            gnosisSafeURL:"https://gnosis-safe.io/app/eth:0xd1C80B73D4c7b8BdAe9a42963Bb704F4DC4E9DDF/balances",
-            name: "Ethereum",
-            id: 1,
-            opensea:"https://opensea.io/collection/donate-direct-dao-ukraine",
-            openseaCard:"https://opensea.io/assets/",
-            coin: {
-              name: "Ether",
-              amount: "100000000000000000"
-          }
-        }
+          ]
+          //,
+        //   donationChain: {
+        //     thumbsFolder:"https://littletraveler.org/img/thumbs/QmfPXvLie2deAJCds3XQKjZ3L5Gzux9RdULcYbih3U8CCD/",
+        //     contractAddress:"0x16394A80872104ec42084C083e36FD02021DAb7F",
+        //     readMoreURL:"https://medium.com/@tripluca/the-donate-direct-dao-7243a2637ccb",
+        //     gnosisSafeURL:"https://gnosis-safe.io/app/eth:0xd1C80B73D4c7b8BdAe9a42963Bb704F4DC4E9DDF/balances",
+        //     name: "Ethereum",
+        //     id: 1,
+        //     opensea:"https://opensea.io/collection/donate-direct-dao-ukraine",
+        //     openseaCard:"https://opensea.io/assets/",
+        //     coin: {
+        //       name: "Ether",
+        //       amount: "100000000000000000"
+        //   }
+        // }
       }
     };
 
@@ -288,9 +289,11 @@ class MyDapp extends Component {
                 <div id="Derivatives" className="bg-trips-5">
                     <Derivatives />
                 </div>
-                <div id="DonateDirect" className="bg-trips-4">
-                    <DonateDirect disconnect={this.disconnect} connect={this.connect} state={this.state} />
-                </div>
+                {
+                //   <div id="DonateDirect" className="bg-trips-4">
+                //     <DonateDirect disconnect={this.disconnect} connect={this.connect} state={this.state} />
+                // </div>
+                }
                 <div id="Team">
                     <Team/>
                 </div>
