@@ -12,7 +12,8 @@ class ClaimWithTrips extends Component {
         howManyLT: 0,
         errorMessage: "",
         trips: {amount: 0},
-        checkAllowance: false
+        checkAllowance: false,
+        totalThisChain: false
     }
 
     constructor(props) {
@@ -26,7 +27,7 @@ class ClaimWithTrips extends Component {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         var trips = this.props.state.web3Settings.chains
             .filter(chain => chain.id === this.props.state.web3Settings.networkId)
             .map(chain => chain.options.trips)[0];
@@ -42,6 +43,20 @@ class ClaimWithTrips extends Component {
             howMuchTrips: this.props.state.web3.utils.fromWei(howMuchTrips, 'ether')
         });
         this.checkAllowance();
+
+        var total = 0;
+        var totalThisChain = 0;
+        this.setState({loading: this.state.loading + 1, errorMessage: ''})
+        try {
+            const instance = new this.props.state.web3.eth.Contract(LittleTraveler.LittleTraveler.abi, this.props.state.web3Settings.contractAddress);
+            totalThisChain = Number(await instance.methods.maxThisChain().call());
+            total = Number (await instance.methods.totalSupply().call());
+
+        } catch (err) {
+            this.setState({errorMessage: err.message});
+        }
+        //console.log("ok + ", total , totalThisChain);
+        this.setState({loading: this.state.loading - 1, mintingFinished: total >= totalThisChain});
     }
 
     async checkAllowance() {
@@ -204,16 +219,17 @@ class ClaimWithTrips extends Component {
                         <Message error header="Oops!" content={this.state.errorMessage}/>
                         <div className={`${styles.buttons__component}`}>
                             <button className={`btn btn__primary`}
-                                    disabled={this.state.checkAllowance || this.state.loading > 0}
+                                    disabled={this.state.checkAllowance || this.state.loading > 0 || this.state.mintingFinished}
                                     onClick={this.onApprove}>
                                 Approve!
                             </button>
                             <button className={`btn btn__primary`}
-                                    disabled={!this.state.checkAllowance || this.state.loading > 0}
+                                    disabled={!this.state.checkAllowance || this.state.loading > 0 || this.state.mintingFinished}
                                     onClick={this.onMint}>
                                 Mint!
                             </button>
                         </div>
+                        {!!this.state.mintingFinished ? <Message header="Sorry!" content={"Minting is Finished for this chain! Try another chain or buy on secondary market!!"}/> : ""}
                     </Form>
                 </Container>
             </Tab.Pane>
