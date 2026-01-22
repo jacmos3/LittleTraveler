@@ -2,10 +2,10 @@
 
 import { createWeb3Modal, defaultConfig } from '@web3modal/ethers/react';
 
-// 1. Get projectId from WalletConnect Cloud
+// Get projectId from WalletConnect Cloud
 const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'YOUR_PROJECT_ID';
 
-// 2. Set chains
+// Define chains
 const mainnet = {
   chainId: 1,
   name: 'Ethereum',
@@ -30,7 +30,7 @@ const sepolia = {
   rpcUrl: 'https://rpc.sepolia.org'
 };
 
-// 3. Create modal config
+// Create metadata
 const metadata = {
   name: 'Little Traveler',
   description: 'Little Traveler NFT Collection',
@@ -38,6 +38,7 @@ const metadata = {
   icons: ['https://littletraveler.org/favicon.ico']
 };
 
+// Create ethers config
 const ethersConfig = defaultConfig({
   metadata,
   enableEIP6963: true,
@@ -47,7 +48,7 @@ const ethersConfig = defaultConfig({
   defaultChainId: 1
 });
 
-// 4. Create modal
+// Create modal
 createWeb3Modal({
   ethersConfig,
   chains: [mainnet, polygon, sepolia],

@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": ">=18.17.0"
+  },
   "scripts": {
     "test": "hardhat test",
     "dev": "next dev",
@@ -14,22 +17,28 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@web3modal/ethers": "^4.0.5",
+    "@web3modal/ethers": "^5.1.11",
     "dotenv": "^16.4.5",
-    "ethers": "^6.11.1",
-    "firebase": "^10.8.0",
-    "next": "^14.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "sass": "^1.71.1",
+    "ethers": "^6.13.4",
+    "next": "^14.2.35",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "sass": "^1.83.0",
     "semantic-ui-css": "^2.5.0",
     "semantic-ui-react": "^2.1.5"
   },
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "autoprefixer": "^10.4.17",
-    "hardhat": "^2.20.1",
-    "postcss": "^8.4.35",
-    "tailwindcss": "^3.4.1"
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.8",
+    "autoprefixer": "^10.4.20",
+    "chai": "^4.5.0",
+    "hardhat": "^2.22.17",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17"
+  },
+  "overrides": {
+    "undici": "^7.2.0",
+    "cookie": "^1.0.2",
+    "@coinbase/wallet-sdk": "^4.3.0"
   }
 }

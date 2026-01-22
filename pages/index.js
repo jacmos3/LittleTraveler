@@ -1,18 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useWeb3Modal, useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
-import { BrowserProvider, Contract, formatEther } from 'ethers';
+import { BrowserProvider, formatEther } from 'ethers';
 import Layout from '../components/Layout.js';
 import Presentation from '../components/IndexSections/Presentation.js';
 import Claim from '../components/IndexSections/Claim.js';
-import Space from '../components/IndexSections/Space.js';
-import Gallery from '../components/IndexSections/Gallery.js';
 import Multichain from '../components/IndexSections/Multichain.js';
 import DAO from '../components/IndexSections/DAO.js';
 import Derivatives from '../components/IndexSections/Derivatives.js';
 import Team from '../components/IndexSections/Team.js';
 import Video from '../components/IndexSections/Video.js';
 import Menu from '../components/IndexSections/Menu.js';
-import TravelerLoot from '../components/IndexSections/TravelerLoot.js';
 
 import { Header, Button } from 'semantic-ui-react';
 import { Router } from '../routes';
@@ -74,8 +71,8 @@ const CHAINS_CONFIG = [
 
 function MyDapp() {
   const { open } = useWeb3Modal();
-  const { walletProvider } = useWeb3ModalProvider();
-  const { address, chainId, isConnected } = useWeb3ModalAccount();
+  const { walletProvider } = useWeb3ModalProvider('eip155');
+  const { address, caipAddress, isConnected } = useWeb3ModalAccount();
 
   const [state, setState] = useState({
     daoNft: "https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/93380629908989276154329187712159695682604484101294988604591734366325570535524",
@@ -98,6 +95,9 @@ function MyDapp() {
     provider: null,
     signer: null
   });
+
+  // Extract chainId from caipAddress (format: "eip155:1:0x...")
+  const chainId = caipAddress ? parseInt(caipAddress.split(':')[1]) : null;
 
   // Update state when wallet connects/disconnects
   useEffect(() => {

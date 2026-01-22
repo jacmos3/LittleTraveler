@@ -9,7 +9,7 @@ const DonateDirectABI = [
 ];
 
 function ClaimForDonateDirect({ state, goToFetch }) {
-  const { walletProvider } = useWeb3ModalProvider();
+  const { walletProvider } = useWeb3ModalProvider('eip155');
   const { isConnected } = useWeb3ModalAccount();
 
   const [loading, setLoading] = useState(false);

@@ -13,7 +13,7 @@ const LittleTravelerABI = [
 ];
 
 function ClaimWithEther({ state, goToFetch }) {
-  const { walletProvider } = useWeb3ModalProvider();
+  const { walletProvider } = useWeb3ModalProvider('eip155');
   const { address, isConnected } = useWeb3ModalAccount();
 
   const [loading, setLoading] = useState(false);
