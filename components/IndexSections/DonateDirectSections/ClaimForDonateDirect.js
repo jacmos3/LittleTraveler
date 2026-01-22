@@ -1,87 +1,119 @@
-import React, {Component} from 'react';
-import {Tab,Form,Field,Input,Message,Button,Container} from 'semantic-ui-react';
-import DonateDirectDAO from '../../../ethereum/imported/DonateDirectDAO.sol.json';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { BrowserProvider, Contract, parseEther, formatEther } from 'ethers';
+import { Tab, Form, Input, Message, Container } from 'semantic-ui-react';
 import styles from "../../../styles/components/donateDirectSections/ClaimForDonateDirect.module.scss";
 
-class ClaimForDonateDirect extends Component{
-  state = {
-    loading:0,
-    howMuchCoin:0,
-    howManyNFT:0,
-    errorMessage:"Minting temporarily suspended",
-    coin:""
-  }
-  constructor(props){
-    super(props);
-  }
+const DonateDirectABI = [
+  "function mint(uint256 _mintAmount) external payable"
+];
 
-  componentDidMount(){
-    var coin = this.props.state.web3Settings.donationChain.coin;
-    console.log("filter done");
-    console.log(coin);
-    var howManyNFT = 1;
-    var howMuchCoin = coin.amount
-    this.setState({coin:coin, howManyNFT:howManyNFT, howMuchCoin:howMuchCoin});
-  }
+function ClaimForDonateDirect({ state, goToFetch }) {
+  const { walletProvider } = useWeb3ModalProvider();
+  const { isConnected } = useWeb3ModalAccount();
 
-  onChange(event){
-    event.preventDefault();
-    console.log(event.target.value * this.state.coin.amount);
-    this.setState({howManyNFT: event.target.value, howMuchCoin:(event.target.value * this.state.coin.amount)});
-  }
+  const [loading, setLoading] = useState(false);
+  const [howMuchCoin, setHowMuchCoin] = useState(0);
+  const [howManyNFT, setHowManyNFT] = useState(1);
+  const [errorMessage, setErrorMessage] = useState("Minting temporarily suspended");
+  const [coin, setCoin] = useState({ name: "ETH", amount: "0.1" });
 
-
-  onMint = async (event) => {
-    event.preventDefault();
-    console.log("mint");
-
-    this.setState({loading:this.state.loading+1, errorMessage:''})
-    try{
-      const accounts= await this.props.state.web3.eth.getAccounts();
-      const instance = new this.props.state.web3.eth.Contract(DonateDirectDAO.DonateDirectDAO.abi, this.props.state.web3Settings.donationChain.contractAddress);
-      console.log(this.state.howManyNFT);
-      console.log(this.props.state.web3.utils.toWei(this.state.howMuchCoin.toString()));
-      await instance.methods.mint(this.state.howManyNFT.toString()).send({from:accounts[0], value:(this.state.howMuchCoin.toString())});
-      this.props.goToFetch();
+  useEffect(() => {
+    if (state.web3Settings?.donationChain?.coin) {
+      const coinConfig = state.web3Settings.donationChain.coin;
+      setCoin(coinConfig);
+      setHowMuchCoin(parseFloat(formatEther(coinConfig.amount)));
     }
-    catch(err){
-      this.setState({errorMessage: err.message});
-    }
-    this.setState({loading:this.state.loading-1});
-  }
+  }, [state.web3Settings?.donationChain?.coin]);
 
-render(){
+  const onChange = useCallback((event) => {
+    event.preventDefault();
+    const value = parseInt(event.target.value, 10);
+    if (isNaN(value) || value < 1 || value > 50) return;
+
+    setHowManyNFT(value);
+    const baseAmount = parseFloat(formatEther(coin.amount));
+    setHowMuchCoin(baseAmount * value);
+  }, [coin.amount]);
+
+  const onMint = useCallback(async (event) => {
+    event.preventDefault();
+
+    if (!walletProvider || !isConnected) {
+      setErrorMessage("Please connect your wallet first.");
+      return;
+    }
+
+    setLoading(true);
+    setErrorMessage("");
+
+    try {
+      const ethersProvider = new BrowserProvider(walletProvider);
+      const signer = await ethersProvider.getSigner();
+
+      const contract = new Contract(
+        state.web3Settings.donationChain.contractAddress,
+        DonateDirectABI,
+        signer
+      );
+
+      const tx = await contract.mint(howManyNFT, {
+        value: parseEther(howMuchCoin.toString())
+      });
+
+      await tx.wait();
+
+      if (goToFetch) {
+        goToFetch();
+      }
+    } catch (err) {
+      console.error("Minting error:", err);
+      let userMessage = "Transaction failed. Please try again.";
+      if (err.code === 4001 || err.code === "ACTION_REJECTED") {
+        userMessage = "Transaction was rejected by user.";
+      } else if (err.message?.includes("insufficient funds")) {
+        userMessage = "Insufficient funds for this transaction.";
+      }
+      setErrorMessage(userMessage);
+    } finally {
+      setLoading(false);
+    }
+  }, [walletProvider, isConnected, state.web3Settings?.donationChain?.contractAddress, howManyNFT, howMuchCoin, goToFetch]);
+
+  const displayAmount = howMuchCoin.toFixed(4);
 
   return (
     <Tab.Pane attached={false}>
-    <h2 className="text-center">How many NFT donations do you want to do?</h2>
-    <br />
+      <h2 className="text-center">How many NFT donations do you want to do?</h2>
+      <br />
       <Container>
-        <Form onSubmit = {this.onMint} error={!!this.state.errorMessage} className= {`${styles.form}`}>
-            <Form.Field >
-              <Input
-                label={{ basic: true, content: 'NFT', id:"inputLabel" }}
-                labelPosition='right'
-                placeholder = "How many NFT?"
-                type = 'number'
-                min = {1}
-                max = {50}
-                value = {this.state.howManyNFT}
-                onChange = {event => this.onChange(event)}
-              />
-              </Form.Field>
-            <h3>you are donating {this.props.state.web3.utils.fromWei(this.state.howMuchCoin.toString(),"ether")} {this.state.coin.name}</h3>
+        <Form onSubmit={onMint} error={!!errorMessage} className={styles.form}>
+          <Form.Field>
+            <Input
+              label={{ basic: true, content: 'NFT', id: "inputLabel" }}
+              labelPosition='right'
+              placeholder="How many NFT?"
+              type='number'
+              min={1}
+              max={50}
+              value={howManyNFT}
+              onChange={onChange}
+            />
+          </Form.Field>
+          <h3>you are donating {displayAmount} {coin.name}</h3>
+          <div className={styles.buttons__component}>
+            <Message error header="Oops!" content={errorMessage} />
+            <button
+              className="btn btn__primary"
+              disabled={true || loading || !isConnected}
+            >
+              {loading ? "Processing..." : "Mint!"}
+            </button>
+          </div>
+        </Form>
+      </Container>
+    </Tab.Pane>
+  );
+}
 
-              <div className={`${styles.buttons__component}`}>
-                <Message error header="Oops!" content = {this.state.errorMessage} />
-                <button className={`btn btn__primary`} disabled={true || this.state.loading > 0}>
-                  Mint!
-                </button>
-              </div>
-            </Form>
-          </Container>
-        </Tab.Pane>
-  )
-};
-};
 export default ClaimForDonateDirect;

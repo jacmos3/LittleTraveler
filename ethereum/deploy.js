@@ -1,28 +1,65 @@
-const HDWalletProvider = require('truffle-hdwallet-provider');
-const Web3 = require('web3');
-const {interface, object:bytecode} = require('./compile');
-const fs = require ("fs-extra");
-require('dotenv').config();
+const hre = require("hardhat");
+const fs = require("fs");
+const path = require("path");
 
-const seed = process.env.MNEMONIC;
-const providerUrl = process.env.PROVIDER_URL;
-const provider = new HDWalletProvider(seed,providerUrl);
-const web3 = new Web3(provider);
-let littleTraveler;
-let accounts;
+async function main() {
+  const [deployer] = await hre.ethers.getSigners();
 
-const deploy = async() => {
+  console.log("Deploying contracts with the account:", deployer.address);
 
-  accounts = await web3.eth.getAccounts();
-  console.log("Attempting to deploy from account", accounts[0]);
+  const balance = await hre.ethers.provider.getBalance(deployer.address);
+  console.log("Account balance:", hre.ethers.formatEther(balance), "ETH");
 
-  littleTraveler = await new web3.eth.Contract(interface)
-  .deploy({data:'0x'+bytecode, arguments: ["testname","testsymbol","testinitbaseuri","testnotrevealeduri","1000000000000000000","0","0x5685a60183DB6FF97dF2E289Cad2ed71EE0D6BfB","0x5685a60183DB6FF97dF2E289Cad2ed71EE0D6BfB","0x5685a60183DB6FF97dF2E289Cad2ed71EE0D6BfB"],})
-  .send ({from: accounts[0]});
+  // Deploy LittleTraveler
+  const LittleTraveler = await hre.ethers.getContractFactory("LittleTraveler");
 
-  console.log("Contract deployed to", littleTraveler.options.address);
-  fs.writeFileSync('../.env.local', '#THIS IS AN AUTO-GENERATED FILE. DO NOT ADD ELEMENT HERE OR THEY WILL BE CANCELED AT YOUR NEXT DEPLOY\r\nNEXT_PUBLIC_CONTRACT_ADDRESS = "'
-  + littleTraveler.options.address+'"');
+  const constructorArgs = [
+    "LittleTraveler",           // _name
+    "LT",                        // _symbol
+    "ipfs://baseuri/",          // _initBaseURI
+    "ipfs://notrevealed/",      // _initNotRevealedUri
+    hre.ethers.parseEther("0.1"), // _cost
+    hre.ethers.parseEther("2000"), // _costTrips
+    0,                           // _chainNumber
+    "0x0000000000000000000000000000000000000000", // _tripsAddress
+    "0x0000000000000000000000000000000000000000", // _travelerLootAddress
+    deployer.address             // _treasurerAddress
+  ];
+
+  const littleTraveler = await LittleTraveler.deploy(...constructorArgs);
+  await littleTraveler.waitForDeployment();
+
+  const contractAddress = await littleTraveler.getAddress();
+  console.log("LittleTraveler deployed to:", contractAddress);
+
+  // Save the contract address to .env.local
+  const envPath = path.join(__dirname, "../.env.local");
+  const envContent = `# THIS IS AN AUTO-GENERATED FILE. DO NOT ADD ELEMENTS HERE OR THEY WILL BE DELETED AT YOUR NEXT DEPLOY
+NEXT_PUBLIC_CONTRACT_ADDRESS="${contractAddress}"
+`;
+  fs.writeFileSync(envPath, envContent);
+  console.log("Contract address saved to .env.local");
+
+  // Verify on Etherscan if not on localhost
+  if (hre.network.name !== "hardhat" && hre.network.name !== "localhost") {
+    console.log("Waiting for block confirmations...");
+    await littleTraveler.deploymentTransaction().wait(5);
+
+    console.log("Verifying contract on Etherscan...");
+    try {
+      await hre.run("verify:verify", {
+        address: contractAddress,
+        constructorArguments: constructorArgs,
+      });
+    } catch (error) {
+      console.log("Verification error:", error.message);
+    }
+  }
 }
 
-deploy();
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });

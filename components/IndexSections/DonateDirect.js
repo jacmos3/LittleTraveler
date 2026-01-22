@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Button, Tab} from 'semantic-ui-react';
 import styles from "../../styles/components/DonateDirect.module.scss";
-import DonateDirectDAO from '../../ethereum/imported/DonateDirectDAO.sol.json';
 import ClaimWithEther from "./ClaimSections/ClaimWithEther"
 import ClaimForDonateDirect from "./DonateDirectSections/ClaimForDonateDirect"
 import FetchDonateDirectNFTList from "./DonateDirectSections/FetchDonateDirectNFTList"
@@ -102,7 +101,7 @@ class DonateDirect extends Component {
                                                     this.props.state.web3Settings.isWeb3Connected
                                                         ? (
                                                             <Button onClick={this.props.disconnect}>
-                                                                {this.props.state.web3Settingsaccount}
+                                                                {this.props.state.web3Settings.account}
                                                             </Button>
                                                         )
 

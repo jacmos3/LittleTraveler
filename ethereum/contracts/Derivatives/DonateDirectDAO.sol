@@ -1348,6 +1348,7 @@ contract DonateDirectDAO is ERC721Enumerable, Ownable, ReentrancyGuard {
   }
 
   function withdraw() external onlyOwner {
-    payable(treasurerAddress).transfer(address(this).balance);
+    (bool success, ) = payable(treasurerAddress).call{value: address(this).balance}("");
+    require(success, "Withdraw failed");
   }
 }

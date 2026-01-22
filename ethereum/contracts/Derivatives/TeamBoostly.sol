@@ -1293,12 +1293,12 @@ contract TeamBoostly is ERC721Enumerable, Ownable, ReentrancyGuard {
   string public baseURI = "ipfs://QmagabiZkC8vtRizbxDkdw9DPhFYoae7ktQz7hPoUxbeE4/";
   string public baseExtension = ".json";
   uint16 public constant maxSupply = 3000;
-  string private name = "#TeamBoostly Token";
-  string private symbol = "TeamBoostly";
+  string private constant TOKEN_NAME = "#TeamBoostly Token";
+  string private constant TOKEN_SYMBOL = "TeamBoostly";
   string private constant ERROR_TOO_MUCH = "Cannot mint so many.";
   string private constant ERROR_TOKEN_ID_DOES_NOT_EXIST = "This tokenId doesnt exist";
 
-  constructor() ERC721(name, symbol) {
+  constructor() ERC721(TOKEN_NAME, TOKEN_SYMBOL) {
   }
 
   function _baseURI() internal view virtual override returns (string memory) {

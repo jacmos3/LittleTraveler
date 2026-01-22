@@ -1,136 +1,169 @@
-import React, {Component} from 'react';
-import {Button, Container, Message, Tab} from 'semantic-ui-react';
-import LittleTraveler from '../../../ethereum/build/LittleTraveler.sol.json';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useWeb3ModalProvider, useWeb3ModalAccount } from '@web3modal/ethers/react';
+import { BrowserProvider, Contract } from 'ethers';
+import { Container, Message, Tab } from 'semantic-ui-react';
 import styles from "../../../styles/components/claimSections/FetchNFTList.module.scss";
 
-class FetchNFTList extends Component {
-    constructor(props) {
-        super(props);
+const LittleTravelerABI = [
+  "function balanceOf(address owner) external view returns (uint256)",
+  "function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256)"
+];
 
+function FetchNFTList({ state }) {
+  const { walletProvider } = useWeb3ModalProvider();
+  const { address, isConnected } = useWeb3ModalAccount();
+
+  const [nfts, setNfts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [totalOwned, setTotalOwned] = useState(0);
+  const [chainName, setChainName] = useState("");
+  const [opensea, setOpensea] = useState("");
+  const [baseUrl, setBaseUrl] = useState("");
+  const [openseaCard, setOpenseaCard] = useState("");
+
+  // Initialize chain config
+  useEffect(() => {
+    if (!state.web3Settings.networkId || !state.web3Settings.chains) return;
+
+    const chain = state.web3Settings.chains.find(
+      c => c.id === state.web3Settings.networkId
+    );
+
+    if (chain) {
+      setChainName(chain.name);
+      setOpensea(chain.opensea);
+      setBaseUrl(chain.thumbsFolder);
+      setOpenseaCard(`${chain.openseaCard}${state.web3Settings.contractAddress}/`);
+    }
+  }, [state.web3Settings.networkId, state.web3Settings.chains, state.web3Settings.contractAddress]);
+
+  const fetchNFTList = useCallback(async () => {
+    if (!walletProvider || !state.web3Settings.contractAddress || !address) {
+      return;
     }
 
-    async componentDidMount() {
-        var chain = this.props.state.web3Settings.chains
-            .filter(chain => chain.id === this.props.state.web3Settings.networkId)[0];
-        this.setState({
-            chainName: chain.name,
-            opensea: chain.opensea,
-            baseUrl: chain.thumbsFolder,
-            openseaCard: chain.openseaCard + this.props.state.web3Settings.contractAddress + "/"
-        });
-        await this.fetchNFTList();
-    }
+    setLoading(true);
+    setErrorMessage("");
 
-    state = {
-        all: [],
-        loading: 0,
-        errorMessage: "",
-        totalOwned:0,
-    };
+    try {
+      const ethersProvider = new BrowserProvider(walletProvider);
+      const contract = new Contract(
+        state.web3Settings.contractAddress,
+        LittleTravelerABI,
+        ethersProvider
+      );
 
+      const balance = await contract.balanceOf(address);
+      const balanceNumber = Number(balance);
+      setTotalOwned(balanceNumber);
 
-    fetchNFTList = async () => {
-        console.log("fetch");
-        this.setState({loading: this.state.loading + 1, errorMessage: ''})
+      if (balanceNumber === 0) {
+        setNfts([]);
+        setLoading(false);
+        return;
+      }
+
+      const nftList = [];
+      for (let i = balanceNumber - 1; i >= 0; i--) {
         try {
-            const accounts = await this.props.state.web3.eth.getAccounts();
-            const instance = new this.props.state.web3.eth.Contract(LittleTraveler.LittleTraveler.abi, this.props.state.web3Settings.contractAddress);
-            let lastUserIndex = await instance.methods.balanceOf(accounts[0]).call()
-                .then((result) => {
-                    return JSON.parse(result);
-                })
-                .catch((error) => {
-                    this.setState({errorMessage: error.message});
-                    console.log(error);
-                })
-
-            if (!!this.state.errorMessage) {
-                this.setState({loading: this.state.loading - 1});
-                return;
-            }
-            this.setState({totalOwned: lastUserIndex});
-            //TODO check su errorMessage e saltare tutto se c'è un errore
-            var all = [];
-            for (var index = lastUserIndex - 1, i = 0; index >= 0; index--, i++) {
-                //    for (var index = 0; index < lastUserIndex; index++){
-                let tokenId = await instance.methods.tokenOfOwnerByIndex(accounts[0], index).call()
-                    .then((result) => {
-                        //console.log(result);
-                        return result;
-                    })
-                    .catch((error) => {
-                        this.setState({errorMessage: error.message});
-                        console.log(error);
-                    });
-
-                if (!!this.state.errorMessage) {
-                    this.setState({loading: this.state.loading - 1});
-                    return;
-                }
-                var element = {"key": i, "header": tokenId, "image": this.state.baseUrl + tokenId + '.png'};
-                all.push(element);
-            }
-            this.setState({all: all});
+          const tokenId = await contract.tokenOfOwnerByIndex(address, i);
+          nftList.push({
+            key: balanceNumber - 1 - i,
+            header: tokenId.toString(),
+            image: `${baseUrl}${tokenId.toString()}.png`
+          });
         } catch (err) {
-            this.setState({errorMessage: err.message});
+          console.error(`Error fetching token at index ${i}:`, err);
         }
-        this.setState({loading: this.state.loading - 1});
+      }
+
+      setNfts(nftList);
+    } catch (err) {
+      console.error("Error fetching NFT list:", err);
+      setErrorMessage("Unable to fetch your NFTs. Please try again later.");
+    } finally {
+      setLoading(false);
     }
+  }, [walletProvider, state.web3Settings.contractAddress, address, baseUrl]);
 
-    render() {
+  // Fetch NFTs when component mounts or dependencies change
+  useEffect(() => {
+    if (isConnected && baseUrl) {
+      fetchNFTList();
+    }
+  }, [isConnected, baseUrl, fetchNFTList]);
 
-        return (
-            <Tab.Pane attached={false}>
-                <Container>
-                    <div style={{display: 'flex', flexFlow: 'column'}}>
-                        <h2 className="text-center">You own {this.state.totalOwned} Little Travelers on {this.state.chainName}</h2>
+  return (
+    <Tab.Pane attached={false}>
+      <Container>
+        <div style={{ display: 'flex', flexFlow: 'column' }}>
+          <h2 className="text-center">
+            You own {totalOwned} Little Travelers on {chainName}
+          </h2>
 
-                        {!!this.state.errorMessage ? <Message header="Oops!" content={this.state.errorMessage}/> : ""}
-                        {this.state.loading > 0 &&
-                          <div className={`${styles.image__container}`}>
-                          {
-                            [...Array(this.state.totalOwned)].map((elementInArray, index) => (
+          {errorMessage && <Message header="Oops!" content={errorMessage} />}
 
-                            <div key={index}>
-                                <div className={`${styles.image}`}>
-                                  <img src = "/img/incognito.png" />
-                                  <h3>#???</h3>
-                                </div>
-                            </div>
-                          ))
-                          }
-                          </div>
-                        }
-                        {this.state.loading == 0 && <div className={`${styles.image__container}`}>
-                            {
-                                this.state.all.map(el => (
-                                    <div key={el.key}>
-                                        <div className={`${styles.image}`}>
-                                            <a target="_blank" href={this.state.openseaCard + el.header}>
-                                                <img src={el.image} />
-                                            </a>
+          {loading && (
+            <div className={styles.image__container}>
+              {[...Array(totalOwned || 3)].map((_, index) => (
+                <div key={index}>
+                  <div className={styles.image}>
+                    <img src="/img/incognito.png" alt="Loading..." />
+                    <h3>#???</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
-                                          <h3>#{el.header}</h3>
-                                        </div>
-                                    </div>
-                                ))
-                            }
-                        </div>}
-                        <div className={`${styles.buttons}`}>
-                            <button className={`btn btn__primary`} disabled={this.state.loading > 0}
-                                    onClick={this.fetchNFTList}>
-                                Refresh List
-                            </button>
-                            <a target="_blank" href={this.state.opensea}>
-                                <button className={`btn btn__primary btn__large`}>
-                                    Open Full Collection on Opensea
-                                </button>
-                            </a>
-                        </div>
-                    </div>
-                </Container>
-            </Tab.Pane>
-        )
-    };
+          {!loading && (
+            <div className={styles.image__container}>
+              {nfts.map(nft => (
+                <div key={nft.key}>
+                  <div className={styles.image}>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href={`${openseaCard}${nft.header}`}
+                    >
+                      <img src={nft.image} alt={`Little Traveler #${nft.header}`} />
+                    </a>
+                    <h3>#{nft.header}</h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className={styles.buttons}>
+            <button
+              className="btn btn__primary"
+              disabled={loading || !isConnected}
+              onClick={fetchNFTList}
+            >
+              {loading ? "Loading..." : "Refresh List"}
+            </button>
+            {opensea && (
+              <a target="_blank" rel="noopener noreferrer" href={opensea}>
+                <button className="btn btn__primary btn__large">
+                  Open Full Collection on Opensea
+                </button>
+              </a>
+            )}
+          </div>
+
+          {!isConnected && (
+            <Message
+              warning
+              header="Wallet not connected"
+              content="Please connect your wallet to view your NFTs."
+            />
+          )}
+        </div>
+      </Container>
+    </Tab.Pane>
+  );
 }
+
 export default FetchNFTList;

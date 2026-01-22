@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Container, Button, Tab} from 'semantic-ui-react';
 import styles from "../../styles/components/Claim.module.scss"; // Styles
-import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
 import ClaimWithTrips from "./ClaimSections/ClaimWithTrips"
 import ClaimWithTravelerLoot from "./ClaimSections/ClaimWithTravelerLoot"
 import ClaimWithEther from "./ClaimSections/ClaimWithEther"
@@ -110,7 +109,7 @@ class Claim extends Component {
                                                     this.props.state.web3Settings.isWeb3Connected
                                                         ? (
                                                             <Button onClick={this.props.disconnect}>
-                                                                {this.props.state.web3Settingsaccount}
+                                                                {this.props.state.web3Settings.account}
                                                             </Button>
                                                         )
 
