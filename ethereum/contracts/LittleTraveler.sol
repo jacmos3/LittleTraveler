@@ -1371,7 +1371,8 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
     require(_mintAmount <= maxMintAmount, ERROR_TOO_MUCH);
     _mintAmount = _mintAmount > 0 ? _mintAmount : 1;
     require(floorIndex + maxPerOwner + totalSupply() - counterOwner + _mintAmount <= roofIndex, ERROR_MINT_FINISHED);
-    IERC20(tripsAddress).transferFrom(msg.sender, treasurerAddress, costTrips * _mintAmount);
+    bool success = IERC20(tripsAddress).transferFrom(msg.sender, treasurerAddress, costTrips * _mintAmount);
+    require(success, "ERC20 transfer failed");
     _processingMints(_mintAmount);
   }
 
@@ -1490,6 +1491,7 @@ contract LittleTraveler is ERC721Enumerable, Ownable, ReentrancyGuard {
   /// @notice withdraw native coin funds from the contract
   /// @dev onlyowner can call it. NOTE: TRIPS coin are directly going to the treasurerAddress. Never transit from here.
   function withdraw() external onlyOwner {
-    payable(treasurerAddress).transfer(address(this).balance);
+    (bool success, ) = payable(treasurerAddress).call{value: address(this).balance}("");
+    require(success, "Withdraw failed");
   }
 }

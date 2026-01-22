@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import styles from "../../styles/components/Multichain.module.scss"; // Styles
-import LittleTraveler from '../../ethereum/build/LittleTraveler.sol.json';
 import {Container, Card, Image} from 'semantic-ui-react';
 
 class Multichain extends Component {
